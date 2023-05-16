@@ -1,4 +1,4 @@
-import {Entity, model, property, belongsTo, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
 import {Client,Repartition} from '.';
 
 @model({

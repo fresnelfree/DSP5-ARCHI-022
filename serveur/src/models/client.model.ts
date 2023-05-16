@@ -1,5 +1,7 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {Compte} from '.';
+import {SessionJeu} from './session-jeu.model';
+import {Participer} from './participer.model';
 
 @model({
   settings: {
@@ -65,6 +67,8 @@ export class Client extends Entity {
   })
   adresse?: string;
 
+  @hasMany(() => SessionJeu, {through: {model: () => Participer, keyFrom: 'idClient', keyTo: 'idSession'}})
+  participer: SessionJeu[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
