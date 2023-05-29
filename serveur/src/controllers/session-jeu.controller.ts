@@ -73,7 +73,7 @@ export class SessionJeuController {
   async find(
     @param.filter(SessionJeu) filter?: Filter<SessionJeu>,
   ): Promise<SessionJeu[]> {
-    return this.sessionJeuRepository.find(filter);
+    return this.sessionJeuRepository.find({include:["repartitions","clients"]});
   }
 
   @patch('/session-jeus')

@@ -20,7 +20,7 @@ import {
 import {Repartition} from '../models';
 import {RepartitionRepository} from '../repositories';
 
-export class RepartitionController {
+export class RepatitionController {
   constructor(
     @repository(RepartitionRepository)
     public repartitionRepository : RepartitionRepository,
@@ -73,7 +73,7 @@ export class RepartitionController {
   async find(
     @param.filter(Repartition) filter?: Filter<Repartition>,
   ): Promise<Repartition[]> {
-    return this.repartitionRepository.find(filter);
+    return this.repartitionRepository.find({include:["gains"]});
   }
 
   @patch('/repartitions')

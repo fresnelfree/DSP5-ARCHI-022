@@ -6,34 +6,40 @@ import {Client,SessionJeu} from '.';
     idInjection: false,
     mysql: {schema: 'DSP5-ARCHI-DB', table: 'participer'},
     foreignKeys: {
-      fkParticiperRel: {
-        name: 'fkParticiperRel',
+      fk_participerRel: {
+        name: 'fk_participerRel',
         entity: 'Client',
         entityKey: 'id',
-        foreignKey: 'idClient'
+        foreignKey: 'id_client'
       },
-      fkParticiper2Rel: {
-        name: 'fkParticiper2Rel',
+      fk_participer2Rel: {
+        name: 'fk_participer2Rel',
         entity: 'SessionJeu',
         entityKey: 'id',
-        foreignKey: 'idSession'
+        foreignKey: 'id_session'
       }
     }
   }
 })
 export class Participer extends Entity {
-  @belongsTo(() => Client)
-  idClient: number;
 
-  @belongsTo(() => SessionJeu)
-  idSession: number;
+  @property({
+    type: 'number',
+  })
+  id_client?: number;
+
+  @property({
+    type: 'number',
+  })
+  id_session?: number;
 
   @property({
     type: 'date',
     generated: 0,
+    id:true,
     mysql: {columnName: 'date_p', dataType: 'date', dataLength: null, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
-  dateP?: string;
+  date_p?: string;
 
   // Define well-known properties here
 

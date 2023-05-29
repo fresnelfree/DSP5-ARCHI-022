@@ -1,16 +1,17 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
 import {SessionJeu} from '.';
+import {Gains} from './gains.model';
 
 @model({
   settings: {
     idInjection: false,
     mysql: {schema: 'DSP5-ARCHI-DB', table: 'repartition'},
     foreignKeys: {
-      fkContenirRel: {
-        name: 'fkContenirRel',
+      fk_contenirRel: {
+        name: 'fk_contenirRel',
         entity: 'SessionJeu',
         entityKey: 'id',
-        foreignKey: 'idSession'
+        foreignKey: 'id_session'
       }
     }
   }
@@ -18,18 +19,24 @@ import {SessionJeu} from '.';
 export class Repartition extends Entity {
   @property({
     type: 'number',
-    required: true,
     precision: 10,
     scale: 0,
-    generated: 0,
+    generated: 1,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 0},
+    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 1},
   })
-  id: number;
+  id?: number;
 
-  @belongsTo(() => SessionJeu)
-  idSession: number;
+  @property({
+    type: 'number',
+  })
+  id_session?: number;
 
+  // @belongsTo(() => SessionJeu)
+  // id_session: number;
+  @hasMany(() => Gains, {keyTo: 'id_repartition'})
+  gains: Gains[];
+  
   @property({
     type: 'number',
     precision: 10,

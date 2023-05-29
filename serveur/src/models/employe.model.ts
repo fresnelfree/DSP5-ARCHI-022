@@ -1,16 +1,18 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
-import {Compte} from '.';
+import {Entity, model, property, belongsTo, hasMany, hasOne} from '@loopback/repository';
+import {Compte, CompteWithRelations} from '.';
+import {SessionJeu} from './session-jeu.model';
+// import {Compte} from './compte.model';
 
 @model({
   settings: {
     idInjection: false,
     mysql: {schema: 'DSP5-ARCHI-DB', table: 'employe'},
     foreignKeys: {
-      fkPosseder2Rel: {
-        name: 'fkPosseder2Rel',
+      fk_posseder2Rel: {
+        name: 'fk_posseder2Rel',
         entity: 'Compte',
         entityKey: 'id',
-        foreignKey: 'idCompte'
+        foreignKey: 'id_compte'
       }
     }
   }
@@ -18,17 +20,18 @@ import {Compte} from '.';
 export class Employe extends Entity {
   @property({
     type: 'number',
-    required: true,
     precision: 10,
     scale: 0,
-    generated: 0,
+    generated: 1,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 0},
+    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 1},
   })
-  id: number;
+  id?: number;
 
-  @belongsTo(() => Compte)
-  idCompte?: number;
+  @property({
+    type: 'number',
+  })
+  id_compte?: number;
 
   @property({
     type: 'string',
@@ -78,6 +81,10 @@ export class Employe extends Entity {
   })
   role?: string;
 
+  @hasMany(() => SessionJeu, {keyTo: 'id_employe'})
+  sessionJeus: SessionJeu[];
+  // @hasMany(() => SessionJeu, {keyTo: 'id_employe'})
+  // sessionJeus: SessionJeu[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
@@ -91,6 +98,7 @@ export class Employe extends Entity {
 
 export interface EmployeRelations {
   // describe navigational properties here
+  id_compte?: CompteWithRelations
 }
 
 export type EmployeWithRelations = Employe & EmployeRelations;

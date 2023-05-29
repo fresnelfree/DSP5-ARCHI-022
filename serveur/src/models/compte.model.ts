@@ -1,38 +1,20 @@
-import {Entity, model, property, belongsTo} from '@loopback/repository';
-import {Client,Employe} from '.';
+import {Entity, model, property, hasOne} from '@loopback/repository';
+import {Client} from './client.model';
+import { Employe } from './employe.model';
 
 @model({
-  settings: {
-    idInjection: false,
-    mysql: {schema: 'DSP5-ARCHI-DB', table: 'compte'},
-    foreignKeys: {
-      fkAvoirRel: {name: 'fkAvoirRel', entity: 'Client', entityKey: 'id', foreignKey: 'idClient'},
-      fkPossederRel: {
-        name: 'fkPossederRel',
-        entity: 'Employe',
-        entityKey: 'id',
-        foreignKey: 'idEmploye'
-      }
-    }
-  }
+  settings: {idInjection: false, mysql: {schema: 'DSP5-ARCHI-DB', table: 'compte'}}
 })
 export class Compte extends Entity {
   @property({
     type: 'number',
-    required: true,
     precision: 10,
     scale: 0,
-    generated: 0,
+    generated: 1,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 0},
+    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 1},
   })
-  id: number;
-
-  @belongsTo(() => Client)
-  idClient?: number;
-
-  @belongsTo(() => Employe)
-  idEmploye?: number;
+  id?: number;
 
   @property({
     type: 'string',
@@ -50,6 +32,14 @@ export class Compte extends Entity {
   })
   pwd?: string;
 
+  @hasOne(() => Client, {keyTo: 'id_compte'})
+  client: Client;
+
+  @hasOne(() => Employe, {keyTo: 'id_compte'})
+  employe: Employe;
+
+  // @hasOne(() => Employe, {keyTo: 'id_compte'})
+  // employe: Employe;
   // Define well-known properties here
 
   // Indexer property to allow additional data

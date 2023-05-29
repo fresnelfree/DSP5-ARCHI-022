@@ -1,5 +1,6 @@
 import {Entity, model, property, belongsTo, hasMany} from '@loopback/repository';
-import {Compte} from '.';
+import {Compte, CompteWithRelations} from '.';
+import {Gains} from './gains.model';
 import {SessionJeu} from './session-jeu.model';
 import {Participer} from './participer.model';
 
@@ -8,24 +9,28 @@ import {Participer} from './participer.model';
     idInjection: false,
     mysql: {schema: 'DSP5-ARCHI-DB', table: 'client'},
     foreignKeys: {
-      fkAvoir2Rel: {name: 'fkAvoir2Rel', entity: 'Compte', entityKey: 'id', foreignKey: 'idCompte'}
+      fk_avoir2Rel: {
+        name: 'fk_avoir2Rel',
+        entity: 'Compte',
+        entityKey: 'id',
+        foreignKey: 'id_compte'
+      }
     }
   }
 })
 export class Client extends Entity {
   @property({
     type: 'number',
-    required: true,
     precision: 10,
     scale: 0,
-    generated: 0,
+    generated: 1,
     id: 1,
-    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 0},
+    mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 1},
   })
-  id: number;
+  id?: number;
 
-  @belongsTo(() => Compte)
-  idCompte: number;
+  // @belongsTo(() => Compte)
+  // id_compte: number;
 
   @property({
     type: 'string',
@@ -52,6 +57,17 @@ export class Client extends Entity {
   tel?: string;
 
   @property({
+    type: 'number',
+  })
+  id_compte?: number;
+
+  @hasMany(() => Gains, {keyTo: 'id_client'})
+  gains: Gains[];
+
+  // @hasMany(() => SessionJeu, {through: {model: () => Participer, keyFrom: 'id_client', keyTo: 'id_session'}})
+  // sessionJeus: SessionJeu[];
+
+  @property({
     type: 'string',
     length: 50,
     generated: 0,
@@ -63,12 +79,10 @@ export class Client extends Entity {
     type: 'string',
     length: 100,
     generated: 0,
-    mysql: {columnName: 'adresse', dataType: 'char', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+    mysql: {columnName: 'adresse', dataType: 'varchar', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
   adresse?: string;
 
-  @hasMany(() => SessionJeu, {through: {model: () => Participer, keyFrom: 'idClient', keyTo: 'idSession'}})
-  participer: SessionJeu[];
   // Define well-known properties here
 
   // Indexer property to allow additional data
@@ -82,6 +96,7 @@ export class Client extends Entity {
 
 export interface ClientRelations {
   // describe navigational properties here
+  id_compte?: CompteWithRelations
 }
 
 export type ClientWithRelations = Client & ClientRelations;

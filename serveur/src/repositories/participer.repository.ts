@@ -5,7 +5,7 @@ import {Participer, ParticiperRelations} from '../models';
 
 export class ParticiperRepository extends DefaultCrudRepository<
   Participer,
-  typeof Participer.prototype.id,
+  typeof Participer.prototype.date_p,
   ParticiperRelations
 > {
   constructor(

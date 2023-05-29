@@ -73,7 +73,7 @@ export class CompteController {
   async find(
     @param.filter(Compte) filter?: Filter<Compte>,
   ): Promise<Compte[]> {
-    return this.compteRepository.find(filter);
+    return this.compteRepository.find({include:['client','employe']});
   }
 
   @patch('/comptes')

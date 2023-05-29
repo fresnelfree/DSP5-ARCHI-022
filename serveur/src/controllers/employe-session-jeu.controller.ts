@@ -5,7 +5,7 @@ import {
   repository,
   Where,
 } from '@loopback/repository';
-  import {
+import {
   del,
   get,
   getModelSchemaRef,
@@ -16,21 +16,20 @@ import {
   requestBody,
 } from '@loopback/rest';
 import {
-Client,
-Participer,
-SessionJeu,
+  Employe,
+  SessionJeu,
 } from '../models';
-import {ClientRepository} from '../repositories';
+import {EmployeRepository} from '../repositories';
 
-export class ClientSessionJeuController {
+export class EmployeSessionJeuController {
   constructor(
-    @repository(ClientRepository) protected clientRepository: ClientRepository,
+    @repository(EmployeRepository) protected employeRepository: EmployeRepository,
   ) { }
 
-  @get('/clients/{id}/session-jeus', {
+  @get('/employes/{id}/session-jeus', {
     responses: {
       '200': {
-        description: 'Array of Client has many SessionJeu through Participer',
+        description: 'Array of Employe has many SessionJeu',
         content: {
           'application/json': {
             schema: {type: 'array', items: getModelSchemaRef(SessionJeu)},
@@ -43,37 +42,38 @@ export class ClientSessionJeuController {
     @param.path.number('id') id: number,
     @param.query.object('filter') filter?: Filter<SessionJeu>,
   ): Promise<SessionJeu[]> {
-    return this.clientRepository.participer(id).find(filter);
+    return this.employeRepository.sessionJeus(id).find(filter);
   }
 
-  @post('/clients/{id}/session-jeus', {
+  @post('/employes/{id}/session-jeus', {
     responses: {
       '200': {
-        description: 'create a SessionJeu model instance',
+        description: 'Employe model instance',
         content: {'application/json': {schema: getModelSchemaRef(SessionJeu)}},
       },
     },
   })
   async create(
-    @param.path.number('id') id: typeof Client.prototype.id,
+    @param.path.number('id') id: typeof Employe.prototype.id,
     @requestBody({
       content: {
         'application/json': {
           schema: getModelSchemaRef(SessionJeu, {
-            title: 'NewSessionJeuInClient',
+            title: 'NewSessionJeuInEmploye',
             exclude: ['id'],
+            optional: ['id_employe']
           }),
         },
       },
     }) sessionJeu: Omit<SessionJeu, 'id'>,
   ): Promise<SessionJeu> {
-    return this.clientRepository.participer(id).create(sessionJeu);
+    return this.employeRepository.sessionJeus(id).create(sessionJeu);
   }
 
-  @patch('/clients/{id}/session-jeus', {
+  @patch('/employes/{id}/session-jeus', {
     responses: {
       '200': {
-        description: 'Client.SessionJeu PATCH success count',
+        description: 'Employe.SessionJeu PATCH success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -90,13 +90,13 @@ export class ClientSessionJeuController {
     sessionJeu: Partial<SessionJeu>,
     @param.query.object('where', getWhereSchemaFor(SessionJeu)) where?: Where<SessionJeu>,
   ): Promise<Count> {
-    return this.clientRepository.participer(id).patch(sessionJeu, where);
+    return this.employeRepository.sessionJeus(id).patch(sessionJeu, where);
   }
 
-  @del('/clients/{id}/session-jeus', {
+  @del('/employes/{id}/session-jeus', {
     responses: {
       '200': {
-        description: 'Client.SessionJeu DELETE success count',
+        description: 'Employe.SessionJeu DELETE success count',
         content: {'application/json': {schema: CountSchema}},
       },
     },
@@ -105,6 +105,6 @@ export class ClientSessionJeuController {
     @param.path.number('id') id: number,
     @param.query.object('where', getWhereSchemaFor(SessionJeu)) where?: Where<SessionJeu>,
   ): Promise<Count> {
-    return this.clientRepository.participer(id).delete(where);
+    return this.employeRepository.sessionJeus(id).delete(where);
   }
 }

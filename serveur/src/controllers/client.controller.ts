@@ -73,7 +73,7 @@ export class ClientController {
   async find(
     @param.filter(Client) filter?: Filter<Client>,
   ): Promise<Client[]> {
-    return this.clientRepository.find(filter);
+    return this.clientRepository.find({include:["gains"]});
   }
 
   @patch('/clients')
