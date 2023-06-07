@@ -20,7 +20,7 @@ import {
 import {Repartition} from '../models';
 import {RepartitionRepository} from '../repositories';
 
-export class RepatitionController {
+export class RepartitionController {
   constructor(
     @repository(RepartitionRepository)
     public repartitionRepository : RepartitionRepository,
