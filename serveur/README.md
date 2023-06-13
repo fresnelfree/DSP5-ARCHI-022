@@ -19,7 +19,7 @@ npm ci
 ```
 
 ## Run the application
-
+Pour démarrer l'app en prod on precise "NODE_ENV=PROD" avant la commande
 ```sh
 npm start
 ```

@@ -38,7 +38,6 @@
     "type": "git",
     "url": ""
   },
-  
   "author": "Fresnel Teboukeu <teboukeufresnel@gmail.com>",
   "license": "",
   "files": [
@@ -54,6 +53,8 @@
     "@loopback/rest": "^12.0.10",
     "@loopback/rest-explorer": "^5.0.10",
     "@loopback/service-proxy": "^5.0.10",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.1.4",
     "loopback-connector-mysql": "^5.4.4",
     "tslib": "^2.0.0"
   },
@@ -68,10 +69,14 @@
     "typescript": "~4.9.5"
   },
   "nodemonConfig": {
-  "verbose": true,
-  "watch": [ "src/" ],
-  "ignore": [ "dist/*" ],
-  "ext": "ts",
-  "exec": "npm start"
- }
+    "verbose": true,
+    "watch": [
+      "src/"
+    ],
+    "ignore": [
+      "dist/*"
+    ],
+    "ext": "ts",
+    "exec": "npm start"
+  }
 }

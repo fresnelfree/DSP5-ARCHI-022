@@ -1,15 +1,16 @@
 import {inject, lifeCycleObserver, LifeCycleObserver} from '@loopback/core';
 import {juggler} from '@loopback/repository';
+require('dotenv').config();
 
 const config = {
   name: 'MySQL',
   connector: 'mysql',
-  url: 'mysql://dev:DSP5-ARCHI-022@35.194.12.202/DSP5-ARCHI-DB',
-  host: '35.194.12.202',
-  port: 3306,
-  user: 'dev',
-  password: 'DSP5-ARCHI-022',
-  database: 'DSP5-ARCHI-DB'
+  url: process.env.NODE_ENV == 'PROD' ? process.env.DB_URL_PROD : process.env.DB_URL_DEV,
+  host: process.env.NODE_ENV == 'PROD' ? process.env.DB_HOST_PROD : process.env.DB_HOST_DEV,
+  port: process.env.NODE_ENV == 'PROD' ? process.env.DB_PORT_PROD : process.env.DB_PORT_DEV,
+  user: process.env.NODE_ENV == 'PROD' ? process.env.DB_USER_PROD : process.env.DB_USER_DEV,
+  password: process.env.NODE_ENV == 'PROD' ? process.env.DB_PWD_PROD : process.env.DB_PWD_DEV,
+  database: process.env.NODE_ENV == 'PROD' ? process.env.DB_DATABASE_PROD : process.env.DB_DATABASE_DEV
 };
 
 // Observe application's life cycle to disconnect the datasource when

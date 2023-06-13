@@ -1,4 +1,5 @@
 import {ApplicationConfig, App} from './application';
+require('dotenv').config();
 
 export * from './application';
 
@@ -8,6 +9,7 @@ export async function main(options: ApplicationConfig = {}) {
   await app.start();
 
   const url = app.restServer.url;
+  console.log(`Server environment: ${process.env.NODE_ENV == undefined ? process.env.APP_HOST_DEV : process.env.NODE_ENV }`);
   console.log(`Server is running at ${url}`);
   console.log(`Try ${url}/ping`);
 
@@ -18,8 +20,8 @@ if (require.main === module) {
   // Run the application
   const config = {
     rest: {
-      port: +(process.env.PORT ?? 3000),
-      host: process.env.HOST,
+      port: +(process.env.NODE_ENV == undefined ? process.env.APP_PORT_DEV || 3000 : process.env.APP_PORT_PROD ?? 3001),
+      host: process.env.NODE_ENV == undefined ? process.env.APP_HOST_DEV : process.env.APP_HOST_PROD,
       // The `gracePeriodForClose` provides a graceful close for http/https
       // servers with keep-alive clients. The default value is `Infinity`
       // (don't force-close). If you want to immediately destroy all sockets

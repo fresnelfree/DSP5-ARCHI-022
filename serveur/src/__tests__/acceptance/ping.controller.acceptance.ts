@@ -14,8 +14,12 @@ describe('PingController', () => {
     await app.stop();
   });
 
-  it('invokes GET /ping', async () => {
-    const res = await client.get('/ping?msg=world').expect(200);
-    expect(res.body).to.containEql({greeting: 'Hello from LoopBack'});
+  it('invokes POST /Compte', async () => {
+    const data = {
+      "mail": "string@gmal.com",
+      "pwd": "string"
+    }
+    const res = await client.post('/comptes').send(data).expect(200);
+    expect(res.body).to.have.property("mail","string@gmal.com");
   });
 });
