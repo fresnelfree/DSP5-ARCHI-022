@@ -1,9 +1,10 @@
 pipeline{
-  agent { dockerfile true }
-  options {
-    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
-    disableConcurrentBuilds()
-  }
+//   agent { dockerfile true }
+  agent any
+//   options {
+//     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
+//     disableConcurrentBuilds()
+//   }
   stages {
     stage('Hello') {
       steps {
