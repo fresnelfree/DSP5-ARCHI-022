@@ -1,17 +1,3 @@
-// pipeline{
-//   agent any
-//   options {
-//     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
-//     disableConcurrentBuilds()
-//   }
-//   stages {
-//     stage('Hello') {
-//       steps {
-//         echo "helloo"
-//       }
-//     }
-//   }
-// }
 pipeline{
 //   agent { dockerfile true }
   agent any
@@ -20,12 +6,20 @@ pipeline{
     disableConcurrentBuilds()
   }
   stages {
-    stage('Hello') {
+    stage('Build') {
       steps {
-        echo "helloo World"
+        echo "Running build automation"
       }
     }
+    stage('Automated Testing') {
+      steps {
+        echo "Automated Testing"
+      }
+    }    
     stage('Build Docker Image') {
+      when {
+          branch 'main'
+      }      
       steps {
         echo "Build Docker Image"      
         dir('serveur/') {
