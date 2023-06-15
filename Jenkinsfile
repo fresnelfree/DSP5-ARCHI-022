@@ -31,12 +31,12 @@ pipeline{
         dir('serveur/') {
           sh "ls -l"        
 //           sh "npm run docker:build"
-          sh "docker build -t serveur-app-v.0.0.1:latest ."
+          sh "docker build -t fresnelcool/server-app-v.0.0.1 ."
         }  
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
             // Push the Docker image to Docker Hub
-            docker.image('server-app-v.0.0.1:latest').push()
+            docker.image('server-app-v.0.0.1').push()
           }
         }        
         sh "npm run docker:run"        
