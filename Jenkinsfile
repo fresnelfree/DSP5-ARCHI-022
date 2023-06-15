@@ -30,12 +30,13 @@ pipeline{
         echo "Build Docker Image"      
         dir('serveur/') {
           sh "ls -l"        
-          sh "npm run docker:build"
+//           sh "npm run docker:build"
+          sh "docker build -t serveur-app-v.0.0.1:latest ."
         }  
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
             // Push the Docker image to Docker Hub
-            docker.image('server-app-v.0.0.1').push()
+            docker.image('server-app-v.0.0.1:latest').push()
           }
         }        
         sh "npm run docker:run"        
