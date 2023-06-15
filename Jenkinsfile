@@ -39,7 +39,7 @@ pipeline{
             docker.image('fresnelcool/server-app-v.0.0.1').push()
           }
         }        
-        sh "npm run docker:run"        
+        sh "docker run -p 3000:3000 -d fresnelcool/server-app-v.0.0.1"        
       }
     }    
   }
