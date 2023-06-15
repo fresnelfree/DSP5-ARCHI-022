@@ -27,10 +27,13 @@ pipeline{
     }
     stage('Build Docker Image') {
       steps {
-        echo "Build Docker Image"
-        sh "cd serveur/"
-        sh "ls -l"        
-        sh "cd serveur/ & npm run docker:build"
+        echo "Build Docker Image"      
+//         sh "ls -l"        
+        sh "ls-l & cd serveur/"
+        dir('serveur/') {
+          sh "ls -l"        
+          sh "npm run docker:build"
+        }  
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
             // Push the Docker image to Docker Hub
