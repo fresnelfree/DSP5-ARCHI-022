@@ -28,8 +28,6 @@ pipeline{
     stage('Build Docker Image') {
       steps {
         echo "Build Docker Image"      
-//         sh "ls -l"        
-        sh "ls-l & cd serveur/"
         dir('serveur/') {
           sh "ls -l"        
           sh "npm run docker:build"
