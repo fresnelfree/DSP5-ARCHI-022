@@ -29,6 +29,7 @@ pipeline{
       steps {
         echo "Build Docker Image"
         sh "cd serveur/"
+        sh "npm install"        
         sh "npm run docker:build"
         script {
           docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
