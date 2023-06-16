@@ -7,8 +7,10 @@ import {App} from './application';
 async function exportOpenApiSpec(): Promise<void> {
   const config: ApplicationConfig = {
     rest: {
-      port: +(process.env.PORT ?? 3000),
-      host: process.env.HOST ?? 'localhost',
+      port: +(process.env.NODE_ENV == undefined ? process.env.APP_PORT_DEV || 3000 : process.env.APP_PORT_PROD ?? 3001),
+      host: process.env.NODE_ENV == undefined ? process.env.APP_HOST_DEV : process.env.APP_HOST_PROD,      
+      // port: +(process.env.PORT ?? 3000),
+      // host: process.env.HOST ?? 'localhost',
     },
   };
   const outFile = process.argv[2] ?? '';
