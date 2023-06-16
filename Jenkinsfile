@@ -11,6 +11,7 @@ pipeline{
       steps {
         echo "Running build automation"
         sh "env | sort"
+        sh "npm install"
         sh "npm run build"
       }
     }
