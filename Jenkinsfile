@@ -2,7 +2,7 @@ pipeline{
 //   agent { dockerfile true }
   agent any
   environment {  
-    DB_DATABASE_PROD-secret = credentials('DB_DATABASE_PROD')
+    DB_DATABASE_PROD_secret = credentials('DB_DATABASE_PROD')
   }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
@@ -23,7 +23,7 @@ pipeline{
     stage('Automated Testing') {
       steps {
         echo "Automated Testing"
-        sh "env: ${env.DB_DATABASE_PROD-secret}"
+        sh "env: ${env.DB_DATABASE_PROD_secret}"
       }
     }    
     stage('Build Docker Image') {
