@@ -10,6 +10,8 @@ pipeline{
     stage('Build') {
       steps {
         echo "Running build automation"
+        sh "env | sort"
+        sh "npm run build"
       }
     }
     stage('Automated Testing') {
