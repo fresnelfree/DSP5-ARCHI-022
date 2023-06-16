@@ -1,6 +1,9 @@
 pipeline{
 //   agent { dockerfile true }
   agent any
+  environment {  
+    DB_DATABASE_PROD-secret = credentials('DB_DATABASE_PROD')
+  }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
     disableConcurrentBuilds()
@@ -10,14 +13,17 @@ pipeline{
     stage('Build') {
       steps {
         echo "Running build automation"
-        sh "env | sort"
-        sh "npm install"
-        sh "npm run build"
+        dir('serveur/') {
+          sh "env | sort"
+          sh "npm install"
+          sh "npm run build"
+        }          
       }
     }
     stage('Automated Testing') {
       steps {
         echo "Automated Testing"
+        sh "env: ${env.DB_DATABASE_PROD-secret}"
       }
     }    
     stage('Build Docker Image') {
