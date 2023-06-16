@@ -6,24 +6,40 @@ pipeline{
 //     disableConcurrentBuilds()
 //   }
   stages {
-    stage('Hello') {
+    stage('Build') {
       steps {
-        echo "helloo World"
+        echo "Running build automation"
       }
     }
-    stage('Build Docker Image') {
+    stage('Automated Testing') {
       steps {
-        echo "Build Docker Image"
-        sh "cd server/"
-        sh "npm run docker:build"
-        script {
-          docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
-            // Push the Docker image to Docker Hub
-            docker.image('server-app-v.0.0.1').push()
-          }
-        }        
-        sh "npm run docker:run"        
+        echo "Automated Testing"
       }
     }    
+    stage('Build Docker Image') {
+      when {
+          branch 'main'
+      }      
+      steps {
+        echo "Build Docker Image"      
+        dir('serveur/') {
+          sh "docker build -t fresnelcool/server-app-v.0.0.1 ."
+        }         
+        // sh "docker run -p 3000:3000 -d fresnelcool/server-app-v.0.0.1"        
+      }
+    }
+    stage('Push Docker Image') {
+        when {
+            branch 'main'
+        }
+        steps {
+          script {
+            docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
+              // Push the Docker image to Docker Hub
+              docker.image('fresnelcool/server-app-v.0.0.1').push()
+            }
+          } 
+        }
+    }        
   }
 }
