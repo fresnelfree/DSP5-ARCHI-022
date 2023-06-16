@@ -15,7 +15,7 @@ pipeline{
         echo "Running build automation"
         dir('serveur/') {
           sh "env | sort"
-          // sh "npm install"
+          sh "npm install"
           sh "npm run build"
         }          
       }
