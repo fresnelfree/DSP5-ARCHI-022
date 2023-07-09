@@ -14,7 +14,7 @@ pipeline{
     }
     stage('Automated Testing') {
       steps {
-        echo "Automated Testing"
+        echo "Automated Testing !!"
       }
     }    
     stage('Build Docker Image') {
