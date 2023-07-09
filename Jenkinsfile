@@ -12,7 +12,7 @@ pipeline{
   stages {
     stage('Build') {
       steps {
-        echo "Running build automation"
+        echo "Running build automation !!"
         dir('serveur/') {
           sh "env | sort"
           sh "npm install"
