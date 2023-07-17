@@ -9,7 +9,7 @@ pipeline{
   stages {
     stage('Build') {
       steps {
-        echo "Running build automation"
+        echo "Running build automation !!"
       }
     }
     stage('Automated Testing') {
