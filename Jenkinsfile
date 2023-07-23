@@ -22,7 +22,7 @@ pipeline{
     }
     stage('Automated Testing') {
       steps {
-        echo "Automated Testing"
+        echo "Automated Testing !!!"
         sh "env: ${env.DB_DATABASE_PROD_secret}"
       }
     }    
