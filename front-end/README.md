@@ -9,12 +9,18 @@ Run `ng serve` ou `npm run s`. Navigate to `http://localhost:4200/`.
 ## Code scaffolding
 
 Run `ng g c component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-##### générer un component en precisant le module
-`ng g c deossier/component-name -m=nom-module`
-exemple: créer un component dans le dossier shareds qui se ratache a app.module.ts
-`ng g c /shared/page-not-found -m=app`
+
 ##### Créer module
 `ng g m --route deossier/module-name --module App.module`
+Exemple:
+`ng g m --route pages/pages --module App.module`
+##### Créer un component en precisant le module
+`ng g c deossier/component-name -m=nom-module`
+Exemple 1: Créer un component(page), qui sera ratacher au module page.module.ts
+`ng g c /pages/home -m=pages `
+
+exemple2: créer un component dans le dossier shareds qui se ratache a app.module.ts
+`ng g c /shared/page-not-found -m=app`
 ##### Créer un service
 `ng g s   deossier/service-name`
 ##### Créer une classe

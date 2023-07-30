@@ -10,6 +10,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { JeuxComponent } from './jeux/jeux.component';
+import { NavbarComponent } from '../shareds/navbar/navbar.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { JeuxComponent } from './jeux/jeux.component';
     ConnexionComponent,
     AproposComponent,
     ForgotPasswordComponent,
-    JeuxComponent
+    JeuxComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
