@@ -15,8 +15,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
-    
-
   ],
   providers: [],
   bootstrap: [AppComponent]
