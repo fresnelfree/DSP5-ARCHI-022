@@ -18,8 +18,8 @@ const routes: Routes = [
   { path: 'apropos', component: AproposComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'connexion', component: ConnexionComponent},
-  { path: 'inscription', component: InscriptionComponent},
-  { path: '**', component : PageNotFoundComponent }
+  { path: 'inscription', component: InscriptionComponent}
+
 ];
 
 @NgModule({
