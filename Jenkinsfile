@@ -10,6 +10,11 @@ pipeline{
     stage('Build') {
       steps {
         echo "Running build automation !!"
+        dir('back-end/') {
+          sh "env | sort"
+          sh "npm install"
+          sh "npm run build"
+        }          
       }
     }
     stage('Automated Testing') {

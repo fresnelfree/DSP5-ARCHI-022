@@ -6,7 +6,7 @@ node_modules/
 
 # Optional npm cache directory
 .npm
-
+back-end/dist/
 # dotenv environment variable files
 .env
 .env.development.local
