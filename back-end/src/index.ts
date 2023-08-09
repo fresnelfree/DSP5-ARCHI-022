@@ -6,6 +6,7 @@ export * from './application';
 export async function main(options: ApplicationConfig = {}) {
   const app = new App(options);
   await app.boot();
+  await app.migrateSchema({ models: ['Compte', 'Employe', 'Client', 'SessionJeu', 'Repartition', 'Gains', 'Participer'] });
   await app.start();
 
   const url = app.restServer.url;

@@ -1,0 +1,61 @@
+version: '3'
+volumes:
+  mysql_db_ppd:
+networks:
+  thetiptop:
+    driver: bridge
+
+services:
+  mysqldb:
+    image: mysql:8.0
+    container_name: mysqldb
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - "mysql_db_ppd:/var/lib/mysql"    
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Dsp-archi-15
+      MYSQL_DATABASE: DSP5-ARCHI-DB
+      MYSQL_ROOT_PASSWORD: Dsp-archi-15
+      SERVICE_TAGS: prod
+      SERVICE_NAME: mysqldb
+    networks:
+      - thetiptop
+    labels:
+      - traefik.enable=false    
+
+  back-end:
+    container_name: server-app
+    build: 
+      context: ./back-end/
+      dockerfile: Dockerfile
+    image: back-end:v0
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    ports:
+      - 4000:4000
+    expose:
+      - 4000
+    environment:
+      DB_HOST_DEV: mysqldb
+      DB_PORT_DEV: 3306
+      DB_USER_DEV: root
+      APP_PORT_DEV: 4000
+      # APP_HOST_DEV: localhost
+      DB_PWD_DEV: Dsp-archi-15
+      DB_DATABASE_DEV: DSP5-ARCHI-DB
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: prod
+      SERVICE_NAME: nodeapp
+    depends_on:
+      - mysqldb
+    networks:
+      - thetiptop
+    labels:
+      - traefik.enable=false      
