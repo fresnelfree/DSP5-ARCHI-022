@@ -9,7 +9,8 @@ pipeline{
     DB_PORT = credentials('DB_PORT')
     DB_USER = credentials('DB_USER')
     DB_PWD = credentials('DB_PWD')
-  }  options {
+  }
+  options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
     disableConcurrentBuilds()
   }
