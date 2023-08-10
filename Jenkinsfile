@@ -2,15 +2,14 @@ pipeline{
 //   agent { dockerfile true }
   agent any
   environment {  
-    $DB_DATABASE = credentials('DB_DATABASE')
-    $APP_HOST = credentials('APP_HOST')
-    $APP_PORT = credentials('APP_PORT')
-    $DB_HOST = credentials('DB_HOST')
-    $DB_PORT = credentials('DB_PORT')
-    $DB_USER = credentials('DB_USER')
-    $DB_PWD = credentials('DB_PWD')
-  }
-  options {
+    DB_DATABASE = credentials('DB_DATABASE')
+    APP_HOST = credentials('APP_HOST')
+    APP_PORT = credentials('APP_PORT')
+    DB_HOST = credentials('DB_HOST')
+    DB_PORT = credentials('DB_PORT')
+    DB_USER = credentials('DB_USER')
+    DB_PWD = credentials('DB_PWD')
+  }  options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
     disableConcurrentBuilds()
   }
