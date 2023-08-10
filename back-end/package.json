@@ -21,7 +21,7 @@
     "pretest": "npm run rebuild",
     "test": "lb-mocha --allow-console-logs \"dist/__tests__\"",
     "posttest": "npm run lint",
-    "test:dev": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && npm run posttest",
+    "test:prod": "lb-mocha --allow-console-logs dist/__tests__/**/*.js && lb-mocha --allow-console-logs dist/__tests__/**/*.js --reporter json > rapport.json",
     "docker:build": "docker build -t server-app-v.0.0.1 .",
     "docker:run": "docker run -p 3000:3000 -d server-app-v.0.0.1",
     "premigrate": "npm run build",
