@@ -4,7 +4,7 @@ pipeline{
   environment {  
     DB_DATABASE = credentials('DB_DATABASE')
     APP_HOST = credentials('APP_HOST')
-    APP_PORT = credentials('APP_HOST')
+    APP_PORT = credentials('APP_PORT')
     DB_HOST = credentials('DB_HOST')
     DB_PORT = credentials('DB_PORT')
     DB_USER = credentials('DB_USER')
