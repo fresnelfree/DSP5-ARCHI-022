@@ -23,6 +23,7 @@ pipeline{
       // }       
       steps {
         echo "Running build automation !!"
+        sh "env | sort"
         dir('back-end/') {
           sh "env: ${DB_DATABASE}"
           sh "env | sort"
