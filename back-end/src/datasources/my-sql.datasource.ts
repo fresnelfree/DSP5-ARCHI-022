@@ -5,12 +5,12 @@ require('dotenv').config();
 const config = {
   name: 'MySQL',
   connector: 'mysql',
-  url: process.env.NODE_ENV == 'PROD' ? process.env.DB_URL_PROD : process.env.DB_URL_DEV,
-  host: process.env.NODE_ENV == 'PROD' ? process.env.DB_HOST_PROD : process.env.DB_HOST_DEV,
-  port: process.env.NODE_ENV == 'PROD' ? process.env.DB_PORT_PROD : process.env.DB_PORT_DEV,
-  user: process.env.NODE_ENV == 'PROD' ? process.env.DB_USER_PROD : process.env.DB_USER_DEV,
-  password: process.env.NODE_ENV == 'PROD' ? process.env.DB_PWD_PROD : process.env.DB_PWD_DEV,
-  database: process.env.NODE_ENV == 'PROD' ? process.env.DB_DATABASE_PROD : process.env.DB_DATABASE_DEV
+  url:  process.env.DB_URL ,
+  host: process.env.DB_HOST ,
+  port: process.env.DB_PORT ,
+  user: process.env.DB_USER,
+  password: process.env.DB_PWD ,
+  database: process.env.DB_DATABASE
 };
 
 // Observe application's life cycle to disconnect the datasource when
