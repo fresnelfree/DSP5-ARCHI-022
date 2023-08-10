@@ -2,13 +2,13 @@ pipeline{
 //   agent { dockerfile true }
   agent any
   environment {  
-    DB_DATABASE = credentials('DB_DATABASE')
-    APP_HOST = credentials('APP_HOST')
-    APP_PORT = credentials('APP_PORT')
-    DB_HOST = credentials('DB_HOST')
-    DB_PORT = credentials('DB_PORT')
-    DB_USER = credentials('DB_USER')
-    DB_PWD = credentials('DB_PWD')
+    $DB_DATABASE = credentials('DB_DATABASE')
+    $APP_HOST = credentials('APP_HOST')
+    $APP_PORT = credentials('APP_PORT')
+    $DB_HOST = credentials('DB_HOST')
+    $DB_PORT = credentials('DB_PORT')
+    $DB_USER = credentials('DB_USER')
+    $DB_PWD = credentials('DB_PWD')
   }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
@@ -24,7 +24,7 @@ pipeline{
       steps {
         echo "Running build automation !!"
         dir('back-end/') {
-          sh "env: ${env.DB_DATABASE}"
+          sh "env: ${DB_DATABASE}"
           sh "env | sort"
           sh "npm install"
           sh "npm run rebuild"
@@ -35,7 +35,7 @@ pipeline{
     stage('Automated Testing') {
       steps {
         echo "Testing with Mocha !!!"
-        sh "env: ${env.DB_DATABASE}"
+        sh "env: ${DB_DATABASE}"
       }
     }  
 
@@ -45,7 +45,7 @@ pipeline{
       }      
       steps {
         echo "Build Docker Image"      
-        dir('serveur/') {
+        dir('back-end/') {
           sh "docker build -t fresnelcool/server-app-v.0.0.1 ."
         }         
         // sh "docker run -p 3000:3000 -d fresnelcool/server-app-v.0.0.1"        
