@@ -25,8 +25,6 @@ pipeline{
         echo "Running build automation !!"
         sh "env | sort"
         dir('back-end/') {
-          sh "env: ${DB_DATABASE}"
-          sh "env | sort"
           sh "npm install"
           sh "npm run rebuild"
         }          
@@ -37,6 +35,7 @@ pipeline{
       steps {
         echo "Testing with Mocha !!!"
         sh "env: ${DB_DATABASE}"
+        sh "npm run test:prod"
       }
     }  
 
