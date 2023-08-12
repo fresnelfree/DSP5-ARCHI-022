@@ -34,7 +34,6 @@ pipeline{
     stage('Automated Testing') {
       steps {
         echo "Testing with Mocha !!!"
-        sh "env: ${DB_DATABASE}"
         sh "npm run test:prod"
       }
     }  
