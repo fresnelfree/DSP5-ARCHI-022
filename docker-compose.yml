@@ -34,7 +34,7 @@ services:
     build: 
       context: ./back-end/
       dockerfile: Dockerfile
-    image: back-end:v0
+    image: fresnelcool/server-app:v0
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"

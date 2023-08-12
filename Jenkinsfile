@@ -20,34 +20,40 @@ pipeline{
       // when {
       //   branch 'main'
       //   branch 'develop'
-      // }       
+      // }   
       steps {
-        echo "Running build automation !!"
-        sh "env | sort"
+        echo "Running build !"
         dir('back-end/') {
           sh "npm install"
           sh "npm run rebuild"
         }          
-      }
+      }     
     }
 
     stage('Automated Testing') {
       steps {
-        echo "Testing with Mocha !!!"
-        sh "npm run test:prod"
+        echo "Testing with Mocha !"
+        dir('back-end/') {
+          sh "npm run test:prod"
+        }
       }
     }  
 
-    stage('Build Docker Image') {
-      when {
-          branch 'main'
-      }      
+    stage('Push Docker Image') {
+      // when {
+      //   branch 'main'
+      // }      
       steps {
-        echo "Build Docker Image"      
-        dir('back-end/') {
-          sh "docker build -t fresnelcool/server-app-v.0.0.1 ."
-        }         
-        // sh "docker run -p 3000:3000 -d fresnelcool/server-app-v.0.0.1"        
+        echo "Build Docker Image"
+        sh "docker compose up -d --build"
+        steps {
+          script {
+            docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
+              // Push the Docker image to Docker Hub
+              docker.image('fresnelcool/server-app:v0').push()
+            }
+          } 
+        }      
       }
     }
 
@@ -59,7 +65,7 @@ pipeline{
           script {
             docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
               // Push the Docker image to Docker Hub
-              docker.image('fresnelcool/server-app-v.0.0.1').push()
+              docker.image('fresnelcool/server-app:v0').push()
             }
           } 
         }
