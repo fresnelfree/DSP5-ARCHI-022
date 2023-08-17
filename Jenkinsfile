@@ -2,13 +2,20 @@ pipeline{
 //   agent { dockerfile true }
   agent any
   environment {  
-    DB_DATABASE = credentials('DB_DATABASE')
-    APP_HOST = credentials('APP_HOST')
-    APP_PORT = credentials('APP_PORT')
-    DB_HOST = credentials('DB_HOST')
-    DB_PORT = credentials('DB_PORT')
-    DB_USER = credentials('DB_USER')
-    DB_PWD = credentials('DB_PWD')
+    // DB_DATABASE = credentials('DB_DATABASE')
+    // APP_HOST = credentials('APP_HOST')
+    // APP_PORT = credentials('APP_PORT')
+    // DB_HOST = credentials('DB_HOST')
+    // DB_PORT = credentials('DB_PORT')
+    // DB_USER = credentials('DB_USER')
+    // DB_PWD = credentials('DB_PWD')
+    DB_HOST = 'mysql-ppd'
+    DB_PORT = 3307
+    DB_USER = 'root'
+    APP_PORT = 4000
+    APP_HOST = 'pre-production'
+    DB_PWD = 'Dsp-archi-15'
+    DB_DATABASE = 'DSP5-ARCHI-DB'
   }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
