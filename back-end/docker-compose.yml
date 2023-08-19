@@ -31,9 +31,9 @@ services:
 
   app:
     container_name: back-end
-    build: .
-      # context: .
-      # dockerfile: Dockerfile
+    build:
+      context: .
+      dockerfile: Dockerfile-ppd.dockerfile
     image: app-node
     restart: always
     volumes:

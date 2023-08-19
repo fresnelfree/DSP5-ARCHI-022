@@ -23,7 +23,7 @@ pipeline{
   }
 
   stages {
-    stage('Build') {
+    stage('Build & Test') {
       // when {
       //   branch 'main'
       //   branch 'develop'
@@ -31,25 +31,24 @@ pipeline{
       steps {
         echo "Running build !"
         dir('back-end/') {
-          sh "npm install"
-          sh "npm run rebuild"
+          sh "docker compose up"
         }          
       }     
     }
 
-    stage('Automated Testing') {
-      steps {
-        echo "Testing with Mocha !"
-        dir('back-end/') {
-          sh "npm run test:prod"
-        }
-      }
-    }  
+    // stage('Automated Testing') {
+    //   steps {
+    //     echo "Testing with Mocha !"
+    //     dir('back-end/') {
+    //       sh "npm run test:prod"
+    //     }
+    //   }
+    // }  
 
     stage('Push Docker Image') {
-      // when {
-      //   branch 'main'
-      // }      
+      when {
+        branch 'main'
+      }      
       steps {
         echo "Build Docker Image"
         sh "docker compose up -d --build"
