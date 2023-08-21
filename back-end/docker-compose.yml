@@ -41,14 +41,14 @@ services:
     volumes:
       - "/home/node/app:/home/node/app"
     ports:
-      - 4000:4000
+      - 8083:8083
     expose:
-      - 4000
+      - 8083
     environment:
       DB_HOST: mysql-ppd
       DB_PORT: 3307
       DB_USER: admin
-      APP_PORT: 4000
+      APP_PORT: 8083
       APP_HOST: pre-production
       DB_PWD: Dsp-archi-15
       DB_DATABASE: DSP5-ARCHI-DB
