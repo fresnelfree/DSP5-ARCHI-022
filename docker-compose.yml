@@ -39,9 +39,9 @@ services:
     volumes:
       - "/home/node/app:/home/node/app"
     ports:
-      - 4000:4000
+      - 8083:4000
     expose:
-      - 4000
+      - 8083
     environment:
       DB_HOST: mysqldb
       DB_PORT: 3306
