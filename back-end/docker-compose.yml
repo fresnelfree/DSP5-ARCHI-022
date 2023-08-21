@@ -59,6 +59,6 @@ services:
     #   - mysql-ppd
     networks:
       - thetiptop
-      - mysql_network
+      - root_mysql_network
     labels:
       - traefik.enable=false      
