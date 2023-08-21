@@ -16,7 +16,7 @@ pipeline{
     APP_HOST = 'pre-production'
     DB_PWD = 'Dsp-archi-15'
     DB_DATABASE = 'DSP5-ARCHI-DB'
-    DOCKER_HOST = "/var/run/docker.sock"
+    // DOCKER_HOST = "/var/run/docker.sock"
   }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
@@ -32,7 +32,7 @@ pipeline{
       steps {
         echo "Running build !"
         dir('back-end/') {
-          sh "docker compose up"
+          sh "docker compose up -d --build"
         }          
       }     
     }

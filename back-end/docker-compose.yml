@@ -4,30 +4,32 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
+  mysql_network:
+    external: true      
 
 services:
-  mysqldb:
-    image: mysql:8.0
-    container_name: mysqldb
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    volumes:
-      - "mysql_db_ppd:/var/lib/mysql"    
-    ports:
-      - 3306:3306
-    expose:
-      - 3306
-    environment:
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: Dsp-archi-15
-      MYSQL_DATABASE: DSP5-ARCHI-DB
-      MYSQL_ROOT_PASSWORD: Dsp-archi-15
-      SERVICE_TAGS: prod
-      SERVICE_NAME: mysqldb
-    networks:
-      - thetiptop
-    labels:
-      - traefik.enable=false    
+  # mysqldb:
+  #   image: mysql:8.0
+  #   container_name: mysqldb
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   volumes:
+  #     - "mysql_db_ppd:/var/lib/mysql"    
+  #   ports:
+  #     - 3306:3306
+  #   expose:
+  #     - 3306
+  #   environment:
+  #     MYSQL_USER: admin
+  #     MYSQL_PASSWORD: Dsp-archi-15
+  #     MYSQL_DATABASE: DSP5-ARCHI-DB
+  #     MYSQL_ROOT_PASSWORD: Dsp-archi-15
+  #     SERVICE_TAGS: prod
+  #     SERVICE_NAME: mysqldb
+  #   networks:
+  #     - thetiptop
+  #   labels:
+  #     - traefik.enable=false    
 
   app:
     container_name: back-end
@@ -43,9 +45,9 @@ services:
     expose:
       - 4000
     environment:
-      DB_HOST: mysqldb
-      DB_PORT: 3306
-      DB_USER: root
+      DB_HOST: mysql-ppd
+      DB_PORT: 3307
+      DB_USER: admin
       APP_PORT: 4000
       APP_HOST: pre-production
       DB_PWD: Dsp-archi-15
@@ -54,9 +56,9 @@ services:
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp
     depends_on:
-      - mysqldb
+      - mysql-ppd
     networks:
       - thetiptop
+      - mysql_network
     labels:
-      - traefik.enable=false
-      
+      - traefik.enable=false      
