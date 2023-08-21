@@ -31,9 +31,10 @@ pipeline{
       // }   
       steps {
         echo "Running build !"
-        dir('back-end/') {
-          sh "docker compose up -d --build"
-        }          
+        sh "docker compose up -d --build"
+        // dir('back-end/') {
+        //   sh "docker compose up -d --build"
+        // }          
       }     
     }
 
@@ -47,12 +48,12 @@ pipeline{
     // }  
 
     stage('Push Docker Image') {
-      when {
-        branch 'main'
-      }      
+      // when {
+      //   branch 'main'
+      // }      
       steps {
         echo "Build Docker Image"
-        sh "docker compose up -d --build"
+        // sh "docker compose up -d --build"
         steps {
           script {
             docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {

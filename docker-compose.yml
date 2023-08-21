@@ -47,7 +47,7 @@ services:
       DB_PORT: 3306
       DB_USER: root
       APP_PORT: 4000
-      APP_HOST: production
+      APP_HOST: localhost
       DB_PWD: Dsp-archi-15
       DB_DATABASE: DSP5-ARCHI-DB
       DB_CONNECTION_LIMIT: 20
