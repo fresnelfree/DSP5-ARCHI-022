@@ -55,8 +55,8 @@ services:
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp
-    depends_on:
-      - mysql-ppd
+    # depends_on:
+    #   - mysql-ppd
     networks:
       - thetiptop
       - mysql_network
