@@ -1,6 +1,6 @@
 # Check out https://hub.docker.com/_/node to select a new base image
-# FROM node:16-slim
-FROM node:alpine3.11
+FROM node:16-slim
+# FROM node:alpine3.11
 
 # Set to a non-root built-in user `node`
 # USER node
@@ -19,12 +19,14 @@ RUN npm install
 # Bundle app source code
 # COPY --chown=node . .
 COPY . .
-RUN npm run rebuild
+# RUN npm run rebuild
+# RUN npm run test:prod
 # RUN npm run migrate
 # Bind to all network interfaces so that it can be mapped to the host OS
 # ENV HOST=0.0.0.0 PORT=3000
-EXPOSE 8083
+EXPOSE 4200
 
 # EXPOSE ${PORT}
 # CMD [ "node", "./dist/index.js" ]
 CMD [ "npm", "start" ]
+# CMD [ "npm", "run", "test:prod" ]

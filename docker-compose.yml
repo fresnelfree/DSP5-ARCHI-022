@@ -34,20 +34,20 @@ services:
     build: 
       context: ./back-end/
       dockerfile: Dockerfile
-    image: back-end:v0
+    image: fresnelcool/server-app:v0
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
     ports:
-      - 4000:4000
+      - 8083:8083
     expose:
-      - 4000
+      - 8083
     environment:
       DB_HOST: mysqldb
       DB_PORT: 3306
       DB_USER: root
-      APP_PORT: 4000
-      APP_HOST: production
+      APP_PORT: 8083
+      APP_HOST: localhost
       DB_PWD: Dsp-archi-15
       DB_DATABASE: DSP5-ARCHI-DB
       DB_CONNECTION_LIMIT: 20

@@ -2,7 +2,23 @@ pipeline{
 //   agent { dockerfile true }
   agent any
   environment {  
-    DB_DATABASE_PROD_secret = credentials('DB_DATABASE_PROD')
+    // DB_DATABASE = credentials('DB_DATABASE')
+    // APP_HOST = credentials('APP_HOST')
+    // APP_PORT = credentials('APP_PORT')
+    // DB_HOST = credentials('DB_HOST')
+    // DB_PORT = credentials('DB_PORT')
+    // DB_USER = credentials('DB_USER')
+    // DB_PWD = credentials('DB_PWD')
+
+    // DB_HOST = 'mysql-ppd'
+    // DB_PORT = 3307
+    // DB_USER = 'root'
+    // APP_PORT = 4000
+    // APP_HOST = 'pre-production'
+    // DB_PWD = 'Dsp-archi-15'
+    // DB_DATABASE = 'DSP5-ARCHI-DB'
+    DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
+    // DOCKER_HOST = "/var/run/docker.sock"
   }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
@@ -10,46 +26,60 @@ pipeline{
   }
 
   stages {
-    stage('Build') {
+    stage('Build & Test') {
+      // when {
+      //   branch 'main'
+      //   branch 'develop'
+      // }   
       steps {
-        echo "Running build automation !!"
-        dir('back-end/') {
-          sh "env | sort"
-          sh "npm install"
-          sh "npm run build"
-        }          
-      }
+        echo "Running build !"
+        sh "docker compose up -d --build"
+        // dir('back-end/') {
+        //   sh "docker compose up -d --build"
+        // }          
+      }     
     }
-    stage('Automated Testing') {
-      steps {
-        echo "Automated Testing !!!"
-        sh "env: ${env.DB_DATABASE_PROD_secret}"
-      }
-    }    
-    stage('Build Docker Image') {
-      when {
-          branch 'main'
-      }      
-      steps {
-        echo "Build Docker Image"      
-        dir('serveur/') {
-          sh "docker build -t fresnelcool/server-app-v.0.0.1 ."
-        }         
-        // sh "docker run -p 3000:3000 -d fresnelcool/server-app-v.0.0.1"        
-      }
-    }
+
+    // stage('Automated Testing') {
+    //   steps {
+    //     echo "Testing with Mocha !"
+    //     dir('back-end/') {
+    //       sh "npm run test:prod"
+    //     }
+    //   }
+    // }  
+
     stage('Push Docker Image') {
-        when {
-            branch 'main'
-        }
+      // when {
+      //   branch 'main'
+      // }      
+      steps {
+        echo "Build Docker Image"
+        // sh "docker compose up -d --build"
         steps {
           script {
             docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
               // Push the Docker image to Docker Hub
-              docker.image('fresnelcool/server-app-v.0.0.1').push()
+              docker.image('fresnelcool/server-app:v0').push()
             }
           } 
-        }
-    }        
+        }      
+      }
+    }
+
+    // stage('Push Docker Image') {
+    //     when {
+    //         branch 'main'
+    //     }
+    //     steps {
+    //       script {
+    //         docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
+    //           // Push the Docker image to Docker Hub
+    //           docker.image('fresnelcool/server-app:v0').push()
+    //         }
+    //       } 
+    //     }
+    // }
+
   }
 }

@@ -1,0 +1,34 @@
+version: '3'
+volumes:
+  mysql_db_ppd:
+networks:
+  thetiptop:
+    driver: bridge
+  # root_mysql_network:
+  #   external: true
+
+services:
+  app:
+    container_name: front-end
+    build:
+      context: .
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: front-end
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    ports:
+      - 4200:4200
+    expose:
+      - 4200
+    environment:
+      SERVEUR_HOST: mysqldb
+      APP_PORT: 4200
+      APP_HOST: localhost
+      SERVICE_TAGS: pre-prod
+      SERVICE_NAME: frontapp
+    networks:
+      - thetiptop
+      # - root_mysql_network
+    labels:
+      - traefik.enable=false

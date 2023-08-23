@@ -4,6 +4,8 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
+  # root_mysql_network:
+  #   external: true      
 
 services:
   mysqldb:
@@ -30,33 +32,33 @@ services:
       - traefik.enable=false    
 
   app:
-    container_name: appcon
-    build: .
-      # context: .
-      # dockerfile: Dockerfile
-    image: appcont
+    container_name: back-end
+    build:
+      context: .
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: app-node
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
     ports:
-      - 4000:4000
+      - 3000:3000
     expose:
-      - 4000
+      - 3000
     environment:
-      DB_HOST_DEV: mysqldb
-      DB_PORT_DEV: 3306
-      DB_USER_DEV: root
-      APP_PORT_DEV: 4000
-      # APP_HOST_DEV: localhost
-      DB_PWD_DEV: Dsp-archi-15
-      DB_DATABASE_DEV: DSP5-ARCHI-DB
+      DB_HOST: mysqldb
+      DB_PORT: 3306
+      DB_USER: root
+      APP_PORT: 3000
+      APP_HOST: localhost
+      DB_PWD: Dsp-archi-15
+      DB_DATABASE: DSP5-ARCHI-DB
       DB_CONNECTION_LIMIT: 20
-      SERVICE_TAGS: prod
+      SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp
     depends_on:
       - mysqldb
     networks:
       - thetiptop
+      # - root_mysql_network
     labels:
-      - traefik.enable=false
-      
+      - traefik.enable=false      
