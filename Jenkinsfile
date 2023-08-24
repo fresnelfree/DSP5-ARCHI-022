@@ -1,6 +1,11 @@
 pipeline{
 //   agent { dockerfile true }
   agent any
+
+  tools{
+    nodejs 'node'
+  }
+
   environment {  
     // DB_DATABASE = credentials('DB_DATABASE')
     // APP_HOST = credentials('APP_HOST')
@@ -10,13 +15,13 @@ pipeline{
     // DB_USER = credentials('DB_USER')
     // DB_PWD = credentials('DB_PWD')
 
-    // DB_HOST = 'mysql-ppd'
-    // DB_PORT = 3307
-    // DB_USER = 'root'
-    // APP_PORT = 4000
-    // APP_HOST = 'pre-production'
-    // DB_PWD = 'Dsp-archi-15'
-    // DB_DATABASE = 'DSP5-ARCHI-DB'
+    DB_HOST = 127.0.0.1
+    DB_PORT = 3306
+    DB_USER = 'root'
+    APP_PORT = 3000
+    APP_HOST = 'localhost'
+    DB_PWD = 'Dsp-archi-15'
+    DB_DATABASE = 'DSP5-ARCHI-DB'
     DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
     // DOCKER_HOST = "/var/run/docker.sock"
   }
@@ -33,21 +38,22 @@ pipeline{
       // }   
       steps {
         echo "Running build !"
-        sh "docker compose up -d --build"
-        // dir('back-end/') {
-        //   sh "docker compose up -d --build"
-        // }          
+        dir('back-end/') {
+          sh "npm i"
+          // sh "docker compose up -d --build"
+        }          
       }     
     }
 
-    // stage('Automated Testing') {
-    //   steps {
-    //     echo "Testing with Mocha !"
-    //     dir('back-end/') {
-    //       sh "npm run test:prod"
-    //     }
-    //   }
-    // }  
+    stage('Automated Testing') {
+      steps {
+        echo "Testing with Mocha !"
+        dir('back-end/') {
+          sh "npm run rebuild"          
+          sh "npm run test:prod"
+        }
+      }
+    }  
 
     stage('Push Docker Image') {
       // when {
@@ -55,15 +61,14 @@ pipeline{
       // }      
       steps {
         echo "Build Docker Image"
-        // sh "docker compose up -d --build"
-        steps {
-          script {
-            docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
-              // Push the Docker image to Docker Hub
-              docker.image('fresnelcool/server-app:v0').push()
-            }
-          } 
-        }      
+        // steps {
+        //   script {
+        //     docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
+        //       // Push the Docker image to Docker Hub
+        //       docker.image('fresnelcool/server-app:v0').push()
+        //     }
+        //   } 
+        // }      
       }
     }
 
