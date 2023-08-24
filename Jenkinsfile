@@ -15,7 +15,7 @@ pipeline{
     // DB_USER = credentials('DB_USER')
     // DB_PWD = credentials('DB_PWD')
 
-    DB_HOST = 127.0.0.1
+    DB_HOST = "127.0.0.1"
     DB_PORT = 3306
     DB_USER = 'root'
     APP_PORT = 3000
