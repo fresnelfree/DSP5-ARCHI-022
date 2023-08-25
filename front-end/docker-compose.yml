@@ -9,7 +9,7 @@ networks:
 
 services:
   client-app-ppd:
-    container_name: front-end
+    container_name: client-app-ppd
     build:
       context: .
       dockerfile: Dockerfile-ppd.dockerfile
