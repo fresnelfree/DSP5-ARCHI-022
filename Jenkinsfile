@@ -91,6 +91,7 @@ pipeline{
       when {
         branch 'main'
         branch 'develop'
+        branch 'DA-95'
         branch 'PR-*'
       } 
        
