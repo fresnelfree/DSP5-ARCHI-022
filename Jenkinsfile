@@ -102,32 +102,55 @@ pipeline{
       steps{
 
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE DEPLOY #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+        script {
+          if (env.GIT_BRANCH == 'main') {
 
-        echo "####################################################### STAGE DEPLOY BACK-END #######################################################"
-        dir('back-end/'){
+            echo "####################################################### STAGE DEPLOY APP #######################################################"
+            
+            echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+            sh "docker compose down"
+            sh "docker compose up -d --build"
 
-          echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
-          sh "docker compose down"
-          sh "docker compose up -d --build"
+            echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+            sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+            sh "docker push fresnelcool/server-app:v0"
+            sh "docker push fresnelcool/client-app:v0"
 
-          echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-          sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-          sh "docker push fresnelcool/server-app-ppd:v0"          
+          }
+          else if (env.GIT_BRANCH == 'develop') {           
 
-        }   
+            echo "####################################################### STAGE DEPLOY BACK-END #######################################################"
+            dir('back-end/'){
 
-        echo "####################################################### STAGE DEPLOY FRONT-END #######################################################"
-        dir('front-end/'){
+              echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+              sh "docker compose down"
+              sh "docker compose up -d --build"
 
-          echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
-          sh "docker compose down"
-          sh "docker compose up -d --build"
+              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+              sh "docker push fresnelcool/server-app-ppd:v0"          
 
-          echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-          sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-          sh "docker push fresnelcool/client-app-ppd:v0"          
+            }   
 
-        } 
+            echo "####################################################### STAGE DEPLOY FRONT-END #######################################################"
+            dir('front-end/'){
+
+              echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+              sh "docker compose down"
+              sh "docker compose up -d --build"
+
+              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+              sh "docker push fresnelcool/client-app-ppd:v0"          
+
+            }
+
+          }
+          else {
+
+          }
+        }
+ 
 
       }
 
