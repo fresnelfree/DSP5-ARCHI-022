@@ -87,10 +87,11 @@ pipeline{
     }
 
     stage('DEPLOY') {
-      
+
       when {
         branch 'main'
         branch 'develop'
+        branch 'PR-*'
       } 
        
       steps{
