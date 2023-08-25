@@ -88,13 +88,17 @@ pipeline{
 
     stage('DEPLOY') {
 
+      // when {
+      //   branch 'main'
+      //   branch 'develop'
+      //   branch 'DA-95'
+      //   branch 'PR-*'
+      // } 
       when {
-        branch 'main'
-        branch 'develop'
-        branch 'DA-95'
-        branch 'PR-*'
-      } 
-       
+          not {
+              branch "DA-*"
+          }
+      }       
       steps{
 
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE DEPLOY #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
