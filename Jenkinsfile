@@ -31,9 +31,11 @@ pipeline{
   }
 
   stages {
-    stage('BUILD') {   
+
+    stage('BUILD') { 
+
       steps {
-        echo "Running build !"
+        echo "************************ STAGE BUILD ************************"
         dir('back-end/') {
 
           echo "************************ INSTALLATION DES DEPENDANCES DU PROJET ************************"
@@ -41,17 +43,20 @@ pipeline{
 
           echo "************************ BUILD DU PROJET ************************"
           sh "npm run rebuild"   
-
         }          
-      }     
+      }  
+
     }  
 
-    stage('UNIT TEST') {     
+    stage('UNIT TEST') {   
+
       steps {
 
-        echo "************************ TEST DU PROJET AVEC MOCHA JS ************************"   
-        sh "npm run test:prod"    
-
+        echo "************************ TEST DU PROJET AVEC MOCHA JS ************************"  
+        dir('back-end/') {
+          sh "npm run test:prod"
+        } 
+           
       }
     }
 
@@ -64,19 +69,17 @@ pipeline{
       steps{
 
         echo "************************ BUILD & RUN IMAGE DOCKER ************************"  
-             
         dir('back-end/'){
           sh "docker compose up -d --build"
         }
-      }
-
-      
-      steps {
 
         echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-
         sh "docker login --username=credentials('DOCKER_HUB_USERNAME') --password=credentials('DOCKER_HUB_PASSWORD')"
-        sh "docker push fresnelcool/server-app-ppd:v0"        
+        sh "docker push fresnelcool/server-app-ppd:v0"     
+
+      }
+      
+      // steps {        
         // steps {
           // script {
           //   docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
@@ -85,7 +88,7 @@ pipeline{
           //   }
           // } 
         // }      
-      }
+      // }
 
     }    
 
