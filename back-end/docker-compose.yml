@@ -16,9 +16,9 @@ services:
     volumes:
       - "mysql_db_ppd:/var/lib/mysql"    
     ports:
-      - 3306:3306
+      - 3308:3306
     expose:
-      - 3306
+      - 3308
     environment:
       MYSQL_USER: admin
       MYSQL_PASSWORD: Dsp-archi-15
@@ -31,8 +31,8 @@ services:
     labels:
       - traefik.enable=false    
 
-  app:
-    container_name: back-end
+  server-app-ppd:
+    container_name: server-app-ppd
     build:
       context: .
       dockerfile: Dockerfile-ppd.dockerfile
@@ -48,7 +48,7 @@ services:
       APP_PORT: 8089
       APP_HOST: 0.0.0.0    
       DB_HOST: mysqldb-ppd
-      DB_PORT: 3306
+      DB_PORT: 3308
       DB_USER: root
       DB_PWD: Dsp-archi-15
       DB_DATABASE: DSP5-ARCHI-DB
