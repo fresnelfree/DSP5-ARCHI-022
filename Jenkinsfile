@@ -14,7 +14,9 @@ pipeline{
     // DB_PORT = credentials('DB_PORT')
     // DB_USER = credentials('DB_USER')
     // DB_PWD = credentials('DB_PWD')
-
+    
+    DOCKER_HUB_PWD = credentials('DOCKER_HUB_PASSWORD')
+    DOCKER_HUB_USR = credentials('DOCKER_HUB_USERNAME')
     DB_HOST = "109.123.254.17"
     DB_PORT = 3307
     DB_USER = 'root'
@@ -74,7 +76,7 @@ pipeline{
         }
 
         echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-        sh "docker login --username=credentials('DOCKER_HUB_USERNAME') --password=credentials('DOCKER_HUB_PASSWORD')"
+        sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
         sh "docker push fresnelcool/server-app-ppd:v0"     
 
       }
