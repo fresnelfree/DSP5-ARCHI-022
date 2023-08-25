@@ -31,60 +31,58 @@ pipeline{
   }
 
   stages {
-    stage('Build & Test') {
-      // when {
-      //   branch 'main'
-      //   branch 'develop'
-      // }   
+    stage('BUILD') {   
       steps {
         echo "Running build !"
         dir('back-end/') {
-          sh "npm i"
-          // sh "docker compose up -d --build"
+
+          echo "************************ INSTALLATION DES DEPENDANCES DU PROJET ************************"
+          sh "npm install"
+
+          echo "************************ BUILD DU PROJET ************************"
+          sh "npm run rebuild"   
+
         }          
       }     
-    }
-
-    stage('Automated Testing') {
-      steps {
-        echo "Testing with Mocha !"
-        dir('back-end/') {
-          sh "npm run rebuild"          
-          sh "npm run test:prod"
-        }
-      }
     }  
 
-    stage('Push Docker Image') {
-      // when {
-      //   branch 'main'
-      // }      
+    stage('UNIT TEST') {     
       steps {
-        echo "Build Docker Image"
-        // steps {
-        //   script {
-        //     docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
-        //       // Push the Docker image to Docker Hub
-        //       docker.image('fresnelcool/server-app:v0').push()
-        //     }
-        //   } 
-        // }      
+
+        echo "************************ TEST DU PROJET AVEC MOCHA JS ************************"   
+        sh "npm run test:prod"    
+
       }
     }
 
-    // stage('Push Docker Image') {
-    //     when {
-    //         branch 'main'
-    //     }
-    //     steps {
-    //       script {
-    //         docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
-    //           // Push the Docker image to Docker Hub
-    //           docker.image('fresnelcool/server-app:v0').push()
-    //         }
-    //       } 
-    //     }
-    // }
+    stage('DEPLOY') {
+      // when {
+      //   branch 'main'
+        // branch develop
+      // } 
+
+      echo "************************ BUILD & RUN IMAGE DOCKER ************************"        
+      steps{
+        dir('back-end/'){
+          sh "docker compose up -d --build"
+        }
+      }
+
+      echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+      steps {
+        steps {
+          sh "docker login --username=credentials('DOCKER_HUB_USERNAME') --password=credentials('DOCKER_HUB_PASSWORD')"
+          sh "docker push fresnelcool/server-app-ppd:v0"
+          // script {
+          //   docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
+          //     // Push the Docker image to Docker Hub
+          //     docker.image('fresnelcool/server-app:v0').push()
+          //   }
+          // } 
+        }      
+      }
+
+    }    
 
   }
 }

@@ -8,9 +8,9 @@ networks:
   #   external: true      
 
 services:
-  mysqldb:
+  mysqldb-ppd:
     image: mysql:8.0
-    container_name: mysqldb
+    container_name: mysqldb-ppd
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
@@ -25,7 +25,7 @@ services:
       MYSQL_DATABASE: DSP5-ARCHI-DB
       MYSQL_ROOT_PASSWORD: Dsp-archi-15
       SERVICE_TAGS: prod
-      SERVICE_NAME: mysqldb
+      SERVICE_NAME: mysqldb-ppd
     networks:
       - thetiptop
     labels:
@@ -36,20 +36,20 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-ppd.dockerfile
-    image: fresnelcool/server-app:v0
+    image: fresnelcool/server-app-ppd:v0
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
     ports:
-      - 3000:3000
+      - 8089:8089
     expose:
-      - 3000
+      - 8089
     environment:
-      DB_HOST: mysqldb
+      APP_PORT: 8089
+      APP_HOST: localhost    
+      DB_HOST: mysqldb-ppd
       DB_PORT: 3306
       DB_USER: root
-      APP_PORT: 3000
-      APP_HOST: localhost
       DB_PWD: Dsp-archi-15
       DB_DATABASE: DSP5-ARCHI-DB
       DB_CONNECTION_LIMIT: 20
