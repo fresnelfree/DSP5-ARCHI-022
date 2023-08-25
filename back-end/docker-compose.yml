@@ -56,7 +56,7 @@ services:
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp
     depends_on:
-      - mysqldb
+      - mysqldb-ppd
     networks:
       - thetiptop
       # - root_mysql_network
