@@ -8,23 +8,23 @@ networks:
   #   external: true
 
 services:
-  app:
+  client-app-ppd:
     container_name: front-end
     build:
       context: .
       dockerfile: Dockerfile-ppd.dockerfile
-    image: front-end
+    image: fresnelcool/client-app-ppd:v0
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
     ports:
-      - 4200:4200
+      - 8090:8090
     expose:
-      - 4200
+      - 8090
     environment:
       SERVEUR_HOST: mysqldb
-      APP_PORT: 4200
-      APP_HOST: localhost
+      APP_PORT: 8090
+      APP_HOST: 0.0.0.0
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: frontapp
     networks:

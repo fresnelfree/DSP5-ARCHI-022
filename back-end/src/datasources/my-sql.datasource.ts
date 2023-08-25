@@ -5,7 +5,7 @@ require('dotenv').config();
 const config = {
   name: 'MySQL',
   connector: 'mysql',
-  url:  process.env.DB_URL ,
+  // url:  process.env.DB_URL 
   host: process.env.DB_HOST ,
   port: process.env.DB_PORT ,
   user: process.env.DB_USER,

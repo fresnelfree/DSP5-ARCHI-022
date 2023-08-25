@@ -23,8 +23,8 @@ COPY . .
 # RUN npm run test:prod
 # RUN npm run migrate
 # Bind to all network interfaces so that it can be mapped to the host OS
-ENV HOST=0.0.0.0 PORT=3000
-EXPOSE 3000
+# ENV HOST=0.0.0.0 PORT=8089
+EXPOSE ${APP_PORT}
 
 # EXPOSE ${PORT}
 # CMD [ "node", "./dist/index.js" ]
