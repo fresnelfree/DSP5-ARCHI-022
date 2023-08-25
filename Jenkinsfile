@@ -60,26 +60,31 @@ pipeline{
       //   branch 'main'
         // branch develop
       // } 
-
-      echo "************************ BUILD & RUN IMAGE DOCKER ************************"        
+       
       steps{
+
+        echo "************************ BUILD & RUN IMAGE DOCKER ************************"  
+             
         dir('back-end/'){
           sh "docker compose up -d --build"
         }
       }
 
-      echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+      
       steps {
-        steps {
-          sh "docker login --username=credentials('DOCKER_HUB_USERNAME') --password=credentials('DOCKER_HUB_PASSWORD')"
-          sh "docker push fresnelcool/server-app-ppd:v0"
+
+        echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+
+        sh "docker login --username=credentials('DOCKER_HUB_USERNAME') --password=credentials('DOCKER_HUB_PASSWORD')"
+        sh "docker push fresnelcool/server-app-ppd:v0"        
+        // steps {
           // script {
           //   docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
           //     // Push the Docker image to Docker Hub
           //     docker.image('fresnelcool/server-app:v0').push()
           //   }
           // } 
-        }      
+        // }      
       }
 
     }    
