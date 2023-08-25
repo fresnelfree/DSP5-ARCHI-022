@@ -46,7 +46,7 @@ services:
       - 8089
     environment:
       APP_PORT: 8089
-      APP_HOST: localhost    
+      APP_HOST: 0.0.0.0    
       DB_HOST: mysqldb-ppd
       DB_PORT: 3306
       DB_USER: root
