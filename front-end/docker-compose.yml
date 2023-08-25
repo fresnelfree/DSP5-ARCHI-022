@@ -16,7 +16,7 @@ services:
     image: fresnelcool/client-app-ppd:v0
     restart: always
     volumes:
-      - "/home/client/app:/home/client/app"
+      - "/home/node/app:/home/node/app"
     ports:
       - 8090:8090
     expose:
