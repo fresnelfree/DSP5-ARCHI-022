@@ -63,6 +63,10 @@
           "defaultConfiguration": "production"
         },
         "serve": {
+          "options": {
+            "host": "0.0.0.0",
+            "port": 8091
+          },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
@@ -161,6 +165,7 @@
       "@cypress/schematic",
       "@angular-eslint/schematics",
       "@schematics/angular"
-    ]
+    ],
+    "analytics": false
   }
 }

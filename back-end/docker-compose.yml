@@ -1,0 +1,64 @@
+version: '3'
+volumes:
+  mysql_db_ppd:
+networks:
+  thetiptop:
+    driver: bridge
+  # root_mysql_network:
+  #   external: true      
+
+services:
+  mysqldb-ppd:
+    image: mysql:8.0
+    container_name: mysqldb-ppd
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    volumes:
+      - "mysql_db_ppd:/var/lib/mysql"    
+    ports:
+      - 3306:3306
+    expose:
+      - 3306
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: Dsp-archi-15
+      MYSQL_DATABASE: DSP5-ARCHI-DB
+      MYSQL_ROOT_PASSWORD: Dsp-archi-15
+      SERVICE_TAGS: prod
+      SERVICE_NAME: mysqldb-ppd
+    networks:
+      - thetiptop
+    labels:
+      - traefik.enable=false    
+
+  app:
+    container_name: back-end
+    build:
+      context: .
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: fresnelcool/server-app-ppd:v0
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    ports:
+      - 8089:8089
+    expose:
+      - 8089
+    environment:
+      APP_PORT: 8089
+      APP_HOST: 0.0.0.0    
+      DB_HOST: mysqldb-ppd
+      DB_PORT: 3306
+      DB_USER: root
+      DB_PWD: Dsp-archi-15
+      DB_DATABASE: DSP5-ARCHI-DB
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: pre-prod
+      SERVICE_NAME: nodeapp
+    depends_on:
+      - mysqldb-ppd
+    networks:
+      - thetiptop
+      # - root_mysql_network
+    labels:
+      - traefik.enable=false      

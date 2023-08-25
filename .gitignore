@@ -6,6 +6,8 @@ node_modules/
 
 # Optional npm cache directory
 .npm
+back-end/dist/
+back-end/rapport.json
 
 # dotenv environment variable files
 .env
