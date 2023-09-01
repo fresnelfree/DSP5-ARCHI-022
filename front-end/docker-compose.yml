@@ -4,8 +4,8 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
-  # root_mysql_network:
-  #   external: true
+  root_mysql_network:
+    external: true
 
 services:
   client-app-ppd:
@@ -29,6 +29,9 @@ services:
       SERVICE_NAME: frontapp
     networks:
       - thetiptop
-      # - root_mysql_network
+      - root_mysql_network
     labels:
-      - traefik.enable=false
+      - traefik.enable=true
+      - traefik.http.routers.client-app-ppd.rule=Host(`thetiptop.client.com`)
+      - traefik.http.routers.client-app-ppd.middlewares=network-internet@docker
+      - traefik.http.services.client-app-ppd.loadbalancer.server.port=8090
