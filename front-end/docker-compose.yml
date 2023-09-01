@@ -4,9 +4,9 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
-  workflow_mysql_network:
+  root_mysql_network:
     external: true
-  workflow_public:
+  root_public:
     external: true
 
 services:
@@ -31,7 +31,7 @@ services:
       SERVICE_NAME: frontapp
     networks:
       - thetiptop
-      - workflow_public
+      - root_public
     labels:
       - traefik.enable=true
       - traefik.http.routers.client-app-ppd.rule=Host(`thetiptop.client.com`)
