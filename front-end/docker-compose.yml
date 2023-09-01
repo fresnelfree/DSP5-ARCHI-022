@@ -4,7 +4,9 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
-  root_mysql_network:
+  workflow_mysql_network:
+    external: true
+  workflow_public:
     external: true
 
 services:
@@ -17,10 +19,10 @@ services:
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
-    ports:
-      - 8090:8090
-    expose:
-      - 8090
+    # ports:
+    #   - 8090:8090
+    # expose:
+    #   - 8090
     environment:
       SERVEUR_HOST: mysqldb
       APP_PORT: 8090
@@ -29,7 +31,7 @@ services:
       SERVICE_NAME: frontapp
     networks:
       - thetiptop
-      - root_mysql_network
+      - workflow_public
     labels:
       - traefik.enable=true
       - traefik.http.routers.client-app-ppd.rule=Host(`thetiptop.client.com`)
