@@ -4,10 +4,49 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
-  # root_mysql_network:
-  #   external: true      
+  root_public:
+    external: true    
+  # workflow_public:
+  #   external: true
+
 
 services:
+  server-app-ppd:
+    container_name: server-app-ppd
+    build:
+      context: .
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: fresnelcool/server-app-ppd:v0
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    # ports:
+    #   - 127.0.0.1:8089:8089
+    # expose:
+    #   - 8089
+    environment:
+      APP_PORT: 8089
+      APP_HOST: 0.0.0.0    
+      DB_HOST: 109.123.254.17
+      DB_PORT: 3307
+      DB_USER: root
+      DB_PWD: Dsp-archi-15
+      DB_DATABASE: DSP5-ARCHI-DB
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: pre-prod
+      SERVICE_NAME: nodeapp
+    # depends_on:
+    #   - mysqldb-ppd
+    networks:
+      - thetiptop
+      # - workflow_public
+      - root_public
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.recette.api.com`)
+      - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
+      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8089   
+
   # mysqldb-ppd:
   #   image: mysql:8.0
   #   container_name: mysqldb-ppd
@@ -30,35 +69,3 @@ services:
   #     - thetiptop
   #   labels:
   #     - traefik.enable=false    
-
-  server-app-ppd:
-    container_name: server-app-ppd
-    build:
-      context: .
-      dockerfile: Dockerfile-ppd.dockerfile
-    image: fresnelcool/server-app-ppd:v0
-    restart: always
-    volumes:
-      - "/home/node/app:/home/node/app"
-    ports:
-      - 8089:8089
-    expose:
-      - 8089
-    environment:
-      APP_PORT: 8089
-      APP_HOST: 0.0.0.0    
-      DB_HOST: 109.123.254.17
-      DB_PORT: 3307
-      DB_USER: root
-      DB_PWD: Dsp-archi-15
-      DB_DATABASE: DSP5-ARCHI-DB
-      DB_CONNECTION_LIMIT: 20
-      SERVICE_TAGS: pre-prod
-      SERVICE_NAME: nodeapp
-    # depends_on:
-    #   - mysqldb-ppd
-    networks:
-      - thetiptop
-      # - root_mysql_network
-    labels:
-      - traefik.enable=false      
