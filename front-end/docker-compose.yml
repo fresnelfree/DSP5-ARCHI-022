@@ -8,6 +8,8 @@ networks:
     external: true
   root_public:
     external: true
+  # workflow_public:
+  #   external: true
 
 services:
   client-app-ppd:
@@ -32,8 +34,9 @@ services:
     networks:
       - thetiptop
       - root_public
+      # - workflow_public
     labels:
       - traefik.enable=true
-      - traefik.http.routers.client-app-ppd.rule=Host(`thetiptop.client.com`)
+      - traefik.http.routers.client-app-ppd.rule=Host(`thetiptop.recette.com`)
       - traefik.http.routers.client-app-ppd.middlewares=network-internet@docker
       - traefik.http.services.client-app-ppd.loadbalancer.server.port=8090

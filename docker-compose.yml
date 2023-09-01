@@ -4,6 +4,8 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
+  root_public:
+    external: true    
 
 services:
   mysqldb:
@@ -38,10 +40,10 @@ services:
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
-    ports:
-      - 8083:8083
-    expose:
-      - 8083
+    # ports:
+    #   - 8083:8083
+    # expose:
+    #   - 8083
     environment:
       APP_PORT: 8083
       APP_HOST: 0.0.0.0    
@@ -57,8 +59,12 @@ services:
       - mysqldb
     networks:
       - thetiptop
+      - root_public
     labels:
-      - traefik.enable=false      
+      - traefik.enable=true
+      - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.api.com`)
+      - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
+      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8083     
 
   client-app:
     container_name: client-app
@@ -69,10 +75,10 @@ services:
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
-    ports:
-      - 8084:8090
-    expose:
-      - 8084
+    # ports:
+    #   - 8084:8090
+    # expose:
+    #   - 8084
     environment:
       SERVEUR_HOST: mysqldb
       APP_PORT: 8084
@@ -83,6 +89,10 @@ services:
       - server-app      
     networks:
       - thetiptop
+      - root_public
     labels:
-      - traefik.enable=false
+      - traefik.enable=true
+      - traefik.http.routers.client-app.rule=Host(`thetiptop.com`)
+      - traefik.http.routers.client-app.middlewares=network-internet@docker
+      - traefik.http.services.client-app.loadbalancer.server.port=8084
 
