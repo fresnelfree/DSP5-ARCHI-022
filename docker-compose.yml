@@ -4,8 +4,8 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
-  root_public:
-    external: true    
+  root_network_app:
+    external: true
 
 services:
   mysqldb:
@@ -58,13 +58,12 @@ services:
     depends_on:
       - mysqldb
     networks:
-      - thetiptop
-      - root_public
+      root_network_app:
     labels:
       - traefik.enable=true
       - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.api.com`)
       - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
-      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8083     
+      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8083
 
   client-app:
     container_name: client-app
@@ -88,8 +87,7 @@ services:
     depends_on:
       - server-app      
     networks:
-      - thetiptop
-      - root_public
+      root_network_app:
     labels:
       - traefik.enable=true
       - traefik.http.routers.client-app.rule=Host(`thetiptop.com`)

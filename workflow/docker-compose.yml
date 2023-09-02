@@ -2,6 +2,8 @@ version: '3.6'
 networks:
   mysql-phpmyadmin:
   mysql_network:
+  network_app:
+    driver: bridge
   private:
     ipam: 
       config:
@@ -42,6 +44,7 @@ services:
       - 443:443      
     networks:
       mysql_network:
+      network_app:
       public:
         ipv4_address: 192.168.3.254
       private:
