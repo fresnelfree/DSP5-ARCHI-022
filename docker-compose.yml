@@ -6,6 +6,8 @@ networks:
     driver: bridge
   root_network_app:
     external: true
+  # workflow_network_app:
+  #   external: true    
 
 services:
   mysqldb:
@@ -27,7 +29,8 @@ services:
       SERVICE_TAGS: prod
       SERVICE_NAME: mysqldb
     networks:
-      - thetiptop
+      # workflow_network_app:
+      root_network_app:
     labels:
       - traefik.enable=false    
 
@@ -59,6 +62,7 @@ services:
       - mysqldb
     networks:
       root_network_app:
+      # workflow_network_app:
     labels:
       - traefik.enable=true
       - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.api.com`)
@@ -80,7 +84,7 @@ services:
     #   - 8084
     environment:
       SERVEUR_HOST: mysqldb
-      APP_PORT: 8084
+      APP_PORT: 8090
       APP_HOST: 0.0.0.0
       SERVICE_TAGS: prod
       SERVICE_NAME: client-app
@@ -88,9 +92,10 @@ services:
       - server-app      
     networks:
       root_network_app:
+      # workflow_network_app:
     labels:
       - traefik.enable=true
-      - traefik.http.routers.client-app.rule=Host(`thetiptop.com`)
+      - traefik.http.routers.client-app.rule=Host(`thetiptop.client.com`)
       - traefik.http.routers.client-app.middlewares=network-internet@docker
-      - traefik.http.services.client-app.loadbalancer.server.port=8084
+      - traefik.http.services.client-app.loadbalancer.server.port=8090
 
