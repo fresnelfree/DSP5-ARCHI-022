@@ -65,9 +65,9 @@ services:
       # workflow_network_app:
     labels:
       - traefik.enable=true
-      - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.api.com`)
-      - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
-      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8083
+      - traefik.http.routers.server-app.rule=Host(`thetiptop.api.com`)
+      - traefik.http.routers.server-app.middlewares=network-internet@docker
+      - traefik.http.services.server-app.loadbalancer.server.port=8083
 
   client-app:
     container_name: client-app
