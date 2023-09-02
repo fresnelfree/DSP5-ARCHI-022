@@ -1,14 +1,8 @@
 version: '3'
-volumes:
-  mysql_db_ppd:
 networks:
-  thetiptop:
-    driver: bridge
-  root_mysql_network:
+  root_network_app:
     external: true
-  root_public:
-    external: true
-  # workflow_public:
+  # workflow_network_app:
   #   external: true
 
 services:
@@ -32,9 +26,8 @@ services:
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: frontapp
     networks:
-      - thetiptop
-      - root_public
-      # - workflow_public
+      # workflow_network_app:
+      root_network_app:
     labels:
       - traefik.enable=true
       - traefik.http.routers.client-app-ppd.rule=Host(`thetiptop.recette.com`)
