@@ -1,0 +1,158 @@
+version: '3.6'
+networks:
+  mysql-phpmyadmin:
+  mysql_network:
+  network_app:
+    driver: bridge
+  private:
+    ipam: 
+      config:
+        - subnet: 192.168.2.0/24
+  public:
+    ipam: 
+      config:
+        - subnet: 192.168.3.0/24
+  # traefik-network:
+  #   external: true
+  #   name: traefik-network
+
+volumes:
+  jenkins_home:
+  credentials:
+  mysql_db:
+  mysql_db5:
+
+services:
+  traefik:
+    restart: always
+    container_name: traefik.workflow.com
+    image: traefik:latest
+    # Enables the web UI and tells Traefik to listen to docker
+    command:
+    - --entryPoints.http.address=:80
+    - --entryPoints.https.address=:443          
+    - --api.insecure=true
+    - --providers.docker
+    - --accesslog=true
+    - --entrypoints.mysql.address=:3306    
+    ports:
+      # The HTTP port
+      - 80:80
+      - 8080:8080   
+      # - 8081:8081
+      # - 3306:3306 
+      - 443:443      
+    networks:
+      mysql_network:
+      network_app:
+      public:
+        ipv4_address: 192.168.3.254
+      private:
+        ipv4_address: 192.168.2.254      
+    volumes:
+      # So that Traefik can listen to the Docker events
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    labels:
+      - traefik.http.routers.traefik.rule=Host(`traefik.local.com`)
+      - traefik.http.services.traefik.loadbalancer.server.port=8080
+      - traefik.http.middlewares.network-internet.ipwhitelist.sourcerange=0.0.0.0/0
+      - traefik.tcp.middlewares.network-internet.ipwhitelist.sourcerange=0.0.0.0/0
+      - traefik.http.middlewares.network-internal.ipwhitelist.sourcerange=192.168.0.0/16,172.16.0.0/12,10.0.0.0/8
+      - traefik.http.middlewares.network-public.ipwhitelist.sourcerange=46.193.69.64/24
+      - traefik.tcp.middlewares.network-public.ipwhitelist.sourcerange=46.193.69.64/24     
+      - traefik.http.middlewares.network-private.ipwhitelist.sourcerange=192.168.2.0/24     
+
+  # jenkins:
+  #   # user: root
+  #   restart: always
+  #   image: jenkins/jenkins:latest
+  #   container_name: jenkins.workflow.com
+  #   networks:
+  #     mysql_network:
+  #     public:
+  #     private: 
+  #   ports:
+  #     - 50000:50000
+  #     # - 8081:8081         
+  #   volumes:
+  #     - credentials:/credentials
+  #     - jenkins_home:/var/jenkins_home
+  #     - /usr/bin/docker:/usr/bin/docker
+  #     - /usr/libexec:/usr/libexec
+  #     - /var/run/docker.sock:/var/run/docker.sock
+  #   labels:
+  #     - traefik.enable=true
+  #     - traefik.http.routers.jenkins.rule=Host(`jenkinsx.fr`)
+  #     # - traefik.http.routers.jenkins.rule=Host(`jenkins.workflow.com`)
+  #     - traefik.http.routers.jenkins.middlewares=network-internet@docker
+  #     - traefik.http.services.jenkins.loadbalancer.server.port=8080
+
+  # mysqldb:
+  #   image: mysql
+  #   container_name: mysqldb
+  #   # command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   volumes:
+  #     - "mysql_db:/var/lib/mysql"    
+  #   ports:
+  #     - 3306:3306
+  #   expose:
+  #     - 3306
+  #   environment:
+  #     MYSQL_USER: admin
+  #     MYSQL_PASSWORD: Dsp-archi-15
+  #     MYSQL_DATABASE: DSP5-ARCHI-DB
+  #     MYSQL_ROOT_PASSWORD: Dsp-archi-15
+  #     SERVICE_TAGS: prod
+  #     SERVICE_NAME: mysqldb
+  #   networks:
+  #     - mysql_network
+  #     # - public
+  #   labels:
+  #     - traefik.enable=false
+
+  # mysql-server:
+  #   image: mysql:5.7
+  #   container_name: mysql-server
+  #   # command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   volumes:
+  #     - "mysql_db5:/var/lib/mysql"    
+  #   ports:
+  #     - 3307:3306
+  #   expose:
+  #     - 3307
+  #   environment:
+  #     MYSQL_USER: admin
+  #     MYSQL_PASSWORD: Dsp-archi-15
+  #     MYSQL_DATABASE: DSP5-ARCHI-DB
+  #     MYSQL_ROOT_PASSWORD: Dsp-archi-15
+  #     SERVICE_TAGS: prod
+  #     SERVICE_NAME: mysql-server
+  #   networks:
+  #     - mysql_network
+  #     # - public
+  #   labels:
+  #     - traefik.enable=false
+
+  # phpmyadmin:
+  #   container_name: phpmyadmin
+  #   image: phpmyadmin/phpmyadmin
+  #   restart: always
+  #   depends_on:
+  #     - mysql-server
+  #   labels:
+  #     # - traefik.http.routers.phpmyadmin.middlewares=network-public@docker    
+  #     - traefik.enable=true
+  #     - traefik.http.routers.phpmyadmin.rule=Host(`phpmyadmin.workflow.com`)
+  #     - traefik.http.routers.phpmyadmin.middlewares=network-internet@docker
+  #     - traefik.http.services.phpmyadmin.loadbalancer.server.port=80
+  #   networks:
+  #     mysql_network:
+  #     public:
+  #   environment:
+  #     - PMA_ARBITRARY=1
+  #     - PMA_HOST=mysql-server
+  #     - PMA_PORT=3307
+  #   volumes:
+  #     - /sessions
