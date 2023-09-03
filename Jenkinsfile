@@ -1,8 +1,31 @@
 pipeline{
 //   agent { dockerfile true }
   agent any
+
+  tools{
+    nodejs 'node'
+  }
+
   environment {  
-    DB_DATABASE_PROD_secret = credentials('DB_DATABASE_PROD')
+    // DB_DATABASE = credentials('DB_DATABASE')
+    // APP_HOST = credentials('APP_HOST')
+    // APP_PORT = credentials('APP_PORT')
+    // DB_HOST = credentials('DB_HOST')
+    // DB_PORT = credentials('DB_PORT')
+    // DB_USER = credentials('DB_USER')
+    // DB_PWD = credentials('DB_PWD')
+
+    DOCKER_HUB_PWD = credentials('DOCKER_HUB_PASSWORD')
+    DOCKER_HUB_USR = credentials('DOCKER_HUB_USERNAME')
+    DB_HOST = "109.123.254.17"
+    DB_PORT = 3307
+    DB_USER = 'root'
+    APP_PORT = 3000
+    APP_HOST = 'localhost'
+    DB_PWD = 'Dsp-archi-15'
+    DB_DATABASE = 'DSP5-ARCHI-DB'
+    DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
+    // DOCKER_HOST = "/var/run/docker.sock"
   }
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr:'5', daysToKeepStr: '', numToKeepStr: '5')
@@ -10,46 +33,128 @@ pipeline{
   }
 
   stages {
-    stage('Build') {
+
+    stage('BUILD') { 
+
       steps {
-        echo "Running build automation !!"
+
+        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE BUILD #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+
+        echo "####################################################### STAGE BUILD BACK-END #######################################################"
         dir('back-end/') {
-          sh "env | sort"
+
+          echo "************************ INSTALLING BACK-END DEPENDENCIES ************************"
           sh "npm install"
-          sh "npm run build"
-        }          
+
+          echo "************************ BUILD OF PROJECT ************************"
+          sh "npm run rebuild"   
+        }  
+
+        echo "####################################################### STAGE BUILD FRONT-END #######################################################"
+        
+        dir('front-end/') {
+
+          echo "************************ INSTALLING FRONT-END DEPENDENCIES ************************"
+          sh "npm install"
+
+          echo "************************ BUILD OF PROJECT ************************"
+          sh "npm run build"   
+        }                 
+      }  
+
+    }  
+
+    stage('UNIT TEST') {   
+
+      steps {
+
+        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE UNIT TEST #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+
+        echo "####################################################### STAGE UNIT TEST BACK-END #######################################################"
+        dir('back-end/') {
+
+          echo "************************ TEST OF PROJECT WITH MOCHA JS ************************"  
+          sh "npm run test:prod"
+        } 
+
+        echo "####################################################### STAGE UNIT TEST FRONT-END #######################################################"
+        dir('front-end/') {
+
+          echo "************************ TEST OF PROJECT WITH CYPRESS ************************"  
+          echo "A METTRE EN PLACE"
+        }            
       }
     }
-    stage('Automated Testing') {
-      steps {
-        echo "Automated Testing !!!"
-        sh "env: ${env.DB_DATABASE_PROD_secret}"
-      }
-    }    
-    stage('Build Docker Image') {
+
+    stage('DEPLOY') {
+
+      // when {
+      //   branch 'main'
+      //   branch 'develop'
+      //   branch 'DA-95'
+      //   branch 'PR-*'
+      // } 
       when {
-          branch 'main'
-      }      
-      steps {
-        echo "Build Docker Image"      
-        dir('serveur/') {
-          sh "docker build -t fresnelcool/server-app-v.0.0.1 ."
-        }         
-        // sh "docker run -p 3000:3000 -d fresnelcool/server-app-v.0.0.1"        
-      }
-    }
-    stage('Push Docker Image') {
-        when {
-            branch 'main'
-        }
-        steps {
-          script {
-            docker.withRegistry('https://registry.hub.docker.com', 'DOCKER_HUB_LOGIN') {
-              // Push the Docker image to Docker Hub
-              docker.image('fresnelcool/server-app-v.0.0.1').push()
+          not {
+              branch "DA-*"
+          }
+      }       
+      steps{
+
+        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE DEPLOY #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+        script {
+          if (env.GIT_BRANCH == 'main') {
+
+            echo "####################################################### STAGE DEPLOY APP #######################################################"
+            
+            echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+            sh "docker compose down"
+            sh "docker compose up -d --build"
+
+            echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+            sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+            sh "docker push fresnelcool/server-app:v0"
+            sh "docker push fresnelcool/client-app:v0"
+
+          }
+          else if (env.GIT_BRANCH == 'develop') {           
+
+            echo "####################################################### STAGE DEPLOY BACK-END #######################################################"
+            dir('back-end/'){
+
+              echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+              sh "docker compose down"
+              sh "docker compose up -d --build"
+
+              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+              sh "docker push fresnelcool/server-app-ppd:v0"          
+
+            }   
+
+            echo "####################################################### STAGE DEPLOY FRONT-END #######################################################"
+            dir('front-end/'){
+
+              echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+              sh "docker compose down"
+              sh "docker compose up -d --build"
+
+              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+              sh "docker push fresnelcool/client-app-ppd:v0"          
+
             }
-          } 
+
+          }
+          else {
+
+          }
         }
-    }        
+ 
+
+      }
+
+    }    
+
   }
 }

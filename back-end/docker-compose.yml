@@ -1,62 +1,68 @@
 version: '3'
-volumes:
-  mysql_db_ppd:
+# volumes:
+#   mysql_db_ppd:
 networks:
-  thetiptop:
-    driver: bridge
+  root_network_app:
+    external: true    
+  # workflow_network_app:
+  #   external: true
+
 
 services:
-  mysqldb:
-    image: mysql:8.0
-    container_name: mysqldb
-    command: --default-authentication-plugin=mysql_native_password
-    restart: always
-    volumes:
-      - "mysql_db_ppd:/var/lib/mysql"    
-    ports:
-      - 3306:3306
-    expose:
-      - 3306
-    environment:
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: Dsp-archi-15
-      MYSQL_DATABASE: DSP5-ARCHI-DB
-      MYSQL_ROOT_PASSWORD: Dsp-archi-15
-      SERVICE_TAGS: prod
-      SERVICE_NAME: mysqldb
-    networks:
-      - thetiptop
-    labels:
-      - traefik.enable=false    
-
-  app:
-    container_name: appcon
-    build: .
-      # context: .
-      # dockerfile: Dockerfile
-    image: appcont
+  server-app-ppd:
+    container_name: server-app-ppd
+    build:
+      context: .
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: fresnelcool/server-app-ppd:v0
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
-    ports:
-      - 4000:4000
-    expose:
-      - 4000
+    # ports:
+    #   - 127.0.0.1:8089:8089
+    # expose:
+    #   - 8089
     environment:
-      DB_HOST_DEV: mysqldb
-      DB_PORT_DEV: 3306
-      DB_USER_DEV: root
-      APP_PORT_DEV: 4000
-      # APP_HOST_DEV: localhost
-      DB_PWD_DEV: Dsp-archi-15
-      DB_DATABASE_DEV: DSP5-ARCHI-DB
+      APP_PORT: 8089
+      APP_HOST: 0.0.0.0    
+      DB_HOST: 109.123.254.17
+      DB_PORT: 3307
+      DB_USER: root
+      DB_PWD: Dsp-archi-15
+      DB_DATABASE: DSP5-ARCHI-DB
       DB_CONNECTION_LIMIT: 20
-      SERVICE_TAGS: prod
+      SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp
-    depends_on:
-      - mysqldb
+    # depends_on:
+    #   - mysqldb-ppd
     networks:
-      - thetiptop
+      # workflow_network_app:
+      root_network_app:
     labels:
-      - traefik.enable=false
-      
+      - traefik.enable=true
+      - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.recette.api.com`)
+      - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
+      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8089   
+
+  # mysqldb-ppd:
+  #   image: mysql:8.0
+  #   container_name: mysqldb-ppd
+  #   command: --default-authentication-plugin=mysql_native_password
+  #   restart: always
+  #   volumes:
+  #     - "mysql_db_ppd:/var/lib/mysql"    
+  #   ports:
+  #     - 3307:3306
+  #   expose:
+  #     - 3307
+  #   environment:
+  #     MYSQL_USER: admin
+  #     MYSQL_PASSWORD: Dsp-archi-15
+  #     MYSQL_DATABASE: DSP5-ARCHI-DB
+  #     MYSQL_ROOT_PASSWORD: Dsp-archi-15
+  #     SERVICE_TAGS: prod
+  #     SERVICE_NAME: mysqldb-ppd
+  #   networks:
+  #     - thetiptop
+  #   labels:
+  #     - traefik.enable=false    

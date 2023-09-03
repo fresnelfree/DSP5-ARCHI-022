@@ -1,0 +1,35 @@
+version: '3'
+networks:
+  root_network_app:
+    external: true
+  # workflow_network_app:
+  #   external: true
+
+services:
+  client-app-ppd:
+    container_name: client-app-ppd
+    build:
+      context: .
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: fresnelcool/client-app-ppd:v0
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    # ports:
+    #   - 8090:8090
+    # expose:
+    #   - 8090
+    environment:
+      SERVEUR_HOST: mysqldb
+      APP_PORT: 8090
+      APP_HOST: 0.0.0.0
+      SERVICE_TAGS: pre-prod
+      SERVICE_NAME: frontapp
+    networks:
+      # workflow_network_app:
+      root_network_app:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.client-app-ppd.rule=Host(`thetiptop.recette.com`)
+      - traefik.http.routers.client-app-ppd.middlewares=network-internet@docker
+      - traefik.http.services.client-app-ppd.loadbalancer.server.port=8090

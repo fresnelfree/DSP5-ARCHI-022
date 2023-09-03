@@ -4,6 +4,10 @@ volumes:
 networks:
   thetiptop:
     driver: bridge
+  root_network_app:
+    external: true
+  # workflow_network_app:
+  #   external: true    
 
 services:
   mysqldb:
@@ -25,37 +29,73 @@ services:
       SERVICE_TAGS: prod
       SERVICE_NAME: mysqldb
     networks:
-      - thetiptop
+      # workflow_network_app:
+      root_network_app:
     labels:
       - traefik.enable=false    
 
-  back-end:
+  server-app:
     container_name: server-app
     build: 
       context: ./back-end/
       dockerfile: Dockerfile
-    image: back-end:v0
+    image: fresnelcool/server-app:v0
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
-    ports:
-      - 4000:4000
-    expose:
-      - 4000
+    # ports:
+    #   - 8083:8083
+    # expose:
+    #   - 8083
     environment:
+      APP_PORT: 8083
+      APP_HOST: 0.0.0.0    
       DB_HOST: mysqldb
       DB_PORT: 3306
       DB_USER: root
-      APP_PORT: 4000
-      APP_HOST: production
       DB_PWD: Dsp-archi-15
       DB_DATABASE: DSP5-ARCHI-DB
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: prod
-      SERVICE_NAME: nodeapp
+      SERVICE_NAME: server-app
     depends_on:
       - mysqldb
     networks:
-      - thetiptop
+      root_network_app:
+      # workflow_network_app:
     labels:
-      - traefik.enable=false      
+      - traefik.enable=true
+      - traefik.http.routers.server-app.rule=Host(`thetiptop.api.com`)
+      - traefik.http.routers.server-app.middlewares=network-internet@docker
+      - traefik.http.services.server-app.loadbalancer.server.port=8083
+
+  client-app:
+    container_name: client-app
+    build:
+      context: ./front-end/
+      dockerfile: Dockerfile
+    image: fresnelcool/client-app:v0
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    # ports:
+    #   - 8084:8090
+    # expose:
+    #   - 8084
+    environment:
+      SERVEUR_HOST: mysqldb
+      APP_PORT: 8090
+      APP_HOST: 0.0.0.0
+      SERVICE_TAGS: prod
+      SERVICE_NAME: client-app
+    depends_on:
+      - server-app      
+    networks:
+      root_network_app:
+      # workflow_network_app:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.client-app.rule=Host(`thetiptop.client.com`)
+      - traefik.http.routers.client-app.middlewares=network-internet@docker
+      - traefik.http.services.client-app.loadbalancer.server.port=8090
+
