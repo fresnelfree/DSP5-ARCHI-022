@@ -19,7 +19,7 @@ describe('PingController', () => {
       "mail": "string@gmal.com",
       "pwd": "string"
     }
-    const res = await client.post('/comptes').send(data).expect(200);
+    const res = await client.post('/users/register').send(data).expect(200);
     expect(res.body).to.have.property("mail","string@gmal.com");
   });
 });

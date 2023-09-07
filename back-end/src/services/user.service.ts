@@ -1,11 +1,9 @@
-// import {UserService} from '@loopback/authentication';
-import {model, repository} from '@loopback/repository';
+import {repository} from '@loopback/repository';
 import {HttpErrors} from '@loopback/rest';
-import {securityId, UserProfile} from '@loopback/security';
 import {compare} from 'bcryptjs';
 import { Compte, User } from '../models';
 import { ClientRepository, CompteRepository, EmployeRepository } from '../repositories';
-import { BindingScope, bind, inject, injectable } from '@loopback/core';
+import { BindingScope, bind, inject } from '@loopback/core';
 
 @bind({scope: BindingScope.TRANSIENT})
 export class UserService {

@@ -1,10 +1,7 @@
 // ---------- ADD IMPORTS -------------
 import {inject} from '@loopback/core';
 import {
-  TokenServiceBindings,
-  MyUserService,
-  UserServiceBindings,
-  UserRepository,
+  TokenServiceBindings
 } from '@loopback/authentication-jwt';
 import {authenticate, TokenService} from '@loopback/authentication';
 // ----------------------------------

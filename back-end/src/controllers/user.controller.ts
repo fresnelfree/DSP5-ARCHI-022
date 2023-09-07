@@ -1,17 +1,19 @@
 // Uncomment these imports to begin using these cool features!
-
-// import {inject} from '@loopback/core';
 import { getModelSchemaRef, post,get, requestBody, response } from "@loopback/rest";
 import { Compte } from "../models";
-import {genSalt, hash} from 'bcryptjs';
 import { inject, service } from "@loopback/core";
 import { TokenServiceBindings } from "@loopback/authentication-jwt";
 import { TokenService, authenticate } from "@loopback/authentication";
 import {securityId,SecurityBindings, UserProfile} from '@loopback/security';
 import { UserService } from "../services";
+import { CompteRepository } from "../repositories";
+import {genSalt, hash} from 'bcryptjs';
+import { repository } from "@loopback/repository";
 
 export class UserController {
   constructor(
+    @repository(CompteRepository)
+    public compteRepository : CompteRepository,
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: TokenService,    
     @inject('services.UserService') 
@@ -57,7 +59,29 @@ export class UserController {
   // create a JSON Web Token based on the user profile
   const token = await this.jwtService.generateToken(userProfile);    
     return {token};
-  }     
+  }
+  
+  @post('/users/register')
+  @response(200, {
+    description: 'Compte model instance',
+    content: {'application/json': {schema: getModelSchemaRef(Compte)}},
+  })
+  async create(
+    @requestBody({
+      content: {
+        'application/json': {
+          schema: getModelSchemaRef(Compte, {
+            title: 'NewCompte',
+            exclude: ['id'],
+          }),
+        },
+      },
+    })
+    compte: Omit<Compte, 'id'>,
+  ): Promise<Compte> {
+    compte.pwd = await hash(compte.pwd, await genSalt())
+    return this.compteRepository.create(compte);
+  }  
   
   @authenticate('jwt')
   @get('/whoami')
