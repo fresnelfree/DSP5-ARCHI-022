@@ -1,12 +1,12 @@
 // Uncomment these imports to begin using these cool features!
-import { getModelSchemaRef, post,get, requestBody, response } from "@loopback/rest";
-import { Compte } from "../models";
+import { getModelSchemaRef, post,get, requestBody, response, HttpErrors } from "@loopback/rest";
+import { Client, Compte, Employe, User } from "../models";
 import { inject, service } from "@loopback/core";
 import { TokenServiceBindings } from "@loopback/authentication-jwt";
 import { TokenService, authenticate } from "@loopback/authentication";
 import {securityId,SecurityBindings, UserProfile} from '@loopback/security';
 import { UserService } from "../services";
-import { CompteRepository } from "../repositories";
+import { ClientRepository, CompteRepository, EmployeRepository } from "../repositories";
 import {genSalt, hash} from 'bcryptjs';
 import { repository } from "@loopback/repository";
 
@@ -14,12 +14,20 @@ export class UserController {
   constructor(
     @repository(CompteRepository)
     public compteRepository : CompteRepository,
+    @repository(ClientRepository)
+    public clientRepository : ClientRepository,    
+    @repository(EmployeRepository)
+    public employeRepository : EmployeRepository, 
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: TokenService,    
     @inject('services.UserService') 
-    public userService: UserService,
-    @inject(SecurityBindings.USER, {optional: true})
-    public user: UserProfile,    
+    public userService: UserService,  
+    @inject('models.Client')
+    public client: Client,
+    @inject('models.Employe')
+    public employe: Employe,
+    @inject('models.Compte')
+    public compte: Compte         
   ) {}
 
 
@@ -64,23 +72,71 @@ export class UserController {
   @post('/users/register')
   @response(200, {
     description: 'Compte model instance',
-    content: {'application/json': {schema: getModelSchemaRef(Compte)}},
+    content: {'application/json': {schema: getModelSchemaRef(User)}},
   })
   async create(
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Compte, {
-            title: 'NewCompte',
-            exclude: ['id'],
+          schema: getModelSchemaRef(User, {
+            title: 'NewUser',
+            exclude: ['securityId'],
           }),
         },
       },
     })
-    compte: Omit<Compte, 'id'>,
+    user: User,
   ): Promise<Compte> {
-    compte.pwd = await hash(compte.pwd, await genSalt())
-    return this.compteRepository.create(compte);
+    const invalidUserRoleError = "Invalid user role"
+    const invalidInfosError = "Invalid informations"   
+
+    this.compte.mail = user.email 
+    this.compte.pwd = await hash(user.pwd, await genSalt())
+
+    if (user.role !== "Caissier" && user.role !== "Admin" && user.role !== "Client"){
+      throw new HttpErrors.BadRequest(invalidUserRoleError)
+    }
+
+    const comp = await this.compteRepository.create({
+      'mail':user.email,
+      'pwd': await hash(user.pwd, await genSalt())
+    })
+
+    if (!comp) {
+      throw new HttpErrors.BadRequest(invalidInfosError)
+    }
+
+    // const data ={
+    //   'adresse': user.adresse,
+    //   'email': user.email,
+    //   'nom': user.nom,
+    //   'prenom': user.prenom,
+    //   'id_compte': comp.id,
+    //   'tel': user.tel
+    // }
+
+    if(user.role === "Client"){
+      this.client = await this.clientRepository.create({
+      'adresse': user.adresse,
+      'email': user.email,
+      'nom': user.nom,
+      'prenom': user.prenom,
+      'id_compte': comp.id,
+      'tel': user.tel
+    })
+    }
+    else {
+      this.employe = await this.employeRepository.create({
+        'adresse': user.adresse,
+        'mail': user.email,
+        'nom': user.nom,
+        'prenom': user.prenom,
+        'id_compte': comp.id,
+        'tel': user.tel,
+        'role': user.role
+      })
+    }
+    return comp;
   }  
   
   @authenticate('jwt')

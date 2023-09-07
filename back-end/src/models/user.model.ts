@@ -7,7 +7,13 @@ export class User extends Model {
     type: 'string',
     required: false,
   })
-  fullname: string;
+  nom: string;
+
+  @property({
+    type: 'string',
+    required: false,
+  })
+  prenom: string;
 
   @property({
     type: 'string',
@@ -32,6 +38,12 @@ export class User extends Model {
     default: "Client",
   })
   role?: string;
+
+  @property({
+    type: 'string',
+    default: "Client",
+  })
+  pwd: string;
 
   @property({
     type: 'string',

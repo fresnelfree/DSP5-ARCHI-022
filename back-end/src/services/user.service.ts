@@ -50,7 +50,8 @@ export class UserService {
     const userNotExistError = "Aucun user pour ce compte"
     if (client) {
       this.user.securityId = client.id?.toString() || ""
-      this.user.fullname = client.prenom + " " + client.nom
+      this.user.nom = client.nom || ""
+      this.user.prenom = client.prenom || ""   
       this.user.tel = client.tel || ""
       this.user.email = client.email || ""
       this.user.adresse = client.adresse || ""
@@ -61,7 +62,8 @@ export class UserService {
         throw new HttpErrors.Unauthorized(userNotExistError);
       }
       this.user.securityId = employe?.id?.toString() || ""
-      this.user.fullname = employe?.prenom + " " + employe?.nom
+      this.user.nom = employe?.nom || ""
+      this.user.prenom = employe?.prenom || ""     
       this.user.tel = employe?.tel || ""
       this.user.email = employe?.email || ""
       this.user.adresse = employe?.adresse || ""       
