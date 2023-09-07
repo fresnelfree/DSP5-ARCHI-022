@@ -28,7 +28,7 @@ export class Compte extends Entity {
     type: 'string',
     length: 10,
     generated: 0,
-    mysql: {columnName: 'pwd', dataType: 'varchar', dataLength: 10, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+    mysql: {columnName: 'pwd', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
   pwd?: string;
 
