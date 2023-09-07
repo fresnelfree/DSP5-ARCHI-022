@@ -20,7 +20,9 @@ import {
   Gains,
 } from '../models';
 import {RepartitionRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class RepartitionGainsController {
   constructor(
     @repository(RepartitionRepository) protected repartitionRepository: RepartitionRepository,

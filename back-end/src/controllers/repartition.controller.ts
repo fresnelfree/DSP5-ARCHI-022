@@ -19,7 +19,9 @@ import {
 } from '@loopback/rest';
 import {Repartition} from '../models';
 import {RepartitionRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class RepartitionController {
   constructor(
     @repository(RepartitionRepository)

@@ -20,7 +20,9 @@ import {
   Client,
 } from '../models';
 import {CompteRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class CompteClientController {
   constructor(
     @repository(CompteRepository) protected compteRepository: CompteRepository,

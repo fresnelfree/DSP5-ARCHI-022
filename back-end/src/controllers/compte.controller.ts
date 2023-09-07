@@ -1,3 +1,13 @@
+// ---------- ADD IMPORTS -------------
+import {inject} from '@loopback/core';
+import {
+  TokenServiceBindings,
+  MyUserService,
+  UserServiceBindings,
+  UserRepository,
+} from '@loopback/authentication-jwt';
+import {authenticate, TokenService} from '@loopback/authentication';
+// ----------------------------------
 import {
   Count,
   CountSchema,
@@ -19,9 +29,19 @@ import {
 } from '@loopback/rest';
 import {Compte} from '../models';
 import {CompteRepository} from '../repositories';
+import {genSalt, hash} from 'bcryptjs';
 
+@authenticate('jwt')
 export class CompteController {
   constructor(
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
+    public jwtService: TokenService,
+    // @inject(UserServiceBindings.USER_SERVICE)
+    // public userService: MyUserService,
+    // @inject(SecurityBindings.USER, {optional: true})
+    // public user: UserProfile,
+    // @repository(UserRepository) 
+    // protected userRepository: UserRepository,    
     @repository(CompteRepository)
     public compteRepository : CompteRepository,
   ) {}
@@ -44,6 +64,7 @@ export class CompteController {
     })
     compte: Omit<Compte, 'id'>,
   ): Promise<Compte> {
+    compte.pwd = await hash(compte.pwd, await genSalt())
     return this.compteRepository.create(compte);
   }
 

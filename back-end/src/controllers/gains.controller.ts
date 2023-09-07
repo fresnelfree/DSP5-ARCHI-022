@@ -19,7 +19,9 @@ import {
 } from '@loopback/rest';
 import {Gains} from '../models';
 import {GainsRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class GainsController {
   constructor(
     @repository(GainsRepository)
