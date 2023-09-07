@@ -49,12 +49,12 @@
   "dependencies": {
     "@loopback/authentication": "^10.1.2",
     "@loopback/authentication-jwt": "^0.14.2",
-    "@loopback/boot": "^5.0.10",
+    "@loopback/boot": "^6.1.2",
     "@loopback/core": "^5.1.2",
-    "@loopback/repository": "^5.1.5",
-    "@loopback/rest": "^12.0.10",
-    "@loopback/rest-explorer": "^5.0.10",
-    "@loopback/service-proxy": "^5.0.10",
+    "@loopback/repository": "^6.1.2",
+    "@loopback/rest": "^13.1.2",
+    "@loopback/rest-explorer": "^6.1.2",
+    "@loopback/service-proxy": "^6.1.2",
     "cross-env": "^7.0.3",
     "dotenv": "^16.1.4",
     "loopback-connector-mysql": "^5.4.4",
@@ -62,14 +62,14 @@
     "tslib": "^2.0.0"
   },
   "devDependencies": {
-    "@loopback/build": "^9.0.10",
-    "@loopback/eslint-config": "^13.0.10",
-    "@loopback/testlab": "^5.0.10",
-    "@types/node": "^14.18.42",
-    "eslint": "^8.38.0",
+    "@loopback/build": "^10.1.2",
+    "@loopback/eslint-config": "^14.0.3",
+    "@loopback/testlab": "^6.1.2",
+    "@types/node": "^16.18.40",
+    "eslint": "^8.47.0",
     "nodemon": "^2.0.22",
     "source-map-support": "^0.5.21",
-    "typescript": "~4.9.5"
+    "typescript": "~5.1.6"
   },
   "nodemonConfig": {
     "verbose": true,
