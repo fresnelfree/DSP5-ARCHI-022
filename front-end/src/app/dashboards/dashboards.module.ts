@@ -7,6 +7,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { ContentComponent } from './content/content.component';
+import { ClientListComponent } from './clients/client-list/client-list.component';
+import { ClientEditComponent } from './clients/client-edit/client-edit.component';
+
 
 
 
@@ -16,7 +19,10 @@ import { ContentComponent } from './content/content.component';
     SidebarComponent,
     HeaderComponent,
     FooterComponent,
-    ContentComponent
+    ContentComponent,
+    ClientListComponent,
+    ClientEditComponent,
+
   ],
   imports: [
     CommonModule,
