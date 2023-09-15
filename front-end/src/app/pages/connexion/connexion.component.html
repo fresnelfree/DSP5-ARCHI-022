@@ -1,71 +1,83 @@
-<!-- <app-navbar></app-navbar>
-<div class="container">
-  <p>connexion works!</p>
-</div> -->
-<div class="container">
-  <h1>test des services :</h1>
-   <ul *ngFor="let user of users">
-    <li> {{user.name}} </li>
-   </ul>
-</div>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <div class="row align-items-center justify-content-center">
+    <div class="col-md-8 col-lg-5">
+        <div class="col-xl-11 p-5" ><br/><br/>
+            <div class="card">
 
-<div class="row align-items-center justify-content-center">
-  <div class="col-md-8 col-lg-5">
-      <div class="col-xl-11 p-5" ><br/><br/>
-          <div class="card">
+                <div class="card-body p-4">
+                    <div class="text-center">
+                        <a routerLink="/" class="">
+                            <img src="" class="logoSize" alt="">
+                        </a>
+                    </div>
+                    <div class="text-center mt-2">
+                        <h1 class="text-primary">Connexion sécurisée</h1>
+                    </div>
+                    <div class="p-2 mt-4">
+                        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-              <div class="card-body p-4">
-                  <div class="text-center">
-                      <a routerLink="/" class="">
-                          <img src="" class="logoSize" alt="">
-                      </a>
-                  </div>
-                  <div class="text-center mt-2">
-                      <h1 class="text-primary">Connexion sécurisée</h1>
-                  </div>
-                  <div class="p-2 mt-4">
-                      <form >
+                          <!-- EMAIL INPUT -->
+                            <div class="mb-3">
+                                <div class="form-floating mb-3">
+                                    <input formControlName="email" type="email"  name="myAddress" required class="form-control" placeholder="Adresse email">
+                                    <label for="floatingnameInput">Adresse email</label>
+                                    <!-- MESSAGE D'ERREUR EMAIL -->
+                                    <small class="form-text text-muted" *ngFor="let error of error_messages.email">
+                                      <p class="text-danger" *ngIf="loginForm.controls['email'].hasError(error.type) && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
+                                          {{error.message}}
+                                      </p>
+                                  </small>
+                                </div>
+                            </div>
 
-                          <div class="mb-3">
-                              <div class="form-floating mb-3">
-                                  <input  type="email"  name="myAddress" required class="form-control" placeholder="Adresse email">
-                                  <label for="floatingnameInput">Adresse email</label>
-                              </div>
-                          </div>
+                            <!-- PASSWORD INPUT -->
+                            <div class="mb-3">
+                                <div class="form-floating mb-3">
+                                    <input [class.is-invalid] formControlName="password" type="password"  required name="password" class="form-control" placeholder="Mot de passe">
+                                    <label for="floatingnameInput">Mot de passe</label>
+                                      <!-- MESSAGE D'ERREUR PASSWORD -->
+                                      <small class="form-text text-muted" *ngFor="let error of error_messages.password">
+                                        <p class="text-danger" *ngIf="loginForm.controls['password'].hasError(error.type) && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                                            {{error.message}}
+                                        </p>
+                                    </small>
+                                </div>
+                            </div>
 
-                          <div class="mb-3">
-                              <div class="form-floating mb-3">
-                                  <input type="password"  required name="password" class="form-control" placeholder="Mot de passe">
-                                  <label for="floatingnameInput">Mot de passe</label>
-                                  <p  class="text-danger"></p>
-                              </div>
+                            <!-- MOT DE PASSE OUBLIE -->
+                            <div class="row">
+                                <div class="col-lg-12" style="text-align: right;">
+                                    <a routerLink="/" class="text-muted">Mot de passe oublié ?</a>
+                                </div>
+                            </div>
 
-                          </div>
-                          <div class="row">
-                              <div class="col-lg-12" style="text-align: right;">
-                                  <a routerLink="/" class="text-muted">Mot de passe oublié ?</a>
-                              </div>
-                          </div>
+                            <!-- BOUTTON CONNEXION -->
+                            <div class="mt-3 d-grid gap-2">
+                                <button [disabled]="!loginForm.valid" type="submit" class="btn btn-primary w-lg waves-effect waves-light" > Connexion </button>
+                            </div>
 
-                          <div class="mt-3 d-grid gap-2">
-                              <button  class="btn btn-primary w-lg waves-effect waves-light" type="submit"> Connexion </button>
-                          </div>
+                            <div class="mt-4 text-center">
+                                <p class="mb-0">Vous n'avez pas de compte ? <a routerLink="/inscription" class="fw-medium text-primary"> S'inscrire maintenant </a> </p>
+                            </div>
+                        </form>
 
-                          <div class="mt-4 text-center">
-                              <p class="mb-0">Vous n'avez pas de compte ? <a routerLink="/inscription" class="fw-medium text-primary"> S'inscrire maintenant </a> </p>
-                          </div>
-                      </form>
+                    </div>
 
-                  </div>
-
-              </div>
-              <div class="text-center">
-                  <p> © 2023 Tous droits réservés </p>
-              </div>
-          </div>
-      </div>
+                </div>
+                <div class="text-center">
+                    <p> © 2023 Tous droits réservés </p>
+                </div>
+            </div>
+        </div>
+    </div>
   </div>
-</div>
+</form>
+
+<!-- <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+  <label for="first-name">First Name: </label>
+  <input id="first-name" type="text" formControlName="email">
 
 
 
+  <button type="submit" [disabled]="!loginForm.valid">Submit</button>
+</form> -->

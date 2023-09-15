@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CoresModule } from './cores/cores.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,

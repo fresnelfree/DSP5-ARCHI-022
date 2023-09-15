@@ -11,7 +11,7 @@ import { AproposComponent } from './apropos/apropos.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import { NavbarComponent } from '../shareds/navbar/navbar.component';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,11 +23,14 @@ import { NavbarComponent } from '../shareds/navbar/navbar.component';
     AproposComponent,
     ForgotPasswordComponent,
     JeuxComponent,
-    NavbarComponent
+    NavbarComponent,
+
   ],
   imports: [
     CommonModule,
-    PagesRoutingModule
+    PagesRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class PagesModule { }
