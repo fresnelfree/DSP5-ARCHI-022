@@ -17,11 +17,13 @@ export class ConnexionComponent {
 
  //Dans ngonInit, on recuper les logins
 
- ngOnInit(): void {
-  this.getLogin();
-}
+  ngOnInit(): void {
+    this.getUsers();
+  }
 
-getLogin(): void {
-  this.users = this._loginService.getUsers().subscribe(users => this.users = users)
-}
+  getUsers(): void {
+    this.users = this._loginService.getUsers().subscribe(users => this.users = users)
+  }
+
+  // getUser()
 }
