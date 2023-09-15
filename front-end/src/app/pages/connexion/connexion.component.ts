@@ -9,7 +9,7 @@ import { LoginService } from 'src/app/cores/services/login.service';
 })
 export class ConnexionComponent {
 
-  public logins: any;
+  public users: any = null;
 
  constructor(private _loginService: LoginService){
   // this.logins = any
@@ -22,6 +22,6 @@ export class ConnexionComponent {
 }
 
 getLogin(): void {
-  this.logins = this._loginService.getLogin()
+  this.users = this._loginService.getUsers().subscribe(users => this.users = users)
 }
 }
