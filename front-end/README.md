@@ -27,7 +27,11 @@ Exemple 1: Créer un component(page), qui sera ratacher au module page.module.ts
 exemple2: créer un component dans le dossier shareds qui se ratache a app.module.ts
 `ng g c /shared/page-not-found -m=app`
 ##### Créer un service
-`ng g s   deossier/service-name`
+`ng g s   dossier/service-name`
+
+exemple : `ng g s   cores/services/login`
+aprés avoir créé le services, il faut l'importer dans le provider du module
+(cores.modules.ts)
 ##### Créer une classe
 `ng g c   deossier/classe-name`
 ##### Créer une interface

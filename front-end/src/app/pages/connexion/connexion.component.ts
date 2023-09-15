@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { any } from 'cypress/types/bluebird';
+import { LoginService } from 'src/app/cores/services/login.service';
 
 @Component({
   selector: 'app-connexion',
@@ -7,4 +9,19 @@ import { Component } from '@angular/core';
 })
 export class ConnexionComponent {
 
+  public logins: any;
+
+ constructor(private _loginService: LoginService){
+  // this.logins = any
+ }
+
+ //Dans ngonInit, on recuper les logins
+
+ ngOnInit(): void {
+  this.getLogin();
+}
+
+getLogin(): void {
+  this.logins = this._loginService.getLogin()
+}
 }
