@@ -1,7 +1,20 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators,  FormArray  } from '@angular/forms';
-import { any } from 'cypress/types/bluebird';
-import { LoginService } from 'src/app/cores/services/login.service';
+import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/cores/services/authentication-service.service';
+
+
+//Hedaer Option
+const httpOption = {
+  headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+
+  })
+};
 
 @Component({
   selector: 'app-connexion',
@@ -11,13 +24,20 @@ import { LoginService } from 'src/app/cores/services/login.service';
 export class ConnexionComponent {
 
   public usersData: any = null;
+  public userLogin: any;
+  private submitted;
 
 
- constructor(private fb: FormBuilder ,private _loginService: LoginService){}
+  constructor(
+      private router: Router,
+      private fb: FormBuilder ,
+      private route: ActivatedRoute,
+      private _authService: AuthenticationService,
+      private http: HttpClient,
+    ){
+      this.submitted = false;
+    }
 
-  ngOnInit(): void {
-    this.getUser();
-  }
 
   /********************************************************************
    *
@@ -33,7 +53,7 @@ export class ConnexionComponent {
       {type:'required', message:'Le mot de passe est obligqtoire.'},
        {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
 
   }
@@ -49,34 +69,66 @@ export class ConnexionComponent {
 
     password: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(8),
+      Validators.minLength(4),
       Validators.maxLength(200),
-      Validators.pattern(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-      ),
+      // Validators.pattern(
+      //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
+      // ),
     ])),
 
   })
+
+    // Getter pour un accès facile aux champs du formulaire (loginForm)
+    get f() { return this.loginForm.value; }
 
   /********************************************************************
    *                  GESTION LOGIN
    *
    ********************************************************************/
+
+
   onSubmit() {
-    // TODO: Use EventEmitter with form value
-    console.warn(this.loginForm.value);
+      this.submitted = true;
+
+        // Si on a des erreurs on stop
+        if (this.loginForm.invalid) {
+          return;
+      }
+
+    this.http.post('thetiptop.recette.api.com/users/login', this.loginForm.getRawValue(), httpOption).subscribe(
+      data => {
+        console.log(data)
+      },
+      err => {
+        console.log(err);
+      }
+
+    )
+
   }
 
-  // getUsers(): void {
-  //   this.users = this._loginService.getUsers().subscribe(users => this.usersData = users)
+
+  // ngOnInit(): void {
+  //   // this.getUsers();
+  //   this.getUser();
   // }
 
-  getUser(): void{
-      this._loginService.getUser("Asma").subscribe(res => {
-      this.usersData = res;
-      console.log(this.usersData);
 
-    })
-  }
+
+
+
+
+  // getUsers(): void {
+  //   this.usersData = this._loginService.getUsers().subscribe(users => this.usersData = users)
+  // }
+
+  // getUser(): void{
+  //     this._loginService.getUser(1).subscribe(res => {
+  //     this.userLogin = res;
+  //     console.log(this.userLogin);
+
+  //   })
+  // }
+
 
 }
