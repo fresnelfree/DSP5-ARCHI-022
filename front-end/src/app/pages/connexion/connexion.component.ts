@@ -10,12 +10,14 @@ import { LoginService } from 'src/app/cores/services/login.service';
 })
 export class ConnexionComponent {
 
-  public users: any = null;
+  public usersData: any = null;
 
 
  constructor(private fb: FormBuilder ,private _loginService: LoginService){}
 
-  // ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getUser();
+  }
 
   /********************************************************************
    *
@@ -55,7 +57,7 @@ export class ConnexionComponent {
     ])),
 
   })
-  
+
   /********************************************************************
    *                  GESTION LOGIN
    *
@@ -66,7 +68,15 @@ export class ConnexionComponent {
   }
 
   // getUsers(): void {
-  //   this.users = this._loginService.getUsers().subscribe(users => this.users = users)
+  //   this.users = this._loginService.getUsers().subscribe(users => this.usersData = users)
   // }
+
+  getUser(): void{
+      this._loginService.getUser("Asma").subscribe(res => {
+      this.usersData = res;
+      console.log(this.usersData);
+
+    })
+  }
 
 }

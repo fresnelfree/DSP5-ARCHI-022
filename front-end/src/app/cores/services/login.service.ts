@@ -49,12 +49,12 @@ export class LoginService {
      );
   }
 
-  getUser(id: number): Observable<User> {
-    return this.http.get<User>(`${this.apiUrl}/${id}`).pipe(
+  getUser(code: any): Observable<User> {
+    return this.http.get<User>(`${this.apiUrl}/${code}`).pipe(
 
-      tap(_ => this.log(`Recherche du user id=${id}`)),
-      
-      catchError(this.handleError<User> (`getUser id=${id}`))
+      tap(_ => this.log(`Recherche du user name=${code}`)),
+
+      catchError(this.handleError<User> (`getUser name=${code}`))
     );
   }
 
