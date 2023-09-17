@@ -48,11 +48,11 @@
                             <!-- PASSWORD INPUT -->
                             <div class="mb-3">
                                 <div class="form-floating mb-3">
-                                    <input [class.is-invalid] formControlName="password" type="password"  required name="password" class="form-control" placeholder="Mot de passe">
+                                    <input [class.is-invalid] formControlName="pwd" type="password"  required name="pwd" class="form-control" placeholder="Mot de passe">
                                     <label for="floatingnameInput">Mot de passe</label>
-                                      <!-- MESSAGE D'ERREUR PASSWORD -->
-                                      <small class="form-text text-muted" *ngFor="let error of error_messages.password">
-                                        <p class="text-danger" *ngIf="loginForm.controls['password'].hasError(error.type) && (loginForm.controls['password'].dirty || loginForm.controls['password'].touched)">
+                                      <!-- MESSAGE D'ERREUR pwd -->
+                                      <small class="form-text text-muted" *ngFor="let error of error_messages.pwd">
+                                        <p class="text-danger" *ngIf="loginForm.controls['pwd'].hasError(error.type) && (loginForm.controls['pwd'].dirty || loginForm.controls['pwd'].touched)">
                                             {{error.message}}
                                         </p>
                                     </small>

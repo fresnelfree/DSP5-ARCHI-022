@@ -26,7 +26,7 @@ export class ConnexionComponent {
   public usersData: any = null;
   public userLogin: any;
   private submitted;
-
+  
 
   constructor(
       private router: Router,
@@ -49,7 +49,7 @@ export class ConnexionComponent {
       {type:'required', message:'L\'email est obligqtoire.'},
       {type: 'pattern', message: 'Format d\'email invalid.' },
     ],
-    'password' : [
+    'pwd' : [
       {type:'required', message:'Le mot de passe est obligqtoire.'},
        {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
@@ -67,7 +67,7 @@ export class ConnexionComponent {
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     ])),
 
-    password: new FormControl('', Validators.compose([
+    pwd: new FormControl('', Validators.compose([
       Validators.required,
       Validators.minLength(4),
       Validators.maxLength(200),
