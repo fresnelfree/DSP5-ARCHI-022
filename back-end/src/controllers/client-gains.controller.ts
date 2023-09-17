@@ -20,7 +20,9 @@ import {
   Gains,
 } from '../models';
 import {ClientRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class ClientGainsController {
   constructor(
     @repository(ClientRepository) protected clientRepository: ClientRepository,

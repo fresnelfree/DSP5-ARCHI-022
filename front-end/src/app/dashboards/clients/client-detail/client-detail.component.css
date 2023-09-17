@@ -1,0 +1,9 @@
+.gain .card
+ {
+   height: 270px;
+   position: relative;
+ }
+
+ .gain .list-group {
+  margin-top: 99px;
+ }

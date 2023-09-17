@@ -11,3 +11,4 @@ export * from './session-jeu.controller';
 export * from './repartition.controller';
 export * from './repartition-gains.controller';
 export * from './session-jeu-client.controller';
+export * from './user.controller';

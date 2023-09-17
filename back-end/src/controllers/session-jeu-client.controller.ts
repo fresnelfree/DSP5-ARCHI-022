@@ -21,7 +21,9 @@ Participer,
 Client,
 } from '../models';
 import {SessionJeuRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class SessionJeuClientController {
   constructor(
     @repository(SessionJeuRepository) protected sessionJeuRepository: SessionJeuRepository,

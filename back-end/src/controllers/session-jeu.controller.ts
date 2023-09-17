@@ -19,7 +19,9 @@ import {
 } from '@loopback/rest';
 import {SessionJeu} from '../models';
 import {SessionJeuRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class SessionJeuController {
   constructor(
     @repository(SessionJeuRepository)
