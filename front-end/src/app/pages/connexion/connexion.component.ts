@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/cores/services/authentication-service.service';
+import { environment } from 'src/environments/environment.dev';
 
 
 //Hedaer Option
@@ -12,7 +13,6 @@ const httpOption = {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': 'Content-Type',
       'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-
   })
 };
 
@@ -26,7 +26,8 @@ export class ConnexionComponent {
   public usersData: any = null;
   public userLogin: any;
   private submitted;
-  
+  private  apiUrl = environment.host
+
 
   constructor(
       private router: Router,
@@ -95,14 +96,14 @@ export class ConnexionComponent {
           return;
       }
 
-    this.http.post('thetiptop.recette.api.com/users/login', this.loginForm.getRawValue(), httpOption).subscribe(
-      data => {
-        console.log(data)
-      },
-      err => {
-        console.log(err);
-      }
+      // console.log(this.loginForm.value);
 
+
+    this.http.post("http://127.0.0.1:3000/users/login", this.loginForm.value, httpOption).subscribe(
+      data => {
+        console.log(data);
+
+      }
     )
 
   }
