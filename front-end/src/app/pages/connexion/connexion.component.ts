@@ -13,7 +13,6 @@ import { AuthenticationService } from 'src/app/cores/services/auth/authenticatio
 })
 export class ConnexionComponent {
 
-  private _submitted;
 
   constructor(
       private _router: Router,
@@ -21,9 +20,7 @@ export class ConnexionComponent {
       private _route: ActivatedRoute,
       private _authService: AuthenticationService,
       private _http: HttpClient,
-    ){
-      this._submitted = false;
-    }
+    ){}
 
 
   /********************************************************************
@@ -68,29 +65,24 @@ export class ConnexionComponent {
     // Getter pour un accès facile aux champs du formulaire (loginForm)
     get f() { return this._loginForm.value; }
 
+
   /********************************************************************
    *                  GESTION LOGIN
-   *
    ********************************************************************/
 
-  user = {
-    "mail": "messi@gmail.com",
-    "pwd": "azerty"
-  }
-
-  onSubmit() {
-        this._submitted = true;
-
+  onLogin() {
         // Si on a des erreurs on stop
         if (this._loginForm.invalid) {
           return;
       }
 
-      this._authService.login(this.user).subscribe(
-        res => {
+      this._authService.login(this.f).subscribe(
+       (res:any) => {
           console.log(res);
+          localStorage.setItem('token', res.token)
+
+          this._router.navigate(['/dashboard'])
         },
-        err => console.log(err)
 
         // (err:any)
       )

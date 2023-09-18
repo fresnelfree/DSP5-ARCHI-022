@@ -9,10 +9,9 @@ import { environment } from 'src/environments/environment.dev';
 const httpOption = {
   headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      // 'Access-Control-Allow-Origin': '*',
-      // 'Access-Control-Allow-Headers': 'Content-Type',
-      // 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': 'Content-Type',
+      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
   })
 };
 
@@ -53,7 +52,9 @@ export class AuthenticationService {
    * *********************************************/
 
    login(obj:any){
-    return this.http.post(this.apiLine+"/users/login", obj, httpOption);
+    return this.http.post(this.apiLine+"/users/login", obj, httpOption).pipe(
+      catchError(this.handleError('login', obj))
+    )
    }
 
    loggedIn(){
