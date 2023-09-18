@@ -20,8 +20,6 @@ const httpOption = {
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   //Variables
-  
-    //  private apiLocal = environment.hostLocal
      private apiLine = environment.hostLine
 
     //Constructeur
@@ -55,6 +53,10 @@ export class AuthenticationService {
    * *********************************************/
 
    login(obj:any){
-    return this.http.post(this.apiLine+"/users/login", obj, httpOption)
+    return this.http.post(this.apiLine+"/users/login", obj, httpOption);
+   }
+
+   loggedIn(){
+    return localStorage.getItem('token');
    }
 }

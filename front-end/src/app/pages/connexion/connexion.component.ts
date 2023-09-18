@@ -87,7 +87,11 @@ export class ConnexionComponent {
       }
 
       this._authService.login(this.user).subscribe(
-        (res:any) => { console.log(res);}
+        res => {
+          console.log(res);
+        },
+        err => console.log(err)
+
         // (err:any)
       )
 
