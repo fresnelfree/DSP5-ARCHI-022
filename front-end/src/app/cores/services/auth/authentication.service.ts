@@ -2,16 +2,16 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { User } from '../class/user/user';
 import { tap } from 'cypress/types/lodash';
+import { environment } from 'src/environments/environment.dev';
 
 //Hedaer Option
 const httpOption = {
   headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
+      // 'Access-Control-Allow-Origin': '*',
+      // 'Access-Control-Allow-Headers': 'Content-Type',
+      // 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
 
   })
 };
@@ -19,9 +19,12 @@ const httpOption = {
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-     private apiUrl = 'thetiptop.recette.api.com/users/login'
+  //Variables
+  
+    //  private apiLocal = environment.hostLocal
+     private apiLine = environment.hostLine
 
-
+    //Constructeur
     constructor(private http: HttpClient) {}
 
 
@@ -46,9 +49,12 @@ export class AuthenticationService {
     };
   }
 
+
    /***********************************************
    *  METHODES DU LOGIN
    * *********************************************/
 
-    
+   login(obj:any){
+    return this.http.post(this.apiLine+"/users/login", obj, httpOption)
+   }
 }

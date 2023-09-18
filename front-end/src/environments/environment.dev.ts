@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  host: "http://127.0.0.1:3000",
-  port:8090
+  hostLine: "http://thetiptop.recette.api.com",
+  hostLocal: "http://127.0.0.1:3000"
 };

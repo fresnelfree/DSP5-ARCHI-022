@@ -2,19 +2,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/cores/services/authentication-service.service';
-import { environment } from 'src/environments/environment.dev';
+import { AuthenticationService } from 'src/app/cores/services/auth/authentication.service';
 
 
-//Hedaer Option
-const httpOption = {
-  headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Methods': 'GET,POST,OPTIONS,DELETE,PUT',
-  })
-};
 
 @Component({
   selector: 'app-connexion',
@@ -23,20 +13,16 @@ const httpOption = {
 })
 export class ConnexionComponent {
 
-  public usersData: any = null;
-  public userLogin: any;
-  private submitted;
-  private  apiUrl = environment.host
-
+  private _submitted;
 
   constructor(
-      private router: Router,
-      private fb: FormBuilder ,
-      private route: ActivatedRoute,
+      private _router: Router,
+      private _fb: FormBuilder ,
+      private _route: ActivatedRoute,
       private _authService: AuthenticationService,
-      private http: HttpClient,
+      private _http: HttpClient,
     ){
-      this.submitted = false;
+      this._submitted = false;
     }
 
 
@@ -46,9 +32,9 @@ export class ConnexionComponent {
    *
    ********************************************************************/
    error_messages   = {
-    'email' : [
-      {type:'required', message:'L\'email est obligqtoire.'},
-      {type: 'pattern', message: 'Format d\'email invalid.' },
+    'mail' : [
+      {type:'required', message:'L\'mail est obligqtoire.'},
+      {type: 'pattern', message: 'Format d\'mail invalid.' },
     ],
     'pwd' : [
       {type:'required', message:'Le mot de passe est obligqtoire.'},
@@ -59,9 +45,9 @@ export class ConnexionComponent {
 
   }
 
-  loginForm: FormGroup = this.fb.group({
+  _loginForm: FormGroup = this._fb.group({
 
-    email: new FormControl('', Validators.compose([
+    mail: new FormControl('', Validators.compose([
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(100),
@@ -80,56 +66,32 @@ export class ConnexionComponent {
   })
 
     // Getter pour un accès facile aux champs du formulaire (loginForm)
-    get f() { return this.loginForm.value; }
+    get f() { return this._loginForm.value; }
 
   /********************************************************************
    *                  GESTION LOGIN
    *
    ********************************************************************/
 
+  user = {
+    "mail": "messi@gmail.com",
+    "pwd": "azerty"
+  }
 
   onSubmit() {
-      this.submitted = true;
+        this._submitted = true;
 
         // Si on a des erreurs on stop
-        if (this.loginForm.invalid) {
+        if (this._loginForm.invalid) {
           return;
       }
 
-      // console.log(this.loginForm.value);
+      this._authService.login(this.user).subscribe(
+        (res:any) => { console.log(res);}
+        // (err:any)
+      )
 
-
-    this.http.post("http://127.0.0.1:3000/users/login", this.loginForm.value, httpOption).subscribe(
-      data => {
-        console.log(data);
-
-      }
-    )
 
   }
-
-
-  // ngOnInit(): void {
-  //   // this.getUsers();
-  //   this.getUser();
-  // }
-
-
-
-
-
-
-  // getUsers(): void {
-  //   this.usersData = this._loginService.getUsers().subscribe(users => this.usersData = users)
-  // }
-
-  // getUser(): void{
-  //     this._loginService.getUser(1).subscribe(res => {
-  //     this.userLogin = res;
-  //     console.log(this.userLogin);
-
-  //   })
-  // }
-
 
 }
