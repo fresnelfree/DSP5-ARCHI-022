@@ -11,9 +11,14 @@ Run `ng serve` ou `npm run s`. Navigate to `http://localhost:4200/`.
 Run `ng g c component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
 ##### Créer module
+Avec  routage
 `ng g m --route deossier/module-name --module App.module`
 Exemple:
 `ng g m --route pages/pages --module App.module`
+
+Sans routage (juste module:)
+Exemple: 
+`ng g m   cores --module App.module`
 ##### Créer un component en precisant le module
 `ng g c deossier/component-name -m=nom-module`
 Exemple 1: Créer un component(page), qui sera ratacher au module page.module.ts
@@ -22,7 +27,11 @@ Exemple 1: Créer un component(page), qui sera ratacher au module page.module.ts
 exemple2: créer un component dans le dossier shareds qui se ratache a app.module.ts
 `ng g c /shared/page-not-found -m=app`
 ##### Créer un service
-`ng g s   deossier/service-name`
+`ng g s   dossier/service-name`
+
+exemple : `ng g s   cores/services/login`
+aprés avoir créé le services, il faut l'importer dans le provider du module
+(cores.modules.ts)
 ##### Créer une classe
 `ng g c   deossier/classe-name`
 ##### Créer une interface
@@ -44,3 +53,11 @@ Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.
 ## Running end-to-end tests
 
 Run `ng e2e`  
+
+## Setting up angular-in-memory-web-api
+angular-in-memory-web-api is very easy to set up and configure.
+
+### Step one
+First, we need to install angular-in-memory-web-api as a dev dependency because we will be using it for development only:
+
+```npm install angular-in-memory-web-api --save-dev```
