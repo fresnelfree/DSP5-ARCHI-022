@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/cores/services/auth/authentication.service';
+import { TokenService } from 'src/app/cores/services/token/token.service';
+ 
 
 
 
@@ -13,22 +15,25 @@ import { AuthenticationService } from 'src/app/cores/services/auth/authenticatio
 })
 export class ConnexionComponent {
 
+ 
+  private submitted;
+
 
   constructor(
-      private _router: Router,
-      private _fb: FormBuilder ,
-      private _route: ActivatedRoute,
-      private _authService: AuthenticationService,
-      private _http: HttpClient,
-    ){}
+    private router      : Router,
+    private fb          : FormBuilder ,
+    private authService : AuthenticationService,
+    private token       : TokenService){
+    this.submitted = false;
+  }
 
-
+  
   /********************************************************************
    *
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
    *
    ********************************************************************/
-   error_messages   = {
+  error_messages   = {
     'mail' : [
       {type:'required', message:'L\'mail est obligqtoire.'},
       {type: 'pattern', message: 'Format d\'mail invalid.' },
@@ -42,7 +47,7 @@ export class ConnexionComponent {
 
   }
 
-  _loginForm: FormGroup = this._fb.group({
+  loginForm: FormGroup = this.fb.group({
 
     mail: new FormControl('', Validators.compose([
       Validators.required,
@@ -63,31 +68,33 @@ export class ConnexionComponent {
   })
 
     // Getter pour un accès facile aux champs du formulaire (loginForm)
-    get f() { return this._loginForm.value; }
+    get f() { return this.loginForm.getRawValue(); }
 
+  
+    onSubmit() {
 
-  /********************************************************************
-   *                  GESTION LOGIN
-   ********************************************************************/
+      this.submitted = true;
 
-  onLogin() {
         // Si on a des erreurs on stop
-        if (this._loginForm.invalid) {
+        if (this.loginForm.invalid) {
           return;
       }
+      
+      this.authService.login(this.f).subscribe(
+        (data:any) => {this.handleResponse(data)},
+      )//fin subscribe
+  }
 
-      this._authService.login(this.f).subscribe(
-       (res:any) => {
-          console.log(res);
-          localStorage.setItem('token', res.token)
+  handleResponse(data:any){
 
-          this._router.navigate(['/dashboard'])
-        },
+    this.token.handle(data.token);
+   
+    this.authService.changeAuthStatus(true);
 
-        // (err:any)
-      )
-
-
+    this.router.navigate(['/dashboard']).then(() => {
+      window.location.reload();
+    });
+     
   }
 
 }

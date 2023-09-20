@@ -8,6 +8,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { authGuard } from '../cores/guards/auth.guard';
 
 
 const routes: Routes = [

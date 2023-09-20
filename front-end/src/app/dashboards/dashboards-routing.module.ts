@@ -7,10 +7,11 @@ import { ClientDetailComponent } from './clients/client-detail/client-detail.com
 import { EmployeListComponent } from './employes/employe-list/employe-list.component';
 import { EmployeEditComponent } from './employes/employe-edit/employe-edit.component';
 import { EmployeDetailComponent } from './employes/employe-detail/employe-detail.component';
+import { authGuard } from '../cores/guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: DashboardComponent },
-  { path: 'dashboard', component: DashboardComponent },
+  { path: '', component: DashboardComponent,  canActivate:[authGuard]},
+  { path: 'dashboard', component: DashboardComponent,  canActivate:[authGuard]},
   {
     path: 'client', children: [
       { path : '', component: ClientListComponent},
