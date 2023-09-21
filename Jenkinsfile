@@ -74,6 +74,7 @@ pipeline{
         dir('back-end/') {
 
           echo "************************ TEST OF PROJECT WITH MOCHA JS ************************"  
+          sh "npm run migrate"
           sh "npm run test:prod"
         } 
 
