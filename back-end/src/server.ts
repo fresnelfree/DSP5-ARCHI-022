@@ -13,7 +13,7 @@ import { PassportProvider, UserService } from './services';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { ClientRepository, CompteRepository, EmployeRepository } from './repositories';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { TokenService } from '@loopback/authentication';
 import { TokenServiceBindings } from '@loopback/authentication-jwt';
 require('dotenv').config();
@@ -27,35 +27,15 @@ export class ExpressServer {
   @inject(TokenServiceBindings.TOKEN_SERVICE)
   public jwtService: TokenService
   public userService: UserService
+  public token = ''
   public passportProvider: PassportProvider;
   private server?: http.Server;
 
-    public user: User;
-    public client: Client;
-    public employe: Employe;
-    public compte: Compte;
-
-    public compteRepository: CompteRepository
-    @inject('repository.ClientRepository') 
-    public clientRepository: ClientRepository
-    @inject('repository.EmployeRepository') 
-    public employeRepository: EmployeRepository
 
   constructor(options: ApplicationConfig = {}) {
     this.app = express();
     this.lbApp = new App(options);
     this.profileUser = new User();
-    // this.jwtService = new TokenService()
-    // this.user = new User
-    // this.client = new Client
-    // this.employe = new Employe  
-    // this.compte = new Compte        
-    // this.userService = new UserService(
-    //   this.compteRepository,
-    //   this.clientRepository,   
-    //   this.employeRepository,this.client,this.employe,this.compte,this.user
-    // )
-    // this.passportProvider = new PassportProvider(this.userService)
 
 
     // configue express for auth social media
@@ -100,6 +80,7 @@ export class ExpressServer {
     // Custom Express routes  
     this.app.get('/express', function (_req: Request, res: Response) {
         res.sendFile(path.join(__dirname, '../public/express.html'));
+        // res.json.
     });
 
     const profileUser = this.profileUser
@@ -108,19 +89,20 @@ export class ExpressServer {
    
     this.app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email','user_location'] }));
     this.app.get('/auth/facebook/callback',passport.authenticate('facebook', { failureRedirect: '/' }),
-      (req, res) => {
+      async (req, res) => {
         // Successful authentication, redirect home.
-        this.saveProfile(profileUser)
-        res.json(profileUser)
+        await this.saveProfile(profileUser)
+        // res.json(profileUser)
+        res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + this.token)
     });
 
     this.app.get('/auth/google',passport.authenticate('google', { scope: ['profile','email','openid'] }));
     this.app.get('/auth/google/callback',
       passport.authenticate('google', { failureRedirect: '/login' }),
-      (req, res) => {
-        this.saveProfile(profileUser)
-        res.json(profileUser)
-        // res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + token)
+      async (req, res) => {
+        await this.saveProfile(profileUser)
+        // res.json(profileUser)
+        res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + this.token)
     });   
     
     
@@ -176,7 +158,7 @@ export class ExpressServer {
   }  
 
   async saveProfile(profile:User) {
-    let token = ''
+  
     
     const compte = {
         email: profile.email,
@@ -185,13 +167,13 @@ export class ExpressServer {
         type_passport: profile.type_passport
       };
       await axios.get( process.env.BASE_URL+'/compteWithEmail/'+ compte.email)
-      .then(async(res:any) => {
+      .then(async(res:AxiosResponse<any, any>) => {
         const foundCompte = res.data
         // console.log('foundCompte',foundCompte)
         // si c'est la prmiere connexion
         if (!foundCompte) {
             await axios.post( process.env.BASE_URL+'/comptes/',compte)
-            .then(async (res:any) => {
+            .then(async (res:AxiosResponse<any, any>) => {
                 console.log(res.data);
                 const client = {
                     email: profile.email,
@@ -202,9 +184,9 @@ export class ExpressServer {
                     tel: profile.tel || ''
                 };
                 await axios.post( process.env.BASE_URL+'/clients/',client)
-                .then(async (res:any) => {
-                    token = await this.getToken(compte.email)
-                    res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + token)
+                .then(async (res:AxiosResponse<any, any>) => {
+                    this.token = await this.getToken(compte.email)
+                    // res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + token)
                     // console.log('token0',token)                  
                 })
             .catch((error:any) => {
@@ -218,9 +200,9 @@ export class ExpressServer {
         else{
             // si le reseau social choisi correspond à celui enrégistré à la première connexion
             if (foundCompte.type_passport === compte.type_passport) {                
-                token = await this.getToken(compte.email)
-                res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + token)
-                console.log('token1',token)                     
+                this.token = await this.getToken(compte.email)
+                // res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + token)
+                console.log('token1',this.token)                     
             }
             else{
                 const warning ="Connexion impossible car vous êtes enrégistré via "+ foundCompte.type_passport
@@ -242,7 +224,7 @@ export class ExpressServer {
         pwd: "pwd"
     }
     await axios.post( process.env.BASE_URL+'/users/login', data)
-    .then(async (res:any) => {
+    .then(async (res:AxiosResponse<any, any>) => {
         token =  res.data.token
     })
     .catch((error:any) => {
