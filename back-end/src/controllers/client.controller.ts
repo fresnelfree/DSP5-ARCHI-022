@@ -148,7 +148,7 @@ export class ClientController {
     await this.clientRepository.replaceById(id, client);
   }
 
-  @authenticate('jwt')
+  // @authenticate('jwt')
   @del('/clients/{id}')
   @response(204, {
     description: 'Client DELETE success',
