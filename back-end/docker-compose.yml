@@ -29,7 +29,15 @@ services:
       DB_PORT: 3307
       DB_USER: root
       DB_PWD: Dsp-archi-15
-      DB_DATABASE: DSP5-ARCHI-DB
+      DB_DATABASE: DSP5-ARCHI-DB-PPD
+      FACEBOOK_CLIENT_ID: 834324708244777
+      FACEBOOK_CLIENT_SECRET: b23338d8d100a9f261b7d3199fe7ef06
+      FACEBOOK_CALLBACK_URL: http://thetiptop.recette.api.com/auth/facebook/callback
+      GOOGLE_CLIENT_ID: 574508009757-dfq7soqtakor952logu1rup06r53hsjr.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: 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
+      GOOGLE_CALLBACK_URL: http://thetiptop.recette.api.com/auth/google/callback 
+      URL_REDIRECT_AUTH_SOCIAL_MEDIA: http://thetiptop.recette.api.com
+      BASE_URL: http://thetiptop.recette.api.com 
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp

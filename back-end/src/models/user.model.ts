@@ -19,7 +19,7 @@ export class User extends Model {
     type: 'string',
     required: false,
   })
-  tel: string;
+  tel?: string;
 
   @property({
     type: 'string',
@@ -31,7 +31,7 @@ export class User extends Model {
     type: 'string',
     required: false,
   })
-  adresse: string;
+  adresse?: string;
 
   @property({
     type: 'string',
@@ -41,7 +41,13 @@ export class User extends Model {
 
   @property({
     type: 'string',
-    default: "Client",
+     required: false,
+  })
+  type_passport: string;  
+
+  @property({
+    type: 'string',
+     required: false,
   })
   pwd: string;
 

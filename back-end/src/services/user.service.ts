@@ -1,19 +1,27 @@
 import {repository} from '@loopback/repository';
 import {HttpErrors} from '@loopback/rest';
 import {compare} from 'bcryptjs';
-import { Compte, User } from '../models';
+import { Client, Compte, Employe, User } from '../models';
 import { ClientRepository, CompteRepository, EmployeRepository } from '../repositories';
 import { BindingScope, bind, inject } from '@loopback/core';
+import {genSalt, hash} from 'bcryptjs';
 
 @bind({scope: BindingScope.TRANSIENT})
 export class UserService {
+  
   constructor(
-    @repository(CompteRepository) 
-    public compteRepository: CompteRepository,
-    @repository(ClientRepository) 
+    @repository(CompteRepository)
+    public compteRepository : CompteRepository,
+    @repository(ClientRepository)
     public clientRepository: ClientRepository,   
     @repository(EmployeRepository) 
     public employeRepository: EmployeRepository,
+    @inject('models.Client')
+    public client: Client,
+    @inject('models.Employe')
+    public employe: Employe,
+    @inject('models.Compte')
+    public compte: Compte ,
     @inject('models.User')
     public user: User     
   ) {}
@@ -24,21 +32,36 @@ export class UserService {
 
   async verifyCredentials(compte: Compte): Promise<Compte> {
     const invalidCredentialsError = 'Invalid email or password.';
+    const invalidConnexionType ="Connexion impossible car vous êtes enrégistré via"
     // console.log('compte: ', compte)
     const foundCompte = await this.compteRepository.findOne({
-      where: {mail: compte.mail},
+      where: {email: compte.email},
     });
+
     if (!foundCompte) {
       throw new HttpErrors.Unauthorized(invalidCredentialsError);
     }
-    // console.log('foundCompte: ', foundCompte)
-    const passwordMatched = await compare(
-      compte.pwd || "",foundCompte.pwd || ""
-    )
-    // console.log('passwordMatched: ', passwordMatched)
-    if (!passwordMatched) {
-      throw new HttpErrors.Unauthorized(invalidCredentialsError);
+    // console.log(foundCompte)
+
+    if (compte.pwd !== 'pwd') {
+
+      if (foundCompte.id_passport) {
+        throw new HttpErrors.Unauthorized(invalidConnexionType +" "+ foundCompte.type_passport);
+      }    
+
+      // console.log('foundCompte: ', foundCompte)
+      const passwordMatched = await compare(
+        compte.pwd || "",foundCompte.pwd || ""
+      )
+
+      // console.log('passwordMatched: ', passwordMatched)
+      if (!passwordMatched) {
+        throw new HttpErrors.Unauthorized(invalidCredentialsError);
+      }  
+
     }
+
+
 
     return foundCompte;
   }
@@ -69,6 +92,61 @@ export class UserService {
       this.user.adresse = employe?.adresse || ""       
     }
     return this.user
+  }
+
+  async saveUser(user: User): Promise<Compte> {
+
+    const invalidUserRoleError = "Invalid user role"
+    const invalidInfosError = "Invalid informations" 
+    this.compte.email = user.email 
+    this.compte.pwd = await hash(user.pwd, await genSalt())
+
+    if (user.role !== "Caissier" && user.role !== "Admin" && user.role !== "Client"){
+      throw new HttpErrors.BadRequest(invalidUserRoleError)
+    }
+
+    const comp = await this.compteRepository.create({
+      'email':user.email,
+      'pwd': await hash(user.pwd || "", await genSalt()),
+      'type_passport':'',
+      'id_passport': user.securityId
+    })
+
+    if (!comp) {
+      throw new HttpErrors.BadRequest(invalidInfosError)
+    }
+
+    // const data ={
+    //   'adresse': user.adresse,
+    //   'email': user.email,
+    //   'nom': user.nom,
+    //   'prenom': user.prenom,
+    //   'id_compte': comp.id,
+    //   'tel': user.tel
+    // }
+
+    if(user.role === "Client"){
+      this.client = await this.clientRepository.create({
+      'adresse': user.adresse || " ",
+      'email': user.email,
+      'nom': user.nom,
+      'prenom': user.prenom,
+      'id_compte': comp.id,
+      'tel': user.tel || " "
+    })
+    }
+    else {
+      this.employe = await this.employeRepository.create({
+        'adresse': user.adresse,
+        'email': user.email,
+        'nom': user.nom,
+        'prenom': user.prenom,
+        'id_compte': comp.id,
+        'tel': user.tel,
+        'role': user.role
+      })
+    }
+    return comp
   }
 
 }
