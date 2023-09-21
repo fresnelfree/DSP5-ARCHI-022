@@ -7,7 +7,6 @@ import {ApplicationConfig,App} from './application';
 import passport from 'passport';
 import session from 'express-session';
 import { Client, Compte, Employe, User } from './models';
-import { UserController } from './controllers';
 import { inject } from '@loopback/core';
 import { PassportProvider, UserService } from './services';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
