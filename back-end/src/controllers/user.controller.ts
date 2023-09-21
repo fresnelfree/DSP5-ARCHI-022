@@ -5,10 +5,14 @@ import { inject, service } from "@loopback/core";
 import { TokenServiceBindings } from "@loopback/authentication-jwt";
 import { TokenService, authenticate } from "@loopback/authentication";
 import {securityId,SecurityBindings, UserProfile} from '@loopback/security';
-import { UserService } from "../services";
+import { PassportProvider, UserService } from "../services";
 import { ClientRepository, CompteRepository, EmployeRepository } from "../repositories";
 import {genSalt, hash} from 'bcryptjs';
 import { repository } from "@loopback/repository";
+import { Axios } from "axios";
+const axios = require('axios');
+
+require('dotenv').config();
 
 export class UserController {
   constructor(
@@ -22,6 +26,8 @@ export class UserController {
     public jwtService: TokenService,    
     @inject('services.UserService') 
     public userService: UserService,  
+    // @inject('services.PassportProvider') 
+    // public passportService: PassportProvider,     
     @inject('models.Client')
     public client: Client,
     @inject('models.Employe')
@@ -52,13 +58,18 @@ export class UserController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(Compte, {
-            exclude: ['id'],
+            exclude: ['id','id_passport','type_passport'],
           }),
         },
       },
     })
     compte: Compte,
   ): Promise<{token: string}> {      
+    if (compte.pwd === "pwd") {
+      
+    } else {
+      
+    }
   // ensure the user exists, and the password is correct
   const user = await this.userService.verifyCredentials(compte);
   // convert a User object into a UserProfile object (reduced set of properties)
@@ -74,7 +85,7 @@ export class UserController {
     description: 'Compte model instance',
     content: {'application/json': {schema: getModelSchemaRef(User)}},
   })
-  async create(
+  async register(
     @requestBody({
       content: {
         'application/json': {
@@ -87,56 +98,7 @@ export class UserController {
     })
     user: User,
   ): Promise<Compte> {
-    const invalidUserRoleError = "Invalid user role"
-    const invalidInfosError = "Invalid informations"   
-
-    this.compte.mail = user.email 
-    this.compte.pwd = await hash(user.pwd, await genSalt())
-
-    if (user.role !== "Caissier" && user.role !== "Admin" && user.role !== "Client"){
-      throw new HttpErrors.BadRequest(invalidUserRoleError)
-    }
-
-    const comp = await this.compteRepository.create({
-      'mail':user.email,
-      'pwd': await hash(user.pwd, await genSalt())
-    })
-
-    if (!comp) {
-      throw new HttpErrors.BadRequest(invalidInfosError)
-    }
-
-    // const data ={
-    //   'adresse': user.adresse,
-    //   'email': user.email,
-    //   'nom': user.nom,
-    //   'prenom': user.prenom,
-    //   'id_compte': comp.id,
-    //   'tel': user.tel
-    // }
-
-    if(user.role === "Client"){
-      this.client = await this.clientRepository.create({
-      'adresse': user.adresse,
-      'email': user.email,
-      'nom': user.nom,
-      'prenom': user.prenom,
-      'id_compte': comp.id,
-      'tel': user.tel
-    })
-    }
-    else {
-      this.employe = await this.employeRepository.create({
-        'adresse': user.adresse,
-        'mail': user.email,
-        'nom': user.nom,
-        'prenom': user.prenom,
-        'id_compte': comp.id,
-        'tel': user.tel,
-        'role': user.role
-      })
-    }
-    return comp;
+    return this.userService.saveUser(user);
   }  
   
   @authenticate('jwt')
@@ -157,11 +119,58 @@ export class UserController {
       @inject(SecurityBindings.USER)
       currentUserProfile: UserProfile,
     ): Promise<string> {
+
       return currentUserProfile[securityId];
     } 
 
+  // @get('/auth/facebook')
+  // @response(
+  //     200, {
+  //       description: 'Return current user',
+  //       content: {
+  //         'application/json': {
+  //           schema: {
+  //             type: 'string',
+  //           },
+  //         },
+  //       },
+  //     },
+  //   )
+  //   async authFacebook(): Promise<any> {
+  //     axios.get('http://localhost:4000/auth/google/')
+  //     .then((response:any) => {
+  //       console.log(response.data);
+  //       return response.data
+  //     })
+  //     .catch((error:any) => {
+  //       console.error(error);
+  //     });
+  //   }     
 
-}
+  // @get('/auth/facebook/callback')
+  // @response(
+  //     200, {
+  //       description: 'Return current user',
+  //       content: {
+  //         'application/json': {
+  //           schema: {
+  //             type: 'string',
+  //           },
+  //         },
+  //       },
+  //     },
+  //   )
+  //   async callBack(): Promise<any> {
+  //     var passport = require('passport')
+  //     // this.passportService.setupPassport(passport)
+  //     const pass = passport.authenticate('facebook', { failureRedirect: '/users/login' })
+  //     console.log("pass : ", pass)
+  //   } 
+    
+  }
+
+
+  
 
 
 

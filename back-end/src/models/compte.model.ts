@@ -20,9 +20,9 @@ export class Compte extends Entity {
     type: 'string',
     length: 50,
     generated: 0,
-    mysql: {columnName: 'mail', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+    mysql: {columnName: 'email', dataType: 'varchar', dataLength: 50, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
-  mail?: string;
+  email?: string;
 
   @property({
     type: 'string',
@@ -31,6 +31,23 @@ export class Compte extends Entity {
     mysql: {columnName: 'pwd', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
   pwd?: string;
+
+  @property({
+    type: 'string',
+    length: 10,
+    generated: 0,
+    mysql: {columnName: 'id_passport', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+  })
+  id_passport?: string;  
+
+  @property({
+    type: 'string',
+    length: 10,
+    generated: 0,
+    mysql: {columnName: 'type_passport', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+  })
+  type_passport?: string;
+  
 
   @hasOne(() => Client, {keyTo: 'id_compte'})
   client: Client;

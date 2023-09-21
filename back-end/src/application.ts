@@ -17,6 +17,8 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {MySequence} from './sequence';
+// var loopback = require('loopback');
+// var passport = require('passport');
 
 export {ApplicationConfig};
 
@@ -25,6 +27,8 @@ export class App extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+    // var app = module.exports = loopback();
+    // app.use(passport.initialize());
     // ------ ADD SNIPPET AT THE BOTTOM ---------
     // Mount authentication system
     this.component(AuthenticationComponent);

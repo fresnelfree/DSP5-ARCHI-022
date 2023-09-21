@@ -28,7 +28,7 @@ import {Compte} from '../models';
 import {CompteRepository} from '../repositories';
 import {genSalt, hash} from 'bcryptjs';
 
-@authenticate('jwt')
+// @authenticate('jwt')
 export class CompteController {
   constructor(
     @inject(TokenServiceBindings.TOKEN_SERVICE)
@@ -91,7 +91,7 @@ export class CompteController {
   async find(
     @param.filter(Compte) filter?: Filter<Compte>,
   ): Promise<Compte[]> {
-    return this.compteRepository.find({include:['client','employe']});
+    return this.compteRepository.find({include:['client','employe']},filter);
   }
 
   @patch('/comptes')
@@ -128,6 +128,40 @@ export class CompteController {
   ): Promise<Compte> {
     return this.compteRepository.findById(id, filter);
   }
+
+  @get('/compteWithIdPassword/{id_passport}')
+  @response(200, {
+    description: 'Compte model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Compte, {includeRelations: true}),
+      },
+    },
+  })
+  async findByIdPassport(
+    @param.path.string('id_passport') id_passport: string
+  ): Promise<Compte | null> {
+    const compte = this.compteRepository.findOne({where: {id_passport: id_passport},include:['client','employe']});
+    return compte
+  }
+
+  @get('/compteWithEmail/{email}')
+  @response(200, {
+    description: 'Compte model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Compte, {includeRelations: true}),
+      },
+    },
+  })
+  async findByEmail(
+    @param.path.string('email') email: string
+  ): Promise<Compte | null> {
+    const compte = this.compteRepository.findOne({where: {email: email},include:['client','employe']});
+    return compte
+  }
+
+  
 
   @patch('/comptes/{id}')
   @response(204, {

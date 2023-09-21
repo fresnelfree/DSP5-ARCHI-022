@@ -25,12 +25,12 @@ describe('PingController', () => {
   //     "pwd": "string"
   //   }
   //   const res = await client.post('/users/register').send(data).expect(200);
-  //   expect(res.body).to.have.property("mail","test@gmail.com");
+  //   expect(res.body).to.have.property("email","test@gmail.com");
   // });
 
   it('invokes POST /users/login', async () => {
     const data ={
-      "mail": "test@gmail.com",
+      "email": "test@gmail.com",
       "pwd": "string"
     }
     const res = await client.post('/users/login').send(data).expect(200);
