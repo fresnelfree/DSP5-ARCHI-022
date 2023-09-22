@@ -11,7 +11,7 @@ export async function main(options: ApplicationConfig = {}) {
   await server.boot();
   await server.start();
   await server.apiExpress();
-  console.log('Server is running at http://127.0.0.1:3000');
+  console.log('Server is running at http://127.0.0.1:'+ process.env.APP_PORT || 3000);
   // const app = new App(options);
   // await app.boot();
   // await app.migrateSchema({ models: ['Compte', 'Employe', 'Client', 'SessionJeu', 'Repartition', 'Gains', 'Participer'] });
@@ -29,8 +29,8 @@ if (require.main === module) {
   // Run the application
   const config = {
     rest: {
-      port: +(process.env.PORT ?? 3000),
-      host: process.env.HOST ?? 'localhost',
+      port: +(process.env.APP_PORT || 3000),
+      host: process.env.APP_HOST || 'localhost',
       openApiSpec: {
         // useful when used with OpenAPI-to-GraphQL to locate your application
         setServersFromRequest: true,
