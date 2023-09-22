@@ -1,0 +1,43 @@
+// {"compilerOptions": {
+//   "esModuleInterop": true,
+//   "lib": ["es2020"],
+//   "module": "es2022",
+//   "preserveConstEnums": false,
+//   "moduleResolution": "node",
+//   // "strict": true,
+//   "skipLibCheck": true,
+//   "sourceMap": false,
+//   "target": "es2022",
+//   "types": ["node"],
+//   "outDir": "dist"
+// },
+// "include": ["src/**/*"],
+// "exclude": ["node_modules"]
+// }
+
+{
+    "compilerOptions": {
+        "module": "CommonJS",
+        "target": "ES6",
+        "outDir": "./dist",
+        "esModuleInterop": true,
+        "noImplicitAny": false,
+        "sourceMap": false,
+        "skipLibCheck": true,
+      "rootDir": "./src",        
+        // "emitDecoratorMetadata" :true
+    },
+    // "exclude": ["node_modules", "**/*.test.ts"],
+    "include": ["src"]
+}
+
+
+// {
+//     "$schema": "http://json.schemastore.org/tsconfig",
+//     "compilerOptions": {
+//       "outDir": "dist",
+//       "rootDir": "src"
+//     },
+//     "include": ["src"]
+//   }
+  
