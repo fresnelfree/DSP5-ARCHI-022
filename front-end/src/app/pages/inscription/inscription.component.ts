@@ -2,6 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/cores/services/auth/authentication.service';
+import { TokenService } from 'src/app/cores/services/token/token.service';
 
 //Hedaer Option
 const httpOption = {
@@ -21,19 +23,27 @@ const httpOption = {
 
 export class InscriptionComponent {
   private submitted;
-  private data: any = null
+  private  role: string;
+  private user:any;
+
 
   constructor(
-      private router: Router,
-      private fb: FormBuilder ,
-      private route: ActivatedRoute,
-      private http: HttpClient,
-    ){
-      this.submitted = false;
-    }
+    private router      : Router,
+    private fb          : FormBuilder ,
+    private route       : ActivatedRoute,
+    private authService : AuthenticationService,
+    private token       : TokenService){
+    this.submitted = false;
+    this.role = "Client"
+  }
+
+ 
+ ngOnInit() {
+
+}
 
 
-  /********************************************************************
+   /********************************************************************
    *
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
    *
@@ -62,24 +72,20 @@ export class InscriptionComponent {
 
     'pwd' : [
       {type:'required', message:'Le mot de passe est obligqtoire.'},
-       {type: 'minlength', message: 'Mot de passe trop court.' },
-      {type: 'maxlength', message: 'Mot de passe trop trop long.' },
+      //  {type: 'minlength', message: 'Mot de passe trop court.' },
+      // {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
 
     'confPwd' : [
       {type:'required', message:'Veuillez confirmer le mot de passe.'},
-       {type: 'minlength', message: 'Mot de passe trop court.' },
-      {type: 'maxlength', message: 'Mot de passe trop trop long.' },
+      //  {type: 'minlength', message: 'Mot de passe trop court.' },
+      // {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      {type: 'passwordCompare', message: 'Mot de passe different.'}
     ],
 
   }
-
-
-
-
-
 
 
   registerForm: FormGroup = this.fb.group({
@@ -109,8 +115,8 @@ export class InscriptionComponent {
 
     pwd: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(200),
+      // Validators.minLength(4),
+      // Validators.maxLength(200),
       // Validators.pattern(
       //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
       // ),
@@ -118,45 +124,79 @@ export class InscriptionComponent {
 
     confPwd: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(200),
+      // Validators.minLength(4),
+      // Validators.maxLength(200),
       // Validators.pattern(
       //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
       // ),
     ])),
 
-
-
   })
 
-    // Getter pour un accès facile aux champs du formulaire (loginForm)
-    get f() { return this.registerForm.value; }
+    // Getter pour un accès facile aux champs du formulaire (registerForm)
+    get f() { return this.registerForm.controls; }
 
-    // "role": "Client",
-
-    onSubmit(){
-      console.log(this.submitted = true);
-
-
-      //   // Si on a des erreurs on stop
-      //   if (this.registerForm.invalid) {
-      //     return;
-      // }
-      // data = {
-
-      //   "role": "Client",
-      // }
-
-
-    // this.http.post('thetiptop.recette.api.com/users/register', this.registerForm.getRawValue(), httpOption).subscribe(
-    //   data => {
-    //     console.log(data)
-    //   },
-    //   err => {
-    //     console.log(err);
-    //   }
-
-    // )
-
+    passwordCompare(f: FormGroup){
+      const  pwd   = f.get('pwd')?.value;
+      const  confPwd = f.get('confPwd')?.value;
+      return pwd === confPwd ? null : { passwordNotMatch: true}
     }
+
+
+  /********************************************************************
+   *                  GESTION LOGIN
+   *
+   ********************************************************************/
+
+  
+
+  onSubmit() {
+
+      this.submitted = true;
+
+        // Si on a des erreurs on stop
+        if (this.registerForm.invalid) {
+          return;
+      }
+
+      
+        this.user = {
+          "nom"     : this.registerForm.value.nom, 
+          "prenom"  : this.registerForm.value.prenom, 
+          "tel"     : this.registerForm.value.tel, 
+          "email"   : this.registerForm.value.email, 
+          "adresse" : this.registerForm.value.adresse, 
+          "pwd"     : this.registerForm.value.pwd,
+          "role"    : this.role
+        }
+       
+    
+      this.authService.register(this.user).subscribe(
+        (data:any) => {this.handleResponse(data)},
+      ) 
+  }
+
+  handleResponse(data:any){
+
+    // this.token.handle(data.token);
+   
+    // this.authService.changeAuthStatus(true);
+
+    // this.router.navigate(['/dashboard']).then(() => {
+    //   window.location.reload();
+    // });
+
+    this.router.navigate(['/connexion']).then(() => {
+      window.location.reload();
+    });
+    
+  }
+
+  onReset() {
+
+    this.submitted = false;
+
+    this.registerForm.reset();
+
+  }
 }
