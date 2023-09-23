@@ -20,7 +20,7 @@ const httpOption = {
 })
 export class AuthenticationService {
   //VARIABLES
-  private  api = environment.hostLine+"/users";
+  private  api = environment.hostLine;
 
   private loggedIn = new BehaviorSubject<boolean>(this.isloggedIn());
   
@@ -61,7 +61,7 @@ export class AuthenticationService {
    ************************************************/
   login(obj:any){
 
-    return this.http.post(this.api+"/login", obj, httpOption).pipe(
+    return this.http.post(this.api+"/users/login", obj, httpOption).pipe(
 
       catchError(this.handleError(`login`, obj))
 

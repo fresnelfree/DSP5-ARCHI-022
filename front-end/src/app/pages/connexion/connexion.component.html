@@ -23,11 +23,11 @@
                           <!-- mail INPUT -->
                             <div class="mb-3">
                                 <div class="form-floating mb-3">
-                                    <input formControlName="mail" type="mail"  name="myAddress" required class="form-control" placeholder="Adresse mail">
-                                    <label for="floatingnameInput">Adresse mail</label>
-                                    <!-- MESSAGE D'ERREUR mail -->
-                                    <small class="form-text text-muted" *ngFor="let error of error_messages.mail">
-                                      <p class="text-danger" *ngIf="loginForm.controls['mail'].hasError(error.type) && (loginForm.controls['mail'].dirty || loginForm.controls['mail'].touched)">
+                                    <input formControlName="email" type="email"  name="myAddress" required class="form-control" placeholder="Adresse email">
+                                    <label for="floatingnameInput">Adresse email</label>
+                                    <!-- MESSAGE D'ERREUR email -->
+                                    <small class="form-text text-muted" *ngFor="let error of error_messages.email">
+                                      <p class="text-danger" *ngIf="loginForm.controls['email'].hasError(error.type) && (loginForm.controls['email'].dirty || loginForm.controls['email'].touched)">
                                           {{error.message}}
                                       </p>
                                   </small>

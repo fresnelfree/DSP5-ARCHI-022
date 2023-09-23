@@ -34,9 +34,9 @@ export class ConnexionComponent {
    *
    ********************************************************************/
   error_messages   = {
-    'mail' : [
-      {type:'required', message:'L\'mail est obligqtoire.'},
-      {type: 'pattern', message: 'Format d\'mail invalid.' },
+    'email' : [
+      {type:'required', message:'L\'email est obligqtoire.'},
+      {type: 'pattern', message: 'Format d\'email invalid.' },
     ],
     'pwd' : [
       {type:'required', message:'Le mot de passe est obligqtoire.'},
@@ -49,7 +49,7 @@ export class ConnexionComponent {
 
   loginForm: FormGroup = this.fb.group({
 
-    mail: new FormControl('', Validators.compose([
+    email: new FormControl('', Validators.compose([
       Validators.required,
       Validators.minLength(2),
       Validators.maxLength(100),
@@ -68,7 +68,7 @@ export class ConnexionComponent {
   })
 
     // Getter pour un accès facile aux champs du formulaire (loginForm)
-    get f() { return this.loginForm.getRawValue(); }
+    get f() { return this.loginForm.value; }
 
   
     onSubmit() {
@@ -86,6 +86,9 @@ export class ConnexionComponent {
   }
 
   handleResponse(data:any){
+
+    console.log(data);
+    
 
     this.token.handle(data.token);
    
