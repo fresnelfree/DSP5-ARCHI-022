@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/cores/services/auth/authentication.service';
-import { TokenService } from 'src/app/cores/services/token/token.service';
+import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { TokenService } from 'src/app/core/services/token/token.service';
  
 
 
