@@ -118,10 +118,10 @@ export class ExpressServer {
       profileFields: ['id', 'first_name','last_name','picture','gender','emails']
     },
     function(accessToken, refreshToken, profile, cb) {
-    //   console.log("profile: ",profile)
-    //   console.log("accessToken: ",accessToken)
-    //   console.log("refreshToken: ",refreshToken)
-    //   console.log("cb: ",cb)
+      console.log("profile: ",profile)
+      console.log("accessToken: ",accessToken)
+      console.log("refreshToken: ",refreshToken)
+      console.log("cb: ",cb)
       profileU.securityId = profile._json.id
       profileU.prenom = profile._json.last_name
       profileU.nom = profile._json.first_name
@@ -141,10 +141,10 @@ export class ExpressServer {
         callbackURL: process.env.GOOGLE_CALLBACK_URL || '',
     },
     function(accessToken, refreshToken, profile, cb) {
-    //   console.log("profile: ",profile)
-    //   console.log("accessToken: ",accessToken)
-    //   console.log("refreshToken: ",refreshToken)
-    //   console.log("cb: ",cb)
+      console.log("profile: ",profile)
+      console.log("accessToken: ",accessToken)
+      console.log("refreshToken: ",refreshToken)
+      console.log("cb: ",cb)
       profileU.securityId = profile._json.sub
       profileU.nom = profile._json.family_name || ""
       profileU.prenom = profile._json.given_name || ""
