@@ -8,10 +8,12 @@ import { ContactComponent } from './contact/contact.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { JeuxComponent } from './jeux/jeux.component';
-import { NavbarComponent } from '../shared/navbar/navbar.component';
+// import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
+import { NavbarComponent } from '../shared/navbar/navbar.component';
+ 
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
     AproposComponent,
     ForgotPasswordComponent,
     JeuxComponent,
-    NavbarComponent,
+    NavbarComponent
 
   ],
   imports: [
@@ -31,6 +33,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
     PagesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    
   ]
 })
 export class PagesModule { }

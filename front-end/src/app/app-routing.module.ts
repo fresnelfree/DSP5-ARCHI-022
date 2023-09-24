@@ -4,7 +4,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 
 const routes: Routes = [
   { path: '', loadChildren: () => import('./pages/pages.module').then(m => m.PagesModule) },
-  { path: 'client', loadChildren: () => import('./client/client.module').then(m => m.ClientModule) },
+  // { path: 'client', loadChildren: () => import('./client/client.module').then(m => m.ClientModule) },
   { path: 'dashboard', loadChildren: () => import('./dashboards/dashboards.module').then(m => m.DashboardModule)},
   { path: '**', component : PageNotFoundComponent }
 ];
