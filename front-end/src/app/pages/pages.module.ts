@@ -13,6 +13,8 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { ClientHomeComponent } from './client/client-home/client-home.component';
+import { HeaderComponent } from '../shared/header/header.component';
+ 
  
 
 
@@ -27,7 +29,8 @@ import { ClientHomeComponent } from './client/client-home/client-home.component'
     ForgotPasswordComponent,
     JeuxComponent,
     NavbarComponent,
-    ClientHomeComponent
+    ClientHomeComponent,
+    HeaderComponent
 
   ],
   imports: [
