@@ -94,7 +94,7 @@ export class ConnexionComponent {
    
     this.authService.changeAuthStatus(true);
 
-    this.router.navigate(['/dashboard']).then(() => {
+    this.router.navigate(['/client']).then(() => {
       window.location.reload();
     });
      

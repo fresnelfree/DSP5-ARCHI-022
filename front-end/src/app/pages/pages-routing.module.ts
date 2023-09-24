@@ -22,7 +22,7 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent},
   { path: 'connexion', component: ConnexionComponent},
   { path: 'inscription', component: InscriptionComponent},
-  { path: 'client', component: ClientHomeComponent},
+  { path: 'client', component: ClientHomeComponent, canActivate: [authGuard]},
 
 ];
 
