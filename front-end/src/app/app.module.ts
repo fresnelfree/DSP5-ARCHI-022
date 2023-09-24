@@ -5,7 +5,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { CoresModule } from './cores/cores.module';
+import { CoresModule } from './core/cores.module';
+import { ClientModule } from './client/client.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { CoresModule } from './cores/cores.module';
     BrowserAnimationsModule,
     MatSlideToggleModule,
     CoresModule,
+    ClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
