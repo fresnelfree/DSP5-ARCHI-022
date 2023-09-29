@@ -21,10 +21,12 @@ export class ClientHomeComponent implements OnInit {
     private fb                   : FormBuilder ,
     private activatedRoute       : ActivatedRoute,
     private userService          : UserService,
-    private token                : TokenService){
-    this.submitted = false;
-    this.role = "Client"
-  }
+    private token                : TokenService,
+    private authService          : AuthenticationService)
+          {
+            this.submitted = false;
+            this.role = "Client"
+          }
 
   
 
@@ -41,12 +43,9 @@ export class ClientHomeComponent implements OnInit {
 
 
   getUserByEmail():  void{
+
     this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
-      (res) => {
-        this.user = res
-        console.log(this.user);
-        
-      }
+      (res) => { this.user = res }
     )
   }
 
@@ -55,11 +54,20 @@ export class ClientHomeComponent implements OnInit {
     return this.userService.getTokenEmail();  
   }
 
+  
+  
+  logout(event: MouseEvent)
+  {
+    event.preventDefault();
+     
+    this.authService.changeAuthStatus(false);
 
+    this.token.remove();
 
-
-
-
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
+  }
   
    /********************************************************************
    *
@@ -174,31 +182,22 @@ export class ClientHomeComponent implements OnInit {
           return;
       }
 
-        this.user = {
-          "nom"     : this.clientForm.value.nom, 
-          "prenom"  : this.clientForm.value.prenom, 
-          "tel"     : this.clientForm.value.tel, 
-          "email"   : this.clientForm.value.email, 
-          "adresse" : this.clientForm.value.adresse, 
-          "pwd"     : this.clientForm.value.pwd,
-          "role"    : this.role
-        }
+        // this.user = {
+        //   "nom"     : this.clientForm.value.nom, 
+        //   "prenom"  : this.clientForm.value.prenom, 
+        //   "tel"     : this.clientForm.value.tel, 
+        //   "email"   : this.clientForm.value.email, 
+        //   "adresse" : this.clientForm.value.adresse, 
+        //   "pwd"     : this.clientForm.value.pwd,
+        //   "role"    : this.role
+        // }
+        
+        
 
-      // this.authService.register(this.user).subscribe(
-      //   (data:any) => {this.handleResponse(data)},
-      // ) 
+        console.log(this.user.client);
+        
+     
   }
 
-  handleResponse(data:any){
-
-    // this.token.handle(data.token);
-  
-    // this.authService.changeAuthStatus(true);
-
-    this.router.navigate(['/connexion']).then(() => {
-      window.location.reload();
-    });
-    
-  }
 
 }
