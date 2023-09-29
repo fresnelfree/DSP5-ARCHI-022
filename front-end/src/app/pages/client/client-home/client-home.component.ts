@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
@@ -58,15 +59,15 @@ export class ClientHomeComponent implements OnInit {
   
   logout(event: MouseEvent)
   {
-    event.preventDefault();
-     
-    this.authService.changeAuthStatus(false);
+      event.preventDefault();
+      
+      this.authService.changeAuthStatus(false);
 
-    this.token.remove();
+      this.token.remove();
 
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
+      this.router.navigate(['/']).then(() => {
+        window.location.reload();
+      });
   }
   
    /********************************************************************
@@ -167,6 +168,7 @@ export class ClientHomeComponent implements OnInit {
 
     // Getter pour un accès facile aux champs du formulaire (clientForm)
     get f() { return this.clientForm.controls; }
+    get u() { return this.user.client}
 
     /********************************************************************
    *                  On submit Methode
@@ -182,21 +184,8 @@ export class ClientHomeComponent implements OnInit {
           return;
       }
 
-        // this.user = {
-        //   "nom"     : this.clientForm.value.nom, 
-        //   "prenom"  : this.clientForm.value.prenom, 
-        //   "tel"     : this.clientForm.value.tel, 
-        //   "email"   : this.clientForm.value.email, 
-        //   "adresse" : this.clientForm.value.adresse, 
-        //   "pwd"     : this.clientForm.value.pwd,
-        //   "role"    : this.role
-        // }
-        
-        
-
-        console.log(this.user.client);
-        
-     
+      let userToUpdate =  new User(this.u.id, this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
+  
   }
 
 
