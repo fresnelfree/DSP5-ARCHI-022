@@ -14,7 +14,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 export class ClientHomeComponent implements OnInit {
   private submitted;
   private role: string;
-  private user: any;
+  public user: any;
 
   constructor(
     private router               : Router,
@@ -25,6 +25,40 @@ export class ClientHomeComponent implements OnInit {
     this.submitted = false;
     this.role = "Client"
   }
+
+  
+
+    getUser() { return this.user}
+    
+  /********************************************************************
+   *                  GESTION CLIENT
+   *
+   ********************************************************************/
+  ngOnInit(): void {
+      // this.getUser();
+      this.getUserByEmail()
+  }
+
+
+  getUserByEmail():  void{
+    this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
+      (res) => {
+        this.user = res
+        console.log(this.user);
+        
+      }
+    )
+  }
+
+
+  getTokenEmail() {
+    return this.userService.getTokenEmail();  
+  }
+
+
+
+
+
 
   
    /********************************************************************
@@ -126,36 +160,11 @@ export class ClientHomeComponent implements OnInit {
     // Getter pour un accès facile aux champs du formulaire (clientForm)
     get f() { return this.clientForm.controls; }
 
-
-    
-  /********************************************************************
-   *                  GESTION CLIENT
-   *
-   ********************************************************************/
-  ngOnInit(): void {
-      // this.getUser();
-      this.getUserByEmail()
-  }
-
-
-  getUserByEmail():  void{
-    this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
-      (res) => console.log(res)
-    )
-  }
-
-
-  getTokenEmail() {
-    return this.userService.getTokenEmail();  
-  }
-
-
-
-
     /********************************************************************
    *                  On submit Methode
    *
    ********************************************************************/
+
     onSubmit() {
 
       this.submitted = true;
