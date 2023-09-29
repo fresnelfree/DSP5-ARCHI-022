@@ -33,45 +33,70 @@
         </div>
         <div class="col-lg-8">
           <div class="card mb-4 p-3 client-edit">
-            <form>
+
+            <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-2">
 
                   <div class="col">
                     <div class="form-outline">
-                      <input type="text" id="form6Example1" class="form-control" />
+                      <input formControlName="prenom" type="text" id="form6Example1" class="form-control" />
                       <label class="form-label" for="form6Example1">Prenom</label>
                     </div>
+                               <!-- MESSAGE D'ERREUR NOM -->
+                               <small class="form-text text-muted" *ngFor="let error of error_messages.prenom">
+                                <p class="text-danger" *ngIf="clientForm.controls['prenom'].hasError(error.type) && (clientForm.controls['prenom'].dirty || clientForm.controls['prenom'].touched)">
+                                    {{error.message}}
+                                </p>
+                            </small>
                   </div>
 
                   <div class="col">
                     <div class="form-outline">
-                      <input type="text" id="form6Example2" class="form-control" />
+                      <input formControlName="nom" type="text" id="form6Example2" class="form-control" />
                       <label class="form-label" for="form6Example2">Nom</label>
                     </div>
+                       
+                      <small class="form-text text-muted" *ngFor="let error of error_messages.nom">
+                        <p class="text-danger" *ngIf="clientForm.controls['nom'].hasError(error.type) && (clientForm.controls['nom'].dirty || clientForm.controls['nom'].touched)">
+                            {{error.message}}
+                        </p>
+                    </small>
                   </div>
                 </div>
               
                 <!-- Email input -->
                 <div class="form-outline mb-2">
-                  <input type="email" id="form6Example5" class="form-control" />
+                  <input formControlName="email" type="email" id="form6Example5" class="form-control" />
                   <label class="form-label" for="form6Example5">Email</label>
                 </div>
               
-                <!-- Number input -->
+                <!-- Tel input -->
                 <div class="form-outline mb-2">
-                  <input type="number" id="form6Example6" class="form-control" />
+                  <input formControlName="tel" type="number" id="form6Example6" class="form-control" />
                   <label class="form-label" for="form6Example6">Phone</label>
+                    <!-- MESSAGE D'ERREUR NOM -->
+                    <small class="form-text text-muted" *ngFor="let error of error_messages.tel">
+                      <p class="text-danger" *ngIf="clientForm.controls['tel'].hasError(error.type) && (clientForm.controls['tel'].dirty || clientForm.controls['tel'].touched)">
+                          {{error.message}}
+                      </p>
+                  </small>
                 </div>
               
                 <!-- Text input -->
                 <div class="form-outline mb-2">
-                    <input type="text" id="form6Example4" class="form-control" />
+                    <input formControlName="adresse" type="text" id="form6Example4" class="form-control" />
                     <label class="form-label" for="form6Example4">Address</label>
+                      <!-- MESSAGE D'ERREUR NOM -->
+                      <small class="form-text text-muted" *ngFor="let error of error_messages.adresse">
+                        <p class="text-danger" *ngIf="clientForm.controls['adresse'].hasError(error.type) && (clientForm.controls['adresse'].dirty || clientForm.controls['adresse'].touched)">
+                            {{error.message}}
+                        </p>
+                    </small>
                   </div>
               
                 <!-- Submit button -->
-                <button type="submit" class="btn btn-primary btn-block mb-4">Sauvegarder</button>
+                <button [disabled]="!clientForm.valid" type="submit" class="btn btn-primary btn-block mb-4">Sauvegarder</button>
               </form>
           </div>
         </div>

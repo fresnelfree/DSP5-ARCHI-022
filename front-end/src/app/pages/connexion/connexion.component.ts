@@ -87,7 +87,7 @@ export class ConnexionComponent {
 
   handleResponse(data:any){
 
-    console.log(data);
+    // console.log(data);
     
 
     this.token.handle(data.token);
