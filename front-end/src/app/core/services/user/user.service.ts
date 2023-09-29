@@ -4,6 +4,7 @@ import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
 import { TokenService } from '../token/token.service';
 import { environment } from 'src/environments/environment.dev';
 import { tap } from 'cypress/types/lodash';
+import { User } from '../../models/user/user';
 
 //Hedaer Option
 const httpOption = {
@@ -58,9 +59,9 @@ private handleError<T>(operation = 'operation', result?: T) {
 /************************************************
  *        METHODES
  ************************************************/
-  updateUser(id:number){
-    return this.http.patch(`${this.api}/comptes/${id}`, id, httpOption).pipe(
-      catchError(this.handleError(`userUpdate`, id))
+  updateUser(obj: User): Observable<User>{
+    return this.http.patch<User>(`${this.api}/comptes/${obj.id}`, obj, httpOption).pipe(
+      catchError(this.handleError(`userUpdate`, obj))
     )
   }
 
