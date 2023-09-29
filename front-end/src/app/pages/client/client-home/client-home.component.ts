@@ -93,14 +93,14 @@ export class ClientHomeComponent implements OnInit {
     ],
 
     'pwd' : [
-      {type: 'required', message:'Le mot de passe est obligqtoire.'},
+      // {type: 'required', message:'Le mot de passe est obligqtoire.'},
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
 
     'confPwd' : [
-      {type: 'required', message:'Veuillez confirmer le mot de passe.'},
+      // {type: 'required', message:'Veuillez confirmer le mot de passe.'},
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
@@ -138,7 +138,7 @@ export class ClientHomeComponent implements OnInit {
     ])),
 
     pwd: new FormControl('', Validators.compose([
-      Validators.required,
+      // Validators.required,
       // Validators.minLength(4),
       // Validators.maxLength(200),
       // Validators.pattern(
@@ -147,7 +147,7 @@ export class ClientHomeComponent implements OnInit {
     ])),
 
     confPwd: new FormControl('', Validators.compose([
-      Validators.required,
+      // Validators.required,
       // Validators.minLength(4),
       // Validators.maxLength(200),
       // Validators.pattern(
@@ -174,7 +174,6 @@ export class ClientHomeComponent implements OnInit {
           return;
       }
 
-      
         this.user = {
           "nom"     : this.clientForm.value.nom, 
           "prenom"  : this.clientForm.value.prenom, 

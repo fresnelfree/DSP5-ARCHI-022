@@ -21,10 +21,10 @@
                 class="rounded-circle img-fluid" style="width: 150px;">
               <h5 class="my-3">  {{user.client.prenom}} {{user.client.nom}}</h5>
               <p class="text-muted mb-1"> {{user.email}} </p>
-              <p class="text-muted mb-4"> {{user.client.adresse}}</p>
-              <p class="text-muted mb-4"> {{user.client.tel}}</p>
+              <p class="text-muted mb-2"> {{user.client.tel}}</p>
+              <p class="text-muted mb-3"> {{user.client.adresse}}</p>
              
-              <br/>
+          
               <div class="d-flex justify-content-center mb-4">
                 <button type="button" class="btn btn-primary">Follow</button>
                 <button type="button" class="btn btn-outline-primary ms-1">Mon ticket</button>
@@ -42,10 +42,16 @@
 
                   <div class="col">
                     <div class="form-outline">
-                      <input formControlName="prenom" type="text" id="form6Example1" class="form-control" />
+                      <input 
+                          [(ngModel)]="user.client.prenom" 
+                          formControlName="prenom" 
+                          type="text" 
+                          id="form6Example1" 
+                          class="form-control" 
+                          />
                       <label class="form-label" for="form6Example1">Prenom</label>
                     </div>
-                               <!-- MESSAGE D'ERREUR NOM -->
+                              
                                <small class="form-text text-muted" *ngFor="let error of error_messages.prenom">
                                 <p class="text-danger" *ngIf="clientForm.controls['prenom'].hasError(error.type) && (clientForm.controls['prenom'].dirty || clientForm.controls['prenom'].touched)">
                                     {{error.message}}
@@ -55,10 +61,15 @@
 
                   <div class="col">
                     <div class="form-outline">
-                      <input formControlName="nom" type="text" id="form6Example2" class="form-control" />
+                      <input 
+                        [(ngModel)]     ="user.client.nom"
+                        formControlName ="nom" 
+                        type="text" 
+                        id="form6Example2" 
+                        class="form-control" 
+                      />
                       <label class="form-label" for="form6Example2">Nom</label>
                     </div>
-                       
                       <small class="form-text text-muted" *ngFor="let error of error_messages.nom">
                         <p class="text-danger" *ngIf="clientForm.controls['nom'].hasError(error.type) && (clientForm.controls['nom'].dirty || clientForm.controls['nom'].touched)">
                             {{error.message}}
@@ -69,15 +80,21 @@
               
                 <!-- Email input -->
                 <div class="form-outline mb-2">
-                  <input formControlName="email" type="email" id="form6Example5" class="form-control" />
+                  <input [(ngModel)]="user.client.email" formControlName="email" type="email" id="form6Example5" class="form-control" />
                   <label class="form-label" for="form6Example5">Email</label>
+                   
+                    <small class="form-text text-muted" *ngFor="let error of error_messages.email">
+                      <p class="text-danger" *ngIf="clientForm.controls['email'].hasError(error.type) && (clientForm.controls['email'].dirty || clientForm.controls['email'].touched)">
+                          {{error.message}}
+                      </p>
+                  </small>
                 </div>
               
                 <!-- Tel input -->
                 <div class="form-outline mb-2">
-                  <input formControlName="tel" type="number" id="form6Example6" class="form-control" />
+                  <input [(ngModel)]="user.client.tel" formControlName="tel" type="number" id="form6Example6" class="form-control" />
                   <label class="form-label" for="form6Example6">Phone</label>
-                    <!-- MESSAGE D'ERREUR NOM -->
+                   
                     <small class="form-text text-muted" *ngFor="let error of error_messages.tel">
                       <p class="text-danger" *ngIf="clientForm.controls['tel'].hasError(error.type) && (clientForm.controls['tel'].dirty || clientForm.controls['tel'].touched)">
                           {{error.message}}
@@ -87,9 +104,9 @@
               
                 <!-- Text input -->
                 <div class="form-outline mb-2">
-                    <input formControlName="adresse" type="text" id="form6Example4" class="form-control" />
+                    <input [(ngModel)]="user.client.adresse" formControlName="adresse" type="text" id="form6Example4" class="form-control" />
                     <label class="form-label" for="form6Example4">Address</label>
-                      <!-- MESSAGE D'ERREUR NOM -->
+                     
                       <small class="form-text text-muted" *ngFor="let error of error_messages.adresse">
                         <p class="text-danger" *ngIf="clientForm.controls['adresse'].hasError(error.type) && (clientForm.controls['adresse'].dirty || clientForm.controls['adresse'].touched)">
                             {{error.message}}
