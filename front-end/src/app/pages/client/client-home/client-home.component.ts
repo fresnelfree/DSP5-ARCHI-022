@@ -138,12 +138,6 @@ export class ClientHomeComponent implements OnInit {
   }
 
 
-    getUserById():  void{
-      this.userService.getUserById(13).subscribe(
-        (res) => console.log(res)
-      )
-  }
-
   getUserByEmail():  void{
     this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
       (res) => console.log(res)
