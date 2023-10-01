@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthenticationService } from 'src/app/cores/services/auth/authentication.service';
-import { TokenService } from 'src/app/cores/services/token/token.service';
+import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { TokenService } from 'src/app/core/services/token/token.service';
 
 //Hedaer Option
 const httpOption = {
@@ -23,9 +23,8 @@ const httpOption = {
 
 export class InscriptionComponent {
   private submitted;
-  private  role: string;
-  private user:any;
-
+  private role: string;
+  private user: any;
 
   constructor(
     private router      : Router,
@@ -206,4 +205,5 @@ export class InscriptionComponent {
     this.registerForm.reset();
 
   }
+  
 }

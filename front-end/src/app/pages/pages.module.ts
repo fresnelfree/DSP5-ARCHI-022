@@ -5,13 +5,15 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ContactComponent } from './contact/contact.component';
-import { InscriptionComponent } from './inscription/inscription.component';
-import { ConnexionComponent } from './connexion/connexion.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { JeuxComponent } from './jeux/jeux.component';
-import { NavbarComponent } from '../shareds/navbar/navbar.component';
+// import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { InscriptionComponent } from './inscription/inscription.component';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { NavbarComponent } from '../shared/navbar/navbar.component';
+ 
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     AproposComponent,
     ForgotPasswordComponent,
     JeuxComponent,
-    NavbarComponent,
+    NavbarComponent
 
   ],
   imports: [
@@ -31,6 +33,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     PagesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    
   ]
 })
 export class PagesModule { }
