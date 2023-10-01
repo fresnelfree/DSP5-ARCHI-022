@@ -15,6 +15,8 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { ClientHomeComponent } from './client/client-home/client-home.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
+import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
+import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
  
  
 
@@ -32,7 +34,9 @@ import { FooterComponent } from '../shared/footer/footer.component';
     NavbarComponent,
     ClientHomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ClientGainComponent,
+    ClientProfilCardComponent
 
   ],
   imports: [
