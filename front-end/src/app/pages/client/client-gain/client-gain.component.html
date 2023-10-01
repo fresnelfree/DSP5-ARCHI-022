@@ -1,1 +1,27 @@
-<p>client-gain works!</p>
+<app-navbar></app-navbar>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row"> <app-client-nav></app-client-nav> </div>
+
+      <div class="row" *ngIf="user">
+        
+        <div class="col-lg-4">
+        <app-client-profil-card></app-client-profil-card>
+        </div>
+        <div class="col-lg-8">
+          <div class="card">
+            <h5 class="card-header">Ticket : 85697</h5>
+            <div class="card-body ticket-card">
+              <!-- <h5 class="card-title">Statut : En attente</h5> -->
+              <!-- <h5 class="card-title">Thé infusion</h5>
+              <p class="card-text">Vous avez gagné du thé infusion. Veuillez recuprerer votre gains avant le 15/12/2023 à 23:59</p>
+              <a href="#" class="btn btn-primary">Recuperer</a> -->
+
+              <p class="card-text">Vous n'avez pas de ticket pour le moment</p>
+              <a href="#" class="btn btn-primary">Participer au jeu</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
