@@ -14,6 +14,7 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { ClientHomeComponent } from './client/client-home/client-home.component';
 import { HeaderComponent } from '../shared/header/header.component';
+import { FooterComponent } from '../shared/footer/footer.component';
  
  
 
@@ -30,7 +31,8 @@ import { HeaderComponent } from '../shared/header/header.component';
     JeuxComponent,
     NavbarComponent,
     ClientHomeComponent,
-    HeaderComponent
+    HeaderComponent,
+    FooterComponent
 
   ],
   imports: [

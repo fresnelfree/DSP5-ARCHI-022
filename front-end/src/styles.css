@@ -5,3 +5,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 *{
   list-style-type: none;
 }
+
+.bg 
+{
+    background-image: url(/assets/images/img1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 655px;
+    opacity: 0.8;
+}
