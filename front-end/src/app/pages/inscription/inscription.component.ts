@@ -50,10 +50,14 @@ export class InscriptionComponent {
    error_messages   = {
     'nom' : [
       {type:'required', message:'Le nom est obligqtoire.'},
+      {type: 'minlength', message: 'Nom est court.' },
+      {type: 'maxlength', message: 'Nom est trop long.' },
     ],
 
     'prenom' : [
       {type:'required', message:'Le prenom est obligqtoire.'},
+      {type: 'minlength', message: 'Prenom est trop court.' },
+      {type: 'maxlength', message: 'Prenom est trop trop long.' },
     ],
 
     'tel' : [
@@ -71,17 +75,16 @@ export class InscriptionComponent {
 
     'pwd' : [
       {type:'required', message:'Le mot de passe est obligqtoire.'},
-      //  {type: 'minlength', message: 'Mot de passe trop court.' },
-      // {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      {type: 'minlength', message: 'Mot de passe trop court.' },
+      {type: 'maxlength', message: 'Mot de passe trop trop long.' },
+      {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
 
     'confPwd' : [
       {type:'required', message:'Veuillez confirmer le mot de passe.'},
-      //  {type: 'minlength', message: 'Mot de passe trop court.' },
-      // {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
-      {type: 'passwordCompare', message: 'Mot de passe different.'}
+      {type: 'minlength', message: 'Mot de passe trop court.' },
+      {type: 'maxlength', message: 'Mot de passe trop trop long.' },
+      {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
 
   }
@@ -91,10 +94,14 @@ export class InscriptionComponent {
 
     nom: new FormControl('', Validators.compose([
       Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(255),
     ])),
 
     prenom: new FormControl('', Validators.compose([
       Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(255),
     ])),
 
     tel: new FormControl('', Validators.compose([
@@ -114,20 +121,20 @@ export class InscriptionComponent {
 
     pwd: new FormControl('', Validators.compose([
       Validators.required,
-      // Validators.minLength(4),
-      // Validators.maxLength(200),
-      // Validators.pattern(
-      //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-      // ),
+      Validators.minLength(4),
+      Validators.maxLength(200),
+      Validators.pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
+      ),
     ])),
 
     confPwd: new FormControl('', Validators.compose([
       Validators.required,
-      // Validators.minLength(4),
-      // Validators.maxLength(200),
-      // Validators.pattern(
-      //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-      // ),
+      Validators.minLength(4),
+      Validators.maxLength(200),
+      Validators.pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
+      ),
     ])),
 
   })
