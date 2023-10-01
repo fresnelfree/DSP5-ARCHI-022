@@ -7,4 +7,16 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  classToggled = false;
+
+  
+  public toggleField() {
+    this.classToggled = !this.classToggled;  
+  }
+
+  modetogle(event: MouseEvent, className: string){
+    event.preventDefault();
+   
+  }
+
 }
