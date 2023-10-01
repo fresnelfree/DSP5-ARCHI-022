@@ -22,7 +22,7 @@ export class TokenService {
 
   }
 
-  get(){
+  get(): string | null{
 
     return localStorage.getItem('token');
 
