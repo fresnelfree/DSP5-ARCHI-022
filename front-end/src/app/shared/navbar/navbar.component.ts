@@ -22,8 +22,6 @@ export class NavbarComponent {
   ngOnInit(): void {
 
      this.authService.authStatus.subscribe(value => this.isLogged = value)
-   
-     console.log(this.isLogged);
      
   }
 

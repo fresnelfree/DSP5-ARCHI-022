@@ -4,8 +4,8 @@ import { authGuard } from '../core/guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent,  canActivate:[authGuard]},
-  { path: 'dashboard', component: HomeComponent,  canActivate:[authGuard]},
+  { path: '', component: HomeComponent},
+  { path: 'dashboard', component: HomeComponent},
   // {
   //   path: 'client', children: [
   //     { path : '', component: ClientListComponent},
