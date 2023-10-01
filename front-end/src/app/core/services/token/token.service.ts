@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 
 
@@ -7,7 +8,7 @@ import jwt_decode from 'jwt-decode';
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   handleToken(token: any){
 
@@ -32,6 +33,13 @@ export class TokenService {
     localStorage.removeItem('token');
 
   }
+
+  removeTokenExpired(){
+
+    localStorage.removeItem('token');
+    this.router.navigate(['/connexion'])
+  }
+
 
   isValidToken(){
 

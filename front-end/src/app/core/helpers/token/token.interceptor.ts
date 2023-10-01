@@ -18,23 +18,32 @@ export class TokenInterceptor implements HttpInterceptor {
     private tokenService: TokenService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    
-    const token = this.tokenService.getToken()
-
-    // Cloner la demande et remplacer les en-têtes originaux par des en-têtes clonés
-    // si on a un token on met le tonken dans le clone headers.
-    
-    if(token !== null){
-      let clone = request.clone({
-        headers: request.headers.set('Authorization', 'Bearer '+token)
-      });
-      console.log(clone);
       
-      return next.handle(clone);
-    }
-    
+      const token = this.tokenService.getToken()
 
-    return next.handle(request);
+      // Cloner la demande et remplacer les en-têtes originaux par des en-têtes clonés
+      // si on a un token on met le tonken dans le clone headers.
+      
+      if(token !== null){
+        let clone = request.clone({
+          headers: request.headers.set('Authorization', 'Bearer '+token)
+        });
+        
+        return next.handle(clone);
+      }
+
+    //   return next.handle(clone).pipe(
+    //     catchError(err => {
+    //        if(err.status === 401) {
+    //         this.tokenService.removeToken()
+    //        }
+    //        return throwError('Session a expiré ou vous n\'ête pas connecter.')
+    //     })
+    //   )
+    // }
+      
+      //sinon on retourne la requete
+      return next.handle(request);
   }
 }
 
