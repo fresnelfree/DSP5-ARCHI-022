@@ -8,12 +8,15 @@ import { ContactComponent } from './contact/contact.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { JeuxComponent } from './jeux/jeux.component';
-// import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { ConnexionComponent } from './connexion/connexion.component';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
+import { ClientHomeComponent } from './client/client-home/client-home.component';
+import { HeaderComponent } from '../shared/header/header.component';
  
+ 
+
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
     AproposComponent,
     ForgotPasswordComponent,
     JeuxComponent,
-    NavbarComponent
+    NavbarComponent,
+    ClientHomeComponent,
+    HeaderComponent
 
   ],
   imports: [

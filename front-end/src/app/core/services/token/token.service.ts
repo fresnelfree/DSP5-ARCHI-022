@@ -13,6 +13,7 @@ export class TokenService {
 
       this.set(token)     
 
+
   }
 
   set(token: any){
@@ -21,7 +22,7 @@ export class TokenService {
 
   }
 
-  get(){
+  get(): string | null{
 
     return localStorage.getItem('token');
 
