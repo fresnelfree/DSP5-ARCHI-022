@@ -63,7 +63,7 @@ export class ClientHomeComponent implements OnInit {
       
       this.authService.changeAuthStatus(false);
 
-      this.token.remove();
+      this.token.removeToken();
 
       this.router.navigate(['/']).then(() => {
         window.location.reload();

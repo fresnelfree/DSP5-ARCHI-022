@@ -90,13 +90,13 @@ export class ConnexionComponent {
     // console.log(data);
     
 
-    this.token.handle(data.token);
+    this.token.handleToken(data.token);
    
     this.authService.changeAuthStatus(true);
 
-    this.router.navigate(['/client']).then(() => {
-      window.location.reload();
-    });
+    // this.router.navigate(['/client']).then(() => {
+    //   window.location.reload();
+    // });
      
   }
 

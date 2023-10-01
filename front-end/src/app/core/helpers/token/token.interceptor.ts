@@ -19,7 +19,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     
-    const token = this.tokenService.get()
+    const token = this.tokenService.getToken()
 
     // Cloner la demande et remplacer les en-têtes originaux par des en-têtes clonés
     // si on a un token on met le tonken dans le clone headers.

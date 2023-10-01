@@ -60,34 +60,38 @@ export class AuthenticationService {
   /************************************************
    *        METHODES
    ************************************************/
+  //Inscription
   register(obj: any){
 
-    return this.http.post(this.api+"/users/register", obj, httpOption).pipe(
-      catchError(this.handleError(`register`, obj))
+      return this.http.post(this.api+"/users/register", obj, httpOption).pipe(
+        catchError(this.handleError(`register`, obj))
 
-    )
+      )
 
    }
 
+   //connexion
   login(obj:any){
 
-    return this.http.post(this.api+"/users/login", obj, httpOption).pipe(
+      return this.http.post(this.api+"/users/login", obj, httpOption).pipe(
 
-      catchError(this.handleError(`login`, obj))
+        catchError(this.handleError(`login`, obj))
 
-    )
+      )
 
    } 
 
+   //user est il connecté ?
    isloggedIn(){
 
-    return this.token.isValid()
+     return this.token.isValidToken()
 
   }
  
+  //Status du user
   changeAuthStatus(value: boolean){
 
-    this.loggedIn.next(value)
+     this.loggedIn.next(value)
 
   }
 }
