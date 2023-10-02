@@ -80,10 +80,12 @@
     left: 0;
     height: 100%;
     width: 250px;
-    padding: 10px 14px;
+    /* padding: 10px 14px; */
     background-color: var(--panel-color);
     border-right: 1px solid var(--border-color);
     transition: var(--tran-05);
+    display: flex;
+    flex-direction: column;
 }
 .tiptop-nav.close{
     width: 73px;
@@ -110,6 +112,7 @@
     color: var(--text-color);
     margin-left: 14px;
     transition: var(--tran-05);
+    padding-top: 18px;
 }
 .tiptop-nav.close .logo_name{
     opacity: 0;
@@ -120,11 +123,11 @@
     height: calc(100% - 90px);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    
+    justify-content: space-between;   
 }
 .menu-items li{
     list-style: none;
+    margin-right: 20px;
 }
 .menu-items li a{
     display: flex;
@@ -132,6 +135,7 @@
     height: 50px;
     text-decoration: none;
     position: relative;
+    right: 15px;
     
 }
 .tiptop-nav-links li a:hover:before{
@@ -174,16 +178,22 @@
 .tiptop-body.dark .tiptop-nav-links li a:hover .link-name{
     color: var(--text-color);
 }
-.menu-items .logout-mode{
-    padding-top: 10px;
+.tiptop-nav .menu-items .logout-mode{
+  
     border-top: 1px solid var(--border-color);
+    position: relative;
+    width: 100%;
+    bottom: 10px;
+    left: 0%;
+    justify-content: center;
+     
 }
-.menu-items .mode{
+.tiptop-nav .menu-items .mode{
     display: flex;
     align-items: center;
     white-space: nowrap;
 }
-.menu-items .mode-toggle{
+.tiptop-nav .menu-items .mode-toggle{
     position: absolute;
     right: 50px;
     height: 50px;
@@ -193,7 +203,7 @@
     justify-content: center;
     cursor: pointer;
 }
-.mode-toggle .switch{
+.tiptop-nav .mode-toggle .switch{
     position: relative;
     display: inline-block;
     height: 22px;
@@ -376,6 +386,8 @@
     color: var(--text-color);
 }
 
+/* Responsive TABLETTE */
+
 @media (max-width: 1000px) {
     .tiptop-nav{
         width: 73px;
@@ -396,6 +408,10 @@
         margin-left: -35px;
     }
 
+    .menu-items li a{
+        left: 10px;
+        
+    }
     .tiptop-nav li a .link-name{
         opacity: 0;
         pointer-events: none;
@@ -424,6 +440,13 @@
         overflow-X: scroll;
     }
 
+    .tiptop-nav .logout-mode  {
+        display: flex; 
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+    }
+     
     
 }
 
@@ -442,12 +465,6 @@
         font-size: 16px;
      }
 
-    
-    .menu-items .nav-links{
-       
-        position: inherit;
-        left: 1px;
-    }
 
     .activity-data .data-title{
         font-size: 16px;
@@ -506,4 +523,5 @@
         left: 0;
         width: 100%;
     }
+
 }
