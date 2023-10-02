@@ -121,6 +121,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    
 }
 .menu-items li{
     list-style: none;
@@ -131,6 +132,7 @@
     height: 50px;
     text-decoration: none;
     position: relative;
+    
 }
 .tiptop-nav-links li a:hover:before{
     content: "";
@@ -140,12 +142,13 @@
     width: 5px;
     border-radius: 50%;
     background-color: var(--primary-color);
+
 }
 .tiptop-body.dark li a:hover:before{
     background-color: var(--text-color);
 }
 .menu-items li a i{
-    font-size: 24px;
+    font-size: 20px;
     min-width: 45px;
     height: 100%;
     display: flex;
@@ -154,7 +157,7 @@
     color: var(--black-light-color);
 }
 .menu-items li a .link-name{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     color: var(--black-light-color);    
     transition: var(--tran-05);
@@ -303,7 +306,7 @@
     font-size: 24px;
 }
 .dash-content .title .text{
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 500;
     color: var(--text-color);
     margin-left: 10px;
@@ -330,14 +333,15 @@
 }
 .boxes .box .text{
     white-space: nowrap;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--text-color);
 }
 .boxes .box .number{
-    font-size: 40px;
+    font-size: 35px;
     font-weight: 500;
     color: var(--text-color);
+    margin-top: 25px;
 }
 .boxes .box.box2{
     background-color: var(--box2-color);
@@ -360,12 +364,12 @@
     margin: 0 15px;
 }
 .activity-data .data-title{
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 500;
     color: var(--text-color);
 }
 .activity-data .data .data-list{
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 400;
     margin-top: 20px;
     white-space: nowrap;
@@ -387,6 +391,11 @@
         opacity: 1;
         pointer-events: auto;
     }
+
+    .nav-links{
+        margin-left: -35px;
+    }
+
     .tiptop-nav li a .link-name{
         opacity: 0;
         pointer-events: none;
@@ -414,6 +423,8 @@
     .activity .activity-data{
         overflow-X: scroll;
     }
+
+    
 }
 
 @media (max-width: 780px) {
@@ -421,12 +432,40 @@
         width: calc(100% / 2 - 15px);
         margin-top: 15px;
     }
+
+    .boxes .box {
+        padding-bottom: 10px;
+     }
+
+
+    .boxes .box .number{
+        font-size: 16px;
+     }
+
+    
+    .menu-items .nav-links{
+       
+        position: inherit;
+        left: 1px;
+    }
+
+    .activity-data .data-title{
+        font-size: 16px;
+       
+    }
+    .data-list{
+        font-size: 1px;
+    }
 }
+
+
+
 @media (max-width: 560px) {
     .dash-content .boxes .box{
         width: 100% ;
     }
 }
+
 @media (max-width: 400px) {
     .tiptop-nav{
         width: 0px;
@@ -450,6 +489,7 @@
         opacity: 0;
         pointer-events: none;
     }
+
     .tiptop-nav ~ .dashboard{
         left: 0;
         width: 100%;
