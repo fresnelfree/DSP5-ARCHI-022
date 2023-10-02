@@ -7,88 +7,94 @@ require('dotenv').config();
  * - export interface Passport {}
  */
 
-import { Strategy as FacebookStrategy } from 'passport-facebook';
-import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
-import { Client, Compte, Employe, User } from '../models';
+const nodemailer = require('nodemailer');
+// const hbs = require("nodemailer-express-handlebars");
+const handlebars = require('handlebars');
+const fs = require('fs');
 import { UserService } from './user.service';
 import { ClientRepository, CompteRepository, EmployeRepository } from '../repositories';
+import path from 'path';
+import { User } from '../models';
+import { TokenService } from '@loopback/authentication';
+import { TokenServiceBindings } from '@loopback/authentication-jwt';
 
-// @bind({scope: BindingScope.TRANSIENT})
+
+@bind({scope: BindingScope.TRANSIENT})
 export class PassportProvider {
-    // public userService: UserService 
-    // public user: User;
-    // public client: Client;
-    // public employe: Employe;
-    // public compte: Compte;
-
-    // public compteRepository: CompteRepository
-    // @inject('repository.ClientRepository') 
-    // public clientRepository: ClientRepository   
-    // @inject('repository.EmployeRepository') 
-    // public employeRepository: EmployeRepository
+// Configuration du transporteur de messagerie
+public transporter
 
   constructor(
-    @inject('services.UserService') 
-    public userService: UserService,  
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
+    public jwtService: TokenService,    
   ){
-    // this.user = new User
-    // this.client = new Client
-    // this.employe = new Employe  
-    // this.compte = new Compte        
-    // this.userService = new UserService(
-    //   this.compteRepository,
-    //   this.clientRepository,   
-    //   this.employeRepository,this.client,this.employe,this.compte,this.user
-    // )
+    // Configuration du transporteur de messagerie
+    this.transporter = nodemailer.createTransport({
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true,
+      service: 'gmail', // Ex: 'Gmail', 'Yahoo', 'Outlook', etc.
+      auth: {
+        user: 'fteboukeu@gmail.com', // Adresse email de l'expéditeur
+        pass: 'ulkzuggqkptbidzk' // Mot de passe de l'expéditeur
+      }
+    }); 
   }
 
-  async setupPassportFacebook(passport:any,profileU:User): Promise<any> {
+  async sendLinkVerifyEmail(user: User): Promise<any> {
+   
+    const token = await this.jwtService.generateToken(user);
+    // Données pour remplir le modèle
+    const data = {
+      subject: 'Vérification de votre adresse email',
+      message: 'Contenu du message',
+      user: user,
+      lien: process.env.BASE_URL+'/verifyEmail/'+ token
+    };
+    const path_template = '../../public/templates/verify-email.hbs' 
 
-    passport.use(new FacebookStrategy({
-      clientID:'834324708244777',
-      clientSecret: 'b23338d8d100a9f261b7d3199fe7ef06',
-      callbackURL: "http://localhost:3000/auth/facebook/callback",
-      profileFields: ['id', 'first_name','last_name','picture','gender','emails']
-    },
-    function(accessToken, refreshToken, profile, cb) {
-      console.log("profile: ",profile)
-      console.log("accessToken: ",accessToken)
-      console.log("refreshToken: ",refreshToken)
-      console.log("cb: ",cb)
-      profileU.securityId = profile._json.id
-      profileU.nom = profile._json.last_name
-      profileU.prenom = profile._json.first_name
-      profileU.type_passport = "facebook"  
-      profileU.email = profile._json.email    
-      cb(null, profile);  
-      return profile._json      
-    }
-    ));    
+    // Envoyer l'e-mail
+    this.sendEmail(data,path_template)
   }
 
-  async setupPassportGoogle(passport:any,profileU:User): Promise<any> {
+  async resetPassword(user: User): Promise<any> {
+    const token = await this.jwtService.generateToken(user);
+    // Données pour remplir le modèle
+    const data = {
+      subject: 'Modification de votre mot de passe',
+      message: 'Contenu du message',
+      user: user,
+      lien: process.env.BASE_URL_FRONT+'/reset_password/'+ token
+    };
+    const path_template = '../../public/templates/reset-password.hbs' 
 
-    passport.use(new GoogleStrategy({
-      clientID:'574508009757-dfq7soqtakor952logu1rup06r53hsjr.apps.googleusercontent.com',
-      clientSecret: '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',
-      callbackURL: "http://localhost:3000/auth/google/callback",
-    },
-    function(accessToken, refreshToken, profile, cb) {
-      console.log("profile: ",profile)
-      console.log("accessToken: ",accessToken)
-      console.log("refreshToken: ",refreshToken)
-      console.log("cb: ",cb)
-      cb(null, profile);
-      profileU.securityId = profile._json.sub
-      profileU.nom = profile._json.name || ""
-      profileU.prenom = profile._json.given_name || ""
-      profileU.type_passport = "google"  
-      profileU.email = profile._json.email || ""
-      
-      return profile._json
-    }
-    ));
-    this.userService.saveUser(profileU)
+    // Envoyer l'e-mail
+    this.sendEmail(data,path_template)
+
   }
+
+  async sendEmail(data:any,path_template:string): Promise<any> {
+    // Lecture du modèle Handlebars depuis le fichier
+    const templateSource = fs.readFileSync(path.join(__dirname, path_template), 'utf8');
+    const template = handlebars.compile(templateSource);
+
+    // Génération du contenu de l'e-mail à partir du modèle et des données
+    const html = template(data);
+    // Définir les options de l'e-mail
+    const mailOptions = {
+      from: 'fteboukeu@gmail.com',
+      to: data.user.email,
+      subject: data.subject,
+      html: html
+    };
+    // Envoyer l'e-mail
+    this.transporter.sendMail(mailOptions, (error:any, info:any) => {
+      if (error) {
+        console.error('Erreur lors de l\'envoi de l\'e-mail :', error);
+      } else {
+        console.log('E-mail envoyé avec succès :', info.response);
+      }
+    });     
+  }  
   
 }
