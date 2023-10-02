@@ -8,6 +8,7 @@ import { CoresModule } from './core/cores.module';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { PagesModule } from './pages/pages.module';
+import { TokenInterceptorProvider } from './core/helpers/token/token.interceptor';
  
 
 
@@ -23,7 +24,9 @@ import { PagesModule } from './pages/pages.module';
     CoresModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [
+    TokenInterceptorProvider
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

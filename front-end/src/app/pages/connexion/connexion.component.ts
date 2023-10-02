@@ -87,14 +87,14 @@ export class ConnexionComponent {
 
   handleResponse(data:any){
 
-    console.log(data);
+    // console.log(data);
     
 
     this.token.handle(data.token);
    
     this.authService.changeAuthStatus(true);
 
-    this.router.navigate(['/dashboard']).then(() => {
+    this.router.navigate(['/client']).then(() => {
       window.location.reload();
     });
      

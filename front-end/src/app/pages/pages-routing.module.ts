@@ -9,6 +9,8 @@ import { InscriptionComponent } from './inscription/inscription.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { authGuard } from '../core/guards/auth.guard';
+import { ClientHomeComponent } from './client/client-home/client-home.component';
+ 
 
 
 const routes: Routes = [
@@ -19,7 +21,8 @@ const routes: Routes = [
   { path: 'apropos', component: AproposComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'connexion', component: ConnexionComponent},
-  { path: 'inscription', component: InscriptionComponent}
+  { path: 'inscription', component: InscriptionComponent},
+  { path: 'client', component: ClientHomeComponent, canActivate: [authGuard]},
 
 ];
 
