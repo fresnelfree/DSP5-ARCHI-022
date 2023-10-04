@@ -7,13 +7,13 @@ import { Component } from '@angular/core';
 })
 export class DashboardJeuxComponent {
 
-  public toggle : boolean = false;
-  public close : boolean = false;
+  // public toggle : boolean = false;
+  // public close : boolean = false;
 
-  onBars(e:MouseEvent){
-    e.preventDefault()
-    this.toggle = !this.toggle;   
-  }
+  // onBars(e:MouseEvent){
+  //   e.preventDefault()
+  //   this.toggle = !this.toggle;   
+  // }
 
 
 }
