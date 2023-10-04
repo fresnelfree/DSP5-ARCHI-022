@@ -28,13 +28,21 @@
               "@angular/material/prebuilt-themes/indigo-pink.css",
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/tiptop.css",
-              "src/styles.css"
+              "src/styles.css",
+              "src/assets/css/dashboard.css"
               
             ],
             "scripts": [
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/script.js",
+              "src/assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js",
+              "src/assets/js/sidebarmenu.js",
+              "src/assets/js/app.min.js",
+              "src/assets/libs/apexcharts/dist/apexcharts.min.js",
+              "src/assets/libs/simplebar/dist/simplebar.js",
+              "src/assets/js/dashboard.js"
             ]
           },
           "configurations": {
