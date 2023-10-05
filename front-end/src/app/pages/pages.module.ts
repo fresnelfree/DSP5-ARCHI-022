@@ -15,6 +15,7 @@ import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { ClientHomeComponent } from './client/client-home/client-home.component';
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
+import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
  
  
 
@@ -32,7 +33,8 @@ import { FooterComponent } from '../shared/footer/footer.component';
     NavbarComponent,
     ClientHomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    ModifyPwdComponent
 
   ],
   imports: [
