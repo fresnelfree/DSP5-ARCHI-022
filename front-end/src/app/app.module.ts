@@ -9,8 +9,6 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { PagesModule } from './pages/pages.module';
 import { TokenInterceptorProvider } from './core/helpers/token/token.interceptor';
  
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +19,7 @@ import { TokenInterceptorProvider } from './core/helpers/token/token.interceptor
     BrowserAnimationsModule,
     MatSlideToggleModule,
     CoresModule,
+    
   ],
   providers: [
     TokenInterceptorProvider

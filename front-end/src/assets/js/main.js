@@ -53,19 +53,17 @@ jQuery(document).ready(function($) {
 	$('#menuToggle').on('click', function(event) {
 		var windowWidth = $(window).width();   		 
 		if (windowWidth<1010) { 
-            
-			$('.dashboard').removeClass('open'); 
+			$('body').removeClass('open'); 
 			if (windowWidth<760){ 
 				$('#left-panel').slideToggle(); 
 			} else {
 				$('#left-panel').toggleClass('open-menu');  
 			} 
-
 		} else {
-			$('.dashboard').toggleClass('open');
+			$('body').toggleClass('open');
 			$('#left-panel').removeClass('open-menu');  
 		} 
-			 alert()
+			 
 	}); 
 
 	 
