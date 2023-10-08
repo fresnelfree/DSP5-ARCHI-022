@@ -50,6 +50,7 @@ export class InscriptionComponent {
    error_messages   = {
     'nom' : [
       {type:'required', message:'Le nom est obligqtoire.'},
+
       {type: 'minlength', message: 'Nom trop court.' },
       {type: 'maxlength', message: 'Nom trop trop long.' },
     ],
@@ -85,7 +86,6 @@ export class InscriptionComponent {
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
-      {type: 'passwordCompare', message: 'Mot de passe different.'}
     ],
 
   }
@@ -95,10 +95,14 @@ export class InscriptionComponent {
 
     nom: new FormControl('', Validators.compose([
       Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(255),
     ])),
 
     prenom: new FormControl('', Validators.compose([
       Validators.required,
+      Validators.minLength(2),
+      Validators.maxLength(255),
     ])),
 
     tel: new FormControl('', Validators.compose([
