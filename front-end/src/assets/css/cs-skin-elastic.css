@@ -1,13 +1,13 @@
-@font-face {
+/* @font-face {
 	font-family: 'icomoon';
-	src:url('../fonts/icomoon/icomoon.eot?-rdnm34');
-	src:url('../fonts/icomoon/icomoon.eot?#iefix-rdnm34') format('embedded-opentype'),
-		url('../fonts/icomoon/icomoon.woff?-rdnm34') format('woff'),
-		url('../fonts/icomoon/icomoon.ttf?-rdnm34') format('truetype'),
-		url('../fonts/icomoon/icomoon.svg?-rdnm34#icomoon') format('svg');
+	src:url('assets/fonts/icomoon/icomoon.eot?-rdnm34');
+	src:url('assets/fonts/icomoon/icomoon.eot?#iefix-rdnm34') format('embedded-opentype'),
+		url('assets/fonts/icomoon/icomoon.woff?-rdnm34') format('woff'),
+		url('assets/fonts/icomoon/icomoon.ttf?-rdnm34') format('truetype'),
+		url('assets/fonts/icomoon/icomoon.svg?-rdnm34#icomoon') format('svg');
 	font-weight: normal;
 	font-style: normal;
-}
+} */
 
 div.cs-skin-elastic {
 	background: transparent;
@@ -131,19 +131,19 @@ div.cs-skin-elastic {
 }
 
 .cs-skin-elastic .cs-options li.flag-france span {
-	background-image: url(../img/france.svg);
+	/* background-image: url(../img/france.svg); */
 }
 
 .cs-skin-elastic .cs-options li.flag-brazil span {
-	background-image: url(../img/brazil.svg);
+	/* background-image: url(../img/brazil.svg); */
 }
 
 .cs-skin-elastic .cs-options li.flag-safrica span {
-	background-image: url(../img/south-africa.svg);
+	/* background-image: url(../img/south-africa.svg); */
 }
 
 .cs-skin-elastic .cs-options li.flag-argentina span {
-	background-image: url(../img/argentina.svg);
+	/* background-image: url(../img/argentina.svg); */
 }
 
 @-webkit-keyframes expand { 
