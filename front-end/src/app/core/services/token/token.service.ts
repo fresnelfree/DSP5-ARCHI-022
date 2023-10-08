@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
 
 
@@ -7,39 +8,45 @@ import jwt_decode from 'jwt-decode';
 })
 export class TokenService {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
-  handle(token: any){
+  handleToken(token: any){
 
-      this.set(token)     
-
+      this.setToken(token)     
 
   }
 
-  set(token: any){
+  setToken(token: any){
 
     localStorage.setItem('token', token);
 
   }
 
-  get(): string | null{
+  getToken(): string | null{
 
     return localStorage.getItem('token');
 
   }
 
-  remove(){
-
+  removeToken(){
+    
     localStorage.removeItem('token');
 
   }
 
-  isValid(){
+  removeTokenExpired(){
 
-    const token = this.get();
+    localStorage.removeItem('token');
+    this.router.navigate(['/connexion'])
+  }
+
+
+  isValidToken(){
+
+    const token = this.getToken();
 
     if(token){
-       const payload = this.decode(token);
+       const payload = this.decodeToken(token);
 
        if(payload){
         // return payload.iat === environment.hostLine ? true : false
@@ -52,7 +59,7 @@ export class TokenService {
   }
 
   //le token seule en chaine de caracter
-  payload(token:any){ 
+  payloadToken(token:any){ 
 
     const payload = token.split('.')[1];
     
@@ -60,7 +67,7 @@ export class TokenService {
 
   }
 
-  decode(token:any)
+  decodeToken(token:any)
   {
 
     try {

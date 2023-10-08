@@ -40,9 +40,9 @@ export class ConnexionComponent {
     ],
     'pwd' : [
       {type:'required', message:'Le mot de passe est obligqtoire.'},
-       {type: 'minlength', message: 'Mot de passe trop court.' },
+      {type: 'minlength', message: 'Mot de passe ne doit past être -8 caracters.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
 
   }
@@ -58,11 +58,11 @@ export class ConnexionComponent {
 
     pwd: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(4),
-      Validators.maxLength(200),
-      // Validators.pattern(
-      //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-      // ),
+      Validators.minLength(8),
+      Validators.maxLength(255),
+      Validators.pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
+      ),
     ])),
 
   })
@@ -90,7 +90,7 @@ export class ConnexionComponent {
     // console.log(data);
     
 
-    this.token.handle(data.token);
+    this.token.handleToken(data.token);
    
     this.authService.changeAuthStatus(true);
 
