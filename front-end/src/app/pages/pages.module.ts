@@ -38,7 +38,7 @@ import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
     ClientHomeComponent,
     HeaderComponent,
     FooterComponent,
-    ModifyPwdComponent
+    ModifyPwdComponent,
     ClientGainComponent,
     ClientProfilCardComponent,
     ClientNavComponent
