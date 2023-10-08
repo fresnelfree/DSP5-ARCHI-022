@@ -9,12 +9,12 @@ import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 export class DashboardHomeComponent { 
 
   public open: boolean = false;
-  public openMenu: boolean = false;
-  public openMenuSmall: boolean = false;
-  public ecran: number = window.innerWidth;
-  public smallDevise: boolean = false;
   public block: boolean = false;
-
+  public openMenu: boolean = false;//Le boutton bare
+  public smallDevise: boolean = false;//Pour apliquer des styles aux tablettes et smartphones
+  public openMenuSmall: boolean = false;//Pour ouvrir le petit menu
+  public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
+  
   //   constructor(private toggleService: ToggleService){}
 
   @HostListener('window:resize', ['$event'])
