@@ -60,7 +60,7 @@ private handleError<T>(operation = 'operation', result?: T) {
  *        METHODES
  ************************************************/
   updateUser(obj: User): Observable<User>{
-    return this.http.patch<User>(`${this.api}/clients/${obj.id}`, obj, httpOption).pipe(
+    return this.http.put<User>(`${this.api}/clients/${obj.id}`, obj, httpOption).pipe(
       catchError(this.handleError(`userUpdate`, obj))
     )
   }
@@ -79,9 +79,8 @@ private handleError<T>(operation = 'operation', result?: T) {
     );
   }
 
-  
   getTokenEmail() {
-    const ob: any = this.token.decode(this.token.get())
+    const ob: any = this.token.decodeToken(this.token.getToken())
     let value = ob.email;
     return value
   }

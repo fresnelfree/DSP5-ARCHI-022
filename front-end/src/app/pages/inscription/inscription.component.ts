@@ -50,14 +50,15 @@ export class InscriptionComponent {
    error_messages   = {
     'nom' : [
       {type:'required', message:'Le nom est obligqtoire.'},
-      {type: 'minlength', message: 'Nom est court.' },
-      {type: 'maxlength', message: 'Nom est trop long.' },
+
+      {type: 'minlength', message: 'Nom trop court.' },
+      {type: 'maxlength', message: 'Nom trop trop long.' },
     ],
 
     'prenom' : [
       {type:'required', message:'Le prenom est obligqtoire.'},
-      {type: 'minlength', message: 'Prenom est trop court.' },
-      {type: 'maxlength', message: 'Prenom est trop trop long.' },
+      {type: 'minlength', message: 'Preom trop court.' },
+      {type: 'maxlength', message: 'Preom trop trop long.' },
     ],
 
     'tel' : [
@@ -211,6 +212,8 @@ export class InscriptionComponent {
     // this.router.navigate(['/dashboard']).then(() => {
     //   window.location.reload();
     // });
+
+    this.onReset()
 
     this.router.navigate(['/connexion']).then(() => {
       window.location.reload();

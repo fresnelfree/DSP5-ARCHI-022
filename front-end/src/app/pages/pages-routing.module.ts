@@ -10,7 +10,11 @@ import { JeuxComponent } from './jeux/jeux.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { authGuard } from '../core/guards/auth.guard';
 import { ClientHomeComponent } from './client/client-home/client-home.component';
+
 import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
+
+import { ClientGainComponent } from './client/client-gain/client-gain.component';
+
  
 
 
@@ -24,9 +28,13 @@ const routes: Routes = [
   { path: 'contact', component: ContactComponent},
   { path: 'connexion', component: ConnexionComponent},
   { path: 'inscription', component: InscriptionComponent},
-  { path: 'client', component: ClientHomeComponent, canActivate: [authGuard]},
+  { path: 'client', children: [
+                      { path: '', component: ClientHomeComponent },
+                      { path: 'profil', component: ClientHomeComponent },
+                      { path: 'gain', component: ClientGainComponent },
+  ], canActivate: [authGuard]},//fin client
 
-];
+];//Fin routes
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

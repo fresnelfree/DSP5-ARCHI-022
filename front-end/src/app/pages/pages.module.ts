@@ -16,6 +16,10 @@ import { ClientHomeComponent } from './client/client-home/client-home.component'
 import { HeaderComponent } from '../shared/header/header.component';
 import { FooterComponent } from '../shared/footer/footer.component';
 import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
+import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
+import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
+import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
+
  
  
 
@@ -35,6 +39,9 @@ import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
     HeaderComponent,
     FooterComponent,
     ModifyPwdComponent
+    ClientGainComponent,
+    ClientProfilCardComponent,
+    ClientNavComponent
 
   ],
   imports: [

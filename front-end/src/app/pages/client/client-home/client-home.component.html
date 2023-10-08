@@ -2,36 +2,12 @@
 <section style="background-color: #eee;">
     <div class="container py-5">
       <div class="row">
-        <div class="col">
-          <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-            <ol class="breadcrumb mb-0">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item"><a href="#">User</a></li>
-              <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-            </ol>
-          </nav>
-        </div>
+       <app-client-nav></app-client-nav>
       </div>
   
       <div class="row" *ngIf="user">
         <div class="col-lg-4">
-          <div class="card mb-4">
-            <div class="card-body text-center">
-              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-                class="rounded-circle img-fluid" style="width: 150px;">
-              <h5 class="my-3">  {{user.client.prenom}} {{user.client.nom}}</h5>
-              <p class="text-muted mb-1"> {{user.email}} </p>
-              <p class="text-muted mb-2"> {{user.client.tel}}</p>
-              <p class="text-muted mb-3"> {{user.client.adresse}}</p>
-             
-          
-              <div class="d-flex justify-content-center mb-4">
-                <button type="button" class="btn btn-primary" (click)="logout($event)">Deconnexion</button>
-                <button type="button" class="btn btn-outline-primary ms-1">Mon ticket</button>
-              </div>
-              
-            </div>
-          </div>
+        <app-client-profil-card></app-client-profil-card>
         </div>
         <div class="col-lg-8">
           <div class="card mb-4 p-3 client-edit">
