@@ -6,6 +6,7 @@ import { DashboardHomeComponent } from './dashboard-home/dashboard-home.componen
 import { DashboardSidebarComponent } from './shared/dashboard-sidebar/dashboard-sidebar.component';
 import { DashboardHeaderComponent } from './shared/dashboard-header/dashboard-header.component';
 import { DashboardFooterComponent } from './shared/dashboard-footer/dashboard-footer.component';
+import { DashboardClientAllComponent } from './client/dashboard-client-all/dashboard-client-all.component';
  
  
 
@@ -16,6 +17,7 @@ import { DashboardFooterComponent } from './shared/dashboard-footer/dashboard-fo
     DashboardSidebarComponent,
     DashboardHeaderComponent,
     DashboardFooterComponent,
+    DashboardClientAllComponent,
    
   ],
   imports: [

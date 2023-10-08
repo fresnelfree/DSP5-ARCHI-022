@@ -1,28 +1,248 @@
-<div class="dashboard">
-    <div class="sidebar" [ngClass]="{'toggle-sidebar': toggle}">
-        <app-dashboard-sidebar></app-dashboard-sidebar>
-    </div>
+<div class="dashboard  "  [ngClass]="{'open-menu-tablette': openMenuTablette,'open-menu-mobile':openMenuMobile, 'open-menu-small':openMenuSmall}" >
+    <!-- SIDEBAR -->
+    <div class="sidebar border-right">
 
+      <div class="grand-menu " style="width: 100%; height: 100%;">
+        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light grand-menu" style="width: 100%; height: 100%;">
+            
+            <div class="d-flex   justify-content-between " (click)="onBars($event)">
+                <span class="fs-5">Thé-TPTOP</span>
+                <i class="bi bi-x-circle-fill btn-close-menu "></i>
+             </div>
+            <hr>
 
-
-    <div class="main-content" [ngClass]="{'toggle-main-content': toggle}">
-        <header>
-            <div class="menu-toggle">
-                <label for="sidebar-toggle">
-                    <span class="la la-bars" (click)="onBars($event)"></span>
-                </label>
+            <ul class="nav nav-pills flex-column justify-content-between mb-auto">
+              <li class="nav-item nav-link active" aria-current="page">
+                 
+                <i class="bi bi-house-fill"></i>
+                  <span>DASHBOARD</span>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark" routerLink="/dashboard/client"> 
+                  <i class="bi bi-person-lines-fill" ></i>
+                    Utilisateurs
+                  </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark">
+                <i class="bi bi-speedometer2"></i>
+                  Statistics
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark" routerLink="/dashboard/jeux">
+                <i class="bi bi-kanban"></i>
+                  Jeux
+                </a>
+              </li>
+            </ul>
+            <hr>
+            <div class="dropdown">
+              <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
+                <strong>mdo</strong>
+              </a>
+              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
+                  
+                <li><a class="dropdown-item" href="#">Profile</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" routerLink="/">Deconnexion</a></li>
+              </ul>
             </div>
-            <div class="header-icones">
-                <span class="las la-search"></span>
-                <span class="las la-bookmark"></span>
-                <span class="las la-sms"></span>
+          </div> 
+      </div>
+      <!-- Fin grand menu  -->
+ 
+        <div class="petit-menu d-flex flex-column flex-shrink-0 bg-light" style="width: 100%;  height: 100%;" >
+            <a href="/" class="d-block p-3 mt-2 text-decoration-none border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
+                <i class="bi bi-aspect-ratio-fill"></i>
+              <span class="visually-hidden">Icon-only</span>
+            </a>
+            <ul class="nav nav-pills nav-flush mt-0 flex-column mb-auto text-center">
+              <li class="nav-item">
+                <a href="#" class="nav-link link-dark active py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
+                  <i class="bi bi-house-fill"> </i>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark  py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
+                <i class="bi bi-person-lines-fill"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
+                    <i class="bi bi-speedometer2"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark  py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
+                    <i class="bi bi-kanban"></i>
+                </a>
+              </li>
+              <li>
+                <a href="#" class="nav-link link-dark py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
+                    <i class="bi bi-grid"></i>
+                </a>
+              </li>
+             
+            </ul>
+            <div class="dropdown border-top">
+              <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
+              </a>
+              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
+                <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i></a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#" routerLink="/"><i class="bi bi-box-arrow-in-left"></i></a></li>
+              </ul>
             </div>
-        </header>
+          </div> <!--fin petit menu-->
+      
+      
+ </div><!--fin sidebar-->
     
-    
-        <main class="container-fluid">
-           
-           
-        </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ---------------------------------------------------------
+                A DROITE
+--------------------------------------------------------->
+
+
+    <!-- NAVBAR -->
+    <div class="header">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 65px;">
+        <div class="container-fluid">
+          <!-- <a class="navbar-brand"  >Navbar</a> -->
+          <span class="navbar-toggler-icon " (click)="onBars($event)"></span>
+          <button   class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" ></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
     </div>
-</div>
+  
+  
+
+
+
+
+
+
+
+
+  
+    <!-- CONTENT -->
+    <div class="main .tiptop p-3">
+     
+        <div class="card-content d-flex align-items-center">
+            <div class="stat-widget ">
+                <div class="stat-icon dib flat-color-1">
+                    <i class="pe-7s-cash"></i>
+                </div>
+                <div class="stat-content">
+                    <div class="text-left ">
+                        <div class="stat-text"><span class="count">2389</span></div>
+                        <p class="stat-heading">Participants</p>
+                   </div>
+               </div>
+            </div>
+        </div>
+  
+       
+        <div class="card-content">
+            <div class="stat-widget">
+                <div class="stat-icon dib flat-color-2">
+                    <i class="pe-7s-browser"></i>
+                </div>
+                <div class="stat-content d-flex flex-row align-items-center justify-content-center">
+                    <div class="text-left ">
+                        <div class="stat-text"><span class="count">2389</span></div>
+                        <p class="stat-heading">Employes</p>
+                   </div>
+               </div>
+            </div>
+        </div>
+   
+        <div class="card-content">
+            <div class="stat-widget ">
+                <div class="stat-icon dib flat-color-3">
+                    <i class="bi bi-receipt-cutoff"></i>
+                </div>
+                <div class="stat-content d-flex flex-row align-items-center justify-content-center">
+                    <div class="text-left ">
+                        <div class="stat-text"><span class="count">2389</span></div>
+                        <p class="stat-heading">Total gains</p>
+                   </div>
+               </div>
+            </div>
+        </div>
+   
+        <div class="card-content">
+          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="assets/images/i.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>First slide label</h5>
+                  <p>Some representative placeholder content for the first slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="assets/images/i2.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Second slide label</h5>
+                  <p>Some representative placeholder content for the second slide.</p>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <img src="assets/images/i3.jpg" class="d-block w-100" alt="...">
+                <div class="carousel-caption d-none d-md-block">
+                  <h5>Third slide label</h5>
+                  <p>Some representative placeholder content for the third slide.</p>
+                </div>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+   
+        <div class="card-content">
+        
+        </div>  
+
+        
+    </div><!--Fin main-->
+  
+    
+  </div><!--Fin body-->

@@ -1,33 +1,54 @@
-import { Component } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard-jeux',
   templateUrl: './dashboard-jeux.component.html',
   styleUrls: ['./dashboard-jeux.component.css']
 })
-export class DashboardJeuxComponent {
+export class DashboardJeuxComponent  implements OnInit {
 
-  public toggle : boolean = false;
-  public close : boolean = false;
+  public openMenu : boolean = false;
+  public openMenuMobile : boolean = false;
+  public openMenuTablette : boolean = false;
+  public openMenuSmall : boolean = false;
+  public ecran : number = window.innerWidth;
+  
 
+ ngOnInit(): void {
+     
+ }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.ecran = window.innerWidth;
+
+    if(this.ecran > 0 && this.ecran <=576){
+      this.openMenuSmall = false; 
+    }
+    if(this.ecran > 0 && this.ecran <=576){
+      this.openMenuSmall = false; 
+    }
+   }
+
+ 
   onBars(e:MouseEvent){
     e.preventDefault()
-    this.toggle = !this.toggle;   
-
-    // var windowWidth = window.innerWidth;  		 
-		// if (windowWidth<1010) { 
-		// 	$('body').removeClass('open'); 
-		// 	if (windowWidth<760){ 
-		// 		$('#left-panel').slideToggle(); 
-		// 	} else {
-		// 		$('#left-panel').toggleClass('open-menu');  
-		// 	} 
-		// } else {
-		// 	$('body').toggleClass('open');
-		// 	$('#left-panel').removeClass('open-menu');  
-		// } 
-			 
-     
+    
+    if(this.ecran > 0 && this.ecran <=576)
+    {
+      this.openMenuMobile = !this.openMenuMobile
+      this.openMenuSmall = false; 
+    } 
+    else if(this.ecran > 576 && this.ecran <778)
+    {
+      this.openMenuTablette = !this.openMenuTablette; 
+      this.openMenuSmall = false; 
+    }
+    else if(this.ecran > 778)
+    {
+        this.openMenuSmall = !this.openMenuSmall;     
+    }
+    
   }
 
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 
 @Component({
@@ -6,16 +6,53 @@ import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
   templateUrl: './dashboard-home.component.html',
   styleUrls: ['./dashboard-home.component.css']
 })
-export class DashboardHomeComponent {
+export class DashboardHomeComponent { 
 
-  public toggle : boolean = false;
+  public openMenu : boolean = false;
+  public openMenuMobile : boolean = false;
+  public openMenuTablette : boolean = false;
+  public openMenuSmall : boolean = false;
+  public ecran : number = window.innerWidth;
+  
+  constructor(private toggleService: ToggleService){}
 
-  constructor(private toogle: ToggleService){}
- 
+ ngOnInit(): void {
+     
+ }
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.ecran = window.innerWidth;
+
+    if(this.ecran > 0 && this.ecran <=576){
+      this.openMenuSmall = false; 
+    }
+    if(this.ecran > 0 && this.ecran <=576){
+      this.openMenuSmall = false; 
+    }
+   }
+
+   
   onBars(e:MouseEvent){
     e.preventDefault()
-    this.toggle = !this.toggle;   
+    
+    if(this.ecran > 0 && this.ecran <=576)
+    {
+      this.openMenuMobile = !this.openMenuMobile
+      this.openMenuSmall = false; 
+    } 
+    else if(this.ecran > 576 && this.ecran <778)
+    {
+      this.openMenuTablette = !this.openMenuTablette; 
+      this.openMenuSmall = false; 
+    }
+    else if(this.ecran > 778)
+    {
+        this.openMenuSmall = !this.openMenuSmall;     
+    }
+    
   }
+
 
 
 }
