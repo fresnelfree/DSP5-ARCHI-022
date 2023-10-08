@@ -85,6 +85,26 @@ export class ConnexionComponent {
       )//fin subscribe
   }
 
+// showPassword(id:string): void {
+//   const x:any = document.getElementById(id);  
+//   if (x.getAttribute("type") === "password") {
+//     x.setAttribute("type", "text");
+//   } else {
+//     x.setAttribute("type", "password");
+//   }
+// }
+
+togglePasswordVisibility(passwordInput: HTMLInputElement) {
+  const passwordFieldType = passwordInput.type;
+
+  if (passwordFieldType === 'password') {
+    passwordInput.type = 'text';
+  } else {
+    passwordInput.type = 'password';
+  }
+}
+
+
   handleResponse(data:any){
 
     // console.log(data);

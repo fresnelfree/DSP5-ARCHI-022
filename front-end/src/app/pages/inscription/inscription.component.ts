@@ -90,6 +90,26 @@ export class InscriptionComponent {
 
   }
 
+  togglePasswordVisibility(passwordInput: HTMLInputElement) {
+    const passwordFieldType = passwordInput.type;
+  
+    if (passwordFieldType === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+  }
+
+  ttogglePasswordVisibility(ConpasswordInput: HTMLInputElement) {
+    const passwordFieldType = ConpasswordInput.type;
+  
+    if (passwordFieldType === 'password') {
+      ConpasswordInput.type = 'text';
+    } else {
+      ConpasswordInput.type = 'password';
+    }
+  }
+
 
   registerForm: FormGroup = this.fb.group({
 
