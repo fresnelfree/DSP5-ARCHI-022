@@ -8,7 +8,14 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { authGuard } from '../cores/guards/auth.guard';
+import { authGuard } from '../core/guards/auth.guard';
+import { ClientHomeComponent } from './client/client-home/client-home.component';
+
+import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
+
+import { ClientGainComponent } from './client/client-gain/client-gain.component';
+
+ 
 
 
 const routes: Routes = [
@@ -16,12 +23,18 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'jeux', component: JeuxComponent},
   { path: 'forgot', component: ForgotPasswordComponent},
+  { path: 'modify', component: ModifyPwdComponent},
   { path: 'apropos', component: AproposComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'connexion', component: ConnexionComponent},
-  { path: 'inscription', component: InscriptionComponent}
+  { path: 'inscription', component: InscriptionComponent},
+  { path: 'client', children: [
+                      { path: '', component: ClientHomeComponent },
+                      { path: 'profil', component: ClientHomeComponent },
+                      { path: 'gain', component: ClientGainComponent },
+  ], canActivate: [authGuard]},//fin client
 
-];
+];//Fin routes
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

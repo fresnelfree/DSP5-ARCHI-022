@@ -5,13 +5,24 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { HomeComponent } from './home/home.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { ContactComponent } from './contact/contact.component';
-import { InscriptionComponent } from './inscription/inscription.component';
-import { ConnexionComponent } from './connexion/connexion.component';
 import { AproposComponent } from './apropos/apropos.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { JeuxComponent } from './jeux/jeux.component';
-import { NavbarComponent } from '../shareds/navbar/navbar.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { InscriptionComponent } from './inscription/inscription.component';
+import { ConnexionComponent } from './connexion/connexion.component';
+import { NavbarComponent } from '../shared/navbar/navbar.component';
+import { ClientHomeComponent } from './client/client-home/client-home.component';
+import { HeaderComponent } from '../shared/header/header.component';
+import { FooterComponent } from '../shared/footer/footer.component';
+import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
+import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
+import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
+import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
+
+ 
+ 
+
 
 @NgModule({
   declarations: [
@@ -24,6 +35,13 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     ForgotPasswordComponent,
     JeuxComponent,
     NavbarComponent,
+    ClientHomeComponent,
+    HeaderComponent,
+    FooterComponent,
+    ModifyPwdComponent,
+    ClientGainComponent,
+    ClientProfilCardComponent,
+    ClientNavComponent
 
   ],
   imports: [
@@ -31,6 +49,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     PagesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    
   ]
 })
 export class PagesModule { }

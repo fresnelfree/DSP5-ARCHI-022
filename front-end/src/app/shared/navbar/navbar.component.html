@@ -1,0 +1,37 @@
+<nav class="navbar navbar-expand-lg" aria-label="Twelfth navbar example">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#"><img class="img-responsible px-5" src="assets/images/logot.png" alt="AtypikHouse"  style=" height: 35px;"/></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse justify-content-md-center" id="navbarsExample10">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/jeux">Jeux</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/apropos">A Propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/contact">Contactez-nous</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/dashboard/client">Dashboard</a>
+        </li>
+      </ul>
+    </div>
+    <form class="d-flex content-md-end" id="navbarsExample10">
+      <a class="btn btn-outline-primary me-2" type="submit" routerLink="/connexion" *ngIf="!isLogged">Connexion</a>
+      <a class="btn btn-primary me-5" type="submit" routerLink="/inscription" *ngIf="!isLogged">Inscription</a>
+      <a class="btn btn-outline-primary me-2"  (click)="logout($event)" *ngIf="isLogged">Deconnexion</a>
+      </form>
+  </div>
+</nav>
+
+
+
+ 
