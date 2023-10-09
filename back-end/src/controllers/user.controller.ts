@@ -56,7 +56,7 @@ export class UserController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(Compte, {
-            exclude: ['id','id_passport','type_passport'],
+            exclude: ['id','id_passport','type_passport','email_verify'],
           }),
         },
       },
@@ -81,7 +81,9 @@ export class UserController {
   @post('/users/register')
   @response(200, {
     description: 'Compte model instance',
-    content: {'application/json': {schema: getModelSchemaRef(User)}},
+    content: {'application/json': {schema: getModelSchemaRef(User,{
+      exclude: ['type_passport'],
+    })}},
   })
   async register(
     @requestBody({
@@ -89,7 +91,7 @@ export class UserController {
         'application/json': {
           schema: getModelSchemaRef(User, {
             title: 'NewUser',
-            exclude: ['securityId'],
+            exclude: ['securityId','type_passport'],
           }),
         },
       },

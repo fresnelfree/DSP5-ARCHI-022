@@ -101,11 +101,17 @@ export class UserService {
 
     const invalidUserRoleError = "Invalid user role"
     const invalidInfosError = "Invalid informations" 
+    const DuplicateCompterror = "Un compte existe déjà avec cette email" 
     this.compte.email = user.email 
     this.compte.pwd = await hash(user.pwd, await genSalt())
 
     if (user.role !== "Caissier" && user.role !== "Admin" && user.role !== "Client"){
       throw new HttpErrors.BadRequest(invalidUserRoleError)
+    }
+
+    const foundCompte = await this.compteRepository.findOne({where: {email: user.email}});
+    if (foundCompte) {
+      throw new HttpErrors.BadRequest(DuplicateCompterror);
     }
 
     const comp = await this.compteRepository.create({
@@ -171,7 +177,7 @@ export class UserService {
 
     const foundCompte = await this.compteRepository.findOne({where: {email: email}});
     if (!foundCompte) {
-      throw new HttpErrors.Unauthorized(invalidCredentialsError);
+      throw new HttpErrors.NotFound(invalidCredentialsError);
     }
     console.log("compte : ", foundCompte)
     foundCompte.email_verify = true
@@ -187,7 +193,7 @@ export class UserService {
 
     const foundCompte = await this.compteRepository.findOne({where: {email: email},include:['client']});
     if (!foundCompte) {
-      throw new HttpErrors.Unauthorized(invalidCredentialsError);
+      throw new HttpErrors.NotFound(invalidCredentialsError);
     }
     console.log("compte : ", foundCompte)
     this.user.adresse = foundCompte.client.adresse

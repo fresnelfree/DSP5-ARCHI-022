@@ -64,7 +64,7 @@ public transporter
       subject: 'Modification de votre mot de passe',
       message: 'Contenu du message',
       user: user,
-      lien: process.env.BASE_URL_FRONT+'/reset_password/'+ token
+      lien: process.env.BASE_URL_FRONT+'/modify?token='+ token
     };
     const path_template = '../../public/templates/reset-password.hbs' 
 
