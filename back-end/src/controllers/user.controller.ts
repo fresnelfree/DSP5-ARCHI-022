@@ -1,5 +1,5 @@
 // Uncomment these imports to begin using these cool features!
-import { getModelSchemaRef, post,get, requestBody, response, HttpErrors } from "@loopback/rest";
+import { getModelSchemaRef, post,get, requestBody, response, HttpErrors, param, patch } from "@loopback/rest";
 import { Client, Compte, Employe, User } from "../models";
 import { inject, service } from "@loopback/core";
 import { TokenServiceBindings } from "@loopback/authentication-jwt";
@@ -25,9 +25,7 @@ export class UserController {
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: TokenService,    
     @inject('services.UserService') 
-    public userService: UserService,  
-    // @inject('services.PassportProvider') 
-    // public passportService: PassportProvider,     
+    public userService: UserService,      
     @inject('models.Client')
     public client: Client,
     @inject('models.Employe')
@@ -58,7 +56,7 @@ export class UserController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(Compte, {
-            exclude: ['id','id_passport','type_passport'],
+            exclude: ['id','id_passport','type_passport','email_verify'],
           }),
         },
       },
@@ -83,7 +81,9 @@ export class UserController {
   @post('/users/register')
   @response(200, {
     description: 'Compte model instance',
-    content: {'application/json': {schema: getModelSchemaRef(User)}},
+    content: {'application/json': {schema: getModelSchemaRef(User,{
+      exclude: ['type_passport'],
+    })}},
   })
   async register(
     @requestBody({
@@ -91,7 +91,7 @@ export class UserController {
         'application/json': {
           schema: getModelSchemaRef(User, {
             title: 'NewUser',
-            exclude: ['securityId'],
+            exclude: ['securityId','type_passport'],
           }),
         },
       },
@@ -101,71 +101,35 @@ export class UserController {
     return this.userService.saveUser(user);
   }  
   
-  @authenticate('jwt')
-  @get('/whoami')
-  @response(
-      200, {
-        description: 'Return current user',
-        content: {
-          'application/json': {
-            schema: {
-              type: 'string',
-            },
-          },
-        },
-      },
-    )
-    async whoAmi(
-      @inject(SecurityBindings.USER)
-      currentUserProfile: UserProfile,
-    ): Promise<string> {
+  @get('/verifyEmail/{token}')
+  @response(200, {
+    description: 'Compte PATCH success',
+    // content: {'application/text': {schema: "result"}}
+  })
+  async verifyEmail(
+    @param.path.string('token') token: string,
+  ): Promise<any> {
+    const verify = await this.userService.verifyEmail(token)
+    if (verify) {
+      return "Email vérifié avec success !"
+    }
+    else {
+      return "Le lien de verification a expire. Essayez de vous connecter a votre"+
+      " compte àfin d'avoir un nouveau lien de verification !"
+    }
+  }
+  
+  @get('/resetPassword/{email}')
+  @response(200, {
+    description: 'Compte PATCH success',
+    // content: {'application/text': {schema: "result"}}
+  })
+  async resetPassword(
+    @param.path.string('email') email: string,
+  ): Promise<any> {
+    const verify = await this.userService.resetPassword(email)
+  }  
 
-      return currentUserProfile[securityId];
-    } 
-
-  // @get('/auth/facebook')
-  // @response(
-  //     200, {
-  //       description: 'Return current user',
-  //       content: {
-  //         'application/json': {
-  //           schema: {
-  //             type: 'string',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   )
-  //   async authFacebook(): Promise<any> {
-  //     axios.get('http://localhost:4000/auth/google/')
-  //     .then((response:any) => {
-  //       console.log(response.data);
-  //       return response.data
-  //     })
-  //     .catch((error:any) => {
-  //       console.error(error);
-  //     });
-  //   }     
-
-  // @get('/auth/facebook/callback')
-  // @response(
-  //     200, {
-  //       description: 'Return current user',
-  //       content: {
-  //         'application/json': {
-  //           schema: {
-  //             type: 'string',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   )
-  //   async callBack(): Promise<any> {
-  //     var passport = require('passport')
-  //     // this.passportService.setupPassport(passport)
-  //     const pass = passport.authenticate('facebook', { failureRedirect: '/users/login' })
-  //     console.log("pass : ", pass)
-  //   } 
     
   }
 

@@ -5,6 +5,7 @@ import { Client, Compte, Employe, User } from '../models';
 import { ClientRepository, CompteRepository, EmployeRepository } from '../repositories';
 import { BindingScope, bind, inject } from '@loopback/core';
 import {genSalt, hash} from 'bcryptjs';
+import { PassportProvider } from './passport.service';
 
 @bind({scope: BindingScope.TRANSIENT})
 export class UserService {
@@ -16,6 +17,8 @@ export class UserService {
     public clientRepository: ClientRepository,   
     @repository(EmployeRepository) 
     public employeRepository: EmployeRepository,
+    @inject('services.PassportProvider') 
+    public passportService: PassportProvider, 
     @inject('models.Client')
     public client: Client,
     @inject('models.Employe')
@@ -98,11 +101,17 @@ export class UserService {
 
     const invalidUserRoleError = "Invalid user role"
     const invalidInfosError = "Invalid informations" 
+    const DuplicateCompterror = "Un compte existe déjà avec cette email" 
     this.compte.email = user.email 
     this.compte.pwd = await hash(user.pwd, await genSalt())
 
     if (user.role !== "Caissier" && user.role !== "Admin" && user.role !== "Client"){
       throw new HttpErrors.BadRequest(invalidUserRoleError)
+    }
+
+    const foundCompte = await this.compteRepository.findOne({where: {email: user.email}});
+    if (foundCompte) {
+      throw new HttpErrors.BadRequest(DuplicateCompterror);
     }
 
     const comp = await this.compteRepository.create({
@@ -146,7 +155,52 @@ export class UserService {
         'role': user.role
       })
     }
+    this.passportService.sendLinkVerifyEmail(user)
     return comp
   }
 
+  async verifyEmail(token: string): Promise<any> {
+    const jwt = require('jsonwebtoken');
+    const secretKey = 'myjwts3cr3t';    
+    const invalidCredentialsError = 'Aucun compte appartenant à cette email'
+    let email = ''
+
+    try {
+      const decoded = jwt.verify(token, secretKey);
+      email = decoded.email
+      console.log(decoded); // Affiche le contenu décodé du token
+    } catch (error) {
+      // throw HttpErrors.Unauthorized("Le lien a expiré");
+      // console.error('Erreur de décodage du token :', error);
+      return false
+    }
+
+    const foundCompte = await this.compteRepository.findOne({where: {email: email}});
+    if (!foundCompte) {
+      throw new HttpErrors.NotFound(invalidCredentialsError);
+    }
+    console.log("compte : ", foundCompte)
+    foundCompte.email_verify = true
+
+    await this.compteRepository.updateById(foundCompte.id, foundCompte);
+
+    return true
+  }
+
+  async resetPassword(email: string): Promise<any> {
+    let user : User
+    const invalidCredentialsError = 'Aucun compte appartenant à cette email'
+
+    const foundCompte = await this.compteRepository.findOne({where: {email: email},include:['client']});
+    if (!foundCompte) {
+      throw new HttpErrors.NotFound(invalidCredentialsError);
+    }
+    console.log("compte : ", foundCompte)
+    this.user.adresse = foundCompte.client.adresse
+    this.user.email = foundCompte.client.email || ""
+    this.user.nom = foundCompte.client.nom || ""
+    this.user.prenom = foundCompte.client.prenom || ""    
+    this.user.tel = foundCompte.client.tel
+    this.passportService.resetPassword(this.user)
+  }  
 }
