@@ -1,70 +1,9 @@
 <div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
   <!-- Left Panel -->
-  <aside
-    id="left-panel"
-    class="left-panel"
-    [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }"
-   >
-    <nav class="navbar navbar-expand-sm navbar-default">
-      <div id="main-menu" class="main-menu collapse navbar-collapse">
-        <ul class="nav navbar-nav">
-          <li class="active">
-            <a href="index.html"
-              ><i class="menu-icon fa fa-laptop"></i>Dashboard
-            </a>
-          </li>
-          <li class="menu-title">Admin</li>
-          <!-- /.menu-title -->
-          <li class="menu-item-has-children dropdown">
-            <a
-              href="#"
-              class="dropdown-toggle"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <i class="menu-icon fa fa-cogs"></i>Utilisateurs</a
-            >
-            <ul class="sub-menu children dropdown-menu">
-              <li>
-                <i class="fa fa-puzzle-piece"></i
-                ><a href="/" routerLink="/dashboard/employe/all">Employes</a>
-              </li>
-              <li>
-                <i class="fa fa-id-badge"></i
-                ><a href="/" routerLink="/dashboard/client">Clients</a>
-              </li>
-            </ul>
-          </li>
-          
-          <li class="">
-            <a
-              href="#"
-              class="dropdown-toggle"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-              routerLink="/dashboard/jeux/all"
-            >
-              <i class="menu-icon fa fa-table"></i>Jeux</a
-            >
-          </li> 
-
-          <!-- <li class="menu-title">Visualisation</li> -->
-          <!-- /.menu-title -->
-          <li>
-            <a href="widgets.html">
-              <i class="menu-icon ti-email"></i>Statistics
-            </a>
-          </li>
-        </ul>
-      </div>
-      <!-- /.navbar-collapse -->
-    </nav>
+  <aside id="left-panel" class="left-panel" [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }">
+    <app-dashboard-sidebar></app-dashboard-sidebar>
   </aside>
   <!-- /#left-panel -->
-
-
 
 
 
@@ -85,6 +24,7 @@
           ></a>
         </div>
       </div>
+      
       <div class="top-right">
         <div class="header-menu">
           <div class="header-left">
@@ -154,349 +94,28 @@
       </div>
     </header>
     <!-- /#header -->
+
+
+
+
     <!-- Content -->
     <div class="content">
       <!-- Animated -->
       <div class="animated fadeIn">
-        <!-- Widgets  -->
-        <div class="row">
-          <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="stat-widget-five">
-                  <div class="stat-icon dib flat-color-1">
-                    <i class="pe-7s-cash"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-text">
-                        $<span class="count">23569</span>
-                      </div>
-                      <div class="stat-heading">Participants</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+         <app-dhb-card-stat></app-dhb-card-stat>  
 
-          <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="stat-widget-five">
-                  <div class="stat-icon dib flat-color-2">
-                    <i class="pe-7s-cart"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-text">
-                        <span class="count">3435</span>
-                      </div>
-                      <div class="stat-heading">Tickets gagné</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+        <app-dhb-chart></app-dhb-chart> 
 
-          <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="stat-widget-five">
-                  <div class="stat-icon dib flat-color-3">
-                    <i class="pe-7s-browser"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-text">
-                        <span class="count">349</span>
-                      </div>
-                      <div class="stat-heading">Employes</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-lg-3 col-md-6">
-            <div class="card">
-              <div class="card-body">
-                <div class="stat-widget-five">
-                  <div class="stat-icon dib flat-color-4">
-                    <i class="pe-7s-users"></i>
-                  </div>
-                  <div class="stat-content">
-                    <div class="text-left dib">
-                      <div class="stat-text">
-                        <span class="count">2986</span>
-                      </div>
-                      <div class="stat-heading">Clients</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- /Widgets -->
-        <!--  Traffic  -->
-        <div class="row">
-          <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <h4 class="box-title">Traffic</h4>
-              </div>
-              <div class="row">
-                <div class="col-lg-8">
-                  <div class="card-body">
-                    <!-- <canvas id="TrafficChart"></canvas>   -->
-                    <div id="traffic-chart" class="traffic-chart"></div>
-                  </div>
-                </div>
-                <div class="col-lg-4">
-                  <div class="card-body">
-                    <div class="progress-box progress-1">
-                      <h4 class="por-title">Visits</h4>
-                      <div class="por-txt">96,930 Users (40%)</div>
-                      <div class="progress mb-2" style="height: 5px">
-                        <div
-                          class="progress-bar bg-flat-color-1"
-                          role="progressbar"
-                          style="width: 40%"
-                          aria-valuenow="25"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="progress-box progress-2">
-                      <h4 class="por-title">Bounce Rate</h4>
-                      <div class="por-txt">3,220 Users (24%)</div>
-                      <div class="progress mb-2" style="height: 5px">
-                        <div
-                          class="progress-bar bg-flat-color-2"
-                          role="progressbar"
-                          style="width: 24%"
-                          aria-valuenow="25"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="progress-box progress-2">
-                      <h4 class="por-title">Unique Visitors</h4>
-                      <div class="por-txt">29,658 Users (60%)</div>
-                      <div class="progress mb-2" style="height: 5px">
-                        <div
-                          class="progress-bar bg-flat-color-3"
-                          role="progressbar"
-                          style="width: 60%"
-                          aria-valuenow="60"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                    </div>
-                    <div class="progress-box progress-2">
-                      <h4 class="por-title">Targeted Visitors</h4>
-                      <div class="por-txt">99,658 Users (90%)</div>
-                      <div class="progress mb-2" style="height: 5px">
-                        <div
-                          class="progress-bar bg-flat-color-4"
-                          role="progressbar"
-                          style="width: 90%"
-                          aria-valuenow="90"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.card-body -->
-                </div>
-              </div>
-              <!-- /.row -->
-              <div class="card-body"></div>
-            </div>
-          </div>
-          <!-- /# column -->
-        </div>
-        <!--  /Traffic -->
         <div class="clearfix"></div>
-        <!-- Orders -->
-        <div class="orders">
-          <div class="row">
-            <div class="col-xl-8">
-              <div class="card">
-                <div class="card-body">
-                  <h4 class="box-title">Derniers inscrit</h4>
-                </div>
-                <div class="card-body--">
-                  <div class="table-stats order-table ov-h">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th class="serial">#</th>
-                          <th class="avatar">Avatar</th>
-                          <th>Name</th>
-                          <th>Product</th>
-                          <th>Quantity</th>
-                          <th>Status</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td class="serial">1.</td>
-                          <td class="avatar">
-                            <div class="round-img">
-                              <a href="#"
-                                ><img
-                                  class="rounded-circle"
-                                  src="assets/images/avatar/1.jpg"
-                                  alt=""
-                              /></a>
-                            </div>
-                          </td>
-                    
-                          <td><span class="name">Louis Stanley</span></td>
-                          <td><span class="product">iMax</span></td>
-                          <td><span class="count">01 45 87 96 32</span></td>
-                          <td>
-                            <span class="badge badge-complete">Complete</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="serial">2.</td>
-                          <td class="avatar">
-                            <div class="round-img">
-                              <a href="#"
-                                ><img
-                                  class="rounded-circle"
-                                  src="assets/images/avatar/2.jpg"
-                                  alt=""
-                              /></a>
-                            </div>
-                          </td>
-                
-                          <td><span class="name">Gregory Dixon</span></td>
-                          <td><span class="product">iPad</span></td>
-                          <td><span class="count">07 87 45 96 78</span></td>
-                          <td>
-                            <span class="badge badge-complete">Complete</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="serial">3.</td>
-                          <td class="avatar">
-                            <div class="round-img">
-                              <a href="#"
-                                ><img
-                                  class="rounded-circle"
-                                  src="assets/images/avatar/3.jpg"
-                                  alt=""
-                              /></a>
-                            </div>
-                          </td>
-                 
-                          <td><span class="name">Catherine Dixon</span></td>
-                          <td><span class="product">SSD</span></td>
-                          <td><span class="count">06 87 99 45 14</span></td>
-                          <td>
-                            <span class="badge badge-complete">Complete</span>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td class="serial">4.</td>
-                          <td class="avatar">
-                            <div class="round-img">
-                              <a href="#"
-                                ><img
-                                  class="rounded-circle"
-                                  src="assets/images/avatar/4.jpg"
-                                  alt=""
-                              /></a>
-                            </div>
-                          </td>
-                         
-                          <td><span class="name">Mary Silva</span></td>
-                          <td><span class="product">Magic Mouse</span></td>
-                          <td><span class="count">06 78 54 21 56</span></td>
-                          <td>
-                            <span class="badge badge-pending">Pending</span>
-                          </td>
-                        </tr>
-                        <tr class="pb-0">
-                          <td class="serial">5.</td>
-                          <td class="avatar pb-0">
-                            <div class="round-img">
-                              <a href="#"
-                                ><img
-                                  class="rounded-circle"
-                                  src="assets/images/avatar/6.jpg"
-                                  alt=""
-                              /></a>
-                            </div>
-                          </td>
-                         
-                          <td><span class="name">Johnny Stephens</span></td>
-                          <td><span class="product">Monitor</span></td>
-                          <td><span class="count">07 58 85 69 87</span></td>
-                          <td>
-                            <span class="badge badge-complete">Complete</span>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                  <!-- /.table-stats -->
-                </div>
-              </div>
-              <!-- /.card -->
-            </div>
-            <!-- /.col-lg-8 -->
 
-            <div class="col-xl-4">
-              <div class="row">
-                <div class="col-lg-6 col-xl-12">
-                  <div class="card br-0">
-                    <div class="card-body">
-                      <div class="chart-container ov-h">
-                        <div id="flotPie1" class="float-chart"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <!-- /.card -->
-                </div>
-
-                <div class="col-lg-6 col-xl-12">
-                  <div class="card bg-flat-color-3">
-                    <div class="card-body">
-                      <h4 class="card-title m-0 white-color">August 2018</h4>
-                    </div>
-                    <div class="card-body">
-                      <div id="flotLine5" class="flot-line"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- /.col-md-4 -->
-          </div>
-        </div>
-        <!-- /.orders -->
-       
-      </div>
-      <!-- .animated -->
-    </div>
-    <!-- /.content -->
+        <app-dhb-table1></app-dhb-table1>
+  
+      </div><!-- .animated -->
+    </div> <!-- /.content -->
     <div class="clearfix"></div>
 
     <!-- Footer -->
      <app-dashboard-footer></app-dashboard-footer>
-    <!-- /.site-footer -->
-
   </div>
   <!-- /#right-panel -->
 </div>

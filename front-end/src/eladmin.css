@@ -2573,3 +2573,8 @@ footer.site-footer {
     cursor: pointer;
     transition: all 500ms ease;
   }
+
+  .breadcrumbs .active{
+    font-weight: 500;
+    color: #00c292;
+  }

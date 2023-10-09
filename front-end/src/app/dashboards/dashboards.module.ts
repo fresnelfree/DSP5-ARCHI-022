@@ -14,6 +14,11 @@ import { DashboardJeuxNewComponent } from './jeux/dashboard-jeux-new/dashboard-j
 import { DashboardEmployeNewComponent } from './employe/dashboard-employe-new/dashboard-employe-new.component';
 import { DashboardEmployeAllComponent } from './employe/dashboard-employe-all/dashboard-employe-all.component';
 import { DashboardEmployeDetailComponent } from './employe/dashboard-employe-detail/dashboard-employe-detail.component';
+import { DhbCardStatComponent } from './components/dhb-card-stat/dhb-card-stat.component';
+import { DhbChartComponent } from './components/dhb-chart/dhb-chart.component';
+import { DhbTable1Component } from './components/dhb-table1/dhb-table1.component';
+import { DhbProfilComponent } from './components/dhb-profil/dhb-profil.component';
+import { DhbCardStatJeuxComponent } from './components/dhb-card-stat-jeux/dhb-card-stat-jeux.component';
  
  
 
@@ -31,6 +36,11 @@ import { DashboardEmployeDetailComponent } from './employe/dashboard-employe-det
     DashboardEmployeNewComponent,
     DashboardEmployeAllComponent,
     DashboardEmployeDetailComponent,
+    DhbCardStatComponent,
+    DhbChartComponent,
+    DhbTable1Component,
+    DhbProfilComponent,
+    DhbCardStatJeuxComponent,
    
   ],
   imports: [

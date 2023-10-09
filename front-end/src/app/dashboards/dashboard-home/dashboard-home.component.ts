@@ -17,6 +17,7 @@ export class DashboardHomeComponent  implements OnInit{
   public smallDevise: boolean = false;//Pour apliquer des styles aux tablettes et smartphones
   public openMenuSmall: boolean = false;//Pour ouvrir le petit menu
   public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
+  windowSize: { width: number; height: number } = { width: 0, height: 0 };;
   //Autres var
   public isLogged: boolean = false;//verification si le user est connecter
 
@@ -24,13 +25,20 @@ export class DashboardHomeComponent  implements OnInit{
 
     private authService : AuthenticationService,
     private router      : Router,
-    private token       : TokenService
+    private token       : TokenService,
+    private toggleService : ToggleService
 
   ){}
 
   ngOnInit(): void {
 
      this.authService.authStatus.subscribe(value => this.isLogged = value)
+
+     this.toggleService.getWindowSizeObservable().subscribe(size => {
+      this.windowSize = size;
+      // Gérez ici les changements de taille de la fenêtre.
+      console.log('La fenêtre a été redimensionnée : ', size.width, 'x', size.height);
+    });
      
   }
 
@@ -54,7 +62,17 @@ export class DashboardHomeComponent  implements OnInit{
         this.openMenuSmall = !this.openMenuSmall;
       }
     }
+     
+    this.toggleService.getWindowSizeObservable().subscribe(size => {
+      this.windowSize = size;
+      // Gérez ici les changements de taille de la fenêtre.
+      console.log('La fenêtre a été redimensionnée : ', size.width, 'x', size.height);
+    });
+    
+    
   }
+
+
 
   logout(event: MouseEvent)
   {

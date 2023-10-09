@@ -10,77 +10,31 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
-  selector: 'app-dashboard-employe-detail',
-  templateUrl: './dashboard-employe-detail.component.html',
-  styleUrls: ['./dashboard-employe-detail.component.css']
+  selector: 'app-dhb-profil',
+  templateUrl: './dhb-profil.component.html',
+  styleUrls: ['./dhb-profil.component.css']
 })
-export class DashboardEmployeDetailComponent {
-   
- //Variable pour gestion navbar
- public open: boolean = false;
- public block: boolean = false;
- public openMenu: boolean = false;//Le boutton bare
- public smallDevise: boolean = false;//Pour apliquer des styles aux tablettes et smartphones
- public openMenuSmall: boolean = false;//Pour ouvrir le petit menu
- public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
- //Autres var
- public isLogged: boolean = false;//verification si le user est connecter
- private submitted;
- private role: string;
- public user: any;
+export class DhbProfilComponent {
 
- constructor(
+  public isLogged: boolean = false;//verification si le user est connecter
+  private submitted;
+  private role: string;
+  public user: any;
 
-   private authService : AuthenticationService,
-   private router      : Router,
-   private token       : TokenService,
-   private fb                   : FormBuilder,
-   private activatedRoute       : ActivatedRoute,
-    private userService          : UserService,
+  constructor(
 
- ){
-            this.submitted = false;
-            this.role = "Client"
- }
-
-
-
- @HostListener('window:resize', ['$event'])
- onResize(event: Event): void {
-   this.ecran = window.innerWidth;
-
-   if (this.ecran < 1010) {
-     this.smallDevise = !this.smallDevise;
-   }
- }
-
- onMenu(e: MouseEvent) {
-   if (this.ecran > 1010) {
-     this.open = !this.open;
-   } else if (this.ecran < 1010) {
-     this.openMenu = !this.openMenu;
-
-     if (this.ecran < 576) {
-       this.openMenuSmall = !this.openMenuSmall;
-     }
-   }
- }
-
- logout(event: MouseEvent)
- {
-   event.preventDefault();
-    
-   this.authService.changeAuthStatus(false);
-
-   this.token.removeToken();
-
-   this.router.navigate(['/']).then(() => {
-     window.location.reload();
-   });
- }
-
-
-
+    private authService : AuthenticationService,
+    private router      : Router,
+    private token       : TokenService,
+    private fb                   : FormBuilder,
+    private activatedRoute       : ActivatedRoute,
+     private userService          : UserService,
+ 
+  ){
+             this.submitted = false;
+             this.role = "Client"
+  }
+  
  
   /********************************************************************
    *                  GESTION CLIENT
@@ -104,8 +58,6 @@ getTokenEmail() {
   return this.userService.getTokenEmail();  
 }
 
-
- 
 
  /********************************************************************
  *
