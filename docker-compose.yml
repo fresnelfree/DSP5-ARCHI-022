@@ -63,7 +63,8 @@ services:
       GOOGLE_CALLBACK_URL: http://thetiptop.api.com/auth/google/callback 
       URL_REDIRECT_AUTH_SOCIAL_MEDIA: http://thetiptop.api.com
       BASE_URL_FRONT: http://thetiptop.client.com 
-      BASE_URL: http://127.0.0.1:8083      
+      BASE_URL: http://thetiptop.api.com
+      BASE_URL_FOR_AXIOS: http://127.0.0.1:8083     
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: prod
       SERVICE_NAME: server-app

@@ -38,7 +38,8 @@ services:
       GOOGLE_CALLBACK_URL: http://thetiptop.recette.api.com/auth/google/callback
       URL_REDIRECT_AUTH_SOCIAL_MEDIA: http://thetiptop.recette.api.com
       BASE_URL_FRONT: http://thetiptop.recette.com
-      BASE_URL: http://127.0.0.1:8089
+      BASE_URL: http://thetiptop.recette.api.com
+      BASE_URL_FOR_AXIOS: http://127.0.0.1:8089
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp
