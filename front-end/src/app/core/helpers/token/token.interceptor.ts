@@ -14,7 +14,6 @@ import { TokenService } from '../../services/token/token.service';
 export class TokenInterceptor implements HttpInterceptor {
 
   constructor(
-    private authService: AuthenticationService,
     private tokenService: TokenService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
@@ -25,7 +24,7 @@ export class TokenInterceptor implements HttpInterceptor {
       // si on a un token on met le tonken dans le clone headers.
       
       if(token !== null){
-        let clone = request.clone({
+        const clone = request.clone({
           headers: request.headers.set('Authorization', 'Bearer '+token)
         });
         

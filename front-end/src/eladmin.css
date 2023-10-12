@@ -101,7 +101,9 @@ Googel Fonts  */
   border: none !important; }
 
 .black-rgba {
-  background-color: rgba(0, 0, 0, 0.15) !important; }
+  background-color: rgba(0, 0, 0, 0.15) !important; 
+background-color: rgba(37, 226, 109, 0.61);}
+  
 
 .color-white {
   color: #fff !important; }

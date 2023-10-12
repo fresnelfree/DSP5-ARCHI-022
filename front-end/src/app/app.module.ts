@@ -5,9 +5,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CoresModule } from './core/cores.module';
-import { NavbarComponent } from './shared/navbar/navbar.component';
-import { PagesModule } from './pages/pages.module';
 import { TokenInterceptorProvider } from './core/helpers/token/token.interceptor';
+import { NgChartsModule } from 'ng2-charts';
  
 @NgModule({
   declarations: [
@@ -19,6 +18,7 @@ import { TokenInterceptorProvider } from './core/helpers/token/token.interceptor
     BrowserAnimationsModule,
     MatSlideToggleModule,
     CoresModule,
+    NgChartsModule,
     
   ],
   providers: [

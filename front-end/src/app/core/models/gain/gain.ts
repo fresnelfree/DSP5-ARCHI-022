@@ -1,3 +1,5 @@
+import { User } from "../user/user";
+
 export class Gain {
     id             : number;
     id_repartition : number;

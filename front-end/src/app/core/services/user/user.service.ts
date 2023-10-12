@@ -80,7 +80,7 @@ private handleError<T>(operation = 'operation', result?: T) {
 
   getTokenEmail() {
     const ob: any = this.token.decodeToken(this.token.getToken())
-    let value = ob.email;
+    const value = ob.email;
     return value
   }
   
