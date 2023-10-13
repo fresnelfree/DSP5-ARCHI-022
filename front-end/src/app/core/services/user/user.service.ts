@@ -58,24 +58,56 @@ private handleError<T>(operation = 'operation', result?: T) {
 /************************************************
  *        METHODES
  ************************************************/
-  updateUser(obj: User): Observable<User>{
-    return this.http.put<User>(`${this.api}/clients/${obj.id}`, obj, httpOption).pipe(
-      catchError(this.handleError(`userUpdate`, obj))
-    )
-  }
+  //AddUser
+  addUser(user: any){
 
- 
+    return this.http.post(this.api+"/users/register", user, httpOption).pipe(
+      
+      catchError(this.handleError(`createUser`, user))
+
+    )
+
+ }
+
+ updateUser(user: any, id:number){
+
+  return this.http.put(`${this.api}/employes/${id}`, user, httpOption).pipe(
+   
+    catchError(this.handleError(`updateUser`, user))
+
+  )
+
+}
+
+deleteUser(id:number){
+
+  return this.http.delete(`${this.api}/employes/${id}`, httpOption).pipe(
+   
+    catchError(this.handleError(`deleteUser`, id))
+
+  )
+
+}
+
   getUserById(id: number){
+
     return this.http.get(`${this.api}/comptes/${id}`).pipe(
+
       catchError(this.handleError(`getUserById id=${id}`))
+
     );
+
   }
 
    
   getUserByEmail(email: string){
+
     return this.http.get(`${this.api}/compteWithEmail/${email}`).pipe(
+
       catchError(this.handleError(`getUserByEmail email=${email}`))
+
     );
+    
   }
 
   getTokenEmail() {
@@ -83,6 +115,6 @@ private handleError<T>(operation = 'operation', result?: T) {
     const value = ob.email;
     return value
   }
-  
 
+ 
 }

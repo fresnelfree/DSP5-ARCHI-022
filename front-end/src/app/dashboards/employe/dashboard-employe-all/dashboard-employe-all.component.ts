@@ -1,6 +1,8 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { EmployeService } from 'src/app/core/services/employe/employe.service';
 import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 
@@ -21,20 +23,43 @@ export class DashboardEmployeAllComponent {
  public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
+ public employes: User[] = []
 
  constructor(
 
    private authService : AuthenticationService,
    private router      : Router,
-   private token       : TokenService
+   private token       : TokenService,
+   private employeService : EmployeService
 
  ){}
 
  ngOnInit(): void {
-
     this.authService.authStatus.subscribe(value => this.isLogged = value)
-    
+    this.getEmployes()
  }
+
+ 
+/********************************************************************
+ *           USERS
+ ********************************************************************/
+
+getEmployes(){
+  
+    return this.employeService.getEmployers().subscribe(
+      (res) => console.log(res)
+    )
+
+}
+
+
+
+
+
+
+/********************************************************************
+ * 
+ ********************************************************************/
 
 
  @HostListener('window:resize', ['$event'])
@@ -45,6 +70,7 @@ export class DashboardEmployeAllComponent {
      this.smallDevise = !this.smallDevise;
    }
  }
+
 
  onMenu(e: MouseEvent) {
    if (this.ecran > 1010) {
@@ -57,6 +83,7 @@ export class DashboardEmployeAllComponent {
      }
    }
  }
+
 
  logout(event: MouseEvent)
  {

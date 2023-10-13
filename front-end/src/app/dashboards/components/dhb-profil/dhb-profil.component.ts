@@ -19,7 +19,9 @@ export class DhbProfilComponent {
   public isLogged: boolean = false;//verification si le user est connecter
   private submitted;
   private role: string;
-  public user: any;
+  public  user: any;
+  public deletMessage: string = "";
+ 
 
   constructor(
 
@@ -33,6 +35,7 @@ export class DhbProfilComponent {
   ){
              this.submitted = false;
              this.role = "Client"
+           
   }
   
  
@@ -49,7 +52,9 @@ export class DhbProfilComponent {
 getUserByEmail():  void{
 
   this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
-    (res) => { this.user = res }
+    (res) => { 
+          this.user = res
+        }
   )
 }
 
@@ -108,7 +113,7 @@ getTokenEmail() {
 }
 
 
-clientForm: FormGroup = this.fb.group({
+employeForm: FormGroup = this.fb.group({
 
   nom: new FormControl('', Validators.compose([
     Validators.required,
@@ -155,9 +160,9 @@ clientForm: FormGroup = this.fb.group({
 
 })
 
-  // Getter pour un accès facile aux champs du formulaire (clientForm)
-  get f() { return this.clientForm.controls; }
-  get u() { return this.user.client}
+  // Getter pour un accès facile aux champs du formulaire (employeForm)
+  get f() { return this.employeForm.value; }
+  get u() { return this.user.employe}
 
   /********************************************************************
  *                  On submit Methode
@@ -165,28 +170,49 @@ clientForm: FormGroup = this.fb.group({
  ********************************************************************/
 
   onSubmit() {
+    const id_compte = this.user.employe.id_compte;
+    const id:number = this.user.employe.id;
+   const role:string = this.user.employe.role;
 
-    this.submitted = true;
-
-      // Si on a des erreurs on stop
-      if (this.clientForm.invalid) {
-        return;
+    let userToUpdate = {
+      "id_compte": id_compte,
+      "nom"     : this.f.nom, 
+      "prenom"  : this.f.prenom, 
+      "tel"     : this.f.tel, 
+      "email"   : this.f.email, 
+      "adresse" : this.f.adresse, 
+      "role"    : role
     }
-
-    let userToUpdate =  new User(this.u.id, this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
-
-    this.userService.updateUser(userToUpdate).subscribe(
-      res => console.log(res)
-      
+    
+    this.userService.updateUser(userToUpdate,id).subscribe(
+      res => {
+            //  this.handleResponse(res)
+          }
     )
 
+    window.location.reload();
+    
 }
 
+handleResponse(data:any){
 
-// ngOnInit(): void {
-
-//   this.authService.authStatus.subscribe(value => this.isLogged = value)
+  this.token.handleToken(data.token);
+  window.location.reload();
   
-// }
+}
+
+onDelete(){
+   
+   this.userService.deleteUser(8).subscribe(
+    res => { 
+      console.log(res);
+      if(res === null) {
+        this.deletMessage = "Employé supprimer avec succés"
+      }  
+    }
+   )
+}
+
+ 
 
 }

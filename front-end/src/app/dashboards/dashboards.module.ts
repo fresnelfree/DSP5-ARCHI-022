@@ -19,6 +19,8 @@ import { DhbChartComponent } from './components/dhb-chart/dhb-chart.component';
 import { DhbTable1Component } from './components/dhb-table1/dhb-table1.component';
 import { DhbProfilComponent } from './components/dhb-profil/dhb-profil.component';
 import { DhbCardStatJeuxComponent } from './components/dhb-card-stat-jeux/dhb-card-stat-jeux.component';
+import { DhbMenuComponent } from './shared/dhb-menu/dhb-menu.component';
+import { DhbLogoutComponent } from './shared/dhb-logout/dhb-logout.component';
  
  
 
@@ -41,6 +43,8 @@ import { DhbCardStatJeuxComponent } from './components/dhb-card-stat-jeux/dhb-ca
     DhbTable1Component,
     DhbProfilComponent,
     DhbCardStatJeuxComponent,
+    DhbMenuComponent,
+    DhbLogoutComponent,
    
   ],
   imports: [

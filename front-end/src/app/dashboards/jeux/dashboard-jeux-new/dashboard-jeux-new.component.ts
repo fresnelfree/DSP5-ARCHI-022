@@ -222,12 +222,12 @@ clientForm: FormGroup = this.fb.group({
         return;
     }
 
-    let userToUpdate =  new User(this.u.id, this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
+    let userToUpdate =  new User( this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse, this.u.role)
 
-    this.userService.updateUser(userToUpdate).subscribe(
-      res => console.log(res)
+    // this.userService.updateUser(userToUpdate).subscribe(
+    //   res => console.log(res)
       
-    )
+    // )
 
 }
 

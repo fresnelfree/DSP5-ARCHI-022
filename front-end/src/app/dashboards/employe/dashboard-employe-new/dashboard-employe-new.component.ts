@@ -2,9 +2,9 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserEmploye } from 'src/app/core/models/employe/employe';
 import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
-import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 
@@ -27,7 +27,7 @@ export class DashboardEmployeNewComponent {
  public isLogged: boolean = false;//verification si le user est connecter
  private submitted;
  private role: string;
- public user: any;
+ public user:any
 
  constructor(
 
@@ -40,7 +40,7 @@ export class DashboardEmployeNewComponent {
 
  ){
             this.submitted = false;
-            this.role = "Client"
+            this.role = "Employe"
  }
 
 
@@ -89,13 +89,17 @@ export class DashboardEmployeNewComponent {
   ngOnInit(): void {
     // this.getUser();
     this.getUserByEmail()
+    
+    
 }
 
 
 getUserByEmail():  void{
 
   this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
-    (res) => { this.user = res }
+    (res) => {
+       this.user = res 
+      }
   )
 }
 
@@ -228,7 +232,7 @@ getTokenEmail() {
   })
 
     // Getter pour un accès facile aux champs du formulaire (registerForm)
-    get f() { return this.registerForm.controls; }
+    get f() { return this.registerForm.value; }
 
     passwordCompare(f: FormGroup){
       const  pwd   = f.get('pwd')?.value;
@@ -246,55 +250,54 @@ getTokenEmail() {
 
   onSubmit() {
 
-      this.submitted = true;
+    this.submitted = true;
 
-        // Si on a des erreurs on stop
-        if (this.registerForm.invalid) {
-          return;
+      // Si on a des erreurs on stop
+      if (this.registerForm.invalid) {
+        return;
+    }
+    
+    // let employe = new User(
+    //   this.f.nom,
+    //   this.f.prenom,
+    //   this.f.email,
+    //   this.f.tel,
+    //   this.f.adresse,
+    //   'Caissier'
+    // )
+    
+      let userToAdd = {
+        "nom"     : this.registerForm.value.nom, 
+        "prenom"  : this.registerForm.value.prenom, 
+        "tel"     : this.registerForm.value.tel, 
+        "email"   : this.registerForm.value.email, 
+        "adresse" : this.registerForm.value.adresse, 
+        "pwd"     : this.registerForm.value.pwd,
+        "role"    : 'Caissier'
       }
+ 
+    this.userService.addUser(userToAdd).subscribe(
+      (data:any) => {this.handleResponse(data)},
+    ) 
+}
 
-      
-        this.user = {
-          "nom"     : this.registerForm.value.nom, 
-          "prenom"  : this.registerForm.value.prenom, 
-          "tel"     : this.registerForm.value.tel, 
-          "email"   : this.registerForm.value.email, 
-          "adresse" : this.registerForm.value.adresse, 
-          "pwd"     : this.registerForm.value.pwd,
-          "role"    : this.role
-        }
-       
-    
-      this.authService.register(this.user).subscribe(
-        (data:any) => {this.handleResponse(data)},
-      ) 
-  }
+handleResponse(data:any){
 
-  handleResponse(data:any){
+  this.token.handleToken(data.token);
+ 
+  // this.authService.changeAuthStatus(true);
 
-    // this.token.handle(data.token);
-   
-    // this.authService.changeAuthStatus(true);
+  console.log("Donnees : ", data);
+  
+}
 
-    // this.router.navigate(['/dashboard']).then(() => {
-    //   window.location.reload();
-    // });
+onReset() {
 
-    this.onReset()
+  this.submitted = false;
 
-    this.router.navigate(['/connexion']).then(() => {
-      window.location.reload();
-    });
-    
-  }
+  this.registerForm.reset();
 
-  onReset() {
-
-    this.submitted = false;
-
-    this.registerForm.reset();
-
-  }
+}
 
 
 }
