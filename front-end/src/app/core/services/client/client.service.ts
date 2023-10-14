@@ -59,11 +59,60 @@ export class ClientService {
   /************************************************
   *        METHODES
   ************************************************/
-    getEmployers(): Observable<User[]> {
-      return this.http.get<User[]>(`${this.api}/employes`).pipe(
-        // tap((_) => this.log(`Recuperation des user au Complet`)),
-        catchError(this.handleError('getUserAll', []))
+    getClients(): Observable<User[]> {
+
+      return this.http.get<User[]>(`${this.api}/clients`).pipe(
+
+        catchError(this.handleError('getClients', []))
+
       );
+
     }
     
+    getClientById(id: number){
+
+      return this.http.get(`${this.api}/clients/${id}`).pipe(
+  
+        catchError(this.handleError(`getClientById id=${id}`))
+  
+      );
+  
+    }
+  
+    updateClient(client: any, id:number){
+
+      return this.http.put(`${this.api}/clients/${id}`, client, httpOption).pipe(
+       
+        catchError(this.handleError(`updateClient`, client))
+    
+      )
+    
+    }
+
+    deleteClient(id:number){
+
+      return this.http.delete(`${this.api}/clients/${id}`, httpOption).pipe(
+       
+        catchError(this.handleError(`deleteUser`, id))
+    
+      )
+    
+    }
+     
+    getUserByEmail(email: string){
+  
+      return this.http.get(`${this.api}/compteWithEmail/${email}`).pipe(
+  
+        catchError(this.handleError(`getUserByEmail email=${email}`))
+  
+      );
+      
+    }
+  
+    getTokenEmail() {
+      const ob: any = this.token.decodeToken(this.token.getToken())
+      const value = ob.email;
+      return value
+    }
+  
 }

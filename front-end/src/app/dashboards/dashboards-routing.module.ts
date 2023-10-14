@@ -29,7 +29,7 @@ const routes: Routes = [
     path: 'client', children: [
       { path : '', component: DashboardClientAllComponent},
       { path : 'all', component: DashboardClientAllComponent},
-      { path : 'detail', component: DashboardClientDetailComponent}
+      { path : 'detail/:id', component: DashboardClientDetailComponent}
     ]
   },
   {
