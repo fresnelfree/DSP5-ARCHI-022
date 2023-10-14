@@ -137,74 +137,61 @@
                     <div class="col-lg-12">
                   <div class="card mb-4 p-3 client-edit">
         
-                    <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
-                        <!-- 2 column grid layout with text inputs for the first and last names -->
-                        <div class="row mb-2">
+
+                    <form [formGroup]="jeuxForm" (ngSubmit)="onSubmit()">
+                         <div class="row mb-2">
         
-                          <div class="col">
-                            <div class="form-outline">
-                              <input 
-                                  [(ngModel)]="user.client.prenom" 
-                                  formControlName="prenom" 
-                                  type="date" 
-                                  id="form6Example1" 
-                                  class="form-control" 
-                                  />
-                              <label class="form-label" for="form6Example1">Debut</label>
-                            </div>
+                                <div class="col">
+                                  <div class="form-outline">
+                                    <input 
                                       
-                                       <small class="form-text text-muted" *ngFor="let error of error_messages.prenom">
-                                        <p class="text-danger" *ngIf="clientForm.controls['prenom'].hasError(error.type) && (clientForm.controls['prenom'].dirty || clientForm.controls['prenom'].touched)">
-                                            {{error.message}}
-                                        </p>
-                                    </small>
-                          </div>
+                                        formControlName="debut" 
+                                        type="date" 
+                                        id="form6Example1" 
+                                        class="form-control" 
+                                        />
+                                    <label class="form-label" for="form6Example1">Debut</label>
+                                  </div>
+                                            <small class="form-text text-muted" *ngFor="let error of error_messages.debut">
+                                              <p class="text-danger" *ngIf="jeuxForm.controls['debut'].hasError(error.type) && (jeuxForm.controls['debut'].dirty || jeuxForm.controls['debut'].touched)">
+                                                  {{error.message}}
+                                              </p>
+                                          </small>
+                                </div>
         
                           <div class="col">
                             <div class="form-outline">
-                              <input 
-                                [(ngModel)]     ="user.client.nom"
-                                formControlName ="nom" 
+                              <input  
+                                formControlName ="fin" 
                                 type="date" 
                                 id="form6Example2" 
                                 class="form-control" 
                               />
                               <label class="form-label" for="form6Example2">Fin</label>
                             </div>
-                              <small class="form-text text-muted" *ngFor="let error of error_messages.nom">
-                                <p class="text-danger" *ngIf="clientForm.controls['nom'].hasError(error.type) && (clientForm.controls['nom'].dirty || clientForm.controls['nom'].touched)">
+                              <small class="form-text text-muted" *ngFor="let error of error_messages.fin">
+                                <p class="text-danger" *ngIf="jeuxForm.controls['fin'].hasError(error.type) && (jeuxForm.controls['fin'].dirty || jeuxForm.controls['fin'].touched)">
                                     {{error.message}}
                                 </p>
                             </small>
                           </div>
                         </div>
                       
-                        <!-- Email input -->
+                        <!-- nombre input -->
                         <div class="form-outline mb-2">
-                          <input [(ngModel)]="user.client.email" formControlName="email" type="number" id="form6Example5" class="form-control" />
+                          <input  formControlName="nombre" type="number" id="form6Example5" class="form-control" />
                           <label class="form-label" for="form6Example5">Nombre de ticket</label>
                            
-                            <small class="form-text text-muted" *ngFor="let error of error_messages.email">
-                              <p class="text-danger" *ngIf="clientForm.controls['email'].hasError(error.type) && (clientForm.controls['email'].dirty || clientForm.controls['email'].touched)">
+                            <small class="form-text text-muted" *ngFor="let error of error_messages.nombre">
+                              <p class="text-danger" *ngIf="jeuxForm.controls['nombre'].hasError(error.type) && (jeuxForm.controls['nombre'].dirty || jeuxForm.controls['nombre'].touched)">
                                   {{error.message}}
                               </p>
                           </small>
                         </div>
-                      
-                       
-                            <div class="row  row-cols-lg-auto g-3 align-items-center">
-                                <div class="col-12 ">
-                                    <label class="visually-hidden" for="inlineFormSelectPref">Produits</label>
-                                    <select class="select mr-2">
-                                      <option value="1">Infusion</option>
-                                      <option value="2">Thé</option>
-                                      <option value="3">Degune</option>
-                                    </select>
-                                  </div>
-                            </div>
+           
                       
                         <!-- Submit button -->
-                        <button [disabled]="!clientForm.valid" type="submit" class="btn btn-primary r-0 mb-4 mt-4">Sauvegarder</button>
+                        <button [disabled]="!jeuxForm.valid" type="submit" class="btn btn-primary r-0 mb-4 mt-4">Sauvegarder</button>
                       </form>
                   </div>
                 </div>

@@ -46,7 +46,7 @@ export class DashboardEmployeAllComponent {
 
 getEmployes(){
   
-    return this.employeService.getEmployers().subscribe(
+    return this.employeService.getEmployers("/employes").subscribe(
       (res) => console.log(res)
     )
 

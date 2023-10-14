@@ -79,13 +79,31 @@ export class ConnexionComponent {
         if (this.loginForm.invalid) {
           return;
       }
+
+      console.log(this.f);
       
       this.authService.login(this.f).subscribe(
         (data:any) => {this.handleResponse(data)},
       )//fin subscribe
   }
 
-// showPassword(id:string): void {
+
+  handleResponse(data:any){
+
+    // console.log(data);
+    
+    this.token.handleToken(data.token);
+   
+    this.authService.changeAuthStatus(true);
+
+    this.router.navigate(['/client']).then(() => {
+      // window.location.reload();
+    });
+     
+  }
+
+
+  // showPassword(id:string): void {
 //   const x:any = document.getElementById(id);  
 //   if (x.getAttribute("type") === "password") {
 //     x.setAttribute("type", "text");
@@ -103,21 +121,5 @@ togglePasswordVisibility(passwordInput: HTMLInputElement) {
     passwordInput.type = 'password';
   }
 }
-
-
-  handleResponse(data:any){
-
-    // console.log(data);
-    
-
-    this.token.handleToken(data.token);
-   
-    this.authService.changeAuthStatus(true);
-
-    this.router.navigate(['/client']).then(() => {
-      window.location.reload();
-    });
-     
-  }
 
 }

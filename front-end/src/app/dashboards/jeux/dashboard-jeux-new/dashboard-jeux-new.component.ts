@@ -2,8 +2,10 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Jeux } from 'src/app/core/models/jeux/jeux';
 import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { JeuxService } from 'src/app/core/services/jeux/jeux.service';
 import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
@@ -29,6 +31,7 @@ export class DashboardJeuxNewComponent implements OnInit {
  private submitted;
  private role: string;
  public user: any;
+ public sessions: Jeux[] = []
 
  constructor(
 
@@ -37,60 +40,39 @@ export class DashboardJeuxNewComponent implements OnInit {
    private token       : TokenService,
    private fb                   : FormBuilder,
    private activatedRoute       : ActivatedRoute,
-    private userService          : UserService,
+   private userService          : UserService,
+   private jeuxService: JeuxService
 
  ){
             this.submitted = false;
             this.role = "Client"
  }
 
+ ngOnInit(): void {
+  // this.getUser();
+  this.getUserByEmail()
+  this.getSession()
+}
 
-
- @HostListener('window:resize', ['$event'])
- onResize(event: Event): void {
-   this.ecran = window.innerWidth;
-
-   if (this.ecran < 1010) {
-     this.smallDevise = !this.smallDevise;
+ 
+  /********************************************************************
+   *                  GESTION SESSION JEUX
+   *
+   ********************************************************************/
+   getSession(){
+     this.jeuxService.getSessions().subscribe(
+      res => {
+        this.sessions = res
+        console.log(res)
+      }
+     )
    }
- }
-
- onMenu(e: MouseEvent) {
-   if (this.ecran > 1010) {
-     this.open = !this.open;
-   } else if (this.ecran < 1010) {
-     this.openMenu = !this.openMenu;
-
-     if (this.ecran < 576) {
-       this.openMenuSmall = !this.openMenuSmall;
-     }
-   }
- }
-
- logout(event: MouseEvent)
- {
-   event.preventDefault();
-    
-   this.authService.changeAuthStatus(false);
-
-   this.token.removeToken();
-
-   this.router.navigate(['/']).then(() => {
-     window.location.reload();
-   });
- }
-
-
 
  
   /********************************************************************
    *                  GESTION CLIENT
    *
    ********************************************************************/
-  ngOnInit(): void {
-    // this.getUser();
-    this.getUserByEmail()
-}
 
 
 getUserByEmail():  void{
@@ -114,99 +96,42 @@ getTokenEmail() {
  *
  ********************************************************************/
  error_messages   = {
-  'nom' : [
-    {type:'required', message:'Le nom est obligqtoire.'},
-    {type:'minlength', message:'Nom trop court'},
-    {type:'maxlength', message:'Nom trop long'},
+  'debut' : [
+    {type:'required', message:'Veuillez choisir une date de debut.'},
   ],
 
-  'prenom' : [
-    {type:'required', message:'Le prenom est obligqtoire.'},
-    {type:'minlength', message:'Prenom trop court'},
-    {type:'maxlength', message:'Prenom trop long'},
+  'fin' : [
+    {type:'required', message:'Veuillez choisir une date de fin.'},
   ],
 
-  'tel' : [
-    {type:'required', message:'Le numéro de téléphone est obligqtoire.'},
+  'nombre' : [
+    {type:'required', message:'Veuillez saisir une quantité valide.'},
   ],
 
-  'email' : [
-     {type:'required', message:'L\'email est obligqtoire.'},
-     {type: 'pattern', message: 'Format d\'email invalid.' },
-  ],
-
-  'adresse' : [
-       {type:'required', message:'L\'adress est obligqtoire.'},
-  ],
-
-  'pwd' : [
-    // {type: 'required', message:'Le mot de passe est obligqtoire.'},
-    {type: 'minlength', message: 'Mot de passe trop court.' },
-    {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-    {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
-  ],
-
-  'confPwd' : [
-    // {type: 'required', message:'Veuillez confirmer le mot de passe.'},
-    {type: 'minlength', message: 'Mot de passe trop court.' },
-    {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-    {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
-    {type: 'passwordCompare', message: 'Mot de passe different.'}
-  ],
+ 
 
 }
 
 
-clientForm: FormGroup = this.fb.group({
+jeuxForm: FormGroup = this.fb.group({
 
-  nom: new FormControl('', Validators.compose([
-    Validators.required,
-    Validators.minLength(2),
-    Validators.maxLength(255),
-  ])),
-
-  prenom: new FormControl('', Validators.compose([
-    Validators.required,
-    Validators.minLength(2),
-    Validators.maxLength(255),
-  ])),
-
-  tel: new FormControl('', Validators.compose([
+  debut: new FormControl('', Validators.compose([
     Validators.required,
   ])),
 
-  email: new FormControl('', Validators.compose([
-    Validators.required,
-    Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-  ])),
-
-  adresse: new FormControl('', Validators.compose([
+  fin: new FormControl('', Validators.compose([
     Validators.required,
   ])),
 
-  pwd: new FormControl('', Validators.compose([
-    // Validators.required,
-    // Validators.minLength(4),
-    // Validators.maxLength(200),
-    // Validators.pattern(
-    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-    // ),
-  ])),
-
-  confPwd: new FormControl('', Validators.compose([
-    // Validators.required,
-    // Validators.minLength(4),
-    // Validators.maxLength(200),
-    // Validators.pattern(
-    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-    // ),
+  nombre: new FormControl('', Validators.compose([
+    Validators.required,
   ])),
 
 })
 
-  // Getter pour un accès facile aux champs du formulaire (clientForm)
-  get f() { return this.clientForm.controls; }
-  get u() { return this.user.client}
+  // Getter pour un accès facile aux champs du formulaire (jeuxForm)
+  get f() { return this.jeuxForm.value; }
+
 
   /********************************************************************
  *                  On submit Methode
@@ -214,22 +139,80 @@ clientForm: FormGroup = this.fb.group({
  ********************************************************************/
 
   onSubmit() {
-
-    this.submitted = true;
+      const id_employe = this.user.id
+     this.submitted = true;
 
       // Si on a des erreurs on stop
-      if (this.clientForm.invalid) {
+      if (this.jeuxForm.invalid) {
         return;
     }
 
-    let userToUpdate =  new User( this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse, this.u.role)
+    
+    let sessionToAdd = {
+      // "id_employe": id_employe,
+      // "debut"     : this.f.debut, 
+      // "fin"  : this.f.fin, 
+      // "nombre"     : this.f.nombre, 
+      // "statut"    : 'attente'
 
-    // this.userService.updateUser(userToUpdate).subscribe(
-    //   res => console.log(res)
+        "id_employe": 12,
+        "date_debut": "2023-10-14T10:41:00.763Z",
+        "date_fin": "2023-10-14T10:41:00.763Z",
+        "nbr_ticket": 2,
+        "statut": "string"
+    }
+
+    this.jeuxService.addSession(sessionToAdd).subscribe(
+      res => console.log(res)
       
-    // )
+    )
+    
 
 }
+
+ 
+
+ 
+  /********************************************************************
+   *                  GESTION MENU
+   *
+   ********************************************************************/ 
+
+
+@HostListener('window:resize', ['$event'])
+onResize(event: Event): void {
+  this.ecran = window.innerWidth;
+
+  if (this.ecran < 1010) {
+    this.smallDevise = !this.smallDevise;
+  }
+}
+
+onMenu(e: MouseEvent) {
+  if (this.ecran > 1010) {
+    this.open = !this.open;
+  } else if (this.ecran < 1010) {
+    this.openMenu = !this.openMenu;
+
+    if (this.ecran < 576) {
+      this.openMenuSmall = !this.openMenuSmall;
+    }
+  }
+}
+
+logout(event: MouseEvent)
+{
+  event.preventDefault();
+   
+  this.authService.changeAuthStatus(false);
+
+  this.token.removeToken();
+
+  this.router.navigate(['/']).then(() => {
+    window.location.reload();
+  });
+}
+
 
 }
 

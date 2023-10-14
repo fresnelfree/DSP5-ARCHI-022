@@ -58,8 +58,8 @@ return (error: any): Observable<T> => {
 /************************************************
 *        METHODES
 ************************************************/
-  getEmployers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.api}/employes`).pipe(
+  getEmployers(path:string): Observable<User[]> {
+    return this.http.get<User[]>(this.api+path).pipe(
       // tap((_) => this.log(`Recuperation des user au Complet`)),
       catchError(this.handleError('getUserAll', []))
     );

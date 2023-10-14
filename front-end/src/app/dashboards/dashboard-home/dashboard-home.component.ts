@@ -53,11 +53,11 @@ export class DashboardHomeComponent  implements OnInit{
   }
 
   onMenu(e: MouseEvent) {
+
     if (this.ecran > 1010) {
       this.open = !this.open;
     } else if (this.ecran < 1010) {
       this.openMenu = !this.openMenu;
-
       if (this.ecran < 576) {
         this.openMenuSmall = !this.openMenuSmall;
       }
@@ -69,6 +69,7 @@ export class DashboardHomeComponent  implements OnInit{
       console.log('La fenêtre a été redimensionnée : ', size.width, 'x', size.height);
     });
     
+    console.log("onMenu");
     
   }
 
