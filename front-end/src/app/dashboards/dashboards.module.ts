@@ -22,6 +22,8 @@ import { DhbCardStatJeuxComponent } from './components/dhb-card-stat-jeux/dhb-ca
 import { DhbMenuComponent } from './shared/dhb-menu/dhb-menu.component';
 import { DhbLogoutComponent } from './shared/dhb-logout/dhb-logout.component';
 import { DhbProfilClientComponent } from './components/dhb-profil-client/dhb-profil-client.component';
+import { CpEmployeTableComponent } from './components/cp-employe-table/cp-employe-table.component';
+import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
  
  
  
@@ -48,6 +50,8 @@ import { DhbProfilClientComponent } from './components/dhb-profil-client/dhb-pro
     DhbMenuComponent,
     DhbLogoutComponent,
     DhbProfilClientComponent,
+    CpEmployeTableComponent,
+    DashboardStatisticComponent,
    
   ],
   imports: [

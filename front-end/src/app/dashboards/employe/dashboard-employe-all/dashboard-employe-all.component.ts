@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { EmployeService } from 'src/app/core/services/employe/employe.service';
-import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 
 
@@ -12,6 +11,7 @@ import { TokenService } from 'src/app/core/services/token/token.service';
   templateUrl: './dashboard-employe-all.component.html',
   styleUrls: ['./dashboard-employe-all.component.css']
 })
+
 export class DashboardEmployeAllComponent {
 
  //Variable pour gestion navbar
@@ -47,7 +47,7 @@ export class DashboardEmployeAllComponent {
 getEmployes(){
   
     return this.employeService.getEmployers("/employes").subscribe(
-      (res) => console.log(res)
+      // (res) => console.log(res)
     )
 
 }

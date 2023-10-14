@@ -832,7 +832,8 @@ aside.left-panel {
     float: left;
     margin-top: 30px;
     padding: 0 1.875em;
-    width: 100%; }
+    width: 100%;
+   }
     .right-panel .breadcrumbs .breadcrumbs-inner {
       background-color: #fff; }
     .right-panel .breadcrumbs .col-lg-8 .page-header {
@@ -855,6 +856,12 @@ aside.left-panel {
       padding: 0 5px;
       color: #ccc;
       content: "/\00a0"; }
+
+    .right-panel .breadcrumbs .active{
+      color: #00c292;
+      font-weight: 600;
+      base-palette: rgba(4, 73, 203,.5);
+    }
 
 .right-panel header.header {
   background: #fff;
@@ -2525,6 +2532,9 @@ footer.site-footer {
 ****************************************************************************/
 .dashboard .navbar-brand img{
   height: 35px;
+}
+.table2 .search{
+   margin-right: 0;
 }
 
 @media (max-width: 1680px){

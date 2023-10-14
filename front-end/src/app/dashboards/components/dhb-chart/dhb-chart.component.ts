@@ -16,9 +16,54 @@ export class DhbChartComponent implements OnInit {
       // this.afficherChart()
       // this.pieChart()
       this.barChart()
-      this.chart2()
+      this.test()
   }
 
+
+  test(){
+    const linechart = new Chart('pie', {
+      type: 'line',
+      data: {
+          labels: [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul" ],
+          datasets: [
+          {
+              label: "Visit",
+              borderColor: "rgba(153, 102, 255, 0.9)",
+               
+              backgroundColor: "rgba(255, 99, 132, 0.9)",
+              data: [ 0, 2900, 5000, 3300, 6000, 3250, 0 ]
+          },
+          {
+              label: "Bounce",
+              borderColor: "rgba(245, 23, 66, 0.9)",
+             
+              backgroundColor: "rgba(245, 23, 66,.5)",
+             
+              data: [ 0, 4200, 4500, 1600, 4200, 1500, 4000 ]
+          },
+          {
+              label: "Targeted",
+              borderColor: "rgba(40, 169, 46, 0.9)",
+             
+              backgroundColor: "rgba(40, 169, 46, .5)",
+              data: [1000, 5200, 3600, 2600, 4200, 5300, 0 ]
+          }
+          ]
+      },
+      options: {
+          responsive: true,
+          // tooltips: {
+          //     mode: 'index',
+          //     intersect: false
+          // },
+          hover: {
+              mode: 'nearest',
+              intersect: true
+          }
+
+      }
+    });
+  } //Fin test
  
    data = [
     { year: 2010, count: 10 },
@@ -31,96 +76,45 @@ export class DhbChartComponent implements OnInit {
   ];
 
 
-  chart2(){
-    const lineChar = new Chart('cht2',  {
-       
-      type: 'line',
-      data: {
-        labels: this.data.map(row => row.year),
-        datasets: [
-          {
-            label: 'Acquisitions by year',
-            data: this.data.map(row => row.count)
-          }
-        ]
-      },
-      options: {
-        scales: {
-           
-        }
-      }
-    });
-  }
 
 
   barChart() {
-    const lineChar = new Chart('pie',  {
-      type: 'bar',
-      data: {
-        labels: ['Infusion', 'Grenadine', 'The-vert', 'Pulsion', 'Sansation'],
-        datasets: [{
-          label: '# Les Gains',
-          data: [12, 19, 23, 5, 2, 3],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.9)',
-            'rgba(54, 162, 235, 0.9)',
-            'rgba(255, 206, 86, 0.9)',
-            'rgba(75, 192, 192, 0.9)',
-            'rgba(153, 102, 255, 0.9)',
-            'rgba(255, 159, 64, 0.9)'
-          ],
-          borderColor: [
-            'rgba(255, 99, 132, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)'
-          ],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        scales: {
+    // const lineChar = new Chart('pie',  {
+    //   type: 'bar',
+    //   data: {
+    //     labels: ['Infusion', 'Grenadine', 'The-vert', 'Pulsion', 'Sansation'],
+    //     datasets: [{
+    //       label: '# Les Gains',
+    //       data: [12, 19, 23, 5, 2, 3],
+    //       backgroundColor: [
+    //         'rgba(255, 99, 132, 0.9)',
+    //         'rgba(54, 162, 235, 0.9)',
+    //         'rgba(255, 206, 86, 0.9)',
+    //         'rgba(75, 192, 192, 0.9)',
+    //         'rgba(153, 102, 255, 0.9)',
+    //         'rgba(255, 159, 64, 0.9)'
+    //       ],
+    //       borderColor: [
+    //         'rgba(255, 99, 132, 1)',
+    //         'rgba(54, 162, 235, 1)',
+    //         'rgba(255, 206, 86, 1)',
+    //         'rgba(75, 192, 192, 1)',
+    //         'rgba(153, 102, 255, 1)',
+    //         'rgba(255, 159, 64, 1)'
+    //       ],
+    //       borderWidth: 1
+    //     }]
+    //   },
+    //   options: {
+    //     scales: {
            
-        }
-      }
-    });
+    //     }
+    //   }
+    // });
   }
   
 
 
-  afficherChart(){
-    const lineChar = new Chart('c3',  {
-      type: 'doughnut',
-      data:{
-        labels: [
-          'Red',
-          'Blue',
-          'Yellow'
-        ],
-        datasets: [{
-          label: 'My First Dataset',
-          data: [300, 500, 100],
-          backgroundColor: [
-            'rgb(255, 99, 132)',
-            'rgb(50, 165, 235)',
-            'rgb(255, 205, 86)'
-          ],
-          hoverOffset: 4
-        }]
-      },
-      options: {
-        scales: {
-           
-        }
-      }
-    });
-  
-  }
-
-    
- 
 
 
 }//fin

@@ -11,11 +11,13 @@ import { DashboardEmployeAllComponent } from './employe/dashboard-employe-all/da
 import { DashboardEmployeDetailComponent } from './employe/dashboard-employe-detail/dashboard-employe-detail.component';
 import { DashboardEmployeNewComponent } from './employe/dashboard-employe-new/dashboard-employe-new.component';
 import { DashboardJeuxNewComponent } from './jeux/dashboard-jeux-new/dashboard-jeux-new.component';
+import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
 
 const routes: Routes = [
   { path: '', component: DashboardHomeComponent},
   { path: 'home', component: DashboardHomeComponent},
   { path: 'dashboard', component: DashboardHomeComponent},
+  { path: 'statistic', component: DashboardStatisticComponent},
 
   {
     path: 'jeux', children: [
