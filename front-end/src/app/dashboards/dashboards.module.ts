@@ -14,20 +14,20 @@ import { DashboardJeuxNewComponent } from './jeux/dashboard-jeux-new/dashboard-j
 import { DashboardEmployeNewComponent } from './employe/dashboard-employe-new/dashboard-employe-new.component';
 import { DashboardEmployeAllComponent } from './employe/dashboard-employe-all/dashboard-employe-all.component';
 import { DashboardEmployeDetailComponent } from './employe/dashboard-employe-detail/dashboard-employe-detail.component';
-import { DhbCardStatComponent } from './components/dhb-card-stat/dhb-card-stat.component';
-import { DhbChartComponent } from './components/dhb-chart/dhb-chart.component';
-import { DhbTable1Component } from './components/dhb-table1/dhb-table1.component';
-import { DhbProfilComponent } from './components/dhb-profil/dhb-profil.component';
-import { DhbCardStatJeuxComponent } from './components/dhb-card-stat-jeux/dhb-card-stat-jeux.component';
+import { DhbCardStatComponent } from './components/statistics/dhb-card-stat/dhb-card-stat.component';
+import { DhbChartComponent } from './components/statistics/dhb-chart/dhb-chart.component';
+import { DhbTable1Component } from './components/tables/dhb-table1/dhb-table1.component';
+import { DhbProfilComponent } from './components/profiles/dhb-profil/dhb-profil.component';
+import { DhbCardStatJeuxComponent } from './components/statistics/dhb-card-stat-jeux/dhb-card-stat-jeux.component';
 import { DhbMenuComponent } from './shared/dhb-menu/dhb-menu.component';
 import { DhbLogoutComponent } from './shared/dhb-logout/dhb-logout.component';
-import { DhbProfilClientComponent } from './components/dhb-profil-client/dhb-profil-client.component';
-import { CpEmployeTableComponent } from './components/cp-employe-table/cp-employe-table.component';
+import { DhbProfilClientComponent } from './components/profiles/dhb-profil-client/dhb-profil-client.component';
+import { CpEmployeTableComponent } from './components/tables/cp-employe-table/cp-employe-table.component';
 import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
+import { CpCardProduit1Component } from './components/cards/cp-card-produit1/cp-card-produit1.component';
+import { CpChartBar1Component } from './components/statistics/cp-chart-bar1/cp-chart-bar1.component';
  
  
- 
-
 @NgModule({
   declarations: [
     DashboardHomeComponent,
@@ -52,6 +52,8 @@ import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-sta
     DhbProfilClientComponent,
     CpEmployeTableComponent,
     DashboardStatisticComponent,
+    CpCardProduit1Component,
+    CpChartBar1Component,
    
   ],
   imports: [

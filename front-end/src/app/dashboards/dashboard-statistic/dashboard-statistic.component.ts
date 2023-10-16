@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
@@ -10,7 +10,8 @@ import { TokenService } from 'src/app/core/services/token/token.service';
   styleUrls: ['./dashboard-statistic.component.css']
 })
 export class DashboardStatisticComponent implements OnInit{
-
+   
+  currentItem = 'Television';
   
   //Variable pour gestion navbar
   public open: boolean = false;
