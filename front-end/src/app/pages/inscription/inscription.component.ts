@@ -49,33 +49,33 @@ export class InscriptionComponent {
    ********************************************************************/
    error_messages   = {
     'nom' : [
-      {type:'required', message:'Le nom est obligqtoire.'},
+      {type:'required', message:'Le nom est obligatoire.'},
 
       {type: 'minlength', message: 'Nom trop court.' },
       {type: 'maxlength', message: 'Nom trop trop long.' },
     ],
 
     'prenom' : [
-      {type:'required', message:'Le prenom est obligqtoire.'},
+      {type:'required', message:'Le prenom est obligatoire.'},
       {type: 'minlength', message: 'Preom trop court.' },
       {type: 'maxlength', message: 'Preom trop trop long.' },
     ],
 
     'tel' : [
-      {type:'required', message:'Le numéro de téléphone est obligqtoire.'},
+      {type:'required', message:'Le numéro de téléphone est obligatoire.'},
     ],
 
     'email' : [
-      {type:'required', message:'L\'email est obligqtoire.'},
+      {type:'required', message:'L\'email est obligatoire.'},
       {type: 'pattern', message: 'Format d\'email invalid.' },
     ],
 
     'adresse' : [
-      {type:'required', message:'L\'adress est obligqtoire.'},
+      {type:'required', message:'L\'adress est obligatoire.'},
     ],
 
     'pwd' : [
-      {type:'required', message:'Le mot de passe est obligqtoire.'},
+      {type:'required', message:'Le mot de passe est obligatoire.'},
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
