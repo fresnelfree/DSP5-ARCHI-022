@@ -19,6 +19,7 @@ import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
 import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
+import { ConnexionAdminComponent } from './connexion-admin/connexion-admin.component';
 
  
  
@@ -41,7 +42,8 @@ import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
     ModifyPwdComponent,
     ClientGainComponent,
     ClientProfilCardComponent,
-    ClientNavComponent
+    ClientNavComponent,
+    ConnexionAdminComponent
 
   ],
   imports: [

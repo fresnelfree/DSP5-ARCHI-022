@@ -1,41 +1,38 @@
 import { HostListener, Injectable } from '@angular/core';
-
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class ToggleService {
+      //Variable pour gestion navbar
+   public  open              : boolean = false;
+   public  block             : boolean = false;
+   public  openMenu          : boolean = false;//Le boutton bare
+   public  smallDevise       : boolean = false;//Pour apliquer des styles aux tablettes et smartphones
+   public  openMenuSmall     : boolean = false;//Pour ouvrir le petit menu
+   public  ecran             : number  = window.innerWidth; //Pour stocker la taille de la resolution
+   private windowSizeSubject           = new Subject<{ width: number; height: number }>();
 
-  public toggle : boolean = false;
-  public ecran : number = window.innerWidth;
+   @HostListener('window:resize', ['$event'])
+   onResize(event: Event): void {
+     this.ecran = window.innerWidth;
 
-  constructor() { }
-  
-  @HostListener('window:resize', ['$event'])
-  onResize(event: Event, menu:boolean): void {
-    this.ecran = window.innerWidth;
-
-    if(this.ecran > 0 && this.ecran <=576){
-      menu = false; 
-    }
-    if(this.ecran > 0 && this.ecran <=576){
-      menu = false; 
-    }
+     const width = window.innerWidth;
+    const height = window.innerHeight;
+    this.windowSizeSubject.next({ width, height });
+ 
+    //  if (this.ecran < 1010) {
+    //    this.smallDevise = !this.smallDevise;
+       
+    //  }
    }
-   
-   onClick(menu1:boolean, m2:boolean, m3:boolean){
-    if(this.ecran > 0 && this.ecran <=576)
-    {
-      menu1 = !menu1
-    } 
-    else if(this.ecran > 576 && this.ecran <778)
-    {
-      m2 = !m2;  
-    }
-    else if(this.ecran > 778)
-    {
-        m3 = !m3;     
-        console.log("hhh");
-        
-    }
+
+   getWindowSizeObservable(){
+    return this.windowSizeSubject.asObservable();
    }
+
+   menuToggle(){
+     return this.ecran
+   }
+
 }

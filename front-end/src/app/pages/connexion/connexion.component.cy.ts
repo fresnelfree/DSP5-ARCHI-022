@@ -4,4 +4,4 @@ describe('ConnexionComponent', () => {
   it('should mount', () => {
     cy.mount(ConnexionComponent)
   })
-})
+}) 

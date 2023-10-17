@@ -1,3 +1,4 @@
+
 export class Gain {
     id             : number;
     id_repartition : number;
