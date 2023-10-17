@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
 import { TokenService } from '../token/token.service';
 import { environment } from 'src/environments/environment.dev';
-import { tap } from 'cypress/types/lodash';
+
 
 //Hedaer Option
 const httpOption = {
@@ -63,6 +63,7 @@ export class AuthenticationService {
   register(obj: any){
 
       return this.http.post(this.api+"/users/register", obj, httpOption).pipe(
+
         catchError(this.handleError(`register`, obj))
 
       )

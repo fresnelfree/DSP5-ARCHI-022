@@ -1,390 +1,369 @@
-<div class="dashboard  "  [ngClass]="{'open-menu-tablette': openMenuTablette,'open-menu-mobile':openMenuMobile, 'open-menu-small':openMenuSmall}" >
-    <!-- SIDEBAR -->
-    <div class="sidebar border-right">
+<div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
+  <!-- Left Panel -->
+  <aside
+    id="left-panel"
+    class="left-panel"
+    [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }"
+  >
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+  </aside>
+  <!-- /#left-panel -->
 
-      <div class="grand-menu " style="width: 100%; height: 100%;">
-        <div class="d-flex flex-column flex-shrink-0 p-3 bg-light grand-menu" style="width: 100%; height: 100%;">
-            
-            <div class="d-flex   justify-content-between " (click)="onBars($event)">
-                <span class="fs-5">Thé-TPTOP</span>
-                <i class="bi bi-x-circle-fill btn-close-menu "></i>
-             </div>
-            <hr>
-
-            <ul class="nav nav-pills flex-column justify-content-between mb-auto">
-              <li class="nav-item nav-link active" aria-current="page">
-                 
-                <i class="bi bi-house-fill"></i>
-                  <span>DASHBOARD</span>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark" routerLink="/dashboard/client"> 
-                  <i class="bi bi-person-lines-fill" ></i>
-                    Utilisateurs
-                  </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark">
-                <i class="bi bi-speedometer2"></i>
-                  Statistics
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark" routerLink="/dashboard/jeux">
-                <i class="bi bi-kanban"></i>
-                  Jeux
-                </a>
-              </li>
-            </ul>
-            <hr>
-            <div class="dropdown">
-              <a href="#" class="d-flex align-items-center link-dark text-decoration-none dropdown-toggle" id="dropdownUser2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-                <strong>mdo</strong>
-              </a>
-              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser2">
-                  
-                <li><a class="dropdown-item" href="#">Profile</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#" routerLink="/">Deconnexion</a></li>
-              </ul>
-            </div>
-          </div> 
+  <!-- Right Panel -->
+  <div id="right-panel" class="right-panel">
+    <!-- Header-->
+    <header id="header" class="header">
+      <div class="top-left">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="./"
+            ><img src="assets/images/logos/logo1.png" alt="Logo"
+          /></a>
+          <a class="navbar-brand hidden" href="./"
+            ><img src="assets/images/logos/logo2.png" alt="Logo"
+          /></a>
+          <a id="menuToggle" class="menutoggle"
+            ><i class="fa fa-bars" (click)="onMenu($event)"></i
+          ></a>
+        </div>
       </div>
-      <!-- Fin grand menu  -->
- 
-        <div class="petit-menu d-flex flex-column flex-shrink-0 bg-light" style="width: 100%;  height: 100%;" >
-            <a href="/" class="d-block p-3 mt-2 text-decoration-none border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Icon-only">
-                <i class="bi bi-aspect-ratio-fill"></i>
-              <span class="visually-hidden">Icon-only</span>
-            </a>
-            <ul class="nav nav-pills nav-flush mt-0 flex-column mb-auto text-center">
-              <li class="nav-item">
-                <a href="#" class="nav-link link-dark active py-3 border-bottom" aria-current="page" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Home">
-                  <i class="bi bi-house-fill"> </i>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark  py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Dashboard">
-                <i class="bi bi-person-lines-fill"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Orders">
-                    <i class="bi bi-speedometer2"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark  py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
-                    <i class="bi bi-kanban"></i>
-                </a>
-              </li>
-              <li>
-                <a href="#" class="nav-link link-dark py-3 border-bottom" title="" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-original-title="Products">
-                    <i class="bi bi-grid"></i>
-                </a>
-              </li>
-             
-            </ul>
-            <div class="dropdown border-top">
-              <a href="#" class="d-flex align-items-center justify-content-center p-3 link-dark text-decoration-none dropdown-toggle" id="dropdownUser3" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="https://github.com/mdo.png" alt="mdo" width="24" height="24" class="rounded-circle">
-              </a>
-              <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser3">
-                <li><a class="dropdown-item" href="#"><i class="bi bi-person-circle"></i></a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#" routerLink="/"><i class="bi bi-box-arrow-in-left"></i></a></li>
-              </ul>
+      <div class="top-right">
+        <div class="header-menu">
+          <div class="header-left">
+            <button class="search-trigger"><i class="fa fa-search"></i></button>
+            <div class="form-inline">
+              <form class="search-form">
+                <input
+                  class="form-control mr-sm-2"
+                  type="text"
+                  placeholder="Search ..."
+                  aria-label="Search"
+                />
+                <button class="search-close" type="submit">
+                  <i class="fa fa-close"></i>
+                </button>
+              </form>
             </div>
-          </div> <!--fin petit menu-->
-      
-      
- </div><!--fin sidebar-->
-    
 
+            <div class="dropdown for-notification">
+              <button
+                class="btn btn-secondary dropdown-toggle"
+                type="button"
+                id="notification"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <i class="fa fa-bell"></i>
+                <span class="count bg-danger">3</span>
+              </button>
+              <div class="dropdown-menu" aria-labelledby="notification">
+                <p class="red">You have 3 Notification</p>
+                <a class="dropdown-item media" href="#">
+                  <i class="fa fa-info"></i>
+                  <p>Server #2 overloaded.</p>
+                </a>
+              </div>
+            </div>
+          </div>
 
+          <div class="user-area dropdown float-right">
+            <a
+              href="#"
+              class="dropdown-toggle active"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                class="user-avatar rounded-circle"
+                src="assets/images/admin.jpg"
+                alt="User Avatar"
+              />
+            </a>
 
-
-
-
-
-
-
-
-
-
-
-<!-- ---------------------------------------------------------
-                A DROITE
---------------------------------------------------------->
-
-
-    <!-- NAVBAR -->
-    <div class="header">
-      <nav class="navbar navbar-expand-lg navbar-light bg-light" style="height: 65px;">
-        <div class="container-fluid">
-          <!-- <a class="navbar-brand"  >Navbar</a> -->
-          <span class="navbar-toggler-icon " (click)="onBars($event)"></span>
-          <button   class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon" ></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+            <div class="user-menu dropdown-menu">
+              <a class="nav-link" href="#"
+                ><i class="fa fa- user"></i>Mon profil</a
+              >
+              <a class="nav-link" href="#" (click)="logout($event)"
+                ><i class="fa fa-power -off"></i>Deconnexion</a
+              >
+            </div>
           </div>
         </div>
-      </nav>
-    </div>
-  
-  
+      </div>
+    </header>
+    <!-- /#header -->
 
-
-
-
-
-
-
-
-  
-    <!-- CONTENT -->
-    <div class="main p-3">
-       
-
-
-        <section style="background-color: #eee;">
-            <div class="container py-5">
-              <div class="row">
-                <div class="col">
-                  <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
-                    <ol class="breadcrumb mb-0">
-                      <li class="breadcrumb-item"><a href="#">Home</a></li>
-                      <li class="breadcrumb-item"><a href="#">All Users</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">User Profile</li>
-                    </ol>
-                  </nav>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-sm-6">
-                  <div class="card stat-widget p-2">
-                    <span class="stat-icon dib flat-color-1">
-                        <i class="bi bi-wallet-fill"></i>
-                    </span>
-                    <div class="card-body" style="width: 30%;">
-                      <h5 class="card-title stat-text" >393</h5>
-                      <p class="card-text font-weight-light text-secondary">Participants</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card stat-widget p-2">
-                      <span class="stat-icon dib flat-color-4">
-                        <i class="bi bi-receipt-cutoff"></i>
-                      </span>
-                      <div class="card-body" style="width: 30%;">
-                        <h5 class="card-title stat-text" >393</h5>
-                        <p class="card-text font-weight-light text-secondary">Total gains</p>
+    <div class="breadcrumbs" >
+      <div class="breadcrumbs-inner">
+          <div class="d-flex justify-content-between">
+              <div class=" ">
+                  <div class="page-header">
+                      <div class="page-title">
+                          <h1>Client</h1>
                       </div>
-                    </div>
                   </div>
               </div>
-          
-              <div class="row">
-                 
-                <div class="col-lg-12">
+                  <div class="page-header float-right">
+                      <div class="page-title">
+                          <ol class="breadcrumb text-right"> 
+                              <!-- <li><a href="#" routerLink="/dashboard/employe/new">New</a></li> -->
+                              <li class="active">Liste clients</li>
+                          </ol>
+                      </div>
+                  </div>
+          </div>
+      </div>
+  </div>
+
+
+    <!-- Content -->
+    <div class="content">
+      <div class="animated fadeIn">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <strong class="card-title">Data Table</strong>
+              </div>
+              <div class="card-body">
+                <div
+                  id="bootstrap-data-table_wrapper"
+                  class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"
+                >
                   <div class="row">
-                    <div class="col-md-6">
-                      <div class="card mb-4 mb-md-0">
-                        <div class="card-body">
-                          <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                          </p>
-                          <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                          <div class="progress rounded mb-2" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
+                    <div class="col-sm-12 col-md-6">
+                      <div
+                        class="dataTables_length"
+                        id="bootstrap-data-table_length"
+                      >
+                        <label
+                          >Show
+                          <select
+                            name="bootstrap-data-table_length"
+                            aria-controls="bootstrap-data-table"
+                            class="form-control form-control-sm"
+                          >
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                            <option value="-1">All</option>
+                          </select>
+                          entries</label
+                        >
                       </div>
                     </div>
-                    <div class="col-md-6">
-                      <div class="card mb-4 mb-md-0">
-                        <div class="card-body">
-                          <p class="mb-4"><span class="text-primary font-italic me-1">assigment</span> Project Status
-                          </p>
-                          <p class="mb-1" style="font-size: .77rem;">Web Design</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">Website Markup</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 72%" aria-valuenow="72"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">One Page</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 89%" aria-valuenow="89"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">Mobile Template</p>
-                          <div class="progress rounded" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 55%" aria-valuenow="55"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                          <p class="mt-4 mb-1" style="font-size: .77rem;">Backend API</p>
-                          <div class="progress rounded mb-2" style="height: 5px;">
-                            <div class="progress-bar" role="progressbar" style="width: 66%" aria-valuenow="66"
-                              aria-valuemin="0" aria-valuemax="100"></div>
-                          </div>
-                        </div>
+                    <div class="col-sm-12 col-md-6">
+                      <div
+                        id="bootstrap-data-table_filter"
+                        class="dataTables_filter"
+                      >
+                        <label
+                          >Search:<input
+                            type="search"
+                            class="form-control form-control-sm"
+                            placeholder=""
+                            aria-controls="bootstrap-data-table"
+                        /></label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <table
+                        id="bootstrap-data-table"
+                        class="table table-striped table-bordered dataTable no-footer"
+                        role="grid"
+                        aria-describedby="bootstrap-data-table_info"
+                      >
+                      <!-- en tete de table -->
+                        <thead>
+                          <tr role="row" >
+                            <th
+                              class="sorting_asc"
+                              tabindex="0"
+                              aria-controls="bootstrap-data-table"
+                              rowspan="1"
+                              colspan="1"
+                              aria-sort="ascending"
+                              aria-label="Name: activate to sort column descending"
+                              style="width: 191px"
+                               
+                            >
+                              Nom complet
+                            </th>
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="bootstrap-data-table"
+                              rowspan="1"
+                              colspan="1"
+                              aria-label="Position: activate to sort column ascending"
+                              style="width: 310px"
+                            >
+                              Adresse
+                            </th>
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="bootstrap-data-table"
+                              rowspan="1"
+                              colspan="1"
+                              aria-label="Office: activate to sort column ascending"
+                              style="width: 144px"
+                            >
+                              Email
+                            </th>
+                            <th
+                              class="sorting"
+                              tabindex="0"
+                              aria-controls="bootstrap-data-table"
+                              rowspan="1"
+                              colspan="1"
+                              aria-label="Salary: activate to sort column ascending"
+                              style="width: 111px"
+                            >
+                              Tel
+                            </th>
+                          </tr>
+                        </thead>
+                        <!-- cors de table -->
+                        <tbody *ngFor="let client of clients" >
+
+                          <tr role="row" class="even" (click)="onGoDetail(client)">
+                            <td class="sorting_1">
+                              {{ client.nom }} {{ client.prenom }}
+                            </td>
+                            <td>{{ client.adresse }}</td>
+                            <td>{{ client.email }}</td>
+                            <td>{{ client.tel }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-12 col-md-5">
+                      <div
+                        class="dataTables_info"
+                        id="bootstrap-data-table_info"
+                        role="status"
+                        aria-live="polite"
+                      >
+                        Showing 1 to 10 of 57 entries
+                      </div>
+                    </div>
+                    <div class="col-sm-12 col-md-7">
+                      <div
+                        class="dataTables_paginate paging_simple_numbers"
+                        id="bootstrap-data-table_paginate"
+                      >
+                        <ul class="pagination">
+                          <li
+                            class="paginate_button page-item previous disabled"
+                            id="bootstrap-data-table_previous"
+                          >
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="0"
+                              tabindex="0"
+                              class="page-link"
+                              >Previous</a
+                            >
+                          </li>
+                          <li class="paginate_button page-item active">
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="1"
+                              tabindex="0"
+                              class="page-link"
+                              >1</a
+                            >
+                          </li>
+                          <li class="paginate_button page-item">
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="2"
+                              tabindex="0"
+                              class="page-link"
+                              >2</a
+                            >
+                          </li>
+                          <li class="paginate_button page-item">
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="3"
+                              tabindex="0"
+                              class="page-link"
+                              >3</a
+                            >
+                          </li>
+                          <li class="paginate_button page-item">
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="4"
+                              tabindex="0"
+                              class="page-link"
+                              >4</a
+                            >
+                          </li>
+                          <li class="paginate_button page-item">
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="5"
+                              tabindex="0"
+                              class="page-link"
+                              >5</a
+                            >
+                          </li>
+                          <li class="paginate_button page-item">
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="6"
+                              tabindex="0"
+                              class="page-link"
+                              >6</a
+                            >
+                          </li>
+                          <li
+                            class="paginate_button page-item next"
+                            id="bootstrap-data-table_next"
+                          >
+                            <a
+                              href="#"
+                              aria-controls="bootstrap-data-table"
+                              data-dt-idx="7"
+                              tabindex="0"
+                              class="page-link"
+                              >Next</a
+                            >
+                          </li>
+                        </ul>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </div>
+      </div>
+      <!-- .animated -->
+    </div>
+    <!-- /.content -->
+    <div class="clearfix"></div>
 
-          <table class="table align-middle mb-0 bg-white">
-            <thead class="bg-light">
-              <tr>
-                <th>Name</th>
-                <th>Title</th>
-                <th>Status</th>
-                <th>Position</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img
-                        src="https://mdbootstrap.com/img/new/avatars/8.jpg"
-                        alt=""
-                        style="width: 45px; height: 45px"
-                        class="rounded-circle"
-                        />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">John Doe</p>
-                      <p class="text-muted mb-0">john.doe@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">Software engineer</p>
-                  <p class="text-muted mb-0">IT department</p>
-                </td>
-                <td>
-                  <span class="badge badge-success rounded-pill d-inline">Active</span>
-                </td>
-                <td>Senior</td>
-                <td>
-                  <button type="button" class="btn btn-link btn-sm btn-rounded">
-                    Edit
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img
-                        src="https://mdbootstrap.com/img/new/avatars/6.jpg"
-                        class="rounded-circle"
-                        alt=""
-                        style="width: 45px; height: 45px"
-                        />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">Alex Ray</p>
-                      <p class="text-muted mb-0">alex.ray@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">Consultant</p>
-                  <p class="text-muted mb-0">Finance</p>
-                </td>
-                <td>
-                  <span class="badge badge-primary rounded-pill d-inline"
-                        >Onboarding</span
-                    >
-                </td>
-                <td>Junior</td>
-                <td>
-                  <button
-                          type="button"
-                          class="btn btn-link btn-rounded btn-sm fw-bold"
-                          data-mdb-ripple-color="dark"
-                          >
-                    Edit
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <div class="d-flex align-items-center">
-                    <img
-                        src="https://mdbootstrap.com/img/new/avatars/7.jpg"
-                        class="rounded-circle"
-                        alt=""
-                        style="width: 45px; height: 45px"
-                        />
-                    <div class="ms-3">
-                      <p class="fw-bold mb-1">Kate Hunington</p>
-                      <p class="text-muted mb-0">kate.hunington@gmail.com</p>
-                    </div>
-                  </div>
-                </td>
-                <td>
-                  <p class="fw-normal mb-1">Designer</p>
-                  <p class="text-muted mb-0">UI/UX</p>
-                </td>
-                <td>
-                  <span class="badge badge-warning rounded-pill d-inline">Awaiting</span>
-                </td>
-                <td>Senior</td>
-                <td>
-                  <button
-                          type="button"
-                          class="btn btn-link btn-rounded btn-sm fw-bold"
-                          data-mdb-ripple-color="dark"
-                          >
-                    Edit
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-
-
-          
-
-    </div><!--Fin main-->
-  
-    
-  </div><!--Fin body-->
+    <!-- Footer -->
+    <app-dashboard-footer></app-dashboard-footer>
+    <!-- /.site-footer -->
+  </div>
+  <!-- /#right-panel -->
+</div>

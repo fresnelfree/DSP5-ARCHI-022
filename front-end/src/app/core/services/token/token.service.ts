@@ -8,76 +8,81 @@ import jwt_decode from 'jwt-decode';
 })
 export class TokenService {
 
-  constructor(private router: Router) { }
+      constructor(private router: Router) { }
 
-  handleToken(token: any){
+      handleToken(token: any){
 
-      this.setToken(token)     
+          this.setToken(token);     
 
-  }
+      }
 
-  setToken(token: any){
+      setToken(token: any){
 
-    localStorage.setItem('token', token);
+        localStorage.setItem('token', token);
 
-  }
+      }
 
-  getToken(): string | null{
+      getToken(): string | null{
 
-    return localStorage.getItem('token');
+        return localStorage.getItem('token');
 
-  }
+      }
 
-  removeToken(){
-    
-    localStorage.removeItem('token');
+      removeToken(){
+        
+        localStorage.removeItem('token');
+        this.router.navigate(['/connexion'])
 
-  }
+      }
 
-  removeTokenExpired(){
+      removeTokenExpired(){
 
-    localStorage.removeItem('token');
-    this.router.navigate(['/connexion'])
-  }
+        localStorage.removeItem('token');
+        this.router.navigate(['/connexion'])
+      }
 
 
-  isValidToken(){
+      isValidToken(){
 
-    const token = this.getToken();
+        const token = this.getToken();
 
-    if(token){
-       const payload = this.decodeToken(token);
+        if(token){
+          const payload = this.decodeToken(token);
 
-       if(payload){
-        // return payload.iat === environment.hostLine ? true : false
-        return true;
-       }
-    }
+          if(payload){
+            // return payload.iat === environment.hostLine ? true : false
+            return true;
+          }
+        }
 
-    return false;
+        return false;
 
-  }
+      }
 
-  //le token seule en chaine de caracter
-  payloadToken(token:any){ 
+      //le token seule en chaine de caracter
+      payloadToken(token:any){ 
 
-    const payload = token.split('.')[1];
-    
-    return payload;
+        const payload = token.split('.')[1];
+        
+        return payload;
 
-  }
+      }
 
-  decodeToken(token:any)
-  {
+      decodeToken(token:any)
+      {
 
-    try {
-      return jwt_decode(token);
-    } catch(Error) {
-      return null;
-    }
+        try {
+          
+          return jwt_decode(token);
 
-    // return JSON.parse(atob(token));
-  }
+        } catch(Error) {
+
+          return null;
+
+        }
+
+        // return JSON.parse(atob(token));
+      }
 
 
 
