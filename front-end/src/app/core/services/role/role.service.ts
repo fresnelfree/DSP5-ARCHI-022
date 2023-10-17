@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class RoleService {
 
-  constructor() { }
+  // constructor() { }
 
     handleRole(role: any){
 

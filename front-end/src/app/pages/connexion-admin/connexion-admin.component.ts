@@ -30,10 +30,6 @@ export class ConnexionAdminComponent implements OnInit{
     this.submitted = false;
   }
 
-
-  
-  
-  
   /********************************************************************
    *
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
@@ -87,6 +83,7 @@ export class ConnexionAdminComponent implements OnInit{
       
       this.authService.login(this.f).subscribe(
         (data:any) => {
+
           this.handleResponse(data)
           
           if(this.authService.isloggedIn()){
@@ -95,14 +92,27 @@ export class ConnexionAdminComponent implements OnInit{
             res => {
 
                  this.user = res;
+
                   if(this.user.employe){
 
                     this.roleSErvice.handleRole(this.user.employe.role)
 
+                    this.router.navigate(['/dashboard']).then(() => {
+                      
+                      window.location.reload();
+
+                    });
+
                   }else if(this.user.client){
 
-                     this.roleSErvice.handleRole("Client")
-                     
+                     this.roleSErvice.handleRole("Client");
+
+                     this.router.navigate(['/client']).then(() => {
+
+                      window.location.reload();
+
+                    });
+
                   }
                }
             

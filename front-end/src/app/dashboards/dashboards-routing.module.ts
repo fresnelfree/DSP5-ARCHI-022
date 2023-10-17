@@ -14,10 +14,10 @@ import { DashboardJeuxNewComponent } from './jeux/dashboard-jeux-new/dashboard-j
 import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
 
 const routes: Routes = [
-  { path: '', component: DashboardHomeComponent},
-  { path: 'home', component: DashboardHomeComponent},
-  { path: 'dashboard', component: DashboardHomeComponent},
-  { path: 'statistic', component: DashboardStatisticComponent},
+  { path: '', component: DashboardHomeComponent,                 },
+  { path: 'home', component: DashboardHomeComponent,             },
+  { path: 'dashboard', component: DashboardHomeComponent,        },
+  { path: 'statistic', component: DashboardStatisticComponent, canActivate: [authGuard], data: {role: 'Admin'} },
 
   {
     path: 'jeux', children: [

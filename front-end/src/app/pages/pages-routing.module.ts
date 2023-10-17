@@ -33,10 +33,15 @@ const routes: Routes = [
                         { path: 'admin', component: ConnexionAdminComponent },
   ]},
   { path: 'client', children: [
-                      { path: '', component: ClientHomeComponent },
-                      { path: 'profil', component: ClientHomeComponent },
-                      { path: 'gain', component: ClientGainComponent },
-  ], canActivate: [authGuard]},//fin client
+                                  { path: '', component: ClientHomeComponent },
+                                  { path: 'profil', component: ClientHomeComponent },
+                                  { path: 'gain', component: ClientGainComponent },
+                              ], 
+                              canActivate: [authGuard],
+                              data: {
+                                role: 'Client'
+                              }
+},//fin client
 
 ];//Fin routes
 

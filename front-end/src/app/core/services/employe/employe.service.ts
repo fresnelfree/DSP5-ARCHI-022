@@ -1,9 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, catchError, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
 import { TokenService } from '../token/token.service';
 import { environment } from 'src/environments/environment.dev';
-import { tap } from 'cypress/types/lodash';
 import { User } from '../../models/user/user';
  
 
