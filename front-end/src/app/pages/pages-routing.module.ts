@@ -10,14 +10,9 @@ import { JeuxComponent } from './jeux/jeux.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { authGuard } from '../core/guards/auth.guard';
 import { ClientHomeComponent } from './client/client-home/client-home.component';
-
 import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
-
 import { ClientGainComponent } from './client/client-gain/client-gain.component';
-import { ConnexionAdminComponent } from './connexion-admin/connexion-admin.component';
-
  
-
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -28,20 +23,21 @@ const routes: Routes = [
   { path: 'apropos', component: AproposComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'inscription', component: InscriptionComponent},
-  { path: 'connexion', children: [
-                        { path:'', component: ConnexionComponent},
-                        { path: 'admin', component: ConnexionAdminComponent },
-  ]},
-  { path: 'client', children: [
-                                  { path: '', component: ClientHomeComponent },
-                                  { path: 'profil', component: ClientHomeComponent },
-                                  { path: 'gain', component: ClientGainComponent },
-                              ], 
-                              canActivate: [authGuard],
-                              data: {
-                                role: 'Client'
-                              }
-},//fin client
+  { path: 'connexion', 
+            children: [
+                       { path:'', component: ConnexionComponent},
+                      ]},
+  { path: 'client', 
+             children: [
+                         { path: '', component: ClientHomeComponent },
+                         { path: 'profil', component: ClientHomeComponent },
+                         { path: 'gain', component: ClientGainComponent },
+                        ], 
+              canActivate: [authGuard],
+              data: {
+                      role: 'Client'
+                    }
+  },//fin client
 
 ];//Fin routes
 
