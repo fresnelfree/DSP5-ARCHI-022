@@ -25,7 +25,7 @@ export class SessionJeu extends Entity {
     id: 1,
     mysql: {columnName: 'id', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'N', generated: 1},
   })
-  id?: number;
+  id: number;
 
   @property({
     type: 'number',
@@ -53,7 +53,7 @@ export class SessionJeu extends Entity {
     generated: 0,
     mysql: {columnName: 'nbr_ticket', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y', generated: 0},
   })
-  nbr_ticket?: number;
+  nbr_ticket: number;
 
   @property({
     type: 'string',
@@ -61,7 +61,15 @@ export class SessionJeu extends Entity {
     generated: 0,
     mysql: {columnName: 'statut', dataType: 'varchar', dataLength: 20, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
-  statut?: string;
+  statut: string;
+
+  @property({
+    type: 'string',
+    length: 255,
+    generated: 0,
+    mysql: {columnName: 'libelle', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+  })
+  libelle?: string;  
 
   @hasMany(() => Repartition, {keyTo: 'id_session'})
   repartitions: Repartition[];

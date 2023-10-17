@@ -5,7 +5,7 @@ import { inject, service } from "@loopback/core";
 import { TokenServiceBindings } from "@loopback/authentication-jwt";
 import { TokenService, authenticate } from "@loopback/authentication";
 import {securityId,SecurityBindings, UserProfile} from '@loopback/security';
-import { PassportProvider, UserService } from "../services";
+import { PassportProvider, RepartitionGainsProvider, UserService } from "../services";
 import { ClientRepository, CompteRepository, EmployeRepository } from "../repositories";
 import {genSalt, hash} from 'bcryptjs';
 import { repository } from "@loopback/repository";
@@ -25,7 +25,9 @@ export class UserController {
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: TokenService,    
     @inject('services.UserService') 
-    public userService: UserService,      
+    public userService: UserService, 
+    @inject('services.RepartitionGainsProvider')     
+    public repartitionGainsProvider: RepartitionGainsProvider,     
     @inject('models.Client')
     public client: Client,
     @inject('models.Employe')
@@ -56,7 +58,7 @@ export class UserController {
       content: {
         'application/json': {
           schema: getModelSchemaRef(Compte, {
-            exclude: ['id','id_passport','type_passport','email_verify'],
+            exclude: ['id','id_passport','type_passport'],
           }),
         },
       },
@@ -99,7 +101,25 @@ export class UserController {
     user: User,
   ): Promise<Compte> {
     return this.userService.saveUser(user);
-  }  
+  } 
+  
+  @get('/verifyEmail/{email}')
+  @response(200, {
+    description: 'Compte PATCH success',
+    // content: {'application/text': {schema: "result"}}
+  })
+  async sendEmailVerifyAccount(
+    @param.path.string('email') email: string,
+  ): Promise<any> {
+    const verify = await this.userService.verifyEmail(email)
+    if (verify) {
+      return "Email vérifié avec success !"
+    }
+    else {
+      return "Le lien de verification a expire. Essayez de vous connecter a votre"+
+      " compte àfin d'avoir un nouveau lien de verification !"
+    }
+  } 
   
   @get('/verifyEmail/{token}')
   @response(200, {
@@ -130,7 +150,15 @@ export class UserController {
     const verify = await this.userService.resetPassword(email)
   }  
 
-    
+  @get('/testFonction/{count}')
+  @response(200, {
+    description: 'Compte PATCH success',
+  })
+  async testGains(
+    @param.path.number('count') count: number,
+  ): Promise<any> {
+    const verify = await this.repartitionGainsProvider.generateUniqueNumbers(0,count,count,1)
+  }     
   }
 
 

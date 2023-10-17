@@ -57,19 +57,19 @@ export class Gains extends Entity {
   libelle_gain?: string;
 
   @property({
-    type: 'number',
+    type: 'string',
     precision: 10,
     scale: 0,
     generated: 0,
-    mysql: {columnName: 'numero_gain', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y', generated: 0},
+    mysql: {columnName: 'numero_gain', dataType: 'varchar', dataLength: 50, dataPrecision: 10, dataScale: 0, nullable: 'Y', generated: 0},
   })
-  numero_gain?: number;
+  numero_gain?: string;
 
   @property({
     type: 'string',
     length: 10,
     generated: 0,
-    mysql: {columnName: 'etat_gain', dataType: 'char', dataLength: 10, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+    mysql: {columnName: 'etat_gain', dataType: 'varchar', dataLength: 20, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
   etat_gain?: string;
 

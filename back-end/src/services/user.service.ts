@@ -187,6 +187,29 @@ export class UserService {
     return true
   }
 
+  async sendEmailVerify(email:string): Promise<string> {
+    const invalidCredentialsError = 'Aucun compte appartenant à cette email'
+    const foundCompte = await this.compteRepository.findOne({where: {email: email}});
+    if (!foundCompte) {
+      throw new HttpErrors.NotFound(invalidCredentialsError);
+    }
+    this.user.adresse = foundCompte.client.adresse
+    this.user.email = foundCompte.client.email || ""
+    this.user.nom = foundCompte.client.nom || ""
+    this.user.prenom = foundCompte.client.prenom || ""    
+    this.user.tel = foundCompte.client.tel
+    // const user: any = {
+    //   'adresse': foundCompte.client.adresse || " ",
+    //   'email': foundCompte.client.email || " ",
+    //   'nom': foundCompte.client.nom || " ",
+    //   'prenom': foundCompte.client.prenom || " ",
+    //   'id_compte': foundCompte.id || " ",
+    //   'tel': foundCompte.client.tel || " ",
+    // }  
+    this.passportService.sendLinkVerifyEmail(this.user)
+    return "l'email de confirmation de compte a été envoyé !"
+  }
+
   async resetPassword(email: string): Promise<any> {
     let user : User
     const invalidCredentialsError = 'Aucun compte appartenant à cette email'

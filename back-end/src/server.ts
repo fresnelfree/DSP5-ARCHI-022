@@ -8,7 +8,7 @@ import passport from 'passport';
 import session from 'express-session';
 import { Client, Compte, Employe, User } from './models';
 import { inject } from '@loopback/core';
-import { PassportProvider, UserService } from './services';
+import { PassportProvider, RepartitionGainsProvider, UserService } from './services';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { ClientRepository, CompteRepository, EmployeRepository } from './repositories';
@@ -71,6 +71,7 @@ export class ExpressServer {
     const port = this.lbApp.restServer.config.port || 3000;
     const host = this.lbApp.restServer.config.host || '127.0.0.1';
     this.server = this.app.listen(port, host);
+    
     await once(this.server, 'listening');
   }
 
