@@ -136,8 +136,7 @@ export class ConnexionComponent {
                        }//Fin else if
                      }
                   )//Fin subscribe
-         }
-         
+         } 
   }
   
   getTokenEmail() {
@@ -146,7 +145,6 @@ export class ConnexionComponent {
 
   togglePasswordVisibility(passwordInput: HTMLInputElement) {
     const passwordFieldType = passwordInput.type;
-  
     if (passwordFieldType === 'password') {
       passwordInput.type = 'text';
     } else {

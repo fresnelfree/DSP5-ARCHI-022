@@ -12,6 +12,8 @@ import { DashboardEmployeDetailComponent } from './employe/dashboard-employe-det
 import { DashboardEmployeNewComponent } from './employe/dashboard-employe-new/dashboard-employe-new.component';
 import { DashboardJeuxNewComponent } from './jeux/dashboard-jeux-new/dashboard-jeux-new.component';
 import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
+import { SessionComponent } from './jeux/session/session.component';
+import { GainComponent } from './jeux/gain/gain.component';
 
 const routes: Routes = [
   { path: '', component: DashboardHomeComponent,                 },
@@ -25,6 +27,18 @@ const routes: Routes = [
       { path : 'all', component: DashboardJeuxAllComponent},
       { path : 'new', component: DashboardJeuxNewComponent},
       { path : 'detail', component: DashboardJeuxDetailComponent}
+    ]
+  },
+  {
+    path: 'session', children: [
+      { path : '', component: SessionComponent},
+      { path : 'all', component: SessionComponent},
+    ]
+  },
+  {
+    path: 'gain', children: [
+      { path : '', component: GainComponent},
+      { path : 'all', component: GainComponent},
     ]
   },
   {
