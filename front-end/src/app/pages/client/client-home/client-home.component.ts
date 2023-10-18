@@ -4,6 +4,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 
@@ -18,16 +19,17 @@ export class ClientHomeComponent implements OnInit {
   public user: any;
 
   constructor(
-    private router               : Router,
-    private fb                   : FormBuilder ,
-    private activatedRoute       : ActivatedRoute,
-    private userService          : UserService,
-    private token                : TokenService,
-    private authService          : AuthenticationService)
-          {
-            this.submitted = false;
-            this.role = "Client"
-          }
+    private router         : Router,
+    private fb             : FormBuilder ,
+    private activatedRoute : ActivatedRoute,
+    private userService    : UserService,
+    private tokenService   : TokenService,
+    private roleService    : RoleService,
+    private authService    : AuthenticationService
+    ){
+        this.submitted = false;
+        this.role = "Client"
+      }
 
   
 
@@ -63,7 +65,8 @@ export class ClientHomeComponent implements OnInit {
       
       this.authService.changeAuthStatus(false);
 
-      this.token.removeToken();
+      this.tokenService.removeToken();
+      this.roleService.removeRole();
 
       this.router.navigate(['/']).then(() => {
         window.location.reload();

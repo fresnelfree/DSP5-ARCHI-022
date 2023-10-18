@@ -7,6 +7,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { CoresModule } from './core/cores.module';
 import { TokenInterceptorProvider } from './core/helpers/token/token.interceptor';
 import {NgChartsModule } from 'ng2-charts';
+import { AuthInterceptorProvider } from './core/helpers/auth/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +22,8 @@ import {NgChartsModule } from 'ng2-charts';
     
   ],
   providers: [
-    TokenInterceptorProvider
+    TokenInterceptorProvider,
+    AuthInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })

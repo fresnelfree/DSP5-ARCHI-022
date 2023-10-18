@@ -6,15 +6,8 @@
         </a>
       </li>
       <li class="menu-title">Admin</li>
-      <!-- /.menu-title -->
       <li class="menu-item-has-children dropdown">
-        <a
-          href="#"
-          class="dropdown-toggle"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="menu-icon fa fa-cogs"></i>Utilisateurs</a
         >
         <ul class="sub-menu children dropdown-menu">
@@ -29,18 +22,21 @@
         </ul>
       </li>
       
-      <li class="">
-        <a
-          href="#"
-          class="dropdown-toggle"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-          routerLink="/dashboard/jeux/all"
+      <li class="menu-item-has-children dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="menu-icon fa fa-cogs"></i>Jeux</a
         >
-          <i class="menu-icon fa fa-table"></i>Jeux</a
-        >
-      </li> 
+        <ul class="sub-menu children dropdown-menu">
+          <li>
+            <i class="fa fa-puzzle-piece"></i
+            ><a href="/" routerLink="/dashboard/session/all">Session</a>
+          </li>
+          <li>
+            <i class="fa fa-id-badge"></i
+            ><a href="/" routerLink="/dashboard/gain/all">Gain</a>
+          </li>
+        </ul>
+      </li>
 
       <!-- <li class="menu-title">Visualisation</li> -->
       <!-- /.menu-title -->
