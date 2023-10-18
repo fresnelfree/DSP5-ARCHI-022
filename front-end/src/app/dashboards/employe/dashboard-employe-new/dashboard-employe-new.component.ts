@@ -14,7 +14,11 @@ import { UserService } from 'src/app/core/services/user/user.service';
   styleUrls: ['./dashboard-employe-new.component.css']
 })
 export class DashboardEmployeNewComponent {
-
+  titleMenu:string="Employe"
+  titleList:string="Liste employe"
+  linkList = "/dashboard/employe/all"
+  titleAdd:string="Ajout employe"
+  linkAdd = "/dashboard/employe/new"
    
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -66,18 +70,15 @@ export class DashboardEmployeNewComponent {
    }
  }
 
- logout(event: MouseEvent)
- {
-   event.preventDefault();
-    
-   this.authService.changeAuthStatus(false);
-
-   this.token.removeToken();
-
-   this.router.navigate(['/']).then(() => {
-     window.location.reload();
-   });
- }
+  logout(event: MouseEvent)
+  {
+    event.preventDefault();
+    this.authService.changeAuthStatus(false);
+    this.token.removeToken();
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
+  }
 
 
 
@@ -86,27 +87,27 @@ export class DashboardEmployeNewComponent {
    *                  GESTION CLIENT
    *
    ********************************************************************/
-  ngOnInit(): void {
-    // this.getUser();
-    this.getUserByEmail()
-    
-    
-}
+    ngOnInit(): void
+     {
+      // this.getUser();
+      this.getUserByEmail()  
+    }
 
 
-getUserByEmail():  void{
+  getUserByEmail():  void
+  {
+    this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
+      (res) => {
+        this.user = res 
+        }
+    )
+  }
 
-  this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
-    (res) => {
-       this.user = res 
-      }
-  )
-}
 
-
-getTokenEmail() {
-  return this.userService.getTokenEmail();  
-}
+getTokenEmail() 
+  {
+    return this.userService.getTokenEmail();  
+  }
 
 
  
@@ -281,23 +282,13 @@ getTokenEmail() {
     ) 
 }
 
-handleResponse(data:any){
+  handleResponse(data:any){
+    this.token.handleToken(data.token); 
+  }
 
-  this.token.handleToken(data.token);
- 
-  // this.authService.changeAuthStatus(true);
-
-  console.log("Donnees : ", data);
-  
-}
-
-onReset() {
-
-  this.submitted = false;
-
-  this.registerForm.reset();
-
-}
-
+  onReset() {
+    this.submitted = false;
+    this.registerForm.reset();
+  }
 
 }

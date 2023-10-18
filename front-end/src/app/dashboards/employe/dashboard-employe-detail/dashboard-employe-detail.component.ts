@@ -15,6 +15,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./dashboard-employe-detail.component.css']
 })
 export class DashboardEmployeDetailComponent {
+  titleMenu:string="Employe"
+  titleList:string="Liste employe"
+  linkList = "/dashboard/employe/all"
+  titleAdd:string="Ajout employe"
+  linkAdd = "/dashboard/employe/new"
    
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -43,8 +48,6 @@ export class DashboardEmployeDetailComponent {
             this.role = "Client"
  }
 
-
-
  @HostListener('window:resize', ['$event'])
  onResize(event: Event): void {
    this.ecran = window.innerWidth;
@@ -57,27 +60,26 @@ export class DashboardEmployeDetailComponent {
  onMenu(e: MouseEvent) {
    if (this.ecran > 1010) {
      this.open = !this.open;
-   } else if (this.ecran < 1010) {
+   } 
+   else if (this.ecran < 1010) 
+   {
      this.openMenu = !this.openMenu;
-
-     if (this.ecran < 576) {
+     if (this.ecran < 576) 
+     {
        this.openMenuSmall = !this.openMenuSmall;
      }
    }
  }
 
- logout(event: MouseEvent)
- {
-   event.preventDefault();
-    
-   this.authService.changeAuthStatus(false);
-
-   this.token.removeToken();
-
-   this.router.navigate(['/']).then(() => {
-     window.location.reload();
-   });
- }
+  logout(event: MouseEvent)
+  {
+    event.preventDefault();
+    this.authService.changeAuthStatus(false);
+    this.token.removeToken();
+    this.router.navigate(['/']).then(() => {
+      window.location.reload();
+    });
+  }
 
 
 
@@ -86,26 +88,25 @@ export class DashboardEmployeDetailComponent {
    *                  GESTION CLIENT
    *
    ********************************************************************/
-  ngOnInit(): void {
-    // this.getUser();
-    this.getUserByEmail()
-}
+  ngOnInit(): void 
+    {
+      this.getUserByEmail()
+    }
 
 
-getUserByEmail():  void{
-
-  this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
-    (res) => { this.user = res }
-  )
-}
-
-
-getTokenEmail() {
-  return this.userService.getTokenEmail();  
-}
+  getUserByEmail():  void
+    {
+      this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
+        (res) => { this.user = res }
+      )
+    }
 
 
- 
+  getTokenEmail() 
+    {
+      return this.userService.getTokenEmail();  
+    }
+
 
  /********************************************************************
  *
@@ -220,7 +221,7 @@ clientForm: FormGroup = this.fb.group({
       if (this.clientForm.invalid) {
         return;
     }
-
+    
     // let userToUpdate =  new User(this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
 
     // this.userService.updateUser(userToUpdate).subscribe(

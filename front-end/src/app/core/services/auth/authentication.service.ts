@@ -75,8 +75,7 @@ export class AuthenticationService {
   login(obj:any){
 
       return this.http.post(this.api+"/users/login", obj, httpOption).pipe(
-        catchError(this.handleError(`login`, obj))
-
+        // catchError(this.handleError(`login`, obj))
       )
 
    } 

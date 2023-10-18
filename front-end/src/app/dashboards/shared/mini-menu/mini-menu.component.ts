@@ -7,9 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class MiniMenuComponent {
   @Input() title:string="";
-  @Input() titleLink1:string="";
-  @Input() titleLink2:string="";
-  @Input() link1:string="";
-  @Input() link2:string="";
+  @Input() titleList:string="";
+  @Input() titleAdd:string="";
+  @Input() linkAdd:string="";
+  @Input() linkList:string="";
 
 }

@@ -21,6 +21,8 @@ export class ConnexionComponent {
   private submitted;
   private user:any;
   private role:string = "";
+  private erreurs:any;
+  public message_err_http:string = ""
 
   constructor(
     private router      : Router,
@@ -40,6 +42,7 @@ export class ConnexionComponent {
    *
    ********************************************************************/
   error_messages   = {
+
     'email' : [
       {type:'required', message:'L\'email est obligqtoire.'},
       {type: 'pattern', message: 'Format d\'email invalid.' },
@@ -90,17 +93,25 @@ export class ConnexionComponent {
         (data:any) => {
           this.handleResponse(data)
         },
+        (err:any) => {
+          this.erreurs = err
+          
+          if(this.erreurs.status === 500)
+          {
+            this.message_err_http = "Un incident s'est produit lors de la connexion."
+          }
+          else if (this.erreurs.status === 401)
+          {
+            this.message_err_http = "Identifiant ou mot de passe est incorrecte."
+          }
+          
+        }
       )//fin subscribe
-
-
   }
  
   handleResponse(data:any){
-
     this.token.handleToken(data.token);
-   
     this.authService.changeAuthStatus(true);
-
     this.redirection()
   }
 
@@ -111,15 +122,11 @@ export class ConnexionComponent {
              this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
                res => {
                         this.user = res
-                         
                         if(this.user.employe){
-
                           this.roleSErvice.handleRole(this.user.employe.role)
-                           
                           this.router.navigate(['/dashboard']).then(() => {
                             window.location.reload();
                           });
-
                         }//Fin if
                         else if(this.user.client){
                           this.roleSErvice.handleRole("Client");

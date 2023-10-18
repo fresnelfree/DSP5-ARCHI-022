@@ -6,7 +6,6 @@
     <div class="col-md-8 col-lg-5">
         <div class="col-xl-11 p-5" ><br/><br/>
             <div class="card">
-
                 <div class="card-body p-4">
                     <div class="text-center">
                         <a routerLink="/" class="">
@@ -16,9 +15,14 @@
                     <div class="text-center mt-2">
                         <h1 class="text-primary">Connexion sécurisée</h1>
                     </div>
+                 
                     <div class="p-2 mt-4">
                         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-
+                            <small class="form-text text-muted">
+                                <p class="text-danger" >
+                                    {{message_err_http}}
+                                </p>
+                            </small>
                           <!-- mail INPUT -->
                             <div class="mb-3">
                                 <div class="form-floating mb-3">

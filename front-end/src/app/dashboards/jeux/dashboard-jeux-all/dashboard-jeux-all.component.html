@@ -6,9 +6,6 @@
     <!-- /#left-panel -->
   
   
-  
-  
-  
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
       <!-- Header-->
@@ -100,9 +97,14 @@
     <div class="content">
       <!-- Animated -->
       <div class="animated fadeIn">
-        
-         <app-mini-menu [title]="titleMenu" [titleLink1]="titleLink1" [titleLink2]="titleLink1"></app-mini-menu>
-
+        <div class="row mb-4">
+           <app-mini-menu [title]="titleMenu" 
+           [titleList]="titleList"
+           [linkList]="linkList"
+           [titleAdd]="titleAdd"
+           [linkAdd]="linkAdd" >
+          </app-mini-menu>
+        </div>
          <app-dhb-card-stat-jeux></app-dhb-card-stat-jeux>  
         <div class="clearfix"></div>
 

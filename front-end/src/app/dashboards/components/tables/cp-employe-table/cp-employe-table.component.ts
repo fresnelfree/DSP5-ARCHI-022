@@ -17,7 +17,6 @@ export class CpEmployeTableComponent {
 
   
  constructor(
-
   private authService : AuthenticationService,
   private router      : Router,
   private token       : TokenService,
@@ -36,11 +35,12 @@ ngOnInit(): void {
 ********************************************************************/
 
 getEmployes(){
-   return this.employeService.getEmployers("/employes").subscribe(
-     (res) =>  {
-          this.employes = res
-      }
-   )
+  return this.employeService.getEmployesAll().subscribe(
+    res => {
+      console.log(res);
+      
+    }
+  )
 }
 
 

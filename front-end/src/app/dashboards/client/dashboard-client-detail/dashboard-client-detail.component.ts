@@ -18,6 +18,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./dashboard-client-detail.component.css']
 })
 export class DashboardClientDetailComponent  implements OnInit {
+
+  titleMenu:string="Informations du client"
+  titleList:string="Liste clients"
+  linkList = "/dashboard/client/all"
+  titleAdd:string="Ajout client"
+  linkAdd = "/dashboard/client/new"
   
  //Variable pour gestion navbar
  public open: boolean = false;

@@ -16,9 +16,12 @@ import { TokenService } from 'src/app/core/services/token/token.service';
  
 
 export class DashboardJeuxAllComponent  implements OnInit{ 
-  titleLink1:string="Liste jeu"
-  titleLink2:string="Ajout session"
   titleMenu:string="Jeux"
+  titleList:string="Liste jeu"
+  linkList = "/dashboard/jeux/all"
+  titleAdd:string="Ajout session"
+  linkAdd = "/dashboard/jeux/new"
+ 
  
   //Variable pour gestion navbar
   public open: boolean = false;

@@ -92,33 +92,17 @@
         </div>
       </header>
       <!-- /#header -->
-      <div class="breadcrumbs">
-        <div class="breadcrumbs-inner">
-          <div class="row m-0">
-            <div class="col-sm-4">
-              <div class="page-header float-left">
-                <div class="page-title">
-                  <h1>Client</h1>
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-8">
-              <div class="page-header float-right">
-                <div class="page-title">
-                  <ol class="breadcrumb text-right">
-                    <li><a href="#" routerLink="/dashboard/client/all">Liste des clients</a></li>
-                    <li class="active">profile client</li>
-                  </ol>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+
   
       <!-- Content -->
       <div class="content">
         <div class="animated fadeIn">
+      <app-mini-menu 
+        [title]="titleMenu"
+        [titleList]="titleList"
+        [linkList]="linkList" >
+      </app-mini-menu>
+
             <app-dhb-profil-client></app-dhb-profil-client>
         </div><!--/.fadeIn-->
       </div>
