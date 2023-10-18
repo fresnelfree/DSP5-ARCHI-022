@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
+import { UserService } from 'src/app/core/services/user/user.service';
  
 
 
@@ -17,13 +19,19 @@ export class ConnexionComponent {
 
  
   private submitted;
-
+  private user:any;
+  private role:string = "";
+  private erreurs:any;
+  public message_err_http:string = ""
 
   constructor(
     private router      : Router,
     private fb          : FormBuilder ,
     private authService : AuthenticationService,
-    private token       : TokenService){
+    private token       : TokenService,
+    private roleSErvice : RoleService,
+    private userService : UserService,
+    ){
     this.submitted = false;
   }
 
@@ -34,12 +42,13 @@ export class ConnexionComponent {
    *
    ********************************************************************/
   error_messages   = {
+
     'email' : [
-      {type:'required', message:'L\'email est obligqtoire.'},
+      {type:'required', message:'L\'email est obligatoire.'},
       {type: 'pattern', message: 'Format d\'email invalid.' },
     ],
     'pwd' : [
-      {type:'required', message:'Le mot de passe est obligqtoire.'},
+      {type:'required', message:'Le mot de passe est obligatoire.'},
       {type: 'minlength', message: 'Mot de passe ne doit past être -8 caracters.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
@@ -81,43 +90,66 @@ export class ConnexionComponent {
       }
       
       this.authService.login(this.f).subscribe(
-        (data:any) => {this.handleResponse(data)},
+        (data:any) => {
+          this.handleResponse(data)
+        },
+        (err:any) => {
+          this.erreurs = err
+          
+          if(this.erreurs.status === 500)
+          {
+            this.message_err_http = "Un incident s'est produit lors de la connexion."
+          }
+          else if (this.erreurs.status === 401)
+          {
+            this.message_err_http = "Identifiant ou mot de passe est incorrecte."
+          }
+          
+        }
       )//fin subscribe
   }
-
-// showPassword(id:string): void {
-//   const x:any = document.getElementById(id);  
-//   if (x.getAttribute("type") === "password") {
-//     x.setAttribute("type", "text");
-//   } else {
-//     x.setAttribute("type", "password");
-//   }
-// }
-
-togglePasswordVisibility(passwordInput: HTMLInputElement) {
-  const passwordFieldType = passwordInput.type;
-
-  if (passwordFieldType === 'password') {
-    passwordInput.type = 'text';
-  } else {
-    passwordInput.type = 'password';
-  }
-}
-
-
+ 
   handleResponse(data:any){
-
-    // console.log(data);
-    
-
     this.token.handleToken(data.token);
-   
     this.authService.changeAuthStatus(true);
+    this.redirection()
+  }
 
-    this.router.navigate(['/client']).then(() => {
-      window.location.reload();
-    });
-     
+
+  redirection( ){
+         if(this.authService.isloggedIn())
+         {
+             this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
+               res => {
+                        this.user = res
+                        if(this.user.employe){
+                          this.roleSErvice.handleRole(this.user.employe.role)
+                          this.router.navigate(['/dashboard']).then(() => {
+                            window.location.reload();
+                          });
+                        }//Fin if
+                        else if(this.user.client){
+                          this.roleSErvice.handleRole("Client");
+                          this.router.navigate(['/client']).then(() => {
+                            window.location.reload();
+                          });
+                       }//Fin else if
+                     }
+                  )//Fin subscribe
+         } 
+  }
+  
+  getTokenEmail() {
+    return this.userService.getTokenEmail();  
+  }
+
+  togglePasswordVisibility(passwordInput: HTMLInputElement) {
+    const passwordFieldType = passwordInput.type;
+    if (passwordFieldType === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
   }
 
 }
