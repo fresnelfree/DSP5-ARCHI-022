@@ -1,57 +1,55 @@
- 
- 
-    <div class="sidebar-brand">
-        <div class="brand-flex">
-            <img src="assets/images/logos/favicon.png" width="40px" alt="">
-            <div class="brand-icons">
-                <!-- <span class="las la-bell" (click)="onBars($event)"></span> -->
-                <span class="las la-times close" (click)="onBars($event)"></span>
-            </div>
-        </div>
-    </div>
+<nav class="navbar navbar-expand-sm navbar-default">
+  <div id="main-menu" class="main-menu collapse navbar-collapse">
+    <ul class="nav navbar-nav">
+      <li class="active">
+        <a href="index.html" routerLink="/dashboard/home"><i class="menu-icon fa fa-laptop"></i>Dashboard
+        </a>
+      </li>
+      <li class="menu-title">Admin</li>
+      <!-- /.menu-title -->
+      <li class="menu-item-has-children dropdown">
+        <a
+          href="#"
+          class="dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <i class="menu-icon fa fa-cogs"></i>Utilisateurs</a
+        >
+        <ul class="sub-menu children dropdown-menu">
+          <li>
+            <i class="fa fa-puzzle-piece"></i
+            ><a href="/" routerLink="/dashboard/employe/all">Employes</a>
+          </li>
+          <li>
+            <i class="fa fa-id-badge"></i
+            ><a href="/" routerLink="/dashboard/client/all">Clients</a>
+          </li>
+        </ul>
+      </li>
+      
+      <li class="">
+        <a
+          href="#"
+          class="dropdown-toggle"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+          routerLink="/dashboard/jeux/all"
+        >
+          <i class="menu-icon fa fa-table"></i>Jeux</a
+        >
+      </li> 
 
-    <div class="sidebar-main">
-       <div class="sidebar-user">
-        <img src="assets/images/profile/user-1.jpg" width="30px" alt="">
-        <div>
-            <h3>Issa BARRY</h3>
-            <span>issa@gmail.com</span>
-        </div>
-       </div>
-       
-       <div class="sidebar-menu">
-        <div class="menu-block">
-            <div class="menu-head">
-                <span>Dashboard</span>
-            </div>
-            <ul>
-                <li>
-                    <a href="">
-                        <span class="las la-balance-scale"></span>
-                        Utilisateurs
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <span class="las la-bug"></span>
-                        Tickets
-                    </a>
-                </li>
-                <li>
-                    <a href=""  routerLink="/dashboard/jeux">
-                        <span class="las la-code"></span>
-                        Jeux
-                    </a>
-                </li>
-                <li>
-                    <a href="" routerLink="/">
-                        <span class="las la-code"></span>
-                        Home
-                    </a>
-                </li>
-                 
-            </ul>
-        </div>
-       </div>
-    </div>
- 
+      <!-- <li class="menu-title">Visualisation</li> -->
+      <!-- /.menu-title -->
+      <li>
+        <a href="#" routerLink="/dashboard/statistic">
+          <i class="menu-icon ti-email" ></i>Statistics
+        </a>
+      </li>
+    </ul>
+  </div>
+  <!-- /.navbar-collapse -->
+</nav>

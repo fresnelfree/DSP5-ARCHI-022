@@ -35,10 +35,11 @@ services:
       FACEBOOK_CALLBACK_URL: http://thetiptop.recette.api.com/auth/facebook/callback
       GOOGLE_CLIENT_ID: 574508009757-dfq7soqtakor952logu1rup06r53hsjr.apps.googleusercontent.com
       GOOGLE_CLIENT_SECRET: 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
-      GOOGLE_CALLBACK_URL: http://thetiptop.recette.api.com/auth/google/callback 
+      GOOGLE_CALLBACK_URL: http://thetiptop.recette.api.com/auth/google/callback
       URL_REDIRECT_AUTH_SOCIAL_MEDIA: http://thetiptop.recette.api.com
-      # BASE_URL: http://thetiptop.recette.api.com 
-      BASE_URL: http://127.0.0.1:8089    
+      BASE_URL_FRONT: http://thetiptop.recette.com
+      BASE_URL: http://thetiptop.recette.api.com
+      BASE_URL_FOR_AXIOS: http://127.0.0.1:8089
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: pre-prod
       SERVICE_NAME: nodeapp
@@ -51,7 +52,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.recette.api.com`)
       - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
-      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8089   
+      - traefik.http.services.server-app-ppd.loadbalancer.server.port=8089
 
   # mysqldb-ppd:
   #   image: mysql:8.0

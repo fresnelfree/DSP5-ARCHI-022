@@ -8,7 +8,7 @@ import { TokenService } from 'src/app/core/services/token/token.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit{
   public isLogged: boolean = false;
 
   constructor(

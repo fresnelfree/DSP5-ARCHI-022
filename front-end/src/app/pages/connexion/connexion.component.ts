@@ -58,11 +58,11 @@ export class ConnexionComponent {
 
     pwd: new FormControl('', Validators.compose([
       Validators.required,
-      Validators.minLength(8),
+      // Validators.minLength(8),
       Validators.maxLength(255),
-      Validators.pattern(
-        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-      ),
+      // Validators.pattern(
+      //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
+      // ),
     ])),
 
   })

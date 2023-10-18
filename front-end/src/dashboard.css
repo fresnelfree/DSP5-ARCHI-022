@@ -1,30 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 /* Option 2: Import via CSS */
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css");
+/* @import "~bootstrap/dist/css/bootstrap.css"; */
 
-.dashboard body {
-  font-family: "Open Sans", "Inter", sans-serif;
-  display: table;
-  font-size: 16px;
-  width: 100%;
-}
 :root {
   --offcanvas-width: 270px;
   --topNavbarHeight: 56px;
 }
- 
 
- .dashboard {
-  display: grid;
-  grid-template-columns: 265px 1fr;
-  grid-template-rows: 65px 1fr;
-  grid-template-areas: 
-  "sidebar header"
-  "sidebar main";
-  height: 100vh;
-  transition: all 0.3s ease-out;
+.dashboard {
   
 }
+
+ 
 
 
 /****************************************************************** 
@@ -33,364 +21,26 @@
 ********************************************************************/
 
 .dashboard .sidebar{
-  grid-area: sidebar ;
-  overflow: hidden;
-  z-index: 100;
+  
+ 
 }
 
-.sidebar i {
-  font-size: 1rem;
-}
-.sidebar .btn-close-menu{
-  display: none;
-}
+/****************************************************************** 
+*                               RIGHT 
+*
+********************************************************************/
 
-.sidebar .petit-menu{
-  display: none;
-}
+ 
 
-/* ****************************************
-HEADER
-************************************/
-.dashboard .header {
- z-index: 99;
-  grid-area: header ;
- }
-   
+/****************************************************************** 
+*                               HEADER 
+*
+********************************************************************/
 
-
-
-
-
-
-
+ 
 
 /****************************************************************** 
 *                               MAIN 
 *
 ********************************************************************/
-.dashboard .main{
-  background-color: rgb(238, 236, 236);
-  grid-area: main ;
-  z-index: 98;
- }
-
- .stat-widget {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
- }
-
- .stat-widget .card-body{
-  /* background-color: blueviolet; */
- 
- }
-
- .stat-widget .stat-icon{
-  
-  font-size: 3rem;
-  justify-content: center;
-  align-items: center;
- }
-
- .stat-widget .stat-icon i{
-  margin: auto;
- }
-
- .stat-text{
-  font-weight: 900;
-  font-size: 1.5rem;
- }
-/*  
-
-.main  {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 135px 1fr 1fr;
-  grid-template-areas:  
-  "c1 c2 c3"
-  "c4 c4 c5"
-  "c4 c4 c5";
-}
-
-
-.main .card-content:nth-child(1){
-  grid-area: c1;
-}
-
-.main .card-content:nth-child(2){
-  grid-area: c2;
-}
-
-.main .card-content:nth-child(3){
-  grid-area: c3;
-}
-
-.main .card-content:nth-child(4){
-  grid-area: c4;
-}
-.main .card-content:nth-child(5){
-  grid-area: c5;
-}
-
-.main .card-content .chart {
-  width: 100%;
-  height: 100%;
-}
-
-
-.card-content {
-   background-color: white;
-   border-radius: 10px;
- } 
-
- .card-content {
-  background-color: rgb(255, 255, 255);
-  border-radius: 7px;
-}
-  .card-content i {
-   font-size: 2.5rem;
-}
-
- .card-content .stat-widget {
-  margin: auto;
-  width: 70%;
-  height: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-  .card-content .text-left {
-  font-size: 2.5rem;
-  font-weight: 600;
-}
-
- .card-content .stat-heading {
-  color: #99abb4;
-  font-size: 14px;
-}
-  .card-content .stat-icon {
-   
-}
-
-
-
-
-
-
-
-
- */
-
-
-
-
-
-
-
-
-
-
-
-
-  /* *********************************************************
-                          RESPONSIVE
-  ***********************************************************/
-
-
-/* ECRAN 992PX */
-
-@media (max-width: 992px) {
-
-  .open-menu-tablette{
-    display: none;
-  }
-  .open-menu-small{
-    display: none;
-  }
-
-  /* .card-content .stat-widget {
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5%;
-  }
-
-  .card-content .stat-widget .stat-text{
-    font-size: 1.5rem;
-  } */
- 
-} 
-
-/* TABLETTES */
-
-@media (max-width: 778px) {
-  .dashboard{
-    display: grid;
-    grid-template-columns: 265px 1fr;
-    grid-template-rows: 55px 1fr;
-    grid-template-areas: 
-    "header header"
-    "main main";
-    height: 100vh;
-    transition: all 0.3s ease-out;
-  }
-
-  .sidebar{
-    display: none;
-  }
-
-  /* .main {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-template-rows: 100px 1fr 1fr 1fr;
-  grid-template-areas:  
-  "c1 c2 c3"
-  "c5 c5 c5"
-  "c4 c4 c4"
-  "c4 c4 c4";
-  } */
-
-  /* .card-content .stat-widget {
-    margin: auto;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 5%;
-  }
-
-  .card-content .stat-widget .stat-text{
-    font-size: 1.5rem;
-  } */
-
-} /* fin tablette*/
-
-
-/* MOBILE */
-
-@media (max-width: 576px) {
- 
-  /* .main {
-  display: grid;
-  gap: 10px;
-  grid-template-columns: 1fr;
-  grid-template-rows: repeat(2, 100px) 150px 1fr;
-  grid-template-areas:  
-  "c1"
-  "c2"
-  "c3"
-  "c4"
-  "c5";
-  }  */
-  .sidebar{
-    display: none;
-  }
-  .open-menu-tablette{
-    display: none;
-  }
-  .open-menu-small{
-    display: none;
-  }
-
-  .open-menu-mobile .sidebar{
-    background-color: blueviolet;
-    display: block;
-    grid-area: sidebar ;
-    height: 100vh;
-     position: fixed;
-     z-index: 100;
-     width: 100%;
-     height: 100%;
-  }
-
-  /* .card-content .stat-widget {
-    margin: auto;
-    width: 70%;
-    height: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-  }
-  
-    .card-content .text-left {
-    font-size: 2.5rem;
-    font-weight: 600;
-  }
-  
-   .card-content .stat-heading {
-    color: #99abb4;
-    font-size: 14px;
-  }
-    .card-content .stat-icon {
-    justify-content: center;
-  } */
-
-} /*fin mobile*/
-
-
-  /* *********************************************************
-                          MENU
-  ***********************************************************/
-  .open-menu-small{
-    display: none;
-  }
-  
-  .open-menu-tablette  {
-    display: grid;
-    grid-template-columns: 160px 1fr;
-    grid-template-rows: 55px 1fr;
-    grid-template-areas: 
-    "sidebar header"
-    "sidebar main";
-    height: 100vh;
-  }
-  
-  .open-menu-tablette .sidebar {
-    display: block;
-     
-  }
-
-  .open-menu-small {
-    display: grid;
-    grid-template-columns: 4.5rem 1fr;
-  }
-  .open-menu-small .petit-menu{
-    display: block;
- 
-  }
-  .open-menu-small .grand-menu{
-    display: none;
-  }
-
-  .open-menu-mobile{
-    display: block;
-  }
-  .close-menu-mobile {
-    color: red;
-  }
-
-  .open-menu-mobile .header{
-    z-index: 1;
-  }
-  .open-menu-mobile .main{
-    z-index: 2;
-  }
-
-  .open-menu-mobile .sidebar i{
-    display: block;
-  }
-
-
-
-
  

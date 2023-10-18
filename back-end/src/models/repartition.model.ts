@@ -30,7 +30,7 @@ export class Repartition extends Entity {
   @property({
     type: 'number',
   })
-  id_session?: number;
+  id_session: number;
 
   // @belongsTo(() => SessionJeu)
   // id_session: number;
@@ -44,15 +44,15 @@ export class Repartition extends Entity {
     generated: 0,
     mysql: {columnName: 'pourcentage', dataType: 'int', dataLength: null, dataPrecision: 10, dataScale: 0, nullable: 'Y', generated: 0},
   })
-  pourcentage?: number;
+  pourcentage: number;
 
   @property({
     type: 'string',
-    length: 100,
+    length: 255,
     generated: 0,
-    mysql: {columnName: 'libelle', dataType: 'char', dataLength: 100, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
+    mysql: {columnName: 'libelle', dataType: 'varchar', dataLength: 255, dataPrecision: null, dataScale: null, nullable: 'Y', generated: 0},
   })
-  libelle?: string;
+  libelle: string;
 
   // Define well-known properties here
 
