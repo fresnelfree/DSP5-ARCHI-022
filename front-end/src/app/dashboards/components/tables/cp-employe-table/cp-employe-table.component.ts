@@ -36,13 +36,11 @@ ngOnInit(): void {
 ********************************************************************/
 
 getEmployes(){
- 
    return this.employeService.getEmployers("/employes").subscribe(
      (res) =>  {
           this.employes = res
-     }
+      }
    )
-
 }
 
 

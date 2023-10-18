@@ -26,6 +26,7 @@ import { CpEmployeTableComponent } from './components/tables/cp-employe-table/cp
 import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
 import { CpCardProduit1Component } from './components/cards/cp-card-produit1/cp-card-produit1.component';
 import { CpChartBar1Component } from './components/statistics/cp-chart-bar1/cp-chart-bar1.component';
+import { MiniMenuComponent } from './shared/mini-menu/mini-menu.component';
  
  
 @NgModule({
@@ -54,6 +55,7 @@ import { CpChartBar1Component } from './components/statistics/cp-chart-bar1/cp-c
     DashboardStatisticComponent,
     CpCardProduit1Component,
     CpChartBar1Component,
+    MiniMenuComponent,
    
   ],
   imports: [

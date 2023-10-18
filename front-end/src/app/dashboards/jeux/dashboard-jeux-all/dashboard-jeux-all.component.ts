@@ -16,6 +16,10 @@ import { TokenService } from 'src/app/core/services/token/token.service';
  
 
 export class DashboardJeuxAllComponent  implements OnInit{ 
+  titleLink1:string="Liste jeu"
+  titleLink2:string="Ajout session"
+  titleMenu:string="Jeux"
+ 
   //Variable pour gestion navbar
   public open: boolean = false;
   public block: boolean = false;
@@ -25,6 +29,8 @@ export class DashboardJeuxAllComponent  implements OnInit{
   public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
   //Autres var
   public isLogged: boolean = false;//verification si le user est connecter
+
+
 
   constructor(
 

@@ -17,7 +17,11 @@ import { UserService } from 'src/app/core/services/user/user.service';
   styleUrls: ['./dashboard-jeux-new.component.css']
 })
 export class DashboardJeuxNewComponent implements OnInit { 
-  
+  titleLink1:string="Liste jeu"
+  titleLink2:string="Ajout session"
+  titleMenu:string="Jeux";
+  static link1:string="/dashboard/jeux/new/";
+ static link2:string="/dashboard/jeux/all/";
   
  //Variable pour gestion navbar
  public open: boolean = false;

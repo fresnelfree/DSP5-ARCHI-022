@@ -1,0 +1,8 @@
+.mini-menu{
+    background-color: #ffff;
+}
+
+.mini-menu .active{
+   color: #00c292; 
+   font-weight: 600;
+}
