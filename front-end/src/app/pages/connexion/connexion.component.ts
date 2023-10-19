@@ -121,7 +121,6 @@ export class ConnexionComponent {
              this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
                res => {
                         this.user = res
-                        console.log('user : ',res)
                         // localStorage.setItem('user',JSON.stringify(this.user))
                         this.tokenService.setItem('user',JSON.stringify(this.user))
                         if(this.user.employe){
@@ -132,9 +131,9 @@ export class ConnexionComponent {
                         }//Fin if
                         else if(this.user.client){
                           this.roleSErvice.handleRole("Client");
-                          this.router.navigate(['/client']).then(() => {
-                            // window.location.reload();
-                          });
+                          // this.router.navigate(['/client']).then(() => {
+                          //   // window.location.reload();
+                          // });
                        }//Fin else if
                      }
                   )//Fin subscribe

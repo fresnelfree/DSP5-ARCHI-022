@@ -22,7 +22,7 @@ const routes: Routes = [
     data: {role: 'Admin'}  
   },
   { path: 'home', component: DashboardHomeComponent,         
-     canActivate: [authGuard], data: {role: 'Admin'}  
+     canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
   },
   { path: 'dashboard', component: DashboardHomeComponent,      
     canActivate: [authGuard], 
@@ -30,7 +30,7 @@ const routes: Routes = [
   },
   { path: 'statistic', component: DashboardStatisticComponent, 
     canActivate: [authGuard], 
-    data: {role: 'Admin'} 
+    data: {role: 'Caissier'}
   },
 
   {
