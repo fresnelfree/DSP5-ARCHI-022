@@ -197,29 +197,31 @@ export class InscriptionComponent {
 
     
       this.authService.register(this.user).subscribe(
-        (data:any) => {this.handleResponse(data)},
+        (data:any) => {
+          // this.handleResponse(data)
+        },
       ) 
   }
 
-  handleResponse(data:any){
+  // handleResponse(data:any){
 
-    this.token.handleToken(data.token);
+  //   this.token.handleToken(data.token);
    
-    // this.authService.changeAuthStatus(true);
+  //   // this.authService.changeAuthStatus(true);
 
-    // this.router.navigate(['/dashboard']).then(() => {
-    //   window.location.reload();
-    // });
+  //   // this.router.navigate(['/dashboard']).then(() => {
+  //   //   window.location.reload();
+  //   // });
 
-    console.log(data);
+  //   console.log(data);
     
-    // this.onReset()
+  //   // this.onReset()
 
-    // this.router.navigate(['/connexion']).then(() => {
-    //   window.location.reload();
-    // });
+  //   // this.router.navigate(['/connexion']).then(() => {
+  //   //   window.location.reload();
+  //   // });
     
-  }
+  // }
 
   onReset() {
 

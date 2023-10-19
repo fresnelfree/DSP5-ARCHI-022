@@ -28,7 +28,7 @@ export class ConnexionComponent {
     private router      : Router,
     private fb          : FormBuilder ,
     private authService : AuthenticationService,
-    private token       : TokenService,
+    private tokenService       : TokenService,
     private roleSErvice : RoleService,
     private userService : UserService,
     ){
@@ -109,7 +109,7 @@ export class ConnexionComponent {
   }
  
   handleResponse(data:any){
-    this.token.handleToken(data.token);
+    this.tokenService.setItem('token',data.token);
     this.authService.changeAuthStatus(true);
     this.redirection()
   }
@@ -121,16 +121,19 @@ export class ConnexionComponent {
              this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
                res => {
                         this.user = res
+                        console.log('user : ',res)
+                        // localStorage.setItem('user',JSON.stringify(this.user))
+                        this.tokenService.setItem('user',JSON.stringify(this.user))
                         if(this.user.employe){
-                          this.roleSErvice.handleRole(this.user.employe.role)
+                          this.tokenService.setItem('role',this.user.employe.role)
                           this.router.navigate(['/dashboard']).then(() => {
-                            window.location.reload();
+                            // window.location.reload();
                           });
                         }//Fin if
                         else if(this.user.client){
                           this.roleSErvice.handleRole("Client");
                           this.router.navigate(['/client']).then(() => {
-                            window.location.reload();
+                            // window.location.reload();
                           });
                        }//Fin else if
                      }
