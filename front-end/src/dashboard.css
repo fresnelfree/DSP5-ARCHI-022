@@ -13,6 +13,11 @@
   --topNavbarHeight: 56px;
 }
  
+.body 
+{
+  background-color:floralwhite;
+}
+
 
  .dashboard {
   display: grid;

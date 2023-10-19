@@ -19,6 +19,9 @@ import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
 import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
+import { MentionsComponent } from './mentions/mentions.component';
+import { CguComponent } from './cgu/cgu.component';
+import { CgvComponent } from './cgv/cgv.component';
 
  
  
@@ -41,7 +44,10 @@ import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
     ModifyPwdComponent,
     ClientGainComponent,
     ClientProfilCardComponent,
-    ClientNavComponent
+    ClientNavComponent,
+    MentionsComponent,
+    CguComponent,
+    CgvComponent
 
   ],
   imports: [

@@ -14,6 +14,9 @@ import { ClientHomeComponent } from './client/client-home/client-home.component'
 import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 
 import { ClientGainComponent } from './client/client-gain/client-gain.component';
+import { MentionsComponent } from './mentions/mentions.component';
+import { CgvComponent } from './cgv/cgv.component';
+import { CguComponent } from './cgu/cgu.component';
 
  
 
@@ -25,6 +28,9 @@ const routes: Routes = [
   { path: 'forgot', component: ForgotPasswordComponent},
   { path: 'modify', component: ModifyPwdComponent},
   { path: 'apropos', component: AproposComponent},
+  { path: 'mentions', component: MentionsComponent},
+  { path: 'ventes', component: CgvComponent},
+  { path: 'utilisation', component: CguComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'connexion', component: ConnexionComponent},
   { path: 'inscription', component: InscriptionComponent},
