@@ -19,75 +19,67 @@ const httpOption = {
   providedIn: 'root'
 })
 export class AuthenticationService {
-  //VARIABLES
-  private  api = environment.hostLine;
-  private loggedIn = new BehaviorSubject<boolean>(this.isloggedIn());
-  public authStatus =  this.loggedIn.asObservable();
+    //VARIABLES
+    private  api = environment.hostLine;
 
-  //CONSTRUCTEUR
-  constructor(
-      private http: HttpClient,
-      private token: TokenService,
-    ) { }
+    private loggedIn = new BehaviorSubject<boolean>(this.isloggedIn());
+    
+    public authStatus =  this.loggedIn.asObservable();
 
-/************************************************
-   *        METHODES UTILES
-   ************************************************/
-   
-
-
-  private log(log: string){
-    console.info(log)
-  }
-
-  private handleError<T>(operation = 'operation', result?: T) {
-
-    return (error: any): Observable<T> => {
-
-      console.error(error);
-
-      this.log(`${operation} failed: ${error.message}`);
-
-      return of(result as T);
-
-    };
-
-  }
+    //CONSTRUCTEUR
+    constructor(
+        private http: HttpClient,
+        private token: TokenService,
+      ) { }
 
   /************************************************
-   *        METHODES
-   ************************************************/
-  //Inscription
-  register(obj: any){
+     *        METHODES UTILES
+     ************************************************/
+    
 
-      return this.http.post(this.api+"/users/register", obj, httpOption).pipe(
 
-        catchError(this.handleError(`register`, obj))
+    private log(log: string){
+      console.info(log)
+    }
 
-      )
+    private handleError<T>(operation = 'operation', result?: T) {
 
-   }
+      return (error: any): Observable<T> => {
 
-   //connexion
-  login(obj:any){
+        console.error(error);
 
-      return this.http.post(this.api+"/users/login", obj, httpOption).pipe(
-        // catchError(this.handleError(`login`, obj))
-      )
+        this.log(`${operation} failed: ${error.message}`);
 
-   } 
+        return of(result as T);
 
-   //user est il connecté ?
-   isloggedIn(){
+      };
 
-     return this.token.isValidToken()
+    }
 
-  }
- 
-  //Status du user
-  changeAuthStatus(value: boolean){
+    /************************************************
+     *        METHODES
+     ************************************************/
+    //Inscription
+    register(obj: any){
+        return this.http.post(this.api+"/users/register", obj, httpOption).pipe(
+          catchError(this.handleError(`register`, obj))
+        )
+    }
 
-     this.loggedIn.next(value)
+    //connexion
+    login(obj:any){
+        return this.http.post(this.api+"/users/login", obj, httpOption).pipe(
+          catchError(this.handleError(`login`, obj))
+        )
+    } 
 
-  }
+    //user est il connecté ?
+    isloggedIn(){
+      return this.token.isValidToken()
+    }
+  
+    //Status du user
+    changeAuthStatus(value: boolean){
+      this.loggedIn.next(value)
+    }
 }
