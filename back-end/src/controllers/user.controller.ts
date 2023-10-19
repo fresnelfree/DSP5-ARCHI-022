@@ -1,11 +1,11 @@
 // Uncomment these imports to begin using these cool features!
-import { getModelSchemaRef, post,get, requestBody, response, HttpErrors } from "@loopback/rest";
+import { getModelSchemaRef, post,get, requestBody, response, HttpErrors, param, patch } from "@loopback/rest";
 import { Client, Compte, Employe, User } from "../models";
 import { inject, service } from "@loopback/core";
 import { TokenServiceBindings } from "@loopback/authentication-jwt";
 import { TokenService, authenticate } from "@loopback/authentication";
 import {securityId,SecurityBindings, UserProfile} from '@loopback/security';
-import { PassportProvider, UserService } from "../services";
+import { PassportProvider, RepartitionGainsProvider, UserService } from "../services";
 import { ClientRepository, CompteRepository, EmployeRepository } from "../repositories";
 import {genSalt, hash} from 'bcryptjs';
 import { repository } from "@loopback/repository";
@@ -25,9 +25,9 @@ export class UserController {
     @inject(TokenServiceBindings.TOKEN_SERVICE)
     public jwtService: TokenService,    
     @inject('services.UserService') 
-    public userService: UserService,  
-    // @inject('services.PassportProvider') 
-    // public passportService: PassportProvider,     
+    public userService: UserService, 
+    @inject('services.RepartitionGainsProvider')     
+    public repartitionGainsProvider: RepartitionGainsProvider,     
     @inject('models.Client')
     public client: Client,
     @inject('models.Employe')
@@ -83,7 +83,9 @@ export class UserController {
   @post('/users/register')
   @response(200, {
     description: 'Compte model instance',
-    content: {'application/json': {schema: getModelSchemaRef(User)}},
+    content: {'application/json': {schema: getModelSchemaRef(User,{
+      exclude: ['type_passport'],
+    })}},
   })
   async register(
     @requestBody({
@@ -91,7 +93,7 @@ export class UserController {
         'application/json': {
           schema: getModelSchemaRef(User, {
             title: 'NewUser',
-            exclude: ['securityId'],
+            exclude: ['securityId','type_passport'],
           }),
         },
       },
@@ -99,74 +101,64 @@ export class UserController {
     user: User,
   ): Promise<Compte> {
     return this.userService.saveUser(user);
-  }  
+  } 
   
-  @authenticate('jwt')
-  @get('/whoami')
-  @response(
-      200, {
-        description: 'Return current user',
-        content: {
-          'application/json': {
-            schema: {
-              type: 'string',
-            },
-          },
-        },
-      },
-    )
-    async whoAmi(
-      @inject(SecurityBindings.USER)
-      currentUserProfile: UserProfile,
-    ): Promise<string> {
+  @get('/verifyEmail/{email}')
+  @response(200, {
+    description: 'Compte PATCH success',
+    // content: {'application/text': {schema: "result"}}
+  })
+  async sendEmailVerifyAccount(
+    @param.path.string('email') email: string,
+  ): Promise<any> {
+    const verify = await this.userService.verifyEmail(email)
+    if (verify) {
+      return "Email vérifié avec success !"
+    }
+    else {
+      return "Le lien de verification a expire. Essayez de vous connecter a votre"+
+      " compte àfin d'avoir un nouveau lien de verification !"
+    }
+  } 
+  
+  @get('/verifyEmail/{token}')
+  @response(200, {
+    description: 'Compte PATCH success',
+    // content: {'application/text': {schema: "result"}}
+  })
+  async verifyEmail(
+    @param.path.string('token') token: string,
+  ): Promise<any> {
+    const verify = await this.userService.verifyEmail(token)
+    if (verify) {
+      return "Email vérifié avec success !"
+    }
+    else {
+      return "Le lien de verification a expire. Essayez de vous connecter a votre"+
+      " compte àfin d'avoir un nouveau lien de verification !"
+    }
+  }
+  
+  @get('/resetPassword/{email}')
+  @response(200, {
+    description: 'Compte PATCH success',
+    // content: {'application/text': {schema: "result"}}
+  })
+  async resetPassword(
+    @param.path.string('email') email: string,
+  ): Promise<any> {
+    const verify = await this.userService.resetPassword(email)
+  }  
 
-      return currentUserProfile[securityId];
-    } 
-
-  // @get('/auth/facebook')
-  // @response(
-  //     200, {
-  //       description: 'Return current user',
-  //       content: {
-  //         'application/json': {
-  //           schema: {
-  //             type: 'string',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   )
-  //   async authFacebook(): Promise<any> {
-  //     axios.get('http://localhost:4000/auth/google/')
-  //     .then((response:any) => {
-  //       console.log(response.data);
-  //       return response.data
-  //     })
-  //     .catch((error:any) => {
-  //       console.error(error);
-  //     });
-  //   }     
-
-  // @get('/auth/facebook/callback')
-  // @response(
-  //     200, {
-  //       description: 'Return current user',
-  //       content: {
-  //         'application/json': {
-  //           schema: {
-  //             type: 'string',
-  //           },
-  //         },
-  //       },
-  //     },
-  //   )
-  //   async callBack(): Promise<any> {
-  //     var passport = require('passport')
-  //     // this.passportService.setupPassport(passport)
-  //     const pass = passport.authenticate('facebook', { failureRedirect: '/users/login' })
-  //     console.log("pass : ", pass)
-  //   } 
-    
+  @get('/testFonction/{count}')
+  @response(200, {
+    description: 'Compte PATCH success',
+  })
+  async testGains(
+    @param.path.number('count') count: number,
+  ): Promise<any> {
+    const verify = await this.repartitionGainsProvider.generateUniqueNumbers(0,count,count,1)
+  }     
   }
 
 

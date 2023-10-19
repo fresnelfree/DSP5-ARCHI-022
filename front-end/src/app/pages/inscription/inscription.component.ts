@@ -33,13 +33,12 @@ export class InscriptionComponent {
     private authService : AuthenticationService,
     private token       : TokenService){
     this.submitted = false;
-    this.role = "Client"
+    this.role = "Admin"
+    // this.role = "Client"
+
   }
 
- 
- ngOnInit() {
-
-}
+  
 
 
    /********************************************************************
@@ -174,17 +173,16 @@ export class InscriptionComponent {
    *                  GESTION LOGIN
    *
    ********************************************************************/
-
-  
+ 
 
   onSubmit() {
 
       this.submitted = true;
 
-        // Si on a des erreurs on stop
         if (this.registerForm.invalid) {
           return;
       }
+      
 
       
         this.user = {
@@ -194,9 +192,9 @@ export class InscriptionComponent {
           "email"   : this.registerForm.value.email, 
           "adresse" : this.registerForm.value.adresse, 
           "pwd"     : this.registerForm.value.pwd,
-          "role"    : this.role
+          "role"    : 'Caissier'
         }
-       
+
     
       this.authService.register(this.user).subscribe(
         (data:any) => {this.handleResponse(data)},
@@ -205,7 +203,7 @@ export class InscriptionComponent {
 
   handleResponse(data:any){
 
-    // this.token.handle(data.token);
+    this.token.handleToken(data.token);
    
     // this.authService.changeAuthStatus(true);
 
@@ -213,11 +211,13 @@ export class InscriptionComponent {
     //   window.location.reload();
     // });
 
-    this.onReset()
+    console.log(data);
+    
+    // this.onReset()
 
-    this.router.navigate(['/connexion']).then(() => {
-      window.location.reload();
-    });
+    // this.router.navigate(['/connexion']).then(() => {
+    //   window.location.reload();
+    // });
     
   }
 

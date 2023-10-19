@@ -19,9 +19,13 @@ import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
 import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
+<<<<<<< HEAD
 import { MentionsComponent } from './mentions/mentions.component';
 import { CguComponent } from './cgu/cgu.component';
 import { CgvComponent } from './cgv/cgv.component';
+=======
+import { ConnexionAdminComponent } from './connexion-admin/connexion-admin.component';
+>>>>>>> 9a80605ce20bf576042c07e7a02bde3e18338ae4
 
  
  
@@ -45,9 +49,13 @@ import { CgvComponent } from './cgv/cgv.component';
     ClientGainComponent,
     ClientProfilCardComponent,
     ClientNavComponent,
+<<<<<<< HEAD
     MentionsComponent,
     CguComponent,
     CgvComponent
+=======
+    ConnexionAdminComponent
+>>>>>>> 9a80605ce20bf576042c07e7a02bde3e18338ae4
 
   ],
   imports: [

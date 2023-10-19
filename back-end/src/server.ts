@@ -8,7 +8,7 @@ import passport from 'passport';
 import session from 'express-session';
 import { Client, Compte, Employe, User } from './models';
 import { inject } from '@loopback/core';
-import { PassportProvider, UserService } from './services';
+import { PassportProvider, RepartitionGainsProvider, UserService } from './services';
 import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 import { ClientRepository, CompteRepository, EmployeRepository } from './repositories';
@@ -71,6 +71,7 @@ export class ExpressServer {
     const port = this.lbApp.restServer.config.port || 3000;
     const host = this.lbApp.restServer.config.host || '127.0.0.1';
     this.server = this.app.listen(port, host);
+    
     await once(this.server, 'listening');
   }
 
@@ -165,13 +166,13 @@ export class ExpressServer {
         id_passport: profile.securityId,
         type_passport: profile.type_passport
       };
-      await axios.get( process.env.BASE_URL+'/compteWithEmail/'+ compte.email)
+      await axios.get( process.env.BASE_URL_FOR_AXIOS+'/compteWithEmail/'+ compte.email)
       .then(async(res:AxiosResponse<any, any>) => {
         const foundCompte = res.data
         // console.log('foundCompte',foundCompte)
         // si c'est la prmiere connexion
         if (!foundCompte) {
-            await axios.post( process.env.BASE_URL+'/comptes/',compte)
+            await axios.post( process.env.BASE_URL_FOR_AXIOS+'/comptes/',compte)
             .then(async (res:AxiosResponse<any, any>) => {
                 console.log(res.data);
                 const client = {
@@ -182,7 +183,7 @@ export class ExpressServer {
                     adresse: profile.adresse || "",
                     tel: profile.tel || ''
                 };
-                await axios.post( process.env.BASE_URL+'/clients/',client)
+                await axios.post( process.env.BASE_URL_FOR_AXIOS+'/clients/',client)
                 .then(async (res:AxiosResponse<any, any>) => {
                     this.token = await this.getToken(compte.email)
                     // res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + token)
@@ -222,7 +223,7 @@ export class ExpressServer {
         email: email,
         pwd: "pwd"
     }
-    await axios.post( process.env.BASE_URL+'/users/login', data)
+    await axios.post( process.env.BASE_URL_FOR_AXIOS+'/users/login', data)
     .then(async (res:AxiosResponse<any, any>) => {
         token =  res.data.token
     })
