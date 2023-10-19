@@ -194,12 +194,12 @@ employeForm: FormGroup = this.fb.group({
     
 }
 
-handleResponse(data:any){
+// handleResponse(data:any){
 
-  this.token.handleToken(data.token);
-  window.location.reload();
+//   this.token.handleToken(data.token);
+//   window.location.reload();
   
-}
+// }
 
 onDelete(){
    

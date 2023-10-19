@@ -10,8 +10,6 @@ export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: R
   const authService = inject(AuthenticationService);
   // const roleService = inject(RoleService)
   
-  
-
   return authService.isloggedIn();
 
 };

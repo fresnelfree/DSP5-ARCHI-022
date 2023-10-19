@@ -278,13 +278,15 @@ getTokenEmail()
       }
  
     this.userService.addUser(userToAdd).subscribe(
-      (data:any) => {this.handleResponse(data)},
+      (data:any) => {
+        // this.handleResponse(data)
+      },
     ) 
 }
 
-  handleResponse(data:any){
-    this.token.handleToken(data.token); 
-  }
+  // handleResponse(data:any){
+  //   this.token.handleToken(data.token); 
+  // }
 
   onReset() {
     this.submitted = false;

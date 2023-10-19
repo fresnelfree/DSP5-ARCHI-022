@@ -31,7 +31,7 @@ export class ClientService {
   //CONSTRUCTEUR
   constructor(
     private http: HttpClient,
-    private token: TokenService,
+    private tokenService: TokenService,
   ) { }
   
   /************************************************
@@ -111,7 +111,7 @@ export class ClientService {
     }
   
     getTokenEmail() {
-      const ob: any = this.token.decodeToken(this.token.getToken())
+      const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
       const value = ob.email;
       return value
     }

@@ -9,34 +9,36 @@ import jwt_decode from 'jwt-decode';
 export class TokenService {
 
       constructor(private router: Router) { }
+      // handleToken(token: any){
+      //     this.setItem('token',token);     
+      // }
 
-      handleToken(token: any){
-
-          this.setToken(token);     
-
+      setItem(nomVar: string, value:any){
+        localStorage.setItem(nomVar, value);
       }
 
-      setToken(token: any){
+      removeItem(nomVar: string){
+        localStorage.removeItem(nomVar);
+      } 
+      
+      getItem(nomVar: string) : any{
+        return localStorage.getItem(nomVar);
+      }       
 
-        localStorage.setItem('token', token);
+      // getToken(): string | null{
 
-      }
+      //   return localStorage.getItem('token');
 
-      getToken(): string | null{
+      // }
 
-        return localStorage.getItem('token');
-
-      }
-
-      removeToken(){
-        
+      removeToken(){        
         localStorage.removeItem('token');
+        localStorage.removeItem('user');
         this.router.navigate(['/connexion'])
 
       }
 
       removeTokenExpired(){
-
         localStorage.removeItem('token');
         this.router.navigate(['/connexion'])
       }
@@ -44,7 +46,7 @@ export class TokenService {
 
       isValidToken(){
 
-        const token = this.getToken();
+        const token = this.getItem('token');
 
         if(token){
           const payload = this.decodeToken(token);

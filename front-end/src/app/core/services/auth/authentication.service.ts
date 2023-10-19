@@ -21,9 +21,7 @@ const httpOption = {
 export class AuthenticationService {
   //VARIABLES
   private  api = environment.hostLine;
-
   private loggedIn = new BehaviorSubject<boolean>(this.isloggedIn());
-  
   public authStatus =  this.loggedIn.asObservable();
 
   //CONSTRUCTEUR

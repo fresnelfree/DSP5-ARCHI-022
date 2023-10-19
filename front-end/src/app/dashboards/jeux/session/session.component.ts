@@ -7,6 +7,7 @@ import { Repartition } from 'src/app/core/services/repartition/repartition';
 import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
 import { Session } from 'src/app/core/services/session/session';
 import { SessionService } from 'src/app/core/services/session/session.service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-session',
@@ -35,7 +36,7 @@ export class SessionComponent {
     nbr_ticket: 10,
     statut: 'Creer'
   }]
-
+  user: any;
   error_messages   = {
     'session' : [
       {type:'required', message:'Le nom est obligqtoire.'},
@@ -45,14 +46,16 @@ export class SessionComponent {
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
     private formBuilder: FormBuilder,
+    private userService: UserService
   ){
+    this.user = JSON.parse(localStorage.getItem('user') || "")
     this.nbrTicket = this.sessions[0].nbr_ticket
     this.sessionForm = this.formBuilder.group({
       libelle: [null, Validators.required],
       date_debut: [null, Validators.required],
       date_fin: [null, Validators.required,],
       nbr_ticket: [null, Validators.required],
-      id_employe: ["", Validators.required]
+      id_employe: [this.user.employe.id, Validators.required]
     });
     this.repartitionForm = this.formBuilder.group({
       session: [null, Validators.required],
@@ -130,6 +133,7 @@ export class SessionComponent {
 
   addInput() {
     this.repartitions.push({ libelle: '',pourcentage: 0,id_session:0});
+    console.log('user : ', this.user.employe.id)
     console.log("add :",this.repartitions)
   }
 
