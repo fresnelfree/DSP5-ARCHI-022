@@ -6,7 +6,6 @@ import { TokenService } from '../token/token.service';
 import { environment } from 'src/environments/environment.dev';
 import { tap } from 'cypress/types/lodash';
 import { User } from '../../models/user/user';
-import { Injectable } from '@angular/core';
 
 //Hedaer Option
 const httpOption = {

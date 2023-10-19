@@ -14,14 +14,9 @@ import { ClientHomeComponent } from './client/client-home/client-home.component'
 import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 
 import { ClientGainComponent } from './client/client-gain/client-gain.component';
-<<<<<<< HEAD
 import { MentionsComponent } from './mentions/mentions.component';
 import { CgvComponent } from './cgv/cgv.component';
 import { CguComponent } from './cgu/cgu.component';
-=======
-import { ConnexionAdminComponent } from './connexion-admin/connexion-admin.component';
->>>>>>> 9a80605ce20bf576042c07e7a02bde3e18338ae4
-
  
 
 
@@ -39,7 +34,6 @@ const routes: Routes = [
   { path: 'inscription', component: InscriptionComponent},
   { path: 'connexion', children: [
                         { path:'', component: ConnexionComponent},
-                        { path: 'admin', component: ConnexionAdminComponent },
   ]},
   { path: 'client', children: [
                                   { path: '', component: ClientHomeComponent },
