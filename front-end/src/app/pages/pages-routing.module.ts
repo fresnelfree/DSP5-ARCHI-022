@@ -26,7 +26,8 @@ const routes: Routes = [
   { path: 'connexion', 
             children: [
                        { path:'', component: ConnexionComponent},
-                      ]},
+                      ]
+  },
   { path: 'client', 
              children: [
                          { path: '', component: ClientHomeComponent },
