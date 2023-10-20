@@ -19,15 +19,14 @@ const httpOption = {
   })
 };
 
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class ClientService {
   //VARIABLES
   private  api = environment.hostLine;
 
- 
   //CONSTRUCTEUR
   constructor(
     private http: HttpClient,

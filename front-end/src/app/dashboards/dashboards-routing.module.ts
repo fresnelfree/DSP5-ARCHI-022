@@ -16,6 +16,7 @@ import { SessionComponent } from './jeux/session/session.component';
 import { GainComponent } from './jeux/gain/gain.component';
 
 const routes: Routes = [
+  {path:'', redirectTo:'dashboard', pathMatch:'full'},
   { 
     path: '', component: DashboardHomeComponent,               
     canActivate: [authGuard], 
@@ -24,13 +25,13 @@ const routes: Routes = [
   { path: 'home', component: DashboardHomeComponent,         
      canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
   },
-  { path: 'dashboard', component: DashboardHomeComponent,      
+  { path: '', component: DashboardHomeComponent,      
     canActivate: [authGuard], 
     data: {role: 'Admin'} 
   },
   { path: 'statistic', component: DashboardStatisticComponent, 
     canActivate: [authGuard], 
-    data: {role: 'Caissier'}
+    data: {role: 'Admin', role2: 'Caissier'} 
   },
 
   {

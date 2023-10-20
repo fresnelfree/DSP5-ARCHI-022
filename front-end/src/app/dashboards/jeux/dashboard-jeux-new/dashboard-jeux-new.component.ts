@@ -194,14 +194,11 @@ export class DashboardJeuxNewComponent implements OnInit {
     }
   }
 
-  logout(event: MouseEvent) {
-    event.preventDefault();
-    this.authService.changeAuthStatus(false);
-    this.token.removeToken();
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
-  }
+  logout(event: MouseEvent)
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
 }
 
 

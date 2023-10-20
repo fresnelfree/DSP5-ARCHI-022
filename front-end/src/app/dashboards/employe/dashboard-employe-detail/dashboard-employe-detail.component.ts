@@ -71,28 +71,19 @@ export class DashboardEmployeDetailComponent {
    }
  }
 
-  logout(event: MouseEvent)
-  {
-    event.preventDefault();
-    this.authService.changeAuthStatus(false);
-    this.token.removeToken();
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
-  }
-
-
-
+ logout(event: MouseEvent)
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
  
   /********************************************************************
    *                  GESTION CLIENT
-   *
    ********************************************************************/
   ngOnInit(): void 
     {
       this.getUserByEmail()
     }
-
 
   getUserByEmail():  void
     {
@@ -107,11 +98,8 @@ export class DashboardEmployeDetailComponent {
       return this.userService.getTokenEmail();  
     }
 
-
  /********************************************************************
- *
  *                  GESTION DU FORMULAIRE, REACTIVEFORM
- *
  ********************************************************************/
  error_messages   = {
   'nom' : [
@@ -155,7 +143,6 @@ export class DashboardEmployeDetailComponent {
   ],
 
 }
-
 
 clientForm: FormGroup = this.fb.group({
 
@@ -210,7 +197,6 @@ clientForm: FormGroup = this.fb.group({
 
   /********************************************************************
  *                  On submit Methode
- *
  ********************************************************************/
 
   onSubmit() {
@@ -230,7 +216,6 @@ clientForm: FormGroup = this.fb.group({
     // )
 
 }
-
 
 // ngOnInit(): void {
 

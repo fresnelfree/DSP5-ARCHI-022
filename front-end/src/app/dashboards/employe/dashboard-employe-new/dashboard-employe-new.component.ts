@@ -70,22 +70,14 @@ export class DashboardEmployeNewComponent {
    }
  }
 
-  logout(event: MouseEvent)
-  {
-    event.preventDefault();
-    this.authService.changeAuthStatus(false);
-    this.token.removeToken();
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
-  }
+ logout(event: MouseEvent)
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
 
-
-
- 
   /********************************************************************
    *                  GESTION CLIENT
-   *
    ********************************************************************/
     ngOnInit(): void
      {
