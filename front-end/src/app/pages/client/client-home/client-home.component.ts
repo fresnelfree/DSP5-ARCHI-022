@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user/user';
+import { Client } from 'src/app/core/models/client/client';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { ClientService } from 'src/app/core/services/client/client.service';
 import { RoleService } from 'src/app/core/services/role/role.service';
@@ -167,14 +168,12 @@ export class ClientHomeComponent implements OnInit {
           return;
       }
       const id_compte = this.u.id_compte
-
-      let userToUpdate =  new User(this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse, "Client")
-
-      this.clientService.updateClient(userToUpdate, id_compte).subscribe(
-        res => console.log(res)
-      )
-
-  
+      let userToUpdate =  new Client(id_compte,this.u.nom, this.u.prenom,  this.u.email, this.u.tel, this.u.adresse)
+      this.clientService.updateClient(userToUpdate, id_compte).subscribe( 
+        res => {
+          window.location.reload();
+         }
+        )//finsubscribe
   }
 
 

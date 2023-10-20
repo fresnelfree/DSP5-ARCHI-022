@@ -29,19 +29,19 @@ const routes: Routes = [
                        { path:'', component: ConnexionComponent},
                       ]
   },
-  { path: 'client', component: ClientHomeComponent,         
-  canActivate: [authGuard], data: {role3: 'Client'}  
-},
-  // { path: 'client', 
-  //            children: [
-  //                        { path: '', component: ClientHomeComponent,  
-  //                          canActivate: [authGuard], data: {role3: 'Client'}
-  //                         },
-  //                        { path: 'profil', component: ClientHomeComponent },
-  //                        { path: 'gain', component: ClientGainComponent },
-  //                       ], 
+//   { path: 'client', component: ClientHomeComponent,         
+//   canActivate: [authGuard], data: {role3: 'Client'}  
+// },
+  { path: 'client', 
+             children: [
+                         { path: '', component: ClientGainComponent,  
+                           canActivate: [authGuard], data: {role3: 'Client'}
+                          },
+                         { path: 'profil', component: ClientHomeComponent },
+                         { path: 'gain', component: ClientGainComponent },
+                        ], 
               
-  // },//fin client
+  },//fin client
 
 ];//Fin routes
 

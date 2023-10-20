@@ -202,7 +202,6 @@ clientForm: FormGroup = this.fb.group({
   onSubmit() {
 
     this.submitted = true;
-
       // Si on a des erreurs on stop
       if (this.clientForm.invalid) {
         return;
@@ -213,7 +212,7 @@ clientForm: FormGroup = this.fb.group({
     // this.userService.updateUser(userToUpdate).subscribe(
     //   res => console.log(res)
       
-    // )
+    //)
 
 }
 
