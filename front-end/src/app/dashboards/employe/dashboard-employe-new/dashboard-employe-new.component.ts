@@ -70,22 +70,14 @@ export class DashboardEmployeNewComponent {
    }
  }
 
-  logout(event: MouseEvent)
-  {
-    event.preventDefault();
-    this.authService.changeAuthStatus(false);
-    this.token.removeToken();
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
-  }
+ logout(event: MouseEvent)
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
 
-
-
- 
   /********************************************************************
    *                  GESTION CLIENT
-   *
    ********************************************************************/
     ngOnInit(): void
      {
@@ -278,13 +270,15 @@ getTokenEmail()
       }
  
     this.userService.addUser(userToAdd).subscribe(
-      (data:any) => {this.handleResponse(data)},
+      (data:any) => {
+        // this.handleResponse(data)
+      },
     ) 
 }
 
-  handleResponse(data:any){
-    this.token.handleToken(data.token); 
-  }
+  // handleResponse(data:any){
+  //   this.token.handleToken(data.token); 
+  // }
 
   onReset() {
     this.submitted = false;

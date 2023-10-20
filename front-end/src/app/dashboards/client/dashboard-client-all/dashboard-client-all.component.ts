@@ -59,12 +59,6 @@ export class DashboardClientAllComponent {
     
   }
 
-
-
-
-
-
-
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.ecran = window.innerWidth;
@@ -88,15 +82,8 @@ export class DashboardClientAllComponent {
 
   logout(event: MouseEvent)
   {
-    event.preventDefault();
-      
-    this.authService.changeAuthStatus(false);
-
-    this.token.removeToken();
-
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
+      event.preventDefault();
+      this.authService.logout()
   }
 
 }

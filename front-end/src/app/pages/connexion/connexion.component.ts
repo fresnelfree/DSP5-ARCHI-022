@@ -7,17 +7,12 @@ import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
  
-
-
-
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.component.html',
   styleUrls: ['./connexion.component.css']
 })
 export class ConnexionComponent {
-
- 
   private submitted;
   private user:any;
   private role:string = "";
@@ -28,7 +23,7 @@ export class ConnexionComponent {
     private router      : Router,
     private fb          : FormBuilder ,
     private authService : AuthenticationService,
-    private token       : TokenService,
+    private tokenService       : TokenService,
     private roleSErvice : RoleService,
     private userService : UserService,
     ){
@@ -37,12 +32,9 @@ export class ConnexionComponent {
 
   
   /********************************************************************
-   *
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
-   *
    ********************************************************************/
-  error_messages   = {
-
+  error_messages = {
     'email' : [
       {type:'required', message:'L\'email est obligatoire.'},
       {type: 'pattern', message: 'Format d\'email invalid.' },
@@ -53,11 +45,9 @@ export class ConnexionComponent {
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
-
   }
 
   loginForm: FormGroup = this.fb.group({
-
     email: new FormControl('', Validators.compose([
       Validators.required,
       Validators.minLength(2),
@@ -73,7 +63,6 @@ export class ConnexionComponent {
       //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
       // ),
     ])),
-
   })
 
     // Getter pour un accès facile aux champs du formulaire (loginForm)
@@ -104,13 +93,12 @@ export class ConnexionComponent {
           {
             this.message_err_http = "Identifiant ou mot de passe est incorrecte."
           }
-          
         }
       )//fin subscribe
   }
  
   handleResponse(data:any){
-    this.token.handleToken(data.token);
+    this.tokenService.setItem('token',data.token);
     this.authService.changeAuthStatus(true);
     this.redirection()
   }
@@ -122,16 +110,18 @@ export class ConnexionComponent {
              this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
                res => {
                         this.user = res
+                        
+                        this.tokenService.setItem('user',JSON.stringify(this.user))
                         if(this.user.employe){
-                          this.roleSErvice.handleRole(this.user.employe.role)
+                          this.tokenService.setItem('role',this.user.employe.role)
                           this.router.navigate(['/dashboard']).then(() => {
-                            window.location.reload();
+                            // window.location.reload();
                           });
                         }//Fin if
                         else if(this.user.client){
-                          this.roleSErvice.handleRole("Client");
+                          this.tokenService.setItem('role3',"Client");
                           this.router.navigate(['/client']).then(() => {
-                            window.location.reload();
+                            // window.location.reload();
                           });
                        }//Fin else if
                      }

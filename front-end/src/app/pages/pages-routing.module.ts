@@ -15,7 +15,8 @@ import { ClientGainComponent } from './client/client-gain/client-gain.component'
  
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  // { path: '', component: HomeComponent },
+  {path:'', redirectTo:'home', pathMatch:'full'},
   { path: 'home', component: HomeComponent },
   { path: 'jeux', component: JeuxComponent},
   { path: 'forgot', component: ForgotPasswordComponent},
@@ -26,17 +27,20 @@ const routes: Routes = [
   { path: 'connexion', 
             children: [
                        { path:'', component: ConnexionComponent},
-                      ]},
+                      ]
+  },
+//   { path: 'client', component: ClientHomeComponent,         
+//   canActivate: [authGuard], data: {role3: 'Client'}  
+// },
   { path: 'client', 
              children: [
-                         { path: '', component: ClientHomeComponent },
+                         { path: '', component: ClientGainComponent,  
+                           canActivate: [authGuard], data: {role3: 'Client'}
+                          },
                          { path: 'profil', component: ClientHomeComponent },
                          { path: 'gain', component: ClientGainComponent },
                         ], 
-              canActivate: [authGuard],
-              data: {
-                      role: 'Client'
-                    }
+              
   },//fin client
 
 ];//Fin routes

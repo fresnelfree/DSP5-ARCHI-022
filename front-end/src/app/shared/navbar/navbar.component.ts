@@ -27,16 +27,9 @@ export class NavbarComponent implements OnInit{
   }
 
   logout(event: MouseEvent)
-  {
-    event.preventDefault();
-     
-    this.authService.changeAuthStatus(false);
-
-    this.tokenService.removeToken();
-    this.roleService.removeRole()
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
-  }
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
 
 }

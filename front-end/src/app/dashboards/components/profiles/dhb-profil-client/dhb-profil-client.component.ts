@@ -190,22 +190,23 @@ clientForm: FormGroup = this.fb.group({
     }
 
    
-    this.clientService.updateClient(clientToUpdate, id).subscribe(
-      res => {
-            //  this.handleResponse(res)
-          }
-    )
+     this.clientService.updateClient(clientToUpdate, id)
+    //  .subscribe(
+    //   res => {
+    //         //  this.handleResponse(res)
+    //       }
+    // )
 
     window.location.reload();
     
 }
 
-handleResponse(data:any){
+// handleResponse(data:any){
 
-  this.token.handleToken(data.token);
+//   this.token.handleToken(data.token);
  
   
-}
+// }
 
 onDelete(){
 

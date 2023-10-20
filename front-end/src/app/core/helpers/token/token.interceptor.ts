@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
       
-    const token = this.tokenService.getToken()
+    const token = this.tokenService.getItem('token')
 
       // Cloner la demande et remplacer les en-têtes originaux par des en-têtes clonés
       // si on a un token on met le tonken dans le clone headers.
@@ -32,16 +32,16 @@ export class TokenInterceptor implements HttpInterceptor {
         });
         
         return next.handle(clone).pipe(
-          catchError(err => {
-            if(err.status === 401 || err.status === 500 ) 
-            {
-              this.tokenService.removeToken(),
-              this.router.navigate(['/connexion'])
-            }
-            const err_message= new Error('Session a expiré ou vous n\'ête pas connecter.'); 
-            return throwError(() => err_message);
-          })
-        );
+          // catchError(err => {
+          //   if(err.status === 401 || err.status === 500 ) 
+          //   {
+          //     this.tokenService.removeToken();
+          //     // this.router.navigate(['/connexion']);
+          //   }
+          //   const err_message= new Error('Session a expiré ou vous n\'ête pas connecter.'); 
+          //   return throwError(() => err_message);
+          // })
+        ); //fin pipe
       }
       
       //sinon on retourne la requete
