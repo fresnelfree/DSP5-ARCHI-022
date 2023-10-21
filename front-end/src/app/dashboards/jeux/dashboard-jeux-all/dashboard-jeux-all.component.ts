@@ -1,19 +1,13 @@
-
-
-
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
-import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
-
 
 @Component({
   selector: 'app-dashboard-jeux-all',
   templateUrl: './dashboard-jeux-all.component.html',
   styleUrls: ['./dashboard-jeux-all.component.css']
 })
- 
 
 export class DashboardJeuxAllComponent  implements OnInit{ 
   titleMenu:string="Jeux"
@@ -21,7 +15,6 @@ export class DashboardJeuxAllComponent  implements OnInit{
   linkList = "/dashboard/jeux/all"
   titleAdd:string="Ajout session"
   linkAdd = "/dashboard/jeux/new"
- 
  
   //Variable pour gestion navbar
   public open: boolean = false;
@@ -33,10 +26,7 @@ export class DashboardJeuxAllComponent  implements OnInit{
   //Autres var
   public isLogged: boolean = false;//verification si le user est connecter
 
-
-
   constructor(
-
     private authService : AuthenticationService,
     private router      : Router,
     private token       : TokenService
@@ -44,11 +34,8 @@ export class DashboardJeuxAllComponent  implements OnInit{
   ){}
 
   ngOnInit(): void {
-
      this.authService.authStatus.subscribe(value => this.isLogged = value)
-     
   }
-
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {

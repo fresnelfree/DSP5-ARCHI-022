@@ -1,1 +1,170 @@
-<p>gain-detail works!</p>
+<div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel" [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }">
+      <app-dashboard-sidebar></app-dashboard-sidebar>
+    </aside>
+    <!-- /#left-panel -->
+  
+  
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+      <!-- Header-->
+      <header id="header" class="header">
+        <div class="top-left">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="./"
+              ><img src="assets/images/logos/logo1.png" alt="Logo"
+            /></a>
+            <a class="navbar-brand hidden" href="./"
+              ><img src="assets/images/logos/logo2.png" alt="Logo"
+            /></a>
+            <a id="menuToggle" class="menutoggle"
+              ><i class="fa fa-bars" (click)="onMenu($event)"></i
+            ></a>
+          </div>
+        </div>
+        <div class="top-right">
+          <div class="header-menu">
+            <div class="header-left">
+              <button class="search-trigger"><i class="fa fa-search"></i></button>
+              <div class="form-inline">
+                <form class="search-form">
+                  <input class="form-control mr-sm-2"
+                    type="text"
+                    placeholder="Search ..."
+                    aria-label="Search"
+                  />
+                  <button class="search-close" type="submit">
+                    <i class="fa fa-close"></i>
+                  </button>
+                </form>
+              </div>
+  
+              <div class="dropdown for-notification">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="notification"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-bell"></i>
+                  <span class="count bg-danger">3</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="notification">
+                  <p class="red">You have 3 Notification</p>
+                  <a class="dropdown-item media" href="#">
+                    <i class="fa fa-info"></i>
+                    <p>Server #2 overloaded.</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+  
+            <div class="user-area dropdown float-right">
+              <a
+                href="#"
+                class="dropdown-toggle active"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  class="user-avatar rounded-circle"
+                  src="assets/images/admin.jpg"
+                  alt="User Avatar"
+                />
+              </a>
+  
+              <div class="user-menu dropdown-menu">
+                <a class="nav-link" href="#"
+                  ><i class="fa fa- user"></i>Mon profil</a
+                >
+                <a class="nav-link" href="#" 
+                (click)="logout($event)"
+                  ><i class="fa fa-power -off"></i>Deconnexion</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- /#header -->    
+
+
+        <!-- Content -->
+    <div class="content">
+      <!-- Animated -->
+      <div class="animated fadeIn">
+        <!-- <div class="row mb-4">
+           <app-mini-menu [title]="titleMenu" 
+           [titleList]="titleList"
+           [linkList]="linkList"
+           [titleAdd]="titleAdd"
+           [linkAdd]="linkAdd" >
+          </app-mini-menu>
+        </div> -->
+        <div class="col">
+            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a routerLink="/dashboard/gain/all">Gains</a></li>
+                <li class="breadcrumb-item"><a routerLink="/client/gain">Detail-Gain</a></li>
+               </ol>
+            </nav>
+       </div>
+        <div class="clearfix"></div>
+         
+        <div class="orders">
+            <div class="row">
+                <section style="background-color: #eee;">
+                    <div class="container py-2">
+                      <div class="row"  >
+                        <div class="col-lg-4"> 
+                            <div class="card mb-2">
+                                <div class="card-body text-center">
+                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+                                    class="rounded-circle img-fluid" style="width: 150px;">
+                                <h5 class="my-3">  BARRY Ibrahim</h5>
+                                <p class="text-muted mb-1"> ibra@gmail.com </p>
+                                <p class="text-muted mb-2"> 0758855657</p>
+                                <p class="text-muted mb-3"> 55 rue de la goutte d'or</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                
+                            <div class="card" >
+                              <h5 class="card-header">N° ticket : 85697</h5>
+                              <div class="card-body ticket-card">
+                                <h5 class="card-title">Statut : Actif</h5>
+                                <h5 class="card-title">Thé infusion</h5>
+                                <p class="card-text">A recuperer avant le 15/12/2023 à 23:59</p>
+                  
+                                <a href="#" class="btn btn-primary">Forunir le gains</a>
+                              </div>
+                            </div>  
+                       
+                 
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </section> 
+            </div>
+        </div>
+       
+      </div><!-- .animated -->
+    </div> <!-- /.content -->
+    <div class="clearfix"></div>
+
+      <!-- Footer -->
+       <app-dashboard-footer></app-dashboard-footer>
+      <!-- /.site-footer -->
+  
+    </div>
+    <!-- /#right-panel -->
+  </div>
+  
+  
+  

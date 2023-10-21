@@ -63,26 +63,16 @@ private handleError<T>(operation = 'operation', result?: T) {
  ************************************************/
 
   getGain(id:number): Observable<any>{
-
     return this.http.get<Gain>(`${this.api}/clients/${id}/gains`).pipe(
       catchError(this.handleError(`getClient id=${id}`))
     );
-
   }
    
-
-  getUserByEmail(email: string){
-
-    return this.http.get(`${this.api}/compteWithEmail/${email}`).pipe(
-      catchError(this.handleError(`getUserByEmail email=${email}`))
-    );
-
+  getGains(){
+    return this.http.get(this.api+"/gains").pipe(
+      catchError(this.handleError(`getGains : `))
+    )
   }
-
-  getTokenEmail() {
-    const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
-    const value = ob.email;
-    return value
-  }
+ 
   
 }

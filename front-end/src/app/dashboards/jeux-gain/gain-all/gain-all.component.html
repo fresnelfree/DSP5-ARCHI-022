@@ -1,1 +1,207 @@
-<p>gain-all works!</p>
+<div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel" [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }">
+      <app-dashboard-sidebar></app-dashboard-sidebar>
+    </aside>
+    <!-- /#left-panel -->
+  
+  
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+      <!-- Header-->
+      <header id="header" class="header">
+        <div class="top-left">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="./"
+              ><img src="assets/images/logos/logo1.png" alt="Logo"
+            /></a>
+            <a class="navbar-brand hidden" href="./"
+              ><img src="assets/images/logos/logo2.png" alt="Logo"
+            /></a>
+            <a id="menuToggle" class="menutoggle"
+              ><i class="fa fa-bars" (click)="onMenu($event)"></i
+            ></a>
+          </div>
+        </div>
+        <div class="top-right">
+          <div class="header-menu">
+            <div class="header-left">
+              <button class="search-trigger"><i class="fa fa-search"></i></button>
+              <div class="form-inline">
+                <form class="search-form">
+                  <input class="form-control mr-sm-2"
+                    type="text"
+                    placeholder="Search ..."
+                    aria-label="Search"
+                  />
+                  <button class="search-close" type="submit">
+                    <i class="fa fa-close"></i>
+                  </button>
+                </form>
+              </div>
+  
+              <div class="dropdown for-notification">
+                <button
+                  class="btn btn-secondary dropdown-toggle"
+                  type="button"
+                  id="notification"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <i class="fa fa-bell"></i>
+                  <span class="count bg-danger">3</span>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="notification">
+                  <p class="red">You have 3 Notification</p>
+                  <a class="dropdown-item media" href="#">
+                    <i class="fa fa-info"></i>
+                    <p>Server #2 overloaded.</p>
+                  </a>
+                </div>
+              </div>
+            </div>
+  
+            <div class="user-area dropdown float-right">
+              <a
+                href="#"
+                class="dropdown-toggle active"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  class="user-avatar rounded-circle"
+                  src="assets/images/admin.jpg"
+                  alt="User Avatar"
+                />
+              </a>
+  
+              <div class="user-menu dropdown-menu">
+                <a class="nav-link" href="#"
+                  ><i class="fa fa- user"></i>Mon profil</a
+                >
+                <a class="nav-link" href="#" 
+                (click)="logout($event)"
+                  ><i class="fa fa-power -off"></i>Deconnexion</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- /#header -->    
+
+
+        <!-- Content -->
+    <div class="content">
+      <!-- Animated -->
+      <div class="animated fadeIn">
+        <div class="row mb-4">
+           <!-- <app-mini-menu [title]="titleMenu" 
+           [titleList]="titleList"
+           [linkList]="linkList"
+           [titleAdd]="titleAdd"
+           [linkAdd]="linkAdd" >
+          </app-mini-menu> -->
+          <div class="col">
+            <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
+              <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a routerLink="/dashboard/gain/all">Gains</a></li>
+                <li class="breadcrumb-item"><a routerLink="/client/gain">Detail-Gain</a></li>
+               </ol>
+            </nav>
+       </div>
+        </div>
+        <div class="clearfix"></div>
+         
+        <div class="orders">
+            <div class="row">
+                <div class="col-xl-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="box-title">Gains </h4>
+                            <!-- <h3 class="m-4 text-center" *ngIf="message, else elseBlock">{{message}}</h3> -->
+                        </div>
+                        <!-- <ng-template #elseBlock class="card-body--"> -->
+                            <div   class="card-body--">
+                            <div class="table-stats order-table ov-h">
+                                <table class="table ">
+                                    <thead>
+                                        <tr>  
+                                            <th>ID</th>
+                                            <th>Produit</th>
+                                            <th>Pour</th>
+                                            <th>Quantity</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> 
+                                        <tr style="cursor: pointer;"  routerLink="/dashboard/gain/detail"> 
+                                            <td> #5467 </td>
+                                            <td>  <span class="name">Infusion</span> </td>
+                                            <td> <span class="product">Issa barry</span> </td>
+                                            <td><span class="count">250</span></td>
+                                            <td>
+                                                <span class="badge badge-complete">Inactif</span>
+                                            </td>
+                                        </tr>
+                                        <tr> 
+                                             
+                                            <td> #5466 </td>
+                                            <td>  <span class="name">Mary Silva</span> </td>
+                                            <td> <span class="product">David Nell</span> </td>
+                                            <td><span class="count">250</span></td>
+                                            <td>
+                                                <span class="badge badge-pending">Actif</span>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> <!-- /.table-stats -->
+                        </div>
+                        <!-- </ng-template> -->
+                    </div> <!-- /.card -->
+                </div>  <!-- /.col-lg-8 -->
+
+                <div class="col-xl-4">
+                    <div class="row">
+                        <div class="col-lg-6 col-xl-12">
+                            <div class="card br-0">
+                                <div class="card-body">
+                                    <div class="chart-container ov-h">
+                                        <div id="flotPie1" class="float-chart" style="padding: 0px; position: relative;"><canvas class="flot-base" width="270" height="150" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 270px; height: 150px;"></canvas><canvas class="flot-overlay" width="270" height="150" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 270px; height: 150px;"></canvas><div class="legend"><div style="position: absolute; width: 106px; height: 72px; top: 5px; right: 5px; background-color: rgb(255, 255, 255); opacity: 0.85;"> </div><table style="position:absolute;top:5px;right:5px;;font-size:smaller;color:#545454"><tbody><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #5c6bc0;overflow:hidden"></div></div></td><td class="legendLabel">Desktop visits</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #ef5350;overflow:hidden"></div></div></td><td class="legendLabel">Tab visits</td></tr><tr><td class="legendColorBox"><div style="border:1px solid #ccc;padding:1px"><div style="width:4px;height:0;border:5px solid #66bb6a;overflow:hidden"></div></div></td><td class="legendLabel">Mobile visits</td></tr></tbody></table></div></div>
+                                    </div>
+                                </div>
+                            </div><!-- /.card -->
+                        </div>
+
+                        <div class="col-lg-6 col-xl-12">
+                            <div class="card bg-flat-color-3  ">
+                                <div class="card-body">
+                                    <h4 class="card-title m-0  white-color ">August 2018</h4>
+                                </div>
+                                 <div class="card-body">
+                                     <div id="flotLine5" class="flot-line" style="padding: 0px; position: relative;"><canvas class="flot-base" width="276" height="105" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 276px; height: 105px;"></canvas><canvas class="flot-overlay" width="276" height="105" style="direction: ltr; position: absolute; left: 0px; top: 0px; width: 276px; height: 105px;"></canvas></div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- /.col-md-4 -->
+            </div>
+        </div>
+       
+      </div><!-- .animated -->
+    </div> <!-- /.content -->
+    <div class="clearfix"></div>
+
+      <!-- Footer -->
+       <app-dashboard-footer></app-dashboard-footer>
+      <!-- /.site-footer -->
+  
+    </div>
+    <!-- /#right-panel -->
+  </div>
+  
+  
+  

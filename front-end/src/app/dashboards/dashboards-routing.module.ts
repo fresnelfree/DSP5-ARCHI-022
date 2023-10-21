@@ -15,6 +15,7 @@ import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-sta
 import { GainAllComponent } from './jeux-gain/gain-all/gain-all.component';
 import { SessionAllComponent } from './jeux-session/session-all/session-all.component';
 import { SessionDetailComponent } from './jeux-session/session-detail/session-detail.component';
+import { GainDetailComponent } from './jeux-gain/gain-detail/gain-detail.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
@@ -46,7 +47,7 @@ const routes: Routes = [
       },
       { path : 'all', component: GainAllComponent,canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
       },
-      { path : 'detail', component: GainAllComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
+      { path : 'detail', component: GainDetailComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
       }
     ]
   },
