@@ -18,7 +18,7 @@ describe('PingController', () => {
 
   it('invokes POST /comptes and clients', async () => {
     const res = await client.get('/compteWithEmail/test@gmail.com').expect(200);
-    // console.log("res : ",res.body.client.id)
+    // console.log("res : ",res.body)
     if (res.body) {
       const res3 = await client.delete('/clients/'+ res.body.client.id).expect(204)      
       const res2 = await client.delete('/comptes/'+ res.body.id).expect(204)
