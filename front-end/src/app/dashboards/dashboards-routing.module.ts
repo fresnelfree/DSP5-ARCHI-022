@@ -12,105 +12,73 @@ import { DashboardEmployeDetailComponent } from './employe/dashboard-employe-det
 import { DashboardEmployeNewComponent } from './employe/dashboard-employe-new/dashboard-employe-new.component';
 import { DashboardJeuxNewComponent } from './jeux/dashboard-jeux-new/dashboard-jeux-new.component';
 import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
-import { SessionComponent } from './jeux/session/session.component';
-import { GainComponent } from './jeux/gain/gain.component';
+import { GainAllComponent } from './jeux-gain/gain-all/gain-all.component';
+import { SessionAllComponent } from './jeux-session/session-all/session-all.component';
+import { SessionDetailComponent } from './jeux-session/session-detail/session-detail.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
   { 
-    path: '', component: DashboardHomeComponent,               
-    canActivate: [authGuard], 
-    data: {role: 'Admin'}  
+    path: '', component: DashboardHomeComponent, canActivate: [authGuard], data: {role: 'Admin'}  
   },
-  { path: 'home', component: DashboardHomeComponent,         
-     canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
+  { path: 'home', component: DashboardHomeComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
   },
-  { path: '', component: DashboardHomeComponent,      
-    canActivate: [authGuard], 
-    data: {role: 'Admin'} 
+  { path: '', component: DashboardHomeComponent, canActivate: [authGuard], data: {role: 'Admin'} 
   },
-  { path: 'statistic', component: DashboardStatisticComponent, 
-    canActivate: [authGuard], 
-    data: {role: 'Admin', role2: 'Caissier'} 
+  { path: 'statistic', component: DashboardStatisticComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
   },
 
   {
     path: 'jeux', children: [
-      { path : '', component: DashboardJeuxAllComponent,
-       canActivate: [authGuard], 
-       data: {role: 'Admin'} 
+      { path : '', component: DashboardJeuxAllComponent,canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
       },
-      { path : 'all', component: DashboardJeuxAllComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : 'all', component: DashboardJeuxAllComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
       },
-      { path : 'new', component: DashboardJeuxNewComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'}  
+      { path : 'new', component: DashboardJeuxNewComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
        },
-      { path : 'detail', component: DashboardJeuxDetailComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : 'detail', component: DashboardJeuxDetailComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
+      }
+    ]
+  },
+  {
+    path: 'gain', children: [
+      { path : '', component: GainAllComponent, canActivate: [authGuard],data: {role: 'Admin', role2: 'Caissier'} 
+      },
+      { path : 'all', component: GainAllComponent,canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
+      },
+      { path : 'detail', component: GainAllComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
       }
     ]
   },
   {
     path: 'session', children: [
-      { path : '', component: SessionComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : '', component: SessionAllComponent, canActivate: [authGuard],data: {role: 'Admin', role2: 'Caissier'} 
       },
-      { path : 'all', component: SessionComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
-       },
-    ]
-  },
-  {
-    path: 'gain', children: [
-      { path : '', component: GainComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
-       },
-      { path : 'all', component: GainComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
-    },
+      { path : 'all', component: SessionAllComponent,canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
+      },
+      { path : 'detail', component: SessionDetailComponent, canActivate: [authGuard],data: {role: 'Admin', role2: 'Caissier'} 
+      }
     ]
   },
   {
     path: 'client', children: [
-      { path : '', component: DashboardClientAllComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : '', component: DashboardClientAllComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
     },
-      { path : 'all', component: DashboardClientAllComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : 'all', component: DashboardClientAllComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
     },
-      { path : 'detail/:id', component: DashboardClientDetailComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : 'detail/:id', component: DashboardClientDetailComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
     }
     ]
   },
   {
     path: 'employe', children: [
-      { path : '', component: DashboardEmployeAllComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : '', component: DashboardEmployeAllComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
     },
-      { path : 'all', component: DashboardEmployeAllComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : 'all', component: DashboardEmployeAllComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'} 
     },
-      { path : 'new', component: DashboardEmployeNewComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+      { path : 'new', component: DashboardEmployeNewComponent, canActivate: [authGuard],  data: {role: 'Admin', role2: 'Caissier'} 
     },
-    { path : 'detail', component: DashboardEmployeDetailComponent,
-        canActivate: [authGuard], 
-        data: {role: 'Admin'} 
+    { path : 'detail', component: DashboardEmployeDetailComponent, canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
     }
     ]
   },

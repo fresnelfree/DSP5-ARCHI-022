@@ -27,9 +27,10 @@ import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-sta
 import { CpCardProduit1Component } from './components/cards/cp-card-produit1/cp-card-produit1.component';
 import { CpChartBar1Component } from './components/statistics/cp-chart-bar1/cp-chart-bar1.component';
 import { MiniMenuComponent } from './shared/mini-menu/mini-menu.component';
-import { SessionComponent } from './jeux/session/session.component';
-import { GainComponent } from './jeux/gain/gain.component';
- 
+import { SessionAllComponent } from './jeux-session/session-all/session-all.component';
+import { SessionDetailComponent } from './jeux-session/session-detail/session-detail.component';
+import { GainDetailComponent } from './jeux-gain/gain-detail/gain-detail.component';
+import { GainAllComponent } from './jeux-gain/gain-all/gain-all.component';
  
 @NgModule({
   declarations: [
@@ -58,9 +59,10 @@ import { GainComponent } from './jeux/gain/gain.component';
     CpCardProduit1Component,
     CpChartBar1Component,
     MiniMenuComponent,
-    SessionComponent,
-    GainComponent,
-   
+    SessionAllComponent,
+    SessionDetailComponent,
+    GainDetailComponent,
+    GainAllComponent,
   ],
   imports: [
     CommonModule,

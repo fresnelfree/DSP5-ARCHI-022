@@ -13,7 +13,7 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 export class CpEmployeTableComponent {
 
   public isLogged: boolean = false;//verification si le user est connecter
-  public employes: User[] = []
+  public employes: [] = []
 
   
  constructor(
@@ -29,19 +29,20 @@ ngOnInit(): void {
    this.getEmployes()
 }
 
-
 /********************************************************************
 *           USERS
 ********************************************************************/
 
 getEmployes(){
   return this.employeService.getEmployesAll().subscribe(
-    res => {
-      console.log(res);
-      
+    (res:any) => {
+        console.log(res);   
     }
   )
 }
 
+onGoDetail(employe: User){
+
+}
 
 }

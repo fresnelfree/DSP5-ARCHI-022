@@ -24,7 +24,6 @@ export class EmployeService {
   //VARIABLES
 private  api = environment.hostLine;
 
- 
 //CONSTRUCTEUR
 constructor(
   private http: HttpClient,
@@ -34,8 +33,6 @@ constructor(
 /************************************************
 *        METHODES UTILES
 ************************************************/
-
-
 private log(log: string){
 console.info(log)
 }
@@ -43,13 +40,9 @@ console.info(log)
 private handleError<T>(operation = 'operation', result?: T) {
 
 return (error: any): Observable<T> => {
-
   console.error(error);
-
   this.log(`${operation} failed: ${error.message}`);
-
   return of(result as T);
-
 };
 
 }
@@ -63,12 +56,10 @@ return (error: any): Observable<T> => {
     );
   }
   
-
   getEmployesAll(){
-    return this.http.get(`${this.api}/comptes/`).pipe(
+    return this.http.get(`${this.api}/employes`).pipe(
       catchError(this.handleError(`getEmployesAll : `))
     );
   }
-
 
 }//Fin
