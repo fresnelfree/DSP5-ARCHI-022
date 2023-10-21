@@ -66,16 +66,10 @@ export class DashboardStatisticComponent implements OnInit{
     });
   }
 
-
-
-    logout(event: MouseEvent)
-    {
+  logout(event: MouseEvent)
+  {
       event.preventDefault();
-      this.authService.changeAuthStatus(false);
-      this.token.removeToken();
-      this.router.navigate(['/']).then(() => {
-        window.location.reload();
-      });
-    }
+      this.authService.logout()
+  }
 
 }

@@ -1,27 +1,25 @@
-import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot } from '@angular/router';
+import {
+  ActivatedRouteSnapshot,
+  CanActivateFn,
+  Router,
+  RouterStateSnapshot,
+} from '@angular/router';
 import { AuthenticationService } from '../services/auth/authentication.service';
 import { inject } from '@angular/core';
-import { RoleService } from '../services/role/role.service';
- 
+import { TokenService } from '../services/token/token.service';
+
 export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-   
-  // const router      = inject(Router)
-  // const token       = inject(TokenService)
+  const tokenService = inject(TokenService);
   const authService = inject(AuthenticationService);
-  // const roleService = inject(RoleService)
+  const user  = JSON.parse(tokenService.getItem('user'));
+  const roles = route.data 
+ 
+  if(user.client && roles && roles['role3'].includes('Client')){
+    return true;
+  } else if(user.employe && roles && roles['role'].includes(user.employe.role) || roles['role2'].includes(user.employe.role) ){
+      return true
+  }
   
-  return authService.isloggedIn();
-
+  
+  return false;
 };
-
-
-
-// export const authGuard: CanActivateFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
-   
-//   // const router      = inject(Router)
-//   const authService = inject(AuthenticationService);
-//   // const token       = inject(TokenService)
-
-//   return authService.isloggedIn();
-
-// };

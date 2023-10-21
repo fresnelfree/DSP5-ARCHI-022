@@ -8,7 +8,24 @@
   
       <div class="row" *ngIf="user">
         <div class="col-lg-4">
-        <app-client-profil-card></app-client-profil-card>
+        <!-- <app-client-profil-card></app-client-profil-card> -->
+         
+    <div class="card mb-4">
+      <div class="card-body text-center">
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
+          class="rounded-circle img-fluid" style="width: 150px;">
+        <h5 class="my-3">  {{user.client.prenom}} {{user.client.nom}}</h5>
+        <p class="text-muted mb-1"> {{user.email}} </p>
+        <p class="text-muted mb-2"> {{user.client.tel}}</p>
+        <p class="text-muted mb-3"> {{user.client.adresse}}</p>
+       
+        <div class="d-flex justify-content-center mb-4">
+          <!-- <button type="button" class="btn btn-primary">Profil</button> -->
+          <!-- <button routerLink="/client/gain" class="btn btn-outline-primary ms-1">Mon-Ticket</button> -->
+        </div>
+        
+      </div>
+    </div>
         </div>
         <div class="col-lg-8">
           <div class="card mb-4 p-3 client-edit">
@@ -16,7 +33,6 @@
             <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
                 <!-- 2 column grid layout with text inputs for the first and last names -->
                 <div class="row mb-2">
-
                   <div class="col">
                     <div class="form-outline">
                       <input 
@@ -28,12 +44,11 @@
                           />
                       <label class="form-label" for="form6Example1">Prenom</label>
                     </div>
-                              
-                               <small class="form-text text-muted" *ngFor="let error of error_messages.prenom">
-                                <p class="text-danger" *ngIf="clientForm.controls['prenom'].hasError(error.type) && (clientForm.controls['prenom'].dirty || clientForm.controls['prenom'].touched)">
-                                    {{error.message}}
-                                </p>
-                            </small>
+                        <small class="form-text text-muted" *ngFor="let error of error_messages.prenom">
+                          <p class="text-danger" *ngIf="clientForm.controls['prenom'].hasError(error.type) && (clientForm.controls['prenom'].dirty || clientForm.controls['prenom'].touched)">
+                            {{error.message}}
+                          </p>
+                        </small>
                   </div>
 
                   <div class="col">
@@ -71,7 +86,6 @@
                 <div class="form-outline mb-2">
                   <input [(ngModel)]="user.client.tel" formControlName="tel" type="number" id="form6Example6" class="form-control" />
                   <label class="form-label" for="form6Example6">Phone</label>
-                   
                     <small class="form-text text-muted" *ngFor="let error of error_messages.tel">
                       <p class="text-danger" *ngIf="clientForm.controls['tel'].hasError(error.type) && (clientForm.controls['tel'].dirty || clientForm.controls['tel'].touched)">
                           {{error.message}}

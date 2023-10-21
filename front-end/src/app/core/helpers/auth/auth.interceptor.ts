@@ -16,20 +16,23 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    return next.handle(request).pipe(
-       catchError((error: HttpErrorResponse) => {
-         if(error.status === 401)
-         {
-            console.log("Depuis interceptor on a cette erreur");
+    // return next.handle(request).pipe(
+    //    catchError((error: HttpErrorResponse) => {
+    //      if(error.status === 401)
+    //      {
+    //         console.log("Depuis interceptor on a cette erreur");
             
-         }
-        //  return throwError(error);
-        // const err = new Error('test'); 
-        return throwError(() => error);
+    //      }
+    //     //  return throwError(error);
+    //     // const err = new Error('test'); 
+    //     return throwError(() => error);
         
-       })
-    );//fin pipe
+    //    })
+    // );//fin pipe
+    return next.handle(request)
   }
+
+  
 }
 
 

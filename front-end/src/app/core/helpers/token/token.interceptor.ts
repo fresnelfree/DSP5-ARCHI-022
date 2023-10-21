@@ -32,16 +32,16 @@ export class TokenInterceptor implements HttpInterceptor {
         });
         
         return next.handle(clone).pipe(
-          catchError(err => {
-            if(err.status === 401 || err.status === 500 ) 
-            {
-              this.tokenService.removeToken();
-              // this.router.navigate(['/connexion']);
-            }
-            const err_message= new Error('Session a expiré ou vous n\'ête pas connecter.'); 
-            return throwError(() => err_message);
-          })
-        );
+          // catchError(err => {
+          //   if(err.status === 401 || err.status === 500 ) 
+          //   {
+          //     this.tokenService.removeToken();
+          //     // this.router.navigate(['/connexion']);
+          //   }
+          //   const err_message= new Error('Session a expiré ou vous n\'ête pas connecter.'); 
+          //   return throwError(() => err_message);
+          // })
+        ); //fin pipe
       }
       
       //sinon on retourne la requete

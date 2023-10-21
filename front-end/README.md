@@ -33,7 +33,7 @@ exemple : `ng g s   cores/services/login`
 aprés avoir créé le services, il faut l'importer dans le provider du module
 (cores.modules.ts)
 ##### Créer une classe
-`ng g c   deossier/classe-name`
+`ng g cl   deossier/classe-name`
 ##### Créer une interface
 `ng g i   deossier/interface-name`
 ##### Créer un pipe

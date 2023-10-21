@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user/user';
@@ -13,23 +13,17 @@ import { UserService } from 'src/app/core/services/user/user.service';
   styleUrls: ['./client-profil-card.component.css']
 })
 export class ClientProfilCardComponent {
-  public user: any;
+ @Input() public user: any;
 
   constructor(
-    private router               : Router,
-    private fb                   : FormBuilder ,
-    private activatedRoute       : ActivatedRoute,
     private userService          : UserService,
-    private token                : TokenService,
-    private authService          : AuthenticationService){}
+    ){}
 
     ngOnInit(): void {
       // this.getUser();
       this.getUserByEmail()
   }
 
-
-    
   getUserByEmail():  void{
 
     this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
