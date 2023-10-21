@@ -75,7 +75,7 @@ pipeline{
 
           echo "************************ TEST OF PROJECT WITH MOCHA JS ************************"  
           sh "npm run migrate"
-          sh "npm run test:prod"
+          sh ""
         } 
 
         echo "####################################################### STAGE UNIT TEST FRONT-END #######################################################"

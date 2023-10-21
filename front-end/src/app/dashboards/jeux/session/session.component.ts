@@ -76,8 +76,21 @@ export class SessionComponent {
       console.log("response : ",response)
       this.sessions.push(response)
     })
-
     console.log("sessionJeus : ",this.sessionJeu)
+
+    /*  
+      ici afficher un toast pour confirmer que l'action s'est bien passé
+
+    */
+
+  }
+
+  showToast():void{
+    const IdInput = document.getElementById("toast");
+    // const inputValue = (event.target as HTMLInputElement);
+    // document.get
+    // IdInput.toast('show')
+    console.log("response : ",IdInput)
   }
 
   onSubmitFormRepartition(): void {
@@ -112,9 +125,11 @@ export class SessionComponent {
       console.log("response : ",response)
     })
     console.log("add :",this.repartitions)
+
+    /*  
+      ici afficher un toast pour confirmer que l'action s'est bien passé
+    */
   }
-
-
 
   onChangeSelectedSession(event:Event) {
     const inputValue = (event.target as HTMLInputElement).value;

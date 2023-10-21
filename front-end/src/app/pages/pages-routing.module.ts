@@ -12,6 +12,7 @@ import { authGuard } from '../core/guards/auth.guard';
 import { ClientHomeComponent } from './client/client-home/client-home.component';
 import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 import { ClientGainComponent } from './client/client-gain/client-gain.component';
+import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
  
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'apropos', component: AproposComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'inscription', component: InscriptionComponent},
+  { path: 'social-media/:token', component: AuthSocialMediaComponent},  
   { path: 'connexion', 
             children: [
                        { path:'', component: ConnexionComponent},
