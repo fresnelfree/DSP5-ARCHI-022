@@ -7,6 +7,8 @@ import { Repartition } from 'src/app/core/services/repartition/repartition';
 import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
 import { Session } from 'src/app/core/services/session/session';
 import { SessionService } from 'src/app/core/services/session/session.service';
+import { UserService } from 'src/app/core/services/user/user.service';
+// import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-jeux',
@@ -24,18 +26,10 @@ export class JeuxComponent {
   nbrTicket = 0;
   somme = 0;
   nbrTicketRestant = 0;
-  inputItems: Repartition[] = [{ libelle: '',pourcentage: 0,id_session:0}];
+  repartitions: Repartition[] = [{ libelle: '',pourcentage: 0,id_session:0}];
   session = 'Sélectionné une session...';
-  sessions: Session[] = [{
-    id:5,
-    libelle:'Session test',
-    id_employe:10,
-    date_debut:'',
-    date_fin: '',
-    nbr_ticket: 10,
-    statut: 'Creer'
-  }]
-
+  sessions: Session[] = []
+  user: any;
   error_messages   = {
     'session' : [
       {type:'required', message:'Le nom est obligqtoire.'},
@@ -45,13 +39,17 @@ export class JeuxComponent {
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
     private formBuilder: FormBuilder,
+    private userService: UserService
   ){
-    this.nbrTicket = this.sessions[0].nbr_ticket
+    this.user = JSON.parse(localStorage.getItem('user') || "")
+
     this.sessionForm = this.formBuilder.group({
       libelle: [null, Validators.required],
       date_debut: [null, Validators.required],
       date_fin: [null, Validators.required,],
-      nbr_ticket: [null, Validators.required],
+      nbr_ticket: [0, Validators.required],
+      id_employe: [this.user.employe.id, Validators.required],
+      statut: ['Inactif', Validators.required]
     });
     this.repartitionForm = this.formBuilder.group({
       session: [null, Validators.required],
@@ -66,6 +64,8 @@ export class JeuxComponent {
       date_debut: ["", Validators.required],
       date_fin: ["", Validators.required,],
       nbr_ticket: ["", Validators.required],
+      id_employe: [this.user.employe.id, Validators.required],
+      statut: ['Inactif', Validators.required]      
     });
   }
 
@@ -91,7 +91,7 @@ export class JeuxComponent {
       return;
     }
 
-    this.inputItems.map((item) =>{
+    this.repartitions.map((item) =>{
       if (item.libelle === '' || item.pourcentage === 0) {
         this.warningIndicationPercent = true
         return;
@@ -103,15 +103,15 @@ export class JeuxComponent {
       return;
     }
 
-    this.inputItems.map((item) =>{
+    this.repartitions.map((item) =>{
       item.id_session = parseInt(this.session)
     })
 
-    this.repartitionService.AddNewParticipationGains(this.inputItems)
+    this.repartitionService.AddNewParticipationGains(this.repartitions)
     .subscribe((response:any) =>{
       console.log("response : ",response)
     })
-    console.log("add :",this.inputItems)
+    console.log("add :",this.repartitions)
   }
 
 
@@ -120,6 +120,7 @@ export class JeuxComponent {
     const inputValue = (event.target as HTMLInputElement).value;
     if (this.session !== 'Sélectionné une session...') {
       this.selectedSession = false
+      this.nbrTicket = this.sessions[0].nbr_ticket
     }
     else {
       this.selectedSession = true
@@ -128,12 +129,13 @@ export class JeuxComponent {
   }
 
   addInput() {
-    this.inputItems.push({ libelle: '',pourcentage: 0,id_session:0});
-    console.log("add :",this.inputItems)
+    this.repartitions.push({ libelle: '',pourcentage: 0,id_session:0});
+    console.log('user : ', this.user.employe.id)
+    console.log("add :",this.repartitions)
   }
 
   removeInput(index: number) {
-    this.inputItems.splice(index, 1);
+    this.repartitions.splice(index, 1);
     this.calculatedPercent()
   }
 
@@ -148,7 +150,7 @@ export class JeuxComponent {
   calculatedPercent() {
     // const inputValue = (event.target as HTMLInputElement).value;
     this.percents = 0
-    this.inputItems.map((item) =>{
+    this.repartitions.map((item) =>{
       this.percents = this.percents + item.pourcentage
       // console.log(item.pourcentage)
     })
@@ -168,26 +170,4 @@ export class JeuxComponent {
     console.log('values :',this.percents)
   }
 
-  generateUniqueNumbers(min:number, max:number, count:number,uniqCode:number):any[] {
-    if (max - min + 1 < count) {
-      throw new Error("La plage ne contient pas suffisamment de chiffres uniques.");
-    }
-
-    const uniqueNumbers = new Set();
-    while (uniqueNumbers.size < count) {
-      const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-      uniqueNumbers.add("S"+uniqCode+this.standardNumber(randomNum,max));
-    }
-    console.log("uniqueNumbers: ",Array.from(uniqueNumbers))
-    return Array.from(uniqueNumbers);
-  }
-
-  standardNumber(val:number,maxVal:number) {
-    let numberString = ""
-    const max = maxVal.toString().length - val.toString().length
-    for (let index = 0; index < max; index++) {
-        numberString = numberString +""+0
-    }
-    return numberString+val
-  }
 }

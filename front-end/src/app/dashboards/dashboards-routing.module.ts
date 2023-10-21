@@ -16,22 +16,10 @@ import { SessionComponent } from './jeux/session/session.component';
 import { GainComponent } from './jeux/gain/gain.component';
 
 const routes: Routes = [
-  { 
-    path: '', component: DashboardHomeComponent,               
-    canActivate: [authGuard], 
-    data: {role: 'Admin'}  
-  },
-  { path: 'home', component: DashboardHomeComponent,         
-     canActivate: [authGuard], data: {role: 'Admin'}  
-  },
-  { path: 'dashboard', component: DashboardHomeComponent,      
-    canActivate: [authGuard], 
-    data: {role: 'Admin'} 
-  },
-  { path: 'statistic', component: DashboardStatisticComponent, 
-    canActivate: [authGuard], 
-    data: {role: 'Admin'} 
-  },
+  { path: '', component: DashboardHomeComponent,},
+  { path: 'home', component: DashboardHomeComponent,},
+  { path: 'dashboard', component: DashboardHomeComponent, },
+  { path: 'statistic', component: DashboardStatisticComponent,},
 
   {
     path: 'jeux', children: [

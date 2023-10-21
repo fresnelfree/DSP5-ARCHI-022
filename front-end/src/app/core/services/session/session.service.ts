@@ -27,7 +27,7 @@ export class SessionService {
   }
 
   AddNewSession(data:Session):any {
-    data.id_employe = 10
+    // data.id_employe = 10
     data.statut = "Creer"
     data.date_debut = this.FormatDate(data.date_debut)
     data.date_fin = this.FormatDate(data.date_fin)

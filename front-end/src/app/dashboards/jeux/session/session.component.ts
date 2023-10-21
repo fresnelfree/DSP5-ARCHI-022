@@ -27,15 +27,7 @@ export class SessionComponent {
   nbrTicketRestant = 0;
   repartitions: Repartition[] = [{ libelle: '',pourcentage: 0,id_session:0}];
   session = 'Sélectionné une session...';
-  sessions: Session[] = [{
-    id:5,
-    libelle:'Session test',
-    id_employe:10,
-    date_debut:'',
-    date_fin: '',
-    nbr_ticket: 10,
-    statut: 'Creer'
-  }]
+  sessions: Session[] = []
   user: any;
   error_messages   = {
     'session' : [
@@ -49,13 +41,14 @@ export class SessionComponent {
     private userService: UserService
   ){
     this.user = JSON.parse(localStorage.getItem('user') || "")
-    this.nbrTicket = this.sessions[0].nbr_ticket
+
     this.sessionForm = this.formBuilder.group({
       libelle: [null, Validators.required],
       date_debut: [null, Validators.required],
       date_fin: [null, Validators.required,],
       nbr_ticket: [null, Validators.required],
-      id_employe: [this.user.employe.id, Validators.required]
+      id_employe: [this.user.employe.id, Validators.required],
+      statut: ['Inactif', Validators.required]
     });
     this.repartitionForm = this.formBuilder.group({
       session: [null, Validators.required],
@@ -70,17 +63,20 @@ export class SessionComponent {
       date_debut: ["", Validators.required],
       date_fin: ["", Validators.required,],
       nbr_ticket: ["", Validators.required],
+      id_employe: [this.user.employe.id, Validators.required],
+      statut: ['Inactif', Validators.required]      
     });
   }
 
   onSubmitFormSession(): void {
     this.sessionJeu = this.sessionForm.value
+    console.log("sessionform : ",this.sessionForm.value)
     this.sessionJeuService.AddNewSession(this.sessionForm.value)
     .subscribe((response:any) =>{
       console.log("response : ",response)
       this.sessions.push(response)
     })
-    console.log("sessionform : ",this.sessionForm.value)
+
     console.log("sessionJeus : ",this.sessionJeu)
   }
 
@@ -124,6 +120,7 @@ export class SessionComponent {
     const inputValue = (event.target as HTMLInputElement).value;
     if (this.session !== 'Sélectionné une session...') {
       this.selectedSession = false
+      this.nbrTicket = this.sessions[0].nbr_ticket
     }
     else {
       this.selectedSession = true
