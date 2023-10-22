@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
 import { Gain } from 'src/app/core/models/gain/gain';
+import { SnackbarService } from 'src/app/core/notification/snackbar.service';
 import { Repartition } from 'src/app/core/services/repartition/repartition';
 import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
 import { Session } from 'src/app/core/services/session/session';
@@ -38,6 +39,7 @@ export class SessionComponent {
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
     private formBuilder: FormBuilder,
+    private snackbarService: SnackbarService,
     private userService: UserService
   ){
     this.user = JSON.parse(localStorage.getItem('user') || "")
@@ -82,7 +84,11 @@ export class SessionComponent {
       ici afficher un toast pour confirmer que l'action s'est bien passé
 
     */
-
+      this.snackbarService.showNotification(
+        'La session a été créée avec succes !',
+        'ok',
+        'success'
+      );
   }
 
   showToast():void{
@@ -123,12 +129,14 @@ export class SessionComponent {
     this.repartitionService.AddNewParticipationGains(this.repartitions)
     .subscribe((response:any) =>{
       console.log("response : ",response)
+
+      this.snackbarService.showNotification(
+        'La partie de jeu a été créée avec succes !',
+        'ok',
+        'success'
+      );
     })
     console.log("add :",this.repartitions)
-
-    /*  
-      ici afficher un toast pour confirmer que l'action s'est bien passé
-    */
   }
 
   onChangeSelectedSession(event:Event) {
@@ -178,6 +186,11 @@ export class SessionComponent {
 
     if (this.percents==100) {
       this.warningPercent= false
+      this.snackbarService.showNotification(
+        'Vous ne pourvez plus ajouter de partition !',
+        'ok',
+        'warning'
+      );
     }
     else {
       this.warningPercent= true

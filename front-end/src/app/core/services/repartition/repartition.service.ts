@@ -24,31 +24,8 @@ export class RepartitionService {
    }
 
    AddNewParticipationGains(data:Repartition[]):any {
-    console.log('dataSend : ', data);
-
-    return this.http.post(`${environment.hostLocal}/repartitions`,data,httpOption)
+    // console.log('dataSend : ', data);
+    return this.http.post(`${environment.hostLine}/repartitions`,data,httpOption)
    }
 
-  generateUniqueNumbers(min:number, max:number, count:number,uniqCode:number) {
-    if (max - min + 1 < count) {
-      throw new Error("La plage ne contient pas suffisamment de chiffres uniques.");
-    }
-
-    const uniqueNumbers = new Set();
-    while (uniqueNumbers.size < count) {
-      const randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
-      uniqueNumbers.add("S"+uniqCode+this.standardNumber(randomNum,max));
-    }
-    console.log("uniqueNumbers: ",Array.from(uniqueNumbers))
-    return Array.from(uniqueNumbers);
-  }
-
-  standardNumber(val:number,maxVal:number) {
-    let numberString = ""
-    const max = maxVal.toString().length - val.toString().length
-    for (let index = 0; index < max; index++) {
-        numberString = numberString +""+0
-    }
-    return numberString+val
-  }
 }

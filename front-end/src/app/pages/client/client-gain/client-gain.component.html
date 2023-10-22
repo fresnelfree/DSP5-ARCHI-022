@@ -7,7 +7,7 @@
         <div class="col-md-8 col-xs-12">
           <div class="row">
             <div class="col-12">
-              <div class="card">
+              <div class="card custom-snackbar">
                 <h5 class="card-header">Votre espace de jeu</h5>
                 <div class="card-body ticket-card">
                   <p class="card-text"> {{message}} </p>
@@ -19,16 +19,17 @@
                       </div>
                       <div class="col-md-3 col-sm-3 mt-2 mt-sm-0 mt-md-0">
                         <button [disabled]="jeuForm.invalid" class="form-control" type="submit">Jouer</button>
-                      </div>                      
+                      </div>
                     </div>
                   </form>
                 </div>
-              </div> 
+              </div>
             </div>
             <div class="col-12">
               <div class="card" >
                 <h5 class="card-header">Historique de vos gains</h5>
                 <div class="card-body ticket-card">
+                  <button (click)="showSuccess()">Afficher Snackbar</button>
                   <table class="table">
                     <thead>
                       <tr>
@@ -48,13 +49,13 @@
                     </tbody>
                   </table>
                 </div>
-              </div>  
-            </div>            
-          </div>               
+              </div>
+            </div>
+          </div>
         </div>
         <div class="col-md-4 col-xs-12">
           <app-client-profil-card></app-client-profil-card>
-        </div>      
+        </div>
       </div>
     </div>
-  </section> 
+  </section>

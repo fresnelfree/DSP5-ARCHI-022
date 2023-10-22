@@ -33,15 +33,15 @@ constructor(
  *        METHODES
  ************************************************/
   getGains(id:number): any{
-    return this.http.get(`${environment.hostLocal}/clients/${id}/gains`,httpOption)
+    return this.http.get(`${environment.hostLine}/clients/${id}/gains`,httpOption)
   } 
   
   updateGain(id: number ,data: Gain) : any {
-    return this.http.put(`${environment.hostLocal}/gains/${id}`,data,httpOption)
+    return this.http.put(`${environment.hostLine}/gains/${id}`,data,httpOption)
   }
 
   getGainsWithNumGain(numGain:string): any{
-    return this.http.get(`${environment.hostLocal}/findByNumGain/${numGain}`,httpOption)
+    return this.http.get(`${environment.hostLine}/findByNumGain/${numGain}`,httpOption)
   }   
 
 }

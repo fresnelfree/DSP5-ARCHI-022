@@ -31,7 +31,7 @@ export class SessionService {
     data.statut = "Creer"
     data.date_debut = this.FormatDate(data.date_debut)
     data.date_fin = this.FormatDate(data.date_fin)
-    return this.http.post(`${environment.hostLocal}/session-jeus`,data,httpOption)
+    return this.http.post(`${environment.hostLine}/session-jeus`,data,httpOption)
   }
 
   FormatDate(date:string): string {
