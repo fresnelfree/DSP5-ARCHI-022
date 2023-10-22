@@ -19,52 +19,104 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 export class ClientGainComponent implements OnInit {
   
   public user: any;
-  public gain: Gain;
+  public gains: Gain[] = [];
+  public gain: any= undefined;  
   public message: string;
-
+  jeuForm: FormGroup;
   constructor(
-    private router               : Router,
-    private fb                   : FormBuilder ,
-    private activatedRoute       : ActivatedRoute,
-    private gainService          : GainService,
-    private token                : TokenService,
-    private authService          : AuthenticationService){
+    private router : Router,
+    private fb : FormBuilder ,
+    private activatedRoute : ActivatedRoute,
+    private gainService : GainService,
+    private token : TokenService,
+    private formBuilder: FormBuilder,
+    private authService : AuthenticationService){
       this.message = "";
-      this.gain = new Gain()
+      this.user = JSON.parse(localStorage.getItem('user') || "")
+      this.jeuForm = this.formBuilder.group({
+        numero_gain: [null, Validators.required],
+      });
     }
 
- 
-  
+    ngOnInit(): void {
+      this.getGains()
+      // this.handleGain()
+  }
 
-  getGain(){
+  reloadComponent(): void { 
+    const currentUrl = this.router.url; 
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false; 
+    this.router.onSameUrlNavigation = "reload"; 
+    this.router.navigate([currentUrl]); 
+  }
 
-    return this.gainService.getUserByEmail(this.getTokenEmail()).subscribe(
-      (res) => { 
-        this.user = res //on stock le resultat dans la var user, afin de recuperer l'id
+  async play(){
+    console.log("num : ",this.jeuForm.value)
+    await this.gainService.getGainsWithNumGain(this.jeuForm.value.numero_gain).
+    subscribe(async (data:any) => {
 
-        this.gainService.getGain(this.user.client.id).subscribe(
-          (res) => {
-            this.gain = res   
+        if(data.client) {
+          console.log('Ce code a déjà été utilisé !');
+          return;
+        }
+        this.gain = data 
+        console.log("gains1 : ",this.gain)  
+        data.gains.etat_gain = 'Actif'
+        data.gains.id_client = this.user.client.id    
+        this.gainService.updateGain(data.gains.id,data.gains).
+        subscribe((data:any) => {
+            console.log("gains2 : ",data) 
+            this.reloadComponent() 
+          },
+          (erreur:any) => {
+            // Gérez les erreurs ici
+            if (erreur.status === 404) {
+              // Code invalide
+              console.log('Code invalide !');
+              return;
+            }
+            if (erreur.status === 500) {
+              // Code invalide
+              console.log('Erreur serveur !');
+              return;
+            }        
+            console.log(erreur);
           }
-        )
-        
+        )         
+      },
+      (erreur:any) => {
+        // Gérez les erreurs ici
+        if (erreur.status === 404) {
+          // Code invalide
+          console.log('Code invalide !');
+          return;
+        }
+        if (erreur.status === 500) {
+          // Code invalide
+          console.log('Erreur serveur !');
+          return;
+        }        
+        console.log(erreur);
+      }
+    )   
+    
+  }
+  
+  getGains(){
+    this.gainService.getGains(this.user.client.id).
+    subscribe((res:any) => {
+        this.gains = res 
+        console.log("gains : ",this.gains)  
       }
     )
   }
 
-  getTokenEmail() {
-    return this.gainService.getTokenEmail();  
-  }
 
-
-  handleGain(){
-    if(this.gain.id === 0){
-    return  this.message = "Vous n'avez pas de ticket pour le moment."
-    }else return false
-  }
+  // handleGain(){
+  //   if(this.gains.length == 0){
+  //   return  this.message = "Vous n'avez pas de ticket pour le moment."
+  //   }else return false
+  // }
  
-    ngOnInit(): void {
-      this.getGain()
-      this.handleGain()
-  }
+
 }

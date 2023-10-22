@@ -16,12 +16,13 @@ export class ClientProfilCardComponent {
  @Input() public user: any;
 
   constructor(
-    private userService          : UserService,
+    private userService : UserService,
     ){}
 
     ngOnInit(): void {
       // this.getUser();
-      this.getUserByEmail()
+      this.user = JSON.parse(localStorage.getItem('user') || "")
+      // this.getUserByEmail()
   }
 
   getUserByEmail():  void{
