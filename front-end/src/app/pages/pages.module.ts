@@ -20,6 +20,7 @@ import { ClientGainComponent } from '../pages/client/client-gain/client-gain.com
 import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
 import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
+import { CongratulateDialogComponent } from './client/congratulate-dialog/congratulate-dialog.component';
  
 
  
@@ -45,6 +46,7 @@ import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.
     ClientProfilCardComponent,
     ClientNavComponent,
     AuthSocialMediaComponent,
+    CongratulateDialogComponent,
 
   ],
   imports: [
