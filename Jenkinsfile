@@ -82,7 +82,7 @@ pipeline{
         dir('front-end/') {
 
           echo "************************ TEST OF PROJECT WITH CYPRESS ************************"  
-          echo "A METTRE EN PLACE"
+          echo "A METTRE EN PLACE !"
         }            
       }
     }
