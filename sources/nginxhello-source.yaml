@@ -10,4 +10,4 @@ spec:
     branch: main
   secretRef:
     name: gitops-lab-deploy-auth
-  url: https://github.com/fresnelfree/gitops-lab-deploy.git
+  url: ssh://github.com/fresnelfree/gitops-lab-deploy.git
