@@ -1,0 +1,9 @@
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: whoami
+  namespace: default
+spec:
+  image: docker.io/traefik/whoami
+  interval: 5m0s
