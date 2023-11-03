@@ -2,8 +2,8 @@
 apiVersion: image.toolkit.fluxcd.io/v1beta2
 kind: ImageRepository
 metadata:
-  name: whoami
+  name: nginxhello
   namespace: default
 spec:
-  image: docker.io/traefik/whoami
+  image: docker.io/nbrown/nginxhello
   interval: 5m0s
