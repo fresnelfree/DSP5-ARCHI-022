@@ -39,7 +39,7 @@ services:
     build: 
       context: ./back-end/
       dockerfile: Dockerfile
-    image: fresnelcool/server-app:v0
+    image: fresnelcool/server-app:${IMG_TAG}
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
@@ -84,7 +84,7 @@ services:
     build:
       context: ./front-end/
       dockerfile: Dockerfile
-    image: fresnelcool/client-app:v0
+    image: fresnelcool/client-app:${IMG_TAG}
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
