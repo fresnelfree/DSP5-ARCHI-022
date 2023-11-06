@@ -43,7 +43,7 @@ pipeline{
         echo "####################################################### STAGE BUILD BACK-END #######################################################"
         dir('back-end/') {
               sh "docker compose down"
-              sh "docker compose up -d --build"
+              sh "docker compose up -d --build --build-arg IMAGE_TAG=${IMG_TAG}"
           echo "************************ INSTALLING BACK-END DEPENDENCIES ************************"
           sh "npm install"
 
