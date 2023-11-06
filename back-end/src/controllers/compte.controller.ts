@@ -1,3 +1,10 @@
+// ---------- ADD IMPORTS -------------
+import {inject} from '@loopback/core';
+import {
+  TokenServiceBindings
+} from '@loopback/authentication-jwt';
+import {authenticate, TokenService} from '@loopback/authentication';
+// ----------------------------------
 import {
   Count,
   CountSchema,
@@ -19,9 +26,19 @@ import {
 } from '@loopback/rest';
 import {Compte} from '../models';
 import {CompteRepository} from '../repositories';
+import {genSalt, hash} from 'bcryptjs';
 
+// @authenticate('jwt')
 export class CompteController {
   constructor(
+    @inject(TokenServiceBindings.TOKEN_SERVICE)
+    public jwtService: TokenService,
+    // @inject(UserServiceBindings.USER_SERVICE)
+    // public userService: MyUserService,
+    // @inject(SecurityBindings.USER, {optional: true})
+    // public user: UserProfile,
+    // @repository(UserRepository) 
+    // protected userRepository: UserRepository,    
     @repository(CompteRepository)
     public compteRepository : CompteRepository,
   ) {}
@@ -44,6 +61,7 @@ export class CompteController {
     })
     compte: Omit<Compte, 'id'>,
   ): Promise<Compte> {
+    compte.pwd = await hash(compte.pwd, await genSalt())
     return this.compteRepository.create(compte);
   }
 
@@ -73,7 +91,7 @@ export class CompteController {
   async find(
     @param.filter(Compte) filter?: Filter<Compte>,
   ): Promise<Compte[]> {
-    return this.compteRepository.find({include:['client','employe']});
+    return this.compteRepository.find({include:['client','employe']},filter);
   }
 
   @patch('/comptes')
@@ -110,6 +128,40 @@ export class CompteController {
   ): Promise<Compte> {
     return this.compteRepository.findById(id, filter);
   }
+
+  @get('/compteWithIdPassword/{id_passport}')
+  @response(200, {
+    description: 'Compte model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Compte, {includeRelations: true}),
+      },
+    },
+  })
+  async findByIdPassport(
+    @param.path.string('id_passport') id_passport: string
+  ): Promise<Compte | null> {
+    const compte = this.compteRepository.findOne({where: {id_passport: id_passport},include:['client','employe']});
+    return compte
+  }
+
+  @get('/compteWithEmail/{email}')
+  @response(200, {
+    description: 'Compte model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Compte, {includeRelations: true}),
+      },
+    },
+  })
+  async findByEmail(
+    @param.path.string('email') email: string
+  ): Promise<Compte | null> {
+    const compte = this.compteRepository.findOne({where: {email: email},include:['client','employe']});
+    return compte
+  }
+
+  
 
   @patch('/comptes/{id}')
   @response(204, {

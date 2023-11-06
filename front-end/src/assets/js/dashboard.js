@@ -206,9 +206,9 @@
 
  /**************** PIE CHART *******************/
  var piedata = [
- { label: "Nbr inscript", data: [[1,32]], color: '#5c6bc8'},
- { label: "Nbr gagnants", data: [[1,33]], color: '#ef5350'},
- { label: "Nbr tickest restants", data: [[1,35]], color: '#66bb6a'}
+ { label: "Desktop visits", data: [[1,32]], color: '#5c6bc0'},
+ { label: "Tab visits", data: [[1,33]], color: '#ef5350'},
+ { label: "Mobile visits", data: [[1,35]], color: '#66bb6a'}
  ];
 
  $.plot('#flotPie1', piedata, {
@@ -264,7 +264,7 @@ function getRandomData() {
   var updateInterval = 1000;
 
   var plot5 = $.plot('#flotRealtime2', [ getRandomData() ], {
-    colors: ['#5c6bc7'],
+    colors: ['#5c6bc0'],
 
     series: {
       // label: 'Upload',
@@ -419,7 +419,7 @@ function getRandomData() {
         data: {
           labels: ["Jan", "Feb", "Mar", "Jun", "Jul", "Aug", "Sep"],
           datasets: [{
-            label: "Issa",
+            label: "My First dataset",
             backgroundColor: 'transparent',
             borderColor: '#4fabf5',
             pointBackgroundColor: "#ffffff",

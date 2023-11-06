@@ -22,17 +22,22 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              {
+                "glob": "*.svg",
+                "input": "./node_modules/bootstrap-icons/",
+                "output": "/"
+              }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
-              "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
+              "src/dashboard.css",
+              "src/assets/css/cs-skin-elastic.css",
+              "src/eladmin.css",
+              "src/styles.css"
             ],
             "scripts": [
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/jquery/dist/jquery.min.js",
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+              "src/script.js"
             ]
           },
           "configurations": {

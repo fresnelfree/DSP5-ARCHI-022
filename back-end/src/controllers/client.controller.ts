@@ -19,6 +19,8 @@ import {
 } from '@loopback/rest';
 import {Client} from '../models';
 import {ClientRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+
 
 export class ClientController {
   constructor(
@@ -47,6 +49,7 @@ export class ClientController {
     return this.clientRepository.create(client);
   }
 
+  @authenticate('jwt')
   @get('/clients/count')
   @response(200, {
     description: 'Client model count',
@@ -58,6 +61,7 @@ export class ClientController {
     return this.clientRepository.count(where);
   }
 
+  @authenticate('jwt')
   @get('/clients')
   @response(200, {
     description: 'Array of Client model instances',
@@ -76,6 +80,7 @@ export class ClientController {
     return this.clientRepository.find({include:["gains"]});
   }
 
+  @authenticate('jwt')
   @patch('/clients')
   @response(200, {
     description: 'Client PATCH success count',
@@ -95,6 +100,7 @@ export class ClientController {
     return this.clientRepository.updateAll(client, where);
   }
 
+  @authenticate('jwt')
   @get('/clients/{id}')
   @response(200, {
     description: 'Client model instance',
@@ -111,6 +117,7 @@ export class ClientController {
     return this.clientRepository.findById(id, filter);
   }
 
+  @authenticate('jwt')
   @patch('/clients/{id}')
   @response(204, {
     description: 'Client PATCH success',
@@ -129,6 +136,7 @@ export class ClientController {
     await this.clientRepository.updateById(id, client);
   }
 
+  @authenticate('jwt')
   @put('/clients/{id}')
   @response(204, {
     description: 'Client PUT success',
@@ -140,6 +148,7 @@ export class ClientController {
     await this.clientRepository.replaceById(id, client);
   }
 
+  // @authenticate('jwt')
   @del('/clients/{id}')
   @response(204, {
     description: 'Client DELETE success',

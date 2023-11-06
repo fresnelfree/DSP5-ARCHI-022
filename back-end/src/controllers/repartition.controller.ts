@@ -19,11 +19,18 @@ import {
 } from '@loopback/rest';
 import {Repartition} from '../models';
 import {RepartitionRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import { RepartitionGainsProvider } from '../services';
+import { inject } from '@loopback/core';
 
+@authenticate('jwt')
 export class RepartitionController {
   constructor(
     @repository(RepartitionRepository)
     public repartitionRepository : RepartitionRepository,
+    @inject('services.RepartitionGainsProvider')     
+    public repartitionGainsProvider: RepartitionGainsProvider,    
+
   ) {}
 
   @post('/repartitions')
@@ -35,16 +42,16 @@ export class RepartitionController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(Repartition, {
-            title: 'NewRepartition',
-            exclude: ['id'],
-          }),
+          schema: {
+            type: 'array',
+            items: getModelSchemaRef(Repartition, {exclude: ["id"]}),
+          },
         },
       },
     })
-    repartition: Omit<Repartition, 'id'>,
+    repartition: Repartition[],
   ): Promise<Repartition> {
-    return this.repartitionRepository.create(repartition);
+    return await this.repartitionGainsProvider.saveRepartionGains(repartition);
   }
 
   @get('/repartitions/count')

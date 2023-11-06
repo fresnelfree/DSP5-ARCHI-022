@@ -1,0 +1,61 @@
+<app-navbar></app-navbar>
+<section style="background-color: #eee;">
+    <div class="container py-5">
+      <div class="row"> <app-client-nav></app-client-nav> </div>
+
+      <div class="row" *ngIf="user">
+        <div class="col-md-8 col-xs-12">
+          <div class="row">
+            <div class="col-12">
+              <div class="card custom-snackbar">
+                <h5 class="card-header">Votre espace de jeu</h5>
+                <div class="card-body ticket-card">
+                  <p class="card-text"> {{message}} </p>
+                  <form [formGroup]="jeuForm" (ngSubmit)="play()" #form="ngForm" >
+                    <div class="row justify-content-center">
+                      <div class="col-md-8 col-sm-6">
+                        <!-- <label for="def">Indication</label> -->
+                        <input formControlName="numero_gain" placeholder="Code du ticket (ex :S1052)" class="form-control" type="text" name="" id="">
+                      </div>
+                      <div class="col-md-3 col-sm-3 mt-2 mt-sm-0 mt-md-0">
+                        <button [disabled]="jeuForm.invalid" class="form-control" type="submit">Jouer</button>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="card" >
+                <h5 class="card-header">Historique de vos gains</h5>
+                <div class="card-body ticket-card">
+                  <button (click)="showSuccess()">Afficher Snackbar</button>
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">Code</th>
+                        <th scope="col">Gain</th>
+                        <th scope="col">Statut</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let item of gains; let i = index">
+                        <td>{{item.numero_gain}}</td>
+                        <td>{{item.libelle_gain}}</td>
+                        <td [class]="item.etat_gain === 'Rendu' ? 'table-success' : 'table-info'">
+                          {{item.etat_gain === 'Rendu' ? 'Gain recupéré' : 'Gain non recupéré'}}
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 col-xs-12">
+          <app-client-profil-card></app-client-profil-card>
+        </div>
+      </div>
+    </div>
+  </section>

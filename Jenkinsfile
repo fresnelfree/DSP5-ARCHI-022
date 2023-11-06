@@ -23,7 +23,7 @@ pipeline{
     APP_PORT = 3000
     APP_HOST = 'localhost'
     DB_PWD = 'Dsp-archi-15'
-    DB_DATABASE = 'DSP5-ARCHI-DB'
+    DB_DATABASE = 'DSP5-ARCHI-DB-PPD'
     DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
     // DOCKER_HOST = "/var/run/docker.sock"
   }
@@ -74,14 +74,15 @@ pipeline{
         dir('back-end/') {
 
           echo "************************ TEST OF PROJECT WITH MOCHA JS ************************"  
-          sh "npm run test:prod"
+          sh "npm run migrate"
+          sh ""
         } 
 
         echo "####################################################### STAGE UNIT TEST FRONT-END #######################################################"
         dir('front-end/') {
 
           echo "************************ TEST OF PROJECT WITH CYPRESS ************************"  
-          echo "A METTRE EN PLACE"
+          echo "A METTRE EN PLACE !"
         }            
       }
     }

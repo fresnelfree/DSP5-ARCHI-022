@@ -5,3 +5,5 @@ export * from './gains.model';
 export * from './participer.model';
 export * from './repartition.model';
 export * from './session-jeu.model';
+export * from './user.model';
+export * from './compte.model';

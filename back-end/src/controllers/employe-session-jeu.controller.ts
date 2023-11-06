@@ -20,7 +20,9 @@ import {
   SessionJeu,
 } from '../models';
 import {EmployeRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
 
+@authenticate('jwt')
 export class EmployeSessionJeuController {
   constructor(
     @repository(EmployeRepository) protected employeRepository: EmployeRepository,

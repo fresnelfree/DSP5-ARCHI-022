@@ -8,19 +8,44 @@ import { ConnexionComponent } from './connexion/connexion.component';
 import { InscriptionComponent } from './inscription/inscription.component';
 import { JeuxComponent } from './jeux/jeux.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-
+import { authGuard } from '../core/guards/auth.guard';
+import { ClientHomeComponent } from './client/client-home/client-home.component';
+import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
+import { ClientGainComponent } from './client/client-gain/client-gain.component';
+import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
+ 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  // { path: '', component: HomeComponent },
+  {path:'', redirectTo:'home', pathMatch:'full'},
   { path: 'home', component: HomeComponent },
   { path: 'jeux', component: JeuxComponent},
   { path: 'forgot', component: ForgotPasswordComponent},
+  { path: 'modify', component: ModifyPwdComponent},
   { path: 'apropos', component: AproposComponent},
   { path: 'contact', component: ContactComponent},
-  { path: 'connexion', component: ConnexionComponent},
-  { path: 'inscription', component: InscriptionComponent}
+  { path: 'inscription', component: InscriptionComponent},
+  { path: 'social-media/:token', component: AuthSocialMediaComponent},  
+  { path: 'connexion', 
+            children: [
+                       { path:'', component: ConnexionComponent},
+                      ]
+  },
+//   { path: 'client', component: ClientHomeComponent,         
+//   canActivate: [authGuard], data: {role3: 'Client'}  
+// },
+  { path: 'client', 
+             children: [
+                         { path: '', component: ClientGainComponent,  
+                           canActivate: [authGuard], data: {role3: 'Client'}
+                          },
+                         { path: 'profil', component: ClientHomeComponent },
+                         { path: 'gain', component: ClientGainComponent },
+                        ], 
+              
+  },//fin client
 
-];
+];//Fin routes
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

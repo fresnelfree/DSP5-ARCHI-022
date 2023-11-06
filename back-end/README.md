@@ -66,7 +66,12 @@ npm run lint:fix
 ```sh
 npm test
 ```
-
+## command loopback
+lb4 discover --dataSource MySQL --schema DSP5-ARCHI-DB-F
+lb4 service
+lb4 model
+lb4 repository
+lb4 controller
 ## What's next
 
 Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to

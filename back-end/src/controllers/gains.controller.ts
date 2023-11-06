@@ -17,13 +17,18 @@ import {
   requestBody,
   response,
 } from '@loopback/rest';
-import {Gains} from '../models';
-import {GainsRepository} from '../repositories';
+import {Gains,Client} from '../models';
+import {GainsRepository,ClientRepository} from '../repositories';
+import { authenticate } from '@loopback/authentication';
+import {HttpErrors} from '@loopback/rest';
 
+@authenticate('jwt')
 export class GainsController {
   constructor(
     @repository(GainsRepository)
     public gainsRepository : GainsRepository,
+    @repository(ClientRepository)
+    public clientRepository: ClientRepository,   
   ) {}
 
   @post('/gains')
@@ -111,6 +116,30 @@ export class GainsController {
     return this.gainsRepository.findById(id, filter);
   }
 
+  @get('/findByNumGain/{numero_gain}')
+  @response(200, {
+    description: 'Gain model instance',
+    content: {
+      'application/json': {
+        schema: getModelSchemaRef(Gains, {includeRelations: true}),
+      },
+    },
+  })
+  async findByNumGain(
+    @param.path.string('numero_gain') numero_gain: string
+  ): Promise<gain_client | null> {
+    let client : any
+    const gain = await this.gainsRepository.findOne({where: {numero_gain: numero_gain}});
+    if(!gain) {
+      throw new HttpErrors.NotFound('le numéro est invalide !');
+    }
+    if(gain.id_client) {
+      client = await this.clientRepository.findById(gain.id_client);      
+    }
+
+    return {gains:gain, client:client}
+  }  
+
   @patch('/gains/{id}')
   @response(204, {
     description: 'Gains PATCH success',
@@ -147,4 +176,9 @@ export class GainsController {
   async deleteById(@param.path.number('id') id: number): Promise<void> {
     await this.gainsRepository.deleteById(id);
   }
+}
+
+export class gain_client{
+  gains: Gains;
+  client: Client;
 }

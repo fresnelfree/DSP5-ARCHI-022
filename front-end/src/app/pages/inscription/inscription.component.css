@@ -1,0 +1,13 @@
+.bi {
+    display: flex;
+    align-items: center;
+  
+    position: absolute;
+    top: 55%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 20px;
+  
+   
+    transition: all 0.2s;
+  }
