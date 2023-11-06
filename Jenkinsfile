@@ -25,6 +25,7 @@ pipeline{
     DB_PWD = credentials('DB_PWD')
     DB_DATABASE = credentials('DB_DATABASE')
     DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
+    IMG_TAG_PPD = '1.0.0'
     IMG_TAG = '1.0.0'
     // DOCKER_HOST = "/var/run/docker.sock"
   }
@@ -115,8 +116,8 @@ pipeline{
 
             echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
             sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-            sh "docker push fresnelcool/server-app:v0"
-            sh "docker push fresnelcool/client-app:v0"
+            sh "docker push fresnelcool/server-app:$IMG_TAG"
+            sh "docker push fresnelcool/client-app:$IMG_TAG"
 
           }
           else if (env.GIT_BRANCH == 'develop') {           
@@ -130,7 +131,7 @@ pipeline{
 
               echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
               sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-              sh "docker push fresnelcool/server-app-ppd:v0"          
+              sh "docker push fresnelcool/server-app-ppd:$IMG_TAG_PPD"          
 
             }   
 
@@ -143,7 +144,7 @@ pipeline{
 
               echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
               sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-              sh "docker push fresnelcool/client-app-ppd:v0"          
+              sh "docker push fresnelcool/client-app-ppd:$IMG_TAG_PPD"          
 
             }
 
