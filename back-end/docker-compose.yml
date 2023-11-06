@@ -14,7 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-ppd.dockerfile
-    image: IMAGE_TAG
+    image: app:${IMG_TAG}
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
