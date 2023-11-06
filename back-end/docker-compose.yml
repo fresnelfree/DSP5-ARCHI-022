@@ -14,7 +14,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-ppd.dockerfile
-    image: "fresnelcool/server-app-ppd:"${env.IMG_TAG}
+    image: $env.IMG_TAG
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
