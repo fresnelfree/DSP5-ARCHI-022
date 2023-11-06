@@ -11,7 +11,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-ppd.dockerfile
-    image: fresnelcool/client-app-ppd:v0
+    image: fresnelcool/client-app-ppd:${IMG_TAG_PPD}
     restart: always
     volumes:
       - "/home/node/app:/home/node/app"
