@@ -2562,6 +2562,10 @@ footer.site-footer {
 }
 
 @media (max-width: 575px) {
-    
+    .issa {
+      background-color: #000000;
+      opacity: 80%;
+    }
   }
 
+    
