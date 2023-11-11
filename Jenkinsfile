@@ -126,12 +126,7 @@ pipeline{
 
               echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
               sh "docker compose down"
-              sh "docker compose up -d --build"
-
-              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-              sh "docker push fresnelcool/server-app-ppd:$IMG_TAG_PPD"          
-
+              sh "docker compose up -d --build"        
             }   
 
             echo "####################################################### STAGE DEPLOY FRONT-END #######################################################"
@@ -139,14 +134,17 @@ pipeline{
 
               echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
               sh "docker compose down"
-              sh "docker compose up -d --build"
-
-              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-              sh "docker push fresnelcool/client-app-ppd:$IMG_TAG_PPD"          
+              sh "docker compose up -d --build"       
 
             }
+              echo "************************ CONNECTION IN DOCKER HUB ************************"
+              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
 
+              echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
+              sh "docker push fresnelcool/server-app-ppd:$IMG_TAG_PPD"  
+
+              echo "************************ PUSH IMAGE FRONT-END IN DOCKER HUB ************************"
+              sh "docker push fresnelcool/client-app-ppd:$IMG_TAG_PPD"                 
           }
           else {
 
