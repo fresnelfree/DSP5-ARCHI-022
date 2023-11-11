@@ -5,8 +5,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
+import { environment } from 'src/environments/environment.dev';
 import { UserService } from 'src/app/core/services/user/user.service';
- 
+
 @Component({
   selector: 'app-connexion',
   templateUrl: './connexion.component.html',
@@ -18,6 +19,8 @@ export class ConnexionComponent {
   private role:string = "";
   private erreurs:any;
   public message_err_http:string = ""
+  public auth_facebook_link: string = `${environment.hostLine}/auth/facebook`
+  public auth_google_link: string = `${environment.hostLine}/auth/google`
 
   constructor(
     private router      : Router,
@@ -30,7 +33,7 @@ export class ConnexionComponent {
     this.submitted = false;
   }
 
-  
+
   /********************************************************************
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
    ********************************************************************/
@@ -68,7 +71,7 @@ export class ConnexionComponent {
     // Getter pour un accès facile aux champs du formulaire (loginForm)
     get f() { return this.loginForm.value; }
 
-  
+
     onSubmit() {
 
       this.submitted = true;
@@ -77,14 +80,14 @@ export class ConnexionComponent {
         if (this.loginForm.invalid) {
           return;
       }
-      
+
       this.authService.login(this.f).subscribe(
         (data:any) => {
           this.handleResponse(data)
         },
         (err:any) => {
           this.erreurs = err
-          
+
           if(this.erreurs.status === 500)
           {
             this.message_err_http = "Un incident s'est produit lors de la connexion."
@@ -96,7 +99,7 @@ export class ConnexionComponent {
         }
       )//fin subscribe
   }
- 
+
   handleResponse(data:any){
     this.tokenService.setItem('token',data.token);
     this.authService.changeAuthStatus(true);
@@ -110,7 +113,7 @@ export class ConnexionComponent {
              this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
                res => {
                         this.user = res
-                        
+
                         this.tokenService.setItem('user',JSON.stringify(this.user))
                         if(this.user.employe){
                           this.tokenService.setItem('role',this.user.employe.role)
@@ -126,11 +129,11 @@ export class ConnexionComponent {
                        }//Fin else if
                      }
                   )//Fin subscribe
-         } 
+         }
   }
-  
+
   getTokenEmail() {
-    return this.userService.getTokenEmail();  
+    return this.userService.getTokenEmail();
   }
 
   togglePasswordVisibility(passwordInput: HTMLInputElement) {
