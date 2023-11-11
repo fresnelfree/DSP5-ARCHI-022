@@ -50,7 +50,7 @@ services:
       root_network_app:
     labels:
       - traefik.enable=true
-      - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.live`)
+      - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.life`)
       - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
       - traefik.http.services.server-app-ppd.loadbalancer.server.port=8089
 
