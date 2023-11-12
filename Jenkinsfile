@@ -137,7 +137,7 @@ pipeline{
               sh "docker compose up -d --build"       
 
             }
-              echo "************************ CONNECTION IN DOCKER HUB ************************"
+              echo "************************ CONNECTION ON DOCKER HUB ************************"
               sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
 
               echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
