@@ -192,7 +192,7 @@ export class InscriptionComponent {
           "email"   : this.registerForm.value.email, 
           "adresse" : this.registerForm.value.adresse, 
           "pwd"     : this.registerForm.value.pwd,
-          "role"    : 'Caissier'
+          "role"    : 'Client'
         }
 
     
