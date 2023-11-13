@@ -19,6 +19,8 @@ import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
 import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
+import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
+import { CongratulateDialogComponent } from './client/congratulate-dialog/congratulate-dialog.component';
  
 
  
@@ -43,6 +45,8 @@ import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
     ClientGainComponent,
     ClientProfilCardComponent,
     ClientNavComponent,
+    AuthSocialMediaComponent,
+    CongratulateDialogComponent,
 
   ],
   imports: [

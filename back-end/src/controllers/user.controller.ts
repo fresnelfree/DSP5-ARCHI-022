@@ -103,7 +103,7 @@ export class UserController {
     return this.userService.saveUser(user);
   } 
   
-  @get('/verifyEmail/{email}')
+  @get('/sendEmailVerifyAccount/{email}')
   @response(200, {
     description: 'Compte PATCH success',
     // content: {'application/text': {schema: "result"}}

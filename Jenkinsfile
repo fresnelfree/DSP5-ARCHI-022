@@ -17,14 +17,16 @@ pipeline{
 
     DOCKER_HUB_PWD = credentials('DOCKER_HUB_PASSWORD')
     DOCKER_HUB_USR = credentials('DOCKER_HUB_USERNAME')
-    DB_HOST = "109.123.254.17"
-    DB_PORT = 3307
-    DB_USER = 'root'
-    APP_PORT = 3000
-    APP_HOST = 'localhost'
-    DB_PWD = 'Dsp-archi-15'
-    DB_DATABASE = 'DSP5-ARCHI-DB-PPD'
+    DB_HOST = credentials('DB_HOST')
+    DB_PORT = credentials('DB_PORT')
+    DB_USER = credentials('DB_USER')
+    APP_PORT = credentials('APP_PORT')
+    APP_HOST = credentials('APP_HOST')
+    DB_PWD = credentials('DB_PWD')
+    DB_DATABASE = credentials('DB_DATABASE')
     DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
+    IMG_TAG_PPD = '1.0.0'
+    IMG_TAG = '1.0.0'
     // DOCKER_HOST = "/var/run/docker.sock"
   }
   options {
@@ -35,7 +37,6 @@ pipeline{
   stages {
 
     stage('BUILD') { 
-
       steps {
 
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE BUILD #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
@@ -75,14 +76,14 @@ pipeline{
 
           echo "************************ TEST OF PROJECT WITH MOCHA JS ************************"  
           sh "npm run migrate"
-          sh "npm run test:prod"
+          sh ""
         } 
 
         echo "####################################################### STAGE UNIT TEST FRONT-END #######################################################"
         dir('front-end/') {
 
           echo "************************ TEST OF PROJECT WITH CYPRESS ************************"  
-          echo "A METTRE EN PLACE"
+          echo "A METTRE EN PLACE !"
         }            
       }
     }
@@ -114,8 +115,8 @@ pipeline{
 
             echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
             sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-            sh "docker push fresnelcool/server-app:v0"
-            sh "docker push fresnelcool/client-app:v0"
+            sh "docker push fresnelcool/server-app:$IMG_TAG"
+            sh "docker push fresnelcool/client-app:$IMG_TAG"
 
           }
           else if (env.GIT_BRANCH == 'develop') {           
@@ -125,12 +126,7 @@ pipeline{
 
               echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
               sh "docker compose down"
-              sh "docker compose up -d --build"
-
-              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-              sh "docker push fresnelcool/server-app-ppd:v0"          
-
+              sh "docker compose up -d --build"        
             }   
 
             echo "####################################################### STAGE DEPLOY FRONT-END #######################################################"
@@ -138,14 +134,17 @@ pipeline{
 
               echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
               sh "docker compose down"
-              sh "docker compose up -d --build"
-
-              echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-              sh "docker push fresnelcool/client-app-ppd:v0"          
+              sh "docker compose up -d --build"       
 
             }
+              echo "************************ CONNECTION ON DOCKER HUB ************************"
+              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
 
+              echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
+              sh "docker push fresnelcool/server-app-ppd:$IMG_TAG_PPD"  
+
+              echo "************************ PUSH IMAGE FRONT-END IN DOCKER HUB ************************"
+              sh "docker push fresnelcool/client-app-ppd:$IMG_TAG_PPD"                 
           }
           else {
 

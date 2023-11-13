@@ -15,6 +15,7 @@ import {
 import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
+import {MetricsComponent} from '@loopback/metrics';
 import path from 'path';
 import {MySequence} from './sequence';
 // var loopback = require('loopback');
@@ -34,6 +35,21 @@ export class App extends BootMixin(
     this.component(AuthenticationComponent);
     // Mount jwt component
     this.component(JWTAuthenticationComponent);
+    // Customize metrics settings
+    // this.configure(MetricsBindings.COMPONENT).to({
+    //   endpoint: {
+    //     basePath: '/metrics',
+    //   },
+    //   defaultMetrics: {
+    //     timeout: 5000,
+    //   },
+    //   defaultLabels: {
+    //     service: 'api',
+    //     version: '1.0.0',
+    //   },
+    // });     
+    // Metrics for prometheus
+    this.component(MetricsComponent);    
     // Bind datasource
     // this.dataSource(DbDataSource, UserServiceBindings.DATASOURCE_NAME);
     // ------------- END OF SNIPPET -------------
@@ -43,7 +59,7 @@ export class App extends BootMixin(
 
     // Set up default home page
     this.static('/', path.join(__dirname, '../public'));
-
+   
     // Customize @loopback/rest-explorer configuration here
     this.configure(RestExplorerBindings.COMPONENT).to({
       path: '/explorer',

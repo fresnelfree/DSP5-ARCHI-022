@@ -23,11 +23,6 @@ const httpOption = {
 })
 export class GainService {
 
-//VARIABLES
-private  api = environment.hostLine;
-
-
-
 //CONSTRUCTEUR
 constructor(
     private http: HttpClient,
@@ -35,54 +30,18 @@ constructor(
   ) { }
 
 /************************************************
- *        METHODES UTILES
- ************************************************/
- 
-
-
-private log(log: string){
-  console.info(log)
-}
-
-private handleError<T>(operation = 'operation', result?: T) {
-
-  return (error: any): Observable<T> => {
-
-    console.error(error);
-
-    this.log(`${operation} failed: ${error.message}`);
-
-    return of(result as T);
-
-  };
-
-}
-
-/************************************************
  *        METHODES
  ************************************************/
-
-  getGain(id:number): Observable<any>{
-
-    return this.http.get<Gain>(`${this.api}/clients/${id}/gains`).pipe(
-      catchError(this.handleError(`getClient id=${id}`))
-    );
-
-  }
-   
-
-  getUserByEmail(email: string){
-
-    return this.http.get(`${this.api}/compteWithEmail/${email}`).pipe(
-      catchError(this.handleError(`getUserByEmail email=${email}`))
-    );
-
-  }
-
-  getTokenEmail() {
-    const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
-    const value = ob.email;
-    return value
-  }
+  getGains(id:number): any{
+    return this.http.get(`${environment.hostLine}/clients/${id}/gains`,httpOption)
+  } 
   
+  updateGain(id: number ,data: Gain) : any {
+    return this.http.put(`${environment.hostLine}/gains/${id}`,data,httpOption)
+  }
+
+  getGainsWithNumGain(numGain:string): any{
+    return this.http.get(`${environment.hostLine}/findByNumGain/${numGain}`,httpOption)
+  }   
+
 }

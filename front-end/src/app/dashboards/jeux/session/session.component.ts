@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
 import { Gain } from 'src/app/core/models/gain/gain';
+import { SnackbarService } from 'src/app/core/notification/snackbar.service';
 import { Repartition } from 'src/app/core/services/repartition/repartition';
 import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
 import { Session } from 'src/app/core/services/session/session';
@@ -27,15 +28,7 @@ export class SessionComponent {
   nbrTicketRestant = 0;
   repartitions: Repartition[] = [{ libelle: '',pourcentage: 0,id_session:0}];
   session = 'Sélectionné une session...';
-  sessions: Session[] = [{
-    id:5,
-    libelle:'Session test',
-    id_employe:10,
-    date_debut:'',
-    date_fin: '',
-    nbr_ticket: 10,
-    statut: 'Creer'
-  }]
+  sessions: Session[] = []
   user: any;
   error_messages   = {
     'session' : [
@@ -46,16 +39,18 @@ export class SessionComponent {
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
     private formBuilder: FormBuilder,
+    private snackbarService: SnackbarService,
     private userService: UserService
   ){
     this.user = JSON.parse(localStorage.getItem('user') || "")
-    this.nbrTicket = this.sessions[0].nbr_ticket
+
     this.sessionForm = this.formBuilder.group({
       libelle: [null, Validators.required],
       date_debut: [null, Validators.required],
       date_fin: [null, Validators.required,],
       nbr_ticket: [null, Validators.required],
-      id_employe: [this.user.employe.id, Validators.required]
+      id_employe: [this.user.employe.id, Validators.required],
+      statut: ['Inactif', Validators.required]
     });
     this.repartitionForm = this.formBuilder.group({
       session: [null, Validators.required],
@@ -70,18 +65,38 @@ export class SessionComponent {
       date_debut: ["", Validators.required],
       date_fin: ["", Validators.required,],
       nbr_ticket: ["", Validators.required],
+      id_employe: [this.user.employe.id, Validators.required],
+      statut: ['Inactif', Validators.required]      
     });
   }
 
   onSubmitFormSession(): void {
     this.sessionJeu = this.sessionForm.value
+    console.log("sessionform : ",this.sessionForm.value)
     this.sessionJeuService.AddNewSession(this.sessionForm.value)
     .subscribe((response:any) =>{
       console.log("response : ",response)
       this.sessions.push(response)
     })
-    console.log("sessionform : ",this.sessionForm.value)
     console.log("sessionJeus : ",this.sessionJeu)
+
+    /*  
+      ici afficher un toast pour confirmer que l'action s'est bien passé
+
+    */
+      this.snackbarService.showNotification(
+        'La session a été créée avec succes !',
+        'ok',
+        'success'
+      );
+  }
+
+  showToast():void{
+    const IdInput = document.getElementById("toast");
+    // const inputValue = (event.target as HTMLInputElement);
+    // document.get
+    // IdInput.toast('show')
+    console.log("response : ",IdInput)
   }
 
   onSubmitFormRepartition(): void {
@@ -114,16 +129,21 @@ export class SessionComponent {
     this.repartitionService.AddNewParticipationGains(this.repartitions)
     .subscribe((response:any) =>{
       console.log("response : ",response)
+
+      this.snackbarService.showNotification(
+        'La partie de jeu a été créée avec succes !',
+        'ok',
+        'success'
+      );
     })
     console.log("add :",this.repartitions)
   }
-
-
 
   onChangeSelectedSession(event:Event) {
     const inputValue = (event.target as HTMLInputElement).value;
     if (this.session !== 'Sélectionné une session...') {
       this.selectedSession = false
+      this.nbrTicket = this.sessions[0].nbr_ticket
     }
     else {
       this.selectedSession = true
@@ -166,6 +186,11 @@ export class SessionComponent {
 
     if (this.percents==100) {
       this.warningPercent= false
+      this.snackbarService.showNotification(
+        'Vous ne pourvez plus ajouter de partition !',
+        'ok',
+        'warning'
+      );
     }
     else {
       this.warningPercent= true
