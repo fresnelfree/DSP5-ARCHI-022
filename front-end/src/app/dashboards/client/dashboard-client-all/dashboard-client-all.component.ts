@@ -12,6 +12,12 @@ import { TokenService } from 'src/app/core/services/token/token.service';
   styleUrls: ['./dashboard-client-all.component.css'],
 })
 export class DashboardClientAllComponent {
+  titleMenu:string="List clients"
+  titleList:string="Liste client"
+  linkList = "/dashboard/client/all"
+  titleAdd:string="Ajout client"
+  linkAdd = "/dashboard/client/new"
+
  //Variable pour gestion navbar
  public open: boolean = false;
  public block: boolean = false;
@@ -38,63 +44,46 @@ export class DashboardClientAllComponent {
  }
 
 
- getClients(){
-  return this.clientService.getClients().subscribe(
-
-    res => {
-
-      this.clients = res
-
-    }
-  )
-
- }
+  getClients(){
+    return this.clientService.getClients().subscribe(
+      res => {
+        this.clients = res
+      }
+    )
+  }
 
 
-onGoDetail(client: User){
-   
-  this.router.navigate(['/dashboard/client/detail/'+client.id])
-   
-}
-
-
-
-
-
-
-
- @HostListener('window:resize', ['$event'])
- onResize(event: Event): void {
-   this.ecran = window.innerWidth;
-
-   if (this.ecran < 1010) {
-     this.smallDevise = !this.smallDevise;
-   }
- }
-
- onMenu(e: MouseEvent) {
-   if (this.ecran > 1010) {
-     this.open = !this.open;
-   } else if (this.ecran < 1010) {
-     this.openMenu = !this.openMenu;
-
-     if (this.ecran < 576) {
-       this.openMenuSmall = !this.openMenuSmall;
-     }
-   }
- }
-
- logout(event: MouseEvent)
- {
-   event.preventDefault();
+  onGoDetail(client: User){
     
-   this.authService.changeAuthStatus(false);
+    this.router.navigate(['/dashboard/client/detail/'+client.id])
+    
+  }
 
-   this.token.removeToken();
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.ecran = window.innerWidth;
 
-   this.router.navigate(['/']).then(() => {
-     window.location.reload();
-   });
- }
+    if (this.ecran < 1010) {
+      this.smallDevise = !this.smallDevise;
+    }
+  }
+
+  onMenu(e: MouseEvent) {
+    if (this.ecran > 1010) {
+      this.open = !this.open;
+    } else if (this.ecran < 1010) {
+      this.openMenu = !this.openMenu;
+
+      if (this.ecran < 576) {
+        this.openMenuSmall = !this.openMenuSmall;
+      }
+    }
+  }
+
+  logout(event: MouseEvent)
+  {
+      event.preventDefault();
+      this.authService.logout()
+  }
 
 }

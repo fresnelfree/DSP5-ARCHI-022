@@ -16,6 +16,13 @@ import { TokenService } from 'src/app/core/services/token/token.service';
  
 
 export class DashboardJeuxAllComponent  implements OnInit{ 
+  titleMenu:string="Jeux"
+  titleList:string="Liste jeu"
+  linkList = "/dashboard/jeux/all"
+  titleAdd:string="Ajout session"
+  linkAdd = "/dashboard/jeux/new"
+ 
+ 
   //Variable pour gestion navbar
   public open: boolean = false;
   public block: boolean = false;
@@ -25,6 +32,8 @@ export class DashboardJeuxAllComponent  implements OnInit{
   public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
   //Autres var
   public isLogged: boolean = false;//verification si le user est connecter
+
+
 
   constructor(
 
@@ -64,15 +73,8 @@ export class DashboardJeuxAllComponent  implements OnInit{
 
   logout(event: MouseEvent)
   {
-    event.preventDefault();
-     
-    this.authService.changeAuthStatus(false);
-
-    this.token.removeToken();
-
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
+      event.preventDefault();
+      this.authService.logout()
   }
 
 }

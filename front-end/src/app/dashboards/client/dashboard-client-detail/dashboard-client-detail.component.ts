@@ -6,18 +6,20 @@ import { AuthenticationService } from 'src/app/core/services/auth/authentication
 import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
-
 import { HttpClient, HttpHeaders } from '@angular/common/http';
  
-  
-
-
 @Component({
   selector: 'app-dashboard-client-detail',
   templateUrl: './dashboard-client-detail.component.html',
   styleUrls: ['./dashboard-client-detail.component.css']
 })
 export class DashboardClientDetailComponent  implements OnInit {
+
+  titleMenu:string="Informations du client"
+  titleList:string="Liste clients"
+  linkList = "/dashboard/client/all"
+  titleAdd:string="Ajout client"
+  linkAdd = "/dashboard/client/new"
   
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -70,35 +72,19 @@ export class DashboardClientDetailComponent  implements OnInit {
  }
 
  logout(event: MouseEvent)
- {
-   event.preventDefault();
-    
-   this.authService.changeAuthStatus(false);
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
 
-   this.token.removeToken();
-
-   this.router.navigate(['/']).then(() => {
-     window.location.reload();
-   });
- }
-
-
-
- 
   /********************************************************************
    *                  GESTION CLIENT
-   *
    ********************************************************************/
   ngOnInit(): void {
-  
 }
 
-
-
  /********************************************************************
- *
  *                  GESTION DU FORMULAIRE, REACTIVEFORM
- *
  ********************************************************************/
  error_messages   = {
   'nom' : [
@@ -140,9 +126,7 @@ export class DashboardClientDetailComponent  implements OnInit {
     {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     {type: 'passwordCompare', message: 'Mot de passe different.'}
   ],
-
 }
-
 
 clientForm: FormGroup = this.fb.group({
 
@@ -197,32 +181,20 @@ clientForm: FormGroup = this.fb.group({
 
   /********************************************************************
  *                  On submit Methode
- *
  ********************************************************************/
-
   onSubmit() {
-
     this.submitted = true;
-
       // Si on a des erreurs on stop
       if (this.clientForm.invalid) {
         return;
     }
-
     // let userToUpdate =  new User(this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
-
-    // this.userService.updateUser(userToUpdate).subscribe(
-    //   res => console.log(res)
-      
-    // )
+    // this.userService.updateUser(userToUpdate).subscribe( res => console.log(res))
 
 }
 
-
 // ngOnInit(): void {
-
 //   this.authService.authStatus.subscribe(value => this.isLogged = value)
-  
 // }
 
 }

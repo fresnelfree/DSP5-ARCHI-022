@@ -14,6 +14,12 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 
 export class DashboardEmployeAllComponent {
 
+  titleMenu:string="Employe"
+  titleList:string="Liste employe"
+  linkList = "/dashboard/employe/all"
+  titleAdd:string="Ajout employe"
+  linkAdd = "/dashboard/employe/new"
+
  //Variable pour gestion navbar
  public open: boolean = false;
  public block: boolean = false;
@@ -26,12 +32,10 @@ export class DashboardEmployeAllComponent {
  public employes: User[] = []
 
  constructor(
-
    private authService : AuthenticationService,
    private router      : Router,
    private token       : TokenService,
    private employeService : EmployeService
-
  ){}
 
  ngOnInit(): void {
@@ -45,23 +49,15 @@ export class DashboardEmployeAllComponent {
  ********************************************************************/
 
 getEmployes(){
-  
     return this.employeService.getEmployers("/employes").subscribe(
-      // (res) => console.log(res)
+
     )
-
 }
-
-
-
-
 
 
 /********************************************************************
  * 
  ********************************************************************/
-
-
  @HostListener('window:resize', ['$event'])
  onResize(event: Event): void {
    this.ecran = window.innerWidth;
@@ -73,28 +69,22 @@ getEmployes(){
 
 
  onMenu(e: MouseEvent) {
-   if (this.ecran > 1010) {
-     this.open = !this.open;
-   } else if (this.ecran < 1010) {
-     this.openMenu = !this.openMenu;
-
-     if (this.ecran < 576) {
-       this.openMenuSmall = !this.openMenuSmall;
-     }
-   }
+   if (this.ecran > 1010) 
+    {
+      this.open = !this.open;
+    } 
+    else if (this.ecran < 1010) 
+    {
+      this.openMenu = !this.openMenu;
+      if (this.ecran < 576) {
+        this.openMenuSmall = !this.openMenuSmall;
+      }
+    }
  }
-
 
  logout(event: MouseEvent)
- {
-   event.preventDefault();
-    
-   this.authService.changeAuthStatus(false);
-
-   this.token.removeToken();
-
-   this.router.navigate(['/']).then(() => {
-     window.location.reload();
-   });
- }
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
 }

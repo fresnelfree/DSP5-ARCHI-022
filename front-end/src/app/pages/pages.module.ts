@@ -19,6 +19,9 @@ import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 import { ClientGainComponent } from '../pages/client/client-gain/client-gain.component';
 import { ClientProfilCardComponent } from '../shared/client-profil-card/client-profil-card.component';
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
+import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
+import { CongratulateDialogComponent } from './client/congratulate-dialog/congratulate-dialog.component';
+ 
 import { MentionsComponent } from './mentions/mentions.component';
 import { CguComponent } from './cgu/cgu.component';
 import { CgvComponent } from './cgv/cgv.component';
@@ -46,11 +49,12 @@ import { CgvComponent } from './cgv/cgv.component';
     ClientGainComponent,
     ClientProfilCardComponent,
     ClientNavComponent,
+    AuthSocialMediaComponent,
+    CongratulateDialogComponent,
     MentionsComponent,
     CguComponent,
     CgvComponent
   
-
   ],
   imports: [
     CommonModule,

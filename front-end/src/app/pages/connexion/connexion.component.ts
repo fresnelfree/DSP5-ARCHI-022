@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators  } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
- 
-
-
+import { environment } from 'src/environments/environment.dev';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
   selector: 'app-connexion',
@@ -14,26 +14,30 @@ import { TokenService } from 'src/app/core/services/token/token.service';
   styleUrls: ['./connexion.component.css']
 })
 export class ConnexionComponent {
-
- 
   private submitted;
-
+  private user:any;
+  private role:string = "";
+  private erreurs:any;
+  public message_err_http:string = ""
+  public auth_facebook_link: string = `${environment.hostLine}/auth/facebook`
+  public auth_google_link: string = `${environment.hostLine}/auth/google`
 
   constructor(
     private router      : Router,
     private fb          : FormBuilder ,
     private authService : AuthenticationService,
-    private token       : TokenService){
+    private tokenService       : TokenService,
+    private roleSErvice : RoleService,
+    private userService : UserService,
+    ){
     this.submitted = false;
   }
 
-  
+
   /********************************************************************
-   *
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
-   *
    ********************************************************************/
-  error_messages   = {
+  error_messages = {
     'email' : [
       {type:'required', message:'L\'email est obligatoire.'},
       {type: 'pattern', message: 'Format d\'email invalid.' },
@@ -44,11 +48,9 @@ export class ConnexionComponent {
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
     ],
-
   }
 
   loginForm: FormGroup = this.fb.group({
-
     email: new FormControl('', Validators.compose([
       Validators.required,
       Validators.minLength(2),
@@ -64,13 +66,12 @@ export class ConnexionComponent {
       //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
       // ),
     ])),
-
   })
 
     // Getter pour un accès facile aux champs du formulaire (loginForm)
     get f() { return this.loginForm.value; }
 
-  
+
     onSubmit() {
 
       this.submitted = true;
@@ -79,45 +80,69 @@ export class ConnexionComponent {
         if (this.loginForm.invalid) {
           return;
       }
-      
+
       this.authService.login(this.f).subscribe(
-        (data:any) => {this.handleResponse(data)},
+        (data:any) => {
+          this.handleResponse(data)
+        },
+        (err:any) => {
+          this.erreurs = err
+
+          if(this.erreurs.status === 500)
+          {
+            this.message_err_http = "Un incident s'est produit lors de la connexion."
+          }
+          else if (this.erreurs.status === 401)
+          {
+            this.message_err_http = "Identifiant ou mot de passe est incorrecte."
+          }
+        }
       )//fin subscribe
   }
 
-// showPassword(id:string): void {
-//   const x:any = document.getElementById(id);  
-//   if (x.getAttribute("type") === "password") {
-//     x.setAttribute("type", "text");
-//   } else {
-//     x.setAttribute("type", "password");
-//   }
-// }
-
-togglePasswordVisibility(passwordInput: HTMLInputElement) {
-  const passwordFieldType = passwordInput.type;
-
-  if (passwordFieldType === 'password') {
-    passwordInput.type = 'text';
-  } else {
-    passwordInput.type = 'password';
-  }
-}
-
-
   handleResponse(data:any){
-
-    // console.log(data);
-    
-
-    this.token.handleToken(data.token);
-   
+    this.tokenService.setItem('token',data.token);
     this.authService.changeAuthStatus(true);
+    this.redirection()
+  }
 
-    this.router.navigate(['/client']).then(() => {
-      window.location.reload();
-    });
-     
+
+  redirection( ){
+         if(this.authService.isloggedIn())
+         {
+             this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
+               res => {
+                        this.user = res
+
+                        this.tokenService.setItem('user',JSON.stringify(this.user))
+                        if(this.user.employe){
+                          this.tokenService.setItem('role',this.user.employe.role)
+                          this.router.navigate(['/dashboard']).then(() => {
+                            // window.location.reload();
+                          });
+                        }//Fin if
+                        else if(this.user.client){
+                          this.tokenService.setItem('role3',"Client");
+                          this.router.navigate(['/client']).then(() => {
+                            // window.location.reload();
+                          });
+                       }//Fin else if
+                     }
+                  )//Fin subscribe
+         }
+  }
+
+  getTokenEmail() {
+    return this.userService.getTokenEmail();
+  }
+
+  togglePasswordVisibility(passwordInput: HTMLInputElement) {
+    const passwordFieldType = passwordInput.type;
+    if (passwordFieldType === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
   }
 
 }

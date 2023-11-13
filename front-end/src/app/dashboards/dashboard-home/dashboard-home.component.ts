@@ -36,8 +36,6 @@ export class DashboardHomeComponent  implements OnInit{
 
      this.toggleService.getWindowSizeObservable().subscribe(size => {
       this.windowSize = size;
-      // Gérez ici les changements de taille de la fenêtre.
-      console.log('La fenêtre a été redimensionnée : ', size.width, 'x', size.height);
     });
      
   }
@@ -52,40 +50,27 @@ export class DashboardHomeComponent  implements OnInit{
     }
   }
 
-  onMenu(e: MouseEvent) {
+    onMenu(e: MouseEvent) {
 
-    if (this.ecran > 1010) {
-      this.open = !this.open;
-    } else if (this.ecran < 1010) {
-      this.openMenu = !this.openMenu;
-      if (this.ecran < 576) {
-        this.openMenuSmall = !this.openMenuSmall;
+      if (this.ecran > 1010) {
+        this.open = !this.open;
+      } else if (this.ecran < 1010) {
+        this.openMenu = !this.openMenu;
+        if (this.ecran < 576) {
+          this.openMenuSmall = !this.openMenuSmall;
+        }
       }
+      
+      this.toggleService.getWindowSizeObservable().subscribe(size => {
+        this.windowSize = size;
+      
+      });
     }
-     
-    this.toggleService.getWindowSizeObservable().subscribe(size => {
-      this.windowSize = size;
-      // Gérez ici les changements de taille de la fenêtre.
-      console.log('La fenêtre a été redimensionnée : ', size.width, 'x', size.height);
-    });
-    
-    console.log("onMenu");
-    
-  }
 
-
-
-  logout(event: MouseEvent)
-  {
-    event.preventDefault();
-     
-    this.authService.changeAuthStatus(false);
-
-    this.token.removeToken();
-
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
-  }
+    logout(event: MouseEvent)
+    {
+        event.preventDefault();
+        this.authService.logout()
+    }
 
 }

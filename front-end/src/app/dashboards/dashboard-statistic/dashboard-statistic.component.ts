@@ -38,9 +38,7 @@ export class DashboardStatisticComponent implements OnInit{
      this.authService.authStatus.subscribe(value => this.isLogged = value)
 
      this.toggleService.getWindowSizeObservable().subscribe(size => {
-      this.windowSize = size;
-      // Gérez ici les changements de taille de la fenêtre.
-      console.log('La fenêtre a été redimensionnée : ', size.width, 'x', size.height);
+      this.windowSize = size; 
     });
      
   }
@@ -49,14 +47,12 @@ export class DashboardStatisticComponent implements OnInit{
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.ecran = window.innerWidth;
-
     if (this.ecran < 1010) {
       this.smallDevise = !this.smallDevise;
     }
   }
 
   onMenu(e: MouseEvent) {
-
     if (this.ecran > 1010) {
       this.open = !this.open;
     } else if (this.ecran < 1010) {
@@ -65,30 +61,15 @@ export class DashboardStatisticComponent implements OnInit{
         this.openMenuSmall = !this.openMenuSmall;
       }
     }
-     
     this.toggleService.getWindowSizeObservable().subscribe(size => {
-      this.windowSize = size;
-      // Gérez ici les changements de taille de la fenêtre.
-      console.log('La fenêtre a été redimensionnée : ', size.width, 'x', size.height);
+      this.windowSize = size; 
     });
-    
-    console.log("onMenu");
-    
   }
-
-
 
   logout(event: MouseEvent)
   {
-    event.preventDefault();
-     
-    this.authService.changeAuthStatus(false);
-
-    this.token.removeToken();
-
-    this.router.navigate(['/']).then(() => {
-      window.location.reload();
-    });
+      event.preventDefault();
+      this.authService.logout()
   }
 
 }

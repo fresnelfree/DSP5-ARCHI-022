@@ -93,7 +93,7 @@ export class ExpressServer {
         // Successful authentication, redirect home.
         await this.saveProfile(profileUser)
         // res.json(profileUser)
-        res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + this.token)
+        res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + this.token)
     });
 
     this.app.get('/auth/google',passport.authenticate('google', { scope: ['profile','email','openid'] }));
@@ -102,7 +102,7 @@ export class ExpressServer {
       async (req, res) => {
         await this.saveProfile(profileUser)
         // res.json(profileUser)
-        res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + '?token=' + this.token)
+        res.redirect(process.env.URL_REDIRECT_AUTH_SOCIAL_MEDIA + this.token)
     });   
     
     

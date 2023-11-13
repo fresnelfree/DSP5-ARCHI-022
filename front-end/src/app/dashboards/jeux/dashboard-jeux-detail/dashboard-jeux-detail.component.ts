@@ -6,5 +6,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard-jeux-detail.component.css']
 })
 export class DashboardJeuxDetailComponent {
-
+  titleMenu:string="Jeux"
+  titleList:string="Liste jeu"
+  linkList = "/dashboard/jeux/all"
+  titleAdd:string="Ajout session"
+  linkAdd = "/dashboard/jeux/new"
 }

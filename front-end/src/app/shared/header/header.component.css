@@ -1,7 +1,10 @@
-.bg 
+/* .bg 
 {
     background-image: url(/assets/images/img6.jpg);
     background-repeat: no-repeat;
+     background-size: cover; 
+    height: 750px;
+    opacity: 1;
      background-size: cover;
     /* height: 750px;
     opacity: 1; */
@@ -10,6 +13,26 @@
     background-repeat: no-repeat;
     background-size: cover;
     height: 655px;
-    opacity: 0.8; */
+    opacity: 0.8; 
+}*/
 
+ 
+.header {
+    height: 100vh;
+    background-image: url(/assets/images/h1.jpg);
+    background-size: cover; 
+    position: relative;
 }
+
+.header .header-text{
+    position: absolute;
+    margin: auto;
+    bottom: 2%;
+    left: 20%;
+}
+
+.header .header-text h1{
+font-size: 20px;
+letter-spacing: 1px;
+}
+
