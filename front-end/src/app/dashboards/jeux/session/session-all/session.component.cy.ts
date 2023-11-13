@@ -1,4 +1,4 @@
-import { SessionComponent } from './session.component'
+import { SessionComponent } from '../session.component'
 
 describe('SessionComponent', () => {
   it('should mount', () => {

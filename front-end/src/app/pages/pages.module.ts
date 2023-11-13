@@ -22,6 +22,10 @@ import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
 import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
 import { CongratulateDialogComponent } from './client/congratulate-dialog/congratulate-dialog.component';
  
+import { MentionsComponent } from './mentions/mentions.component';
+import { CguComponent } from './cgu/cgu.component';
+import { CgvComponent } from './cgv/cgv.component';
+
 
  
  
@@ -47,7 +51,10 @@ import { CongratulateDialogComponent } from './client/congratulate-dialog/congra
     ClientNavComponent,
     AuthSocialMediaComponent,
     CongratulateDialogComponent,
-
+    MentionsComponent,
+    CguComponent,
+    CgvComponent
+  
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
 import { Gain } from 'src/app/core/models/gain/gain';
+import { User } from 'src/app/core/models/user/user';
 import { SnackbarService } from 'src/app/core/notification/snackbar.service';
+import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { ClientService } from 'src/app/core/services/client/client.service';
 import { Repartition } from 'src/app/core/services/repartition/repartition';
 import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
 import { Session } from 'src/app/core/services/session/session';
 import { SessionService } from 'src/app/core/services/session/session.service';
+import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 
 @Component({
@@ -16,6 +21,26 @@ import { UserService } from 'src/app/core/services/user/user.service';
   styleUrls: ['./session.component.css']
 })
 export class SessionComponent {
+  // IB-Var
+  titleMenu:string="List Sessions"
+  titleList:string="Liste Session"
+  linkList = "/dashboard/session/all"
+  titleAdd:string="Ajout session"
+  linkAdd = "/dashboard/session/new"
+
+ //Variable pour gestion navbar
+ public open: boolean = false;
+ public block: boolean = false;
+ public openMenu: boolean = false;//Le boutton bare
+ public smallDevise: boolean = false;//Pour apliquer des styles aux tablettes et smartphones
+ public openMenuSmall: boolean = false;//Pour ouvrir le petit menu
+ public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
+ //Autres var
+ public isLogged: boolean = false;//verification si le user est connecter
+ public clients: User[] = [];
+ public sessionDatas: any;
+
+  //Fresnel-var
   sessionJeu?: Session;
   sessionForm: FormGroup;
   repartitionForm: FormGroup;
@@ -35,12 +60,17 @@ export class SessionComponent {
       {type:'required', message:'Le nom est obligqtoire.'},
     ]
   }
+ 
   constructor(
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
     private formBuilder: FormBuilder,
     private snackbarService: SnackbarService,
-    private userService: UserService
+    private userService: UserService,
+    private authService : AuthenticationService,
+    private router      : Router,
+    private token       : TokenService,
+    private clientService: ClientService
   ){
     this.user = JSON.parse(localStorage.getItem('user') || "")
 
@@ -197,5 +227,67 @@ export class SessionComponent {
     }
     console.log('values :',this.percents)
   }
+
+  /*******************************************************
+   *  IB*-code
+  *****************************************************/
+  ngOnInit(): void {
+
+    this.authService.authStatus.subscribe(value => this.isLogged = value)
+    this.getClients()
+    this.getSession()
+ }
+
+ getSession(){
+  return this.sessionJeuService.getSession().subscribe(
+    res => {
+      this.sessionDatas = res
+      console.log(res);
+    }
+  )
+}
+ 
+
+ getClients(){
+  return this.clientService.getClients().subscribe(
+    res => {
+      this.clients = res
+    }
+  )
+}
+
+onGoDetail(session : Session){
+  this.router.navigate(['/dashboard/session/detail/'+session.id])
+}
+onGoEdit(session : Session){
+  this.router.navigate(['/dashboard/session/edit/'+session.id])
+}
+
+@HostListener('window:resize', ['$event'])
+onResize(event: Event): void {
+  this.ecran = window.innerWidth;
+
+  if (this.ecran < 1010) {
+    this.smallDevise = !this.smallDevise;
+  }
+}
+
+onMenu(e: MouseEvent) {
+  if (this.ecran > 1010) {
+    this.open = !this.open;
+  } else if (this.ecran < 1010) {
+    this.openMenu = !this.openMenu;
+
+    if (this.ecran < 576) {
+      this.openMenuSmall = !this.openMenuSmall;
+    }
+  }
+}
+
+logout(event: MouseEvent)
+{
+    event.preventDefault();
+    this.authService.logout()
+}
 
 }

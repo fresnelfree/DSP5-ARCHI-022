@@ -30,6 +30,9 @@ export class TokenService {
       removeToken(){        
         localStorage.removeItem('token');
         localStorage.removeItem('user');
+        localStorage.removeItem('role');
+        localStorage.removeItem('role2');
+        localStorage.removeItem('role3');
       }
 
       // removeTokenExpired(){

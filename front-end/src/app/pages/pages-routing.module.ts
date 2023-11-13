@@ -13,6 +13,9 @@ import { ClientHomeComponent } from './client/client-home/client-home.component'
 import { ModifyPwdComponent } from './modify-pwd/modify-pwd.component';
 import { ClientGainComponent } from './client/client-gain/client-gain.component';
 import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
+import { MentionsComponent } from './mentions/mentions.component';
+import { CgvComponent } from './cgv/cgv.component';
+import { CguComponent } from './cgu/cgu.component';
  
 
 const routes: Routes = [
@@ -23,8 +26,12 @@ const routes: Routes = [
   { path: 'forgot', component: ForgotPasswordComponent},
   { path: 'modify', component: ModifyPwdComponent},
   { path: 'apropos', component: AproposComponent},
+  { path: 'mentions', component: MentionsComponent},
+  { path: 'ventes', component: CgvComponent},
+  { path: 'utilisation', component: CguComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'inscription', component: InscriptionComponent},
+
   { path: 'social-media/:token', component: AuthSocialMediaComponent},  
   { path: 'connexion', 
             children: [
@@ -44,6 +51,20 @@ const routes: Routes = [
                         ], 
               
   },//fin client
+
+  { path: 'connexion', children: [
+                        { path:'', component: ConnexionComponent},
+  ]},
+  { path: 'client', children: [
+                                  { path: '', component: ClientHomeComponent },
+                                  { path: 'profil', component: ClientHomeComponent },
+                                  { path: 'gain', component: ClientGainComponent },
+                              ], 
+                              canActivate: [authGuard],
+                              data: {
+                                role: 'Client'
+                              }
+},//fin client
 
 ];//Fin routes
 

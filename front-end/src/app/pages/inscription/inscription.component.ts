@@ -192,43 +192,27 @@ export class InscriptionComponent {
           "email"   : this.registerForm.value.email, 
           "adresse" : this.registerForm.value.adresse, 
           "pwd"     : this.registerForm.value.pwd,
-          "role"    : 'Caissier'
+          "role"    : 'Client'
         }
 
     
       this.authService.register(this.user).subscribe(
         (data:any) => {
-          // this.handleResponse(data)
+          this.handleResponse(data)
         },
       ) 
   }
 
-  // handleResponse(data:any){
-
-  //   this.token.handleToken(data.token);
-   
-  //   // this.authService.changeAuthStatus(true);
-
-  //   // this.router.navigate(['/dashboard']).then(() => {
-  //   //   window.location.reload();
-  //   // });
-
-  //   console.log(data);
-    
+  handleResponse(data:any){
+    this.router.navigate(['/connexion']).then(() => {
+      window.location.reload();
+    });
   //   // this.onReset()
-
-  //   // this.router.navigate(['/connexion']).then(() => {
-  //   //   window.location.reload();
-  //   // });
-    
-  // }
+  }
 
   onReset() {
-
     this.submitted = false;
-
     this.registerForm.reset();
-
   }
   
 }
