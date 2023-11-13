@@ -38,7 +38,7 @@ export class SessionNewComponent {
  public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
- public clients: User[] = [];
+ public sessionDatas: any;
 
     //Fresnel-var
     sessionJeu?: Session;
@@ -71,7 +71,7 @@ export class SessionNewComponent {
       private authService : AuthenticationService,
       private router      : Router,
       private token       : TokenService,
-      private clientService: ClientService
+      private clientService: ClientService,
     ){
       this.user = JSON.parse(localStorage.getItem('user') || "")
 
@@ -235,17 +235,25 @@ export class SessionNewComponent {
     ngOnInit(): void {
 
       this.authService.authStatus.subscribe(value => this.isLogged = value)
-      this.getClients()
+      this.getSession()
   }
 
-  
-  getClients(){
-    return this.clientService.getClients().subscribe(
+  getSession(){
+    return this.sessionJeuService.getSession().subscribe(
       res => {
-        this.clients = res
+        console.log(res);
+        
       }
     )
   }
+  
+  // getClients(){
+  //   return this.clientService.getClients().subscribe(
+  //     res => {
+  //       this.clients = res
+  //     }
+  //   )
+  // }
 
 
   onGoDetail(client: User){

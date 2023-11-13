@@ -98,13 +98,72 @@
       <!-- Content -->
       <div class="content">
         <div class="animated fadeIn">
-      <app-mini-menu 
-        [title]="titleMenu"
-        [titleList]="titleList"
-        [linkList]="linkList" >
-      </app-mini-menu>
+      <app-mini-menu [title]="titleMenu" [titleList]="titleList" [linkList]="linkList" ></app-mini-menu>
 
-            <app-dhb-profil-client></app-dhb-profil-client>
+     <div class="row">
+      <div class="col-md-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Libelle</th>
+              <th scope="col">%</th>
+              <th scope="col">Nbr-Ticket</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Infusion</th>
+              <td>20%</td>
+              <td>20</td>
+            </tr>
+            <tr>
+              <th scope="row">Détox</th>
+              <td>50%</td>
+              <td>50</td>
+            </tr>
+            <tr>
+              <th scope="row">Coffret</th>
+              <td>30%</td>
+              <td>30</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Session</th>
+              <th scope="col">Repartition</th>
+              <th scope="col">Nbr-Ticket</th>
+              <th scope="col">Statut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Session-1</th>
+              <th scope="row">Infusion</th>
+              <td>20</td>
+              <td>Actif</td>
+            </tr>
+            <tr>
+              <th scope="row">Session-2</th>
+              <th scope="row">Détox</th>
+              <td>50</td>
+              <td>Creer</td>
+              
+            </tr>
+            <tr>
+              <th scope="row">Session-3</th>
+              <th scope="row">Coffret</th>
+              <td>30</td>
+              <td>Retiret</td>
+              
+            </tr>
+          </tbody>
+        </table>
+      </div>
+     </div>
         </div><!--/.fadeIn-->
       </div>
       <!-- /.content -->

@@ -16,6 +16,7 @@ import { SessionComponent } from './jeux/session/session-all/session.component';
 import { GainComponent } from './jeux/gain/gain.component';
 import { SessionNewComponent } from './jeux/session/session-new/session-new.component';
 import { SessionEditComponent } from './jeux/session/session-edit/session-edit.component';
+import { SessionDetailComponent } from './jeux/session/session-detail/session-detail.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
@@ -70,10 +71,16 @@ const routes: Routes = [
         canActivate: [authGuard], 
         data: {role: 'Admin'} 
        },
-       { path : 'edit', component: SessionEditComponent,
+       { path : 'edit/:id', component: SessionEditComponent,
         canActivate: [authGuard], 
         data: {role: 'Admin'} 
        },
+       { path : 'detail/:id', component: SessionDetailComponent,
+       canActivate: [authGuard], 
+       data: {role: 'Admin'} 
+      },
+
+       
     ]
   },
   {

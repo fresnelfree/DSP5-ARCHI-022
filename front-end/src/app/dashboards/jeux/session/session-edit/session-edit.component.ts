@@ -24,7 +24,7 @@ export class SessionEditComponent {
   
   
   // IB-Var
-  titleMenu:string="List Sessions"
+  titleMenu:string="Modifier Sessions"
   titleList:string="Liste Session"
   linkList = "/dashboard/session/all"
   titleAdd:string="Ajout session"

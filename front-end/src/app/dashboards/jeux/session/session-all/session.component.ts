@@ -38,6 +38,7 @@ export class SessionComponent {
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
  public clients: User[] = [];
+ public sessionDatas: any;
 
   //Fresnel-var
   sessionJeu?: Session;
@@ -59,7 +60,6 @@ export class SessionComponent {
       {type:'required', message:'Le nom est obligqtoire.'},
     ]
   }
- 
  
   constructor(
     private sessionJeuService: SessionService,
@@ -235,9 +235,19 @@ export class SessionComponent {
 
     this.authService.authStatus.subscribe(value => this.isLogged = value)
     this.getClients()
+    this.getSession()
  }
 
+ getSession(){
+  return this.sessionJeuService.getSession().subscribe(
+    res => {
+      this.sessionDatas = res
+      console.log(res);
+    }
+  )
+}
  
+
  getClients(){
   return this.clientService.getClients().subscribe(
     res => {
@@ -246,11 +256,11 @@ export class SessionComponent {
   )
 }
 
-
-onGoDetail(client: User){
-  
-  this.router.navigate(['/dashboard/client/detail/'+client.id])
-  
+onGoDetail(session : Session){
+  this.router.navigate(['/dashboard/session/detail/'+session.id])
+}
+onGoEdit(session : Session){
+  this.router.navigate(['/dashboard/session/edit/'+session.id])
 }
 
 @HostListener('window:resize', ['$event'])

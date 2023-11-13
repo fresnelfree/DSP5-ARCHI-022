@@ -208,6 +208,21 @@ img {
   grid-area: c7;
 }
 
+.table .action{
+  display: flex;
+  justify-content: space-around;
+}
+
+.table .action i{
+   height: 40px;
+   cursor: pointer;
+}
+
+.edit-session{
+  background-color: white;
+  padding: ;
+}
+
 @media (min-width: 992px) {
 
 }

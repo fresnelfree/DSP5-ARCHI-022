@@ -123,38 +123,21 @@
                 >
                   <div class="row">
                     <div class="col-sm-12 col-md-6">
-                      <div
-                        class="dataTables_length"
-                        id="bootstrap-data-table_length"
-                      >
-                        <label
-                          >Show
-                          <select
-                            name="bootstrap-data-table_length"
-                            aria-controls="bootstrap-data-table"
-                            class="form-control form-control-sm"
-                          >
+                      <div class="dataTables_length" id="bootstrap-data-table_length">
+                        <label>Show
+                          <select name="bootstrap-data-table_length" aria-controls="bootstrap-data-table"class="form-control form-control-sm">
                             <option value="10">10</option>
                             <option value="20">20</option>
                             <option value="50">50</option>
                             <option value="-1">All</option>
                           </select>
-                          entries</label
-                        >
+                          entries
+                        </label>
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-6">
-                      <div
-                        id="bootstrap-data-table_filter"
-                        class="dataTables_filter"
-                      >
-                        <label
-                          >Search:<input
-                            type="search"
-                            class="form-control form-control-sm"
-                            placeholder=""
-                            aria-controls="bootstrap-data-table"
-                        /></label>
+                      <div id="bootstrap-data-table_filter" class="dataTables_filter">
+                        <label>Search:<input type="search" class="form-control form-control-sm" placeholder=""  aria-controls="bootstrap-data-table"/></label>
                       </div>
                     </div>
                   </div>
@@ -240,17 +223,28 @@
                           </tr>
                         </thead>
                         <!-- cors de table -->
-                        <tbody *ngFor="let client of clients" >
+                        <tbody *ngFor="let session of sessionDatas" >
 
-                          <tr role="row" class="even" (click)="onGoDetail(client)">
+                          <tr role="row" class="even" (click)="onGoDetail(session)">
                             <td class="sorting_1">
-                              {{ client.nom }} {{ client.prenom }}
+                              {{ session.libelle }} 
                             </td>
-                            <td>{{ client.adresse }}</td>
-                            <td>{{ client.email }}</td>
-                            <td>{{ client.tel }}</td>
-                            <td>Blabla</td>
-                            <td>bbhhf</td>
+                            <td class="sorting_1">
+                              {{ session.date_debut }} 
+                            </td>
+                            <td class="sorting_1">
+                              {{ session.date_fin }} 
+                            </td>
+                            <td class="sorting_1">
+                              {{ session.statut }} 
+                            </td>
+                            <td class="sorting_1">
+                              {{ session.nbr_ticket }} 
+                            </td>
+                           <td class="action">
+                            <i class="bi bi-eye" (click)="onGoDetail(session)"></i>
+                            <i class="bi bi-pencil" (click)="onGoEdit(session)"></i>
+                           </td>
                           </tr>
                         </tbody>
                       </table>
