@@ -7,6 +7,7 @@ import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { environment } from 'src/environments/environment.dev';
 import { UserService } from 'src/app/core/services/user/user.service';
+import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-connexion',
@@ -29,9 +30,15 @@ export class ConnexionComponent {
     private tokenService       : TokenService,
     private roleSErvice : RoleService,
     private userService : UserService,
+    private titleConnexion: Title,
+    private meta: Meta
     ){
-    this.submitted = false;
+    this.submitted = false; 
+    this.titleConnexion.setTitle('Connexion');
+    this.meta.addTag({name:'Page connexion', content:'Login'});
+    this.meta.addTag({name:'keywords', content:'Connexion sécurisée'});
   }
+  
 
 
   /********************************************************************
