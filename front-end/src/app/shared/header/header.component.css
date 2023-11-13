@@ -5,6 +5,9 @@
      background-size: cover; 
     height: 750px;
     opacity: 1;
+     background-size: cover;
+    /* height: 750px;
+    opacity: 1; */
 
     /*background-image: url(/assets/images/i2.jpg);
     background-repeat: no-repeat;
