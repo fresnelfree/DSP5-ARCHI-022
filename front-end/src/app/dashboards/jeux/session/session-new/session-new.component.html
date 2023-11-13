@@ -1,0 +1,314 @@
+
+<div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
+    <!-- Left Panel -->
+    <aside
+    id="left-panel"
+    class="left-panel"
+    [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }"
+  >
+    <app-dashboard-sidebar></app-dashboard-sidebar>
+  </aside>
+  <!-- /#left-panel -->
+ 
+  
+   <!-- Right Panel -->
+   <div id="right-panel" class="right-panel">
+     <!-- Header-->
+     <header id="header" class="header">
+       <div class="top-left">
+         <div class="navbar-header">
+           <a class="navbar-brand" href="./"
+             ><img src="assets/images/logos/logo1.png" alt="Logo"
+           /></a>
+           <a class="navbar-brand hidden" href="./"
+             ><img src="assets/images/logos/logo2.png" alt="Logo"
+           /></a>
+           <a id="menuToggle" class="menutoggle"
+             ><i class="fa fa-bars" (click)="onMenu($event)"></i
+           ></a>
+         </div>
+       </div>
+       <div class="top-right">
+         <div class="header-menu">
+           <div class="header-left">
+             <button class="search-trigger"><i class="fa fa-search"></i></button>
+             <div class="form-inline">
+               <form class="search-form">
+                 <input
+                   class="form-control mr-sm-2"
+                   type="text"
+                   placeholder="Search ..."
+                   aria-label="Search"
+                 />
+                 <button class="search-close" type="submit">
+                   <i class="fa fa-close"></i>
+                 </button>
+               </form>
+             </div>
+ 
+             <div class="dropdown for-notification">
+               <button
+                 class="btn btn-secondary dropdown-toggle"
+                 type="button"
+                 id="notification"
+                 data-toggle="dropdown"
+                 aria-haspopup="true"
+                 aria-expanded="false"
+               >
+                 <i class="fa fa-bell"></i>
+                 <span class="count bg-danger">3</span>
+               </button>
+               <div class="dropdown-menu" aria-labelledby="notification">
+                 <p class="red">You have 3 Notification</p>
+                 <a class="dropdown-item media" href="#">
+                   <i class="fa fa-info"></i>
+                   <p>Server #2 overloaded.</p>
+                 </a>
+               </div>
+             </div>
+           </div>
+ 
+           <div class="user-area dropdown float-right">
+             <a
+               href="#"
+               class="dropdown-toggle active"
+               data-toggle="dropdown"
+               aria-haspopup="true"
+               aria-expanded="false"
+             >
+               <img
+                 class="user-avatar rounded-circle"
+                 src="assets/images/admin.jpg"
+                 alt="User Avatar"
+               />
+             </a>
+ 
+             <div class="user-menu dropdown-menu">
+               <a class="nav-link" href="#"
+                 ><i class="fa fa- user"></i>Mon profil</a
+               >
+               <a class="nav-link" href="#" (click)="logout($event)"
+                 ><i class="fa fa-power -off"></i>Deconnexion</a
+               >
+             </div>
+           </div>
+         </div>
+       </div>
+     </header>
+     <!-- /#header -->
+ 
+  
+ 
+     <!-- Content -->
+     <div class="content">
+       <div class="animated fadeIn">
+         <!-- <app-mini-menu [title]="titleMenu" ></app-mini-menu> -->
+         <app-mini-menu [title]="titleMenu" 
+         [titleList]="titleList"
+         [linkList]="linkList"
+         [titleAdd]="titleAdd"
+         [linkAdd]="linkAdd" >
+        </app-mini-menu>
+ 
+         <div class="row">
+           <div class="col-md-12">
+             <!--Debut Fresnell -->
+ <div class="container">
+    <!-- Toast -->
+    
+    <div *ngIf="warningPercent || warningIndicationPercent || selectedSession" class="alert alert-danger d-flex align-items-center" role="alert">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg>
+      <div *ngIf="warningPercent">
+        Le total des pourcentages (%) doit être égale à 100
+      </div>
+      <div *ngIf="warningIndicationPercent">
+        Les champs Indication et Pourcentage sont obligatoire
+      </div>
+      <div class="text-danger" *ngIf="selectedSession">
+        Veuillez selectionner une session
+      </div>
+    </div>
+  
+    <!-- Modal -->
+    <div class="modal text-white fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content bg-dark">
+          <div class="row mt-3">
+            <div class="col-10">
+              <h1 class="modal-title fs-4 text-center" id="staticBackdropLabel">Créer une nouvelle session de jeu</h1>
+            </div>
+            <div class="col-2 pt-2">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+  
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="sessionForm" (ngSubmit)="onSubmitFormSession()" #form="ngForm" class="tooltip-label-right">
+              <div class="row">
+                <div class="col-12 mb-2">
+                  <label for="def">Libellé</label>
+                  <input formControlName="libelle" class="form-control" type="text" name="" id="">
+                </div>
+                <div class="col-12 mb-2">
+                  <div class="row">
+                    <div class="col-6">
+                      <label for="def">Date Début</label>
+                      <input formControlName="date_debut" class="form-control" type="date" name="" id="">
+                    </div>
+                    <div class="col-6">
+                      <label for="def">Date Fin</label>
+                      <input formControlName="date_fin" class="form-control" type="date" name="" id="">
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 mb-4">
+                  <label for="def">Nombre Tickets</label>
+                  <input formControlName="nbr_ticket" class="form-control" type="number" name="" id="">
+                </div>
+                <div class="col-12">
+                  <div class="row">
+                    <div class="col-8">
+                      <button
+                        type="submit"
+                        [disabled]="sessionForm.invalid"
+                        class="btn form-control btn-success"
+                        data-bs-dismiss="modal">
+                        Créer
+                      </button>
+                    </div>
+                    <div class="col-4">
+                      <button type="button" (click)="clearFormSession()"
+                        class="btn form-control btn-danger">
+                        Annuler
+                      </button>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <form
+      (ngSubmit)="onSubmitFormRepartition()"
+      #form="ngForm"
+      class="tooltip-label-right">
+      <div class="card">
+        <div class="card-header">
+          <div class="row">
+            <div class="col-12">
+              <div class="row">
+                <div class="col-11">
+                  <!-- <label for="def">Session</label> -->
+                  <select required (change)="onChangeSelectedSession($event)"
+                    [(ngModel)]="session"
+                    name="session"
+                    id="session"
+                    class="form-select">
+                    <option selected>Sélectionné une session...</option>
+                    <!-- <option selected value="5">session test</option> -->
+                    <option *ngFor="let item of sessions" [value]="item.id">
+                      {{item.libelle}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-1">
+                  <!-- Button trigger modal -->
+                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                    +
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-4">
+              <button type="button" [disabled]="percents===100"
+                class="form-control btn btn-primary mt-2"
+                (click)="addInput()">
+                Ajouter une répartition
+              </button>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <label for="def">Nombre Ticket Total</label>
+                </div>
+                <div class="col-12 text-center">
+                  <label class="" for="def">{{nbrTicket}}</label>
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="row">
+                <div class="col-12 text-center">
+                  <label for="def">Nombre Ticket Restant</label>
+                </div>
+                <div class="col-12 text-center">
+                  <label for="def">{{nbrTicketRestant}}</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row mb-2" *ngFor="let item of repartitions; let i = index">
+            <div class="col-6">
+              <label for="def">Indication</label>
+              <input
+                class="form-control"
+                [id]="'libelle-' + i"
+                [name]="'libelle-' + i"
+                (input)="onChange($event)"
+                [(ngModel)]="item.libelle"
+                placeholder="Enter a value" required>
+            </div>
+            <div class="col-4">
+              <label for="def">Pourcentage (%)</label>
+              <input
+                class="form-control"
+                type="number"
+                [id]="'percent-' + i"
+                [name]="'percent-' + i"
+                (input)="calculatedPercent()"
+                [(ngModel)]="item.pourcentage"
+                placeholder="Enter a value" required>
+            </div>
+            <div class="col-2">
+              <label  for="def">Supprimer</label>
+              <button class="form-control btn btn-danger" (click)="removeInput(i)">-</button>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <button type="submit" class="form-control btn btn-success">Créer le jeu</button>
+            </div>
+            <div class="col-4">
+              <button class="form-control btn btn-danger">Annuler</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  
+  </div>
+  <!--Fin Fresnell -->
+           </div>
+         </div><!-- Fin row -->
+       </div><!-- .animated -->
+     </div><!-- /.content -->
+     <div class="clearfix"></div>
+ 
+     <!-- Footer -->
+     <app-dashboard-footer></app-dashboard-footer>
+     <!-- /.site-footer -->
+   </div>
+   <!-- /#right-panel -->
+
+ 
+ </div><!--Fin Daboard -->

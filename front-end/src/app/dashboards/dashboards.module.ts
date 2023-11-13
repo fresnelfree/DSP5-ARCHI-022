@@ -27,8 +27,10 @@ import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-sta
 import { CpCardProduit1Component } from './components/cards/cp-card-produit1/cp-card-produit1.component';
 import { CpChartBar1Component } from './components/statistics/cp-chart-bar1/cp-chart-bar1.component';
 import { MiniMenuComponent } from './shared/mini-menu/mini-menu.component';
-import { SessionComponent } from './jeux/session/session.component';
+import { SessionComponent } from './jeux/session/session-all/session.component';
 import { GainComponent } from './jeux/gain/gain.component';
+import { SessionNewComponent } from './jeux/session/session-new/session-new.component';
+import { SessionEditComponent } from './jeux/session/session-edit/session-edit.component';
  
  
 @NgModule({
@@ -60,6 +62,8 @@ import { GainComponent } from './jeux/gain/gain.component';
     MiniMenuComponent,
     SessionComponent,
     GainComponent,
+    SessionNewComponent,
+    SessionEditComponent,
    
   ],
   imports: [
