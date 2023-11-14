@@ -16,7 +16,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class SessionDetailComponent implements OnInit{
   
 
-  titleMenu:string="Informations du client"
+  titleMenu:string="Détail session"
   titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"

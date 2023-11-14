@@ -57,9 +57,15 @@ return (error: any): Observable<T> => {
 /************************************************
 *        METHODES
 ************************************************/
-  getEmployers(path:string): Observable<User[]> {
-    return this.http.get<User[]>(this.api+path).pipe(
-      catchError(this.handleError('getUserAll', []))
+  // getEmployers(): Observable<User[]> {
+  //   return this.http.get<User[]>(`${this.api}/employes/`).pipe(
+  //     catchError(this.handleError('getEmployers', []))
+  //   );
+  // }
+
+  getEmployers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.api}/employes`).pipe(
+      catchError(this.handleError('getEmployers', []))
     );
   }
   

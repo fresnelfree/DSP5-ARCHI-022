@@ -11,7 +11,7 @@ import { AuthInterceptorProvider } from './core/helpers/auth/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifyComponent } from './shared/notify/notify.component';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {provideClientHydration} from '@angular/platform-browser';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +29,8 @@ import {MatDialogModule} from '@angular/material/dialog';
   ],
   providers: [
     TokenInterceptorProvider,
-    AuthInterceptorProvider
+    AuthInterceptorProvider,
+    provideClientHydration()
   ],
   bootstrap: [AppComponent]
 })
