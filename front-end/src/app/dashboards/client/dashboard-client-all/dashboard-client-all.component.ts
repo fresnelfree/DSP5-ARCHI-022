@@ -12,8 +12,9 @@ import { TokenService } from 'src/app/core/services/token/token.service';
   styleUrls: ['./dashboard-client-all.component.css'],
 })
 export class DashboardClientAllComponent {
-  titleMenu:string="List clients"
-  titleList:string="Liste client"
+  //Mini-menu
+  titleMenu:string="Informations du client"
+  titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"
   linkAdd = "/dashboard/client/new"

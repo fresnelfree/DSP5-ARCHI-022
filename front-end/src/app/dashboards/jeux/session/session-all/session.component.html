@@ -230,10 +230,11 @@
                               {{ session.libelle }} 
                             </td>
                             <td class="sorting_1">
-                              {{ session.date_debut }} 
+                              {{ session.date_debut | date: "dd/MM/yyyy"  }} 
                             </td>
                             <td class="sorting_1">
-                              {{ session.date_fin }} 
+                              {{ session.date_fin | date: "dd/MM/yyyy" }} 
+                              <!-- {{ birthdate | date: "dd MMMM yyyy" }} -->
                             </td>
                             <td class="sorting_1">
                               {{ session.statut }} 

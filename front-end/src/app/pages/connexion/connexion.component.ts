@@ -39,14 +39,21 @@ export class ConnexionComponent {
    ********************************************************************/
   error_messages = {
     'email' : [
-      {type:'required', message:'L\'email est obligatoire.'},
-      {type: 'pattern', message: 'Format d\'email invalid.' },
+      // {type:'required', message:'L\'email est obligatoire.'},
+      {type: 'pattern', message: 'Adresse email invalide.' },
     ],
     'pwd' : [
-      {type:'required', message:'Le mot de passe est obligatoire.'},
-      {type: 'minlength', message: 'Mot de passe ne doit past être -8 caracters.' },
+      {type:'required',   message:'Le mot de passe est obligatoire.'},
+      {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      {type: 'pattern',   message: `Le mot de passe doit contenir(<br/>
+                                    - \n Au minimum 8 caractères <br/>
+                                    - \n au moin 1 Majuscule<br/>
+                                    - \n au moin 1 Minuscule
+                                    - \n au moin 1 cataére speciale 
+                                    - \n au moin 1 Chifre
+                                             ).` 
+      },
     ],
   }
 
@@ -60,11 +67,11 @@ export class ConnexionComponent {
 
     pwd: new FormControl('', Validators.compose([
       Validators.required,
-      // Validators.minLength(8),
+      Validators.minLength(8),
       Validators.maxLength(255),
-      // Validators.pattern(
-      //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-      // ),
+      Validators.pattern(
+        /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
+      ),
     ])),
   })
 

@@ -112,6 +112,9 @@ img {
   max-width: 100%; 
 }
 
+form small p{
+  font-size: 0.8rem;
+}
 
 .promot{
   z-index: 1;

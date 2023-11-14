@@ -17,7 +17,7 @@ import { Client } from 'src/app/core/models/client/client';
   styleUrls: ['./dashboard-client-detail.component.css']
 })
 export class DashboardClientDetailComponent  implements OnInit {
-
+ //Mini-menu
   titleMenu:string="Informations du client"
   titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
