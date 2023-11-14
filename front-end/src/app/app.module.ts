@@ -11,21 +11,23 @@ import { AuthInterceptorProvider } from './core/helpers/auth/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifyComponent } from './shared/notify/notify.component';
 import {MatDialogModule} from '@angular/material/dialog';
-
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableDataSource, MatTableModule} from '@angular/material/table';
 @NgModule({
   declarations: [
     AppComponent,
     NotifyComponent,
   ],
   imports: [
-    BrowserModule,    
+    BrowserModule,
     AppRoutingModule,
     MatDialogModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
     CoresModule,
     NgChartsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTableModule, MatPaginatorModule,
   ],
   providers: [
     TokenInterceptorProvider,
