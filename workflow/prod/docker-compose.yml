@@ -37,7 +37,7 @@ services:
   server-app:
     container_name: server-app
     build: 
-      context: ./back-end/
+      context: ../../back-end/
       dockerfile: Dockerfile
     image: fresnelcool/server-app:${IMG_TAG}
     restart: always
@@ -82,7 +82,7 @@ services:
   client-app:
     container_name: client-app
     build:
-      context: ./front-end/
+      context: ../../front-end/
       dockerfile: Dockerfile
     image: fresnelcool/client-app:${IMG_TAG}
     restart: always
@@ -94,7 +94,7 @@ services:
     #   - 8084
     environment:
       SERVEUR_HOST: mysqldb
-      APP_PORT: 8090
+      APP_PORT: 8084
       APP_HOST: 0.0.0.0
       SERVICE_TAGS: prod
       SERVICE_NAME: client-app
