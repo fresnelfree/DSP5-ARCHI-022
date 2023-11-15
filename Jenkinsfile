@@ -25,8 +25,10 @@ pipeline{
     DB_PWD = credentials('DB_PWD')
     DB_DATABASE = credentials('DB_DATABASE')
     DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
+    IMG_TAG_INT = '1.0.0'
     IMG_TAG_PPD = '1.0.0'
     IMG_TAG = '1.0.0'
+  
     // DOCKER_HOST = "/var/run/docker.sock"
   }
   options {
@@ -37,6 +39,11 @@ pipeline{
   stages {
 
     stage('BUILD') { 
+      when {
+        not {
+          branch "main"
+        }
+      } 
       steps {
 
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE BUILD #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
@@ -66,7 +73,11 @@ pipeline{
     }  
 
     stage('UNIT TEST') {   
-
+      when {
+        not {
+          branch "main"
+        }
+      } 
       steps {
 
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE UNIT TEST #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
@@ -88,73 +99,171 @@ pipeline{
       }
     }
 
-    stage('DEPLOY') {
-
-      // when {
-      //   branch 'main'
-      //   branch 'develop'
-      //   branch 'DA-95'
-      //   branch 'PR-*'
-      // } 
+    stage('DEPLOY') {   
       when {
           not {
               branch "DA-*"
           }
-      }       
-      steps{
+      } 
+      steps {
 
-        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE DEPLOY #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### DEPLOY #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
         script {
+
           if (env.GIT_BRANCH == 'main') {
 
-            echo "####################################################### STAGE DEPLOY APP #######################################################"
+            echo "####################################################### DEPLOY APP IN PRODUCTION #######################################################"
             
-            echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
-            sh "docker compose down"
-            sh "docker compose up -d --build"
-
-            echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
-            sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-            sh "docker push fresnelcool/server-app:$IMG_TAG"
-            sh "docker push fresnelcool/client-app:$IMG_TAG"
-
-          }
-          else if (env.GIT_BRANCH == 'develop') {           
-
-            echo "####################################################### STAGE DEPLOY BACK-END #######################################################"
-            dir('back-end/'){
+            dir('workflow/prod/'){
 
               echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
               sh "docker compose down"
               sh "docker compose up -d --build"        
             }   
 
-            echo "####################################################### STAGE DEPLOY FRONT-END #######################################################"
-            dir('front-end/'){
+          }
+          else if (env.GIT_BRANCH == 'release') {           
+
+            echo "####################################################### DEPLOY APP IN RELEASE #######################################################"
+            dir('workflow/release/'){
 
               echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
               sh "docker compose down"
-              sh "docker compose up -d --build"       
-
-            }
-              echo "************************ CONNECTION ON DOCKER HUB ************************"
-              sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
-
-              echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
-              sh "docker push fresnelcool/server-app-ppd:$IMG_TAG_PPD"  
-
-              echo "************************ PUSH IMAGE FRONT-END IN DOCKER HUB ************************"
-              sh "docker push fresnelcool/client-app-ppd:$IMG_TAG_PPD"                 
+              sh "docker compose up -d --build"        
+            }   
+                
           }
           else {
+            echo "####################################################### DEPLOY APP IN INTEGRATION (INT) #######################################################"
+            dir('workflow/dev/'){
+
+              echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+              sh "docker compose down"
+              sh "docker compose up -d --build"        
+            }             
+          }   
+
+        }
+           
+      }
+    }    
+
+    stage('PUSH IMAGE IN DOCKER HUB') {   
+      when {
+          not {
+              branch "DA-*"
+          }
+      } 
+      steps {
+
+        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### BUILD & RUN IMAGE DOCKER #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+       
+        echo "####################################################### CONNECTION ON DOCKER HUB #######################################################"
+        sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"    
+        
+        script {
+          if (env.GIT_BRANCH == 'main') {
+
+            echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+            echo " "
+            echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"            
+            sh "docker push fresnelcool/server-app:$IMG_TAG"
+            echo "************************ PUSH IMAGE FRONT-END IN DOCKER HUB ************************"            
+            sh "docker push fresnelcool/client-app:$IMG_TAG"
+
+          }
+
+          else if (env.GIT_BRANCH == 'release') {
+
+            echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
+            sh "docker push fresnelcool/server-app-ppd:$IMG_TAG_PPD"  
+
+            echo "************************ PUSH IMAGE FRONT-END IN DOCKER HUB ************************"
+            sh "docker push fresnelcool/client-app-ppd:$IMG_TAG_PPD"    
+
+          }
+
+          else{
+
+            echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
+            sh "docker push fresnelcool/server-app-int:$IMG_TAG_INT"  
+
+            echo "************************ PUSH IMAGE FRONT-END IN DOCKER HUB ************************"
+            sh "docker push fresnelcool/client-app-int:$IMG_TAG_INT"
 
           }
         }
+           
+      }
+    }    
+
+    // stage('DEPLOY') {
+
+    //   // when {
+    //   //   branch 'main'
+    //   //   branch 'develop'
+    //   //   branch 'DA-95'
+    //   //   branch 'PR-*'
+    //   // } 
+    //   when {
+    //       not {
+    //           branch "DA-*"
+    //       }
+    //   }       
+    //   steps{
+
+    //     echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### STAGE DEPLOY #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+    //     script {
+    //       if (env.GIT_BRANCH == 'main') {
+
+    //         echo "####################################################### STAGE DEPLOY APP #######################################################"
+            
+    //         echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+    //         sh "docker compose down"
+    //         sh "docker compose up -d --build"
+
+    //         echo "************************ PUSH IMAGE IN DOCKER HUB ************************"
+    //         sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+    //         sh "docker push fresnelcool/server-app:$IMG_TAG"
+    //         sh "docker push fresnelcool/client-app:$IMG_TAG"
+
+    //       }
+    //       else if (env.GIT_BRANCH == 'develop') {           
+
+    //         echo "####################################################### STAGE DEPLOY BACK-END #######################################################"
+    //         dir('back-end/'){
+
+    //           echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+    //           sh "docker compose down"
+    //           sh "docker compose up -d --build"        
+    //         }   
+
+    //         echo "####################################################### STAGE DEPLOY FRONT-END #######################################################"
+    //         dir('front-end/'){
+
+    //           echo "************************ BUILD & RUN IMAGE DOCKER ************************"            
+    //           sh "docker compose down"
+    //           sh "docker compose up -d --build"       
+
+    //         }
+    //           echo "************************ CONNECTION ON DOCKER HUB ************************"
+    //           sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"
+
+    //           echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
+    //           sh "docker push fresnelcool/server-app-ppd:$IMG_TAG_PPD"  
+
+    //           echo "************************ PUSH IMAGE FRONT-END IN DOCKER HUB ************************"
+    //           sh "docker push fresnelcool/client-app-ppd:$IMG_TAG_PPD"                 
+    //       }
+    //       else {
+
+    //       }
+    //     }
  
 
-      }
+    //   }
 
-    }    
+    // }    
 
   }
 }

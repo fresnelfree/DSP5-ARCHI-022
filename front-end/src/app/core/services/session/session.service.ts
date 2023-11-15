@@ -57,7 +57,12 @@ export class SessionService {
 
   GetSessionByID(id:number):any {
     // data.id_employe = 10
-    return this.http.post(`${environment.hostLine}/session-jeus/${id}`,httpOption)
+    return this.http.get(`${environment.hostLine}/session-jeus/${id}`,httpOption)
+  }
+  
+  GetrepByID(id:number):any {
+    // data.id_employe = 10
+    return this.http.get(`${environment.hostLine}/session-jeus/${id}`,httpOption)
   }
 
   FormatDate(date:string): string {

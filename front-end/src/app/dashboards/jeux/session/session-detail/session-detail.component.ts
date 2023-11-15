@@ -10,6 +10,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import { SessionService } from 'src/app/core/services/session/session.service';
+import { Repartition } from 'src/app/core/services/repartition/repartition';
+import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
 export interface PeriodicElement {
   name: string;
   position: number;
@@ -23,21 +25,21 @@ const ELEMENT_DATA: PeriodicElement[] = [
   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
+  // {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  // {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  // {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  // {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
+  // {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
+  // {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
+  // {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
+  // {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
+  // {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
+  // {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
+  // {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
+  // {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
+  // {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
 ];
 @Component({
   selector: 'app-session-detail',
@@ -45,7 +47,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   styleUrls: ['./session-detail.component.css'],
   // providers: [{provide: MatPaginatorIntl}],
 })
-export class SessionDetailComponent implements OnInit,AfterViewInit{
+export class SessionDetailComponent implements OnInit{
 
   titleMenu:string="Informations du client"
   titleList:string="Liste clients"
@@ -65,16 +67,21 @@ export class SessionDetailComponent implements OnInit,AfterViewInit{
 
 
 //
-displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-dataSource: any = [];
+displayedColumns: string[] = ['libelle', 'pourcentage', 'Nbr-Ticket', 'action'];
+dataSource: any[] = [];
 dataSourceG: any = [];
+repartitions: any = []
+gains: any = []
+gainsData: any = []
+libelle_session: any
+nbr_ticket_session: any
 
   @ViewChild(MatPaginator)
-  paginator! : MatPaginator;
+  paginator : any = MatPaginator;
 
   @ViewChild(MatPaginator)
-  paginatorG! : MatPaginator;
-  columnsToDisplay = ['name', 'username', 'email', ];
+  paginatorG : any = MatPaginator;
+  columnsToDisplay = ['numero_gain', 'etat_gain', ];
 
  constructor(
 
@@ -84,7 +91,8 @@ dataSourceG: any = [];
   private fb : FormBuilder,
   private activatedRoute : ActivatedRoute,
   private userService : UserService,
-  private sessionsService: SessionService
+  private sessionsService: SessionService,
+  private repartitionsService: RepartitionService
   // private paginator : MatPaginator
  ){
   // this.dataSource.paginator = this.paginator;
@@ -92,9 +100,27 @@ dataSourceG: any = [];
  }
 
  ngOnInit(): void {
+  this.sessionsService.GetSessionByID(this.activatedRoute.snapshot.params['id']).
+  subscribe(
+    (res:any) => {
+      console.log("sessions : ",res)
+      this.dataSource = res.repartitions
+      this.nbr_ticket_session = res.nbr_ticket
+      this.repartitions = new MatTableDataSource(res.repartitions);
+      this.repartitions.paginator = this.paginator;
+    }
+  )
+
   console.log('debut')
-  this.getSessionsByID()
-  this.dataSource = new MatTableDataSource(ELEMENT_DATA);
+  // console.log("this.repartitions : ",this.dataSource)
+  // this.repartitions = new MatTableDataSource(this.dataSource);
+  // this.gains = new MatTableDataSource([
+  //   {numero_gain:"4515",etat_gain:"actif"},
+  //   {numero_gain:"455",etat_gain:"actif"},
+  //   {numero_gain:"4515",etat_gain:"actif"},
+  //   {numero_gain:"4585",etat_gain:"actif"},
+  //   {numero_gain:"4515",etat_gain:"actif"},    
+  // ]);
   this.dataSourceG = new MatTableDataSource([
     {name: "1", username: 'Hydrogen', email: "1.0079", website: 'H'},
     {name: "2", username: 'Hydrogen', email: "1.0079", website: 'H'},
@@ -108,15 +134,32 @@ dataSourceG: any = [];
   // this.dataSource.paginator = this.paginator;
 }
  ngAfterViewInit() {
-  this.dataSource.paginator = this.paginator;
-  this.dataSourceG.paginator = this.paginatorG;
+  // this.repartitions.paginator = this.paginator;
+  this.gains.paginator = this.paginatorG;
+  this.dataSourceG.paginator = this.paginatorG; 
 }
 
-getSessionsByID():void {
-  this.sessionsService.GetSessionByID(1).
+getSessionsByID():any {
+  this.sessionsService.GetSessionByID(this.activatedRoute.snapshot.params['id']).
   subscribe(
     (res:any) => {
-      console.log("sessions : ",res)
+      console.log("sessions : ",res.repartitions)
+      this.dataSource = res.repartitions
+
+    }
+  )
+
+}
+
+getGains(id:number):void {
+  this.repartitionsService.GetRepartionGains(id).
+  subscribe(
+    (res: any) => {
+      console.log("rep", res)
+      this.gainsData = res.gains
+      console.log('this.gainsData', this.gainsData)
+      this.gains = new MatTableDataSource(res.gains);
+      this.gains.paginator = this.paginatorG;
     }
   )
 }
