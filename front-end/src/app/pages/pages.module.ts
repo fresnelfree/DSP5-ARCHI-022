@@ -21,10 +21,7 @@ import { ClientProfilCardComponent } from '../shared/client-profil-card/client-p
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
 import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
 import { CongratulateDialogComponent } from './client/congratulate-dialog/congratulate-dialog.component';
- 
-
- 
- 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -47,6 +44,7 @@ import { CongratulateDialogComponent } from './client/congratulate-dialog/congra
     ClientNavComponent,
     AuthSocialMediaComponent,
     CongratulateDialogComponent,
+    
 
   ],
   imports: [
@@ -54,7 +52,7 @@ import { CongratulateDialogComponent } from './client/congratulate-dialog/congra
     PagesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    
+    MatProgressSpinnerModule
   ]
 })
 export class PagesModule { }

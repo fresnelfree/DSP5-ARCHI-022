@@ -80,28 +80,26 @@ export class ConnexionComponent {
 
 
     onSubmit() {
-
       this.submitted = true;
-
         // Si on a des erreurs on stop
         if (this.loginForm.invalid) {
           return;
       }
-
+      console.log("hhe");
+      
       this.authService.login(this.f).subscribe(
         (data:any) => {
           this.handleResponse(data)
         },
         (err:any) => {
           this.erreurs = err
-
           if(this.erreurs.status === 500)
           {
             this.message_err_http = "Un incident s'est produit lors de la connexion."
           }
           else if (this.erreurs.status === 401)
           {
-            this.message_err_http = "Identifiant ou mot de passe est incorrecte."
+            this.message_err_http = "Identifiant ou mot de passe incorrecte."
           }
         }
       )//fin subscribe
@@ -120,7 +118,6 @@ export class ConnexionComponent {
              this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
                res => {
                         this.user = res
-
                         this.tokenService.setItem('user',JSON.stringify(this.user))
                         if(this.user.employe){
                           this.tokenService.setItem('role',this.user.employe.role)
@@ -138,7 +135,6 @@ export class ConnexionComponent {
                   )//Fin subscribe
          }
   }
-
   getTokenEmail() {
     return this.userService.getTokenEmail();
   }

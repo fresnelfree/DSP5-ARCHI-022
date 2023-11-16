@@ -9,6 +9,8 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ClientService } from 'src/app/core/services/client/client.service';
 import { Client } from 'src/app/core/models/client/client';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogSpinerComponent } from '../../shared/dialog-spiner/dialog-spiner.component';
 
  
 @Component({
@@ -23,6 +25,13 @@ export class DashboardClientDetailComponent  implements OnInit {
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"
   linkAdd = "/dashboard/client/new"
+
+  isLoading = false;
+
+  onLoading(): void {
+    this.isLoading = true;
+    setTimeout( () => this.isLoading = false, 2000 );
+  }
   
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -48,13 +57,26 @@ export class DashboardClientDetailComponent  implements OnInit {
   private fb                   : FormBuilder,
   private activatedRoute       : ActivatedRoute,
   private userService          : UserService,
-  private clientService : ClientService
+  private clientService : ClientService,
+  private dialog: MatDialog,
 
  ){
             this.submitted = false;
  }
 
+// DIALOG
+showDialog(time:number) {
+  const dialogRef = this.dialog.open(DialogSpinerComponent);
+  setTimeout( () => dialogRef.close(),  time);
 
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    // this.animal = result;
+  });
+  // this.snackbarService.showNotification('Ceci est un message de Snackbar.','ok','success');
+}
+
+// 
 
  @HostListener('window:resize', ['$event'])
  onResize(event: Event): void {
@@ -88,6 +110,7 @@ export class DashboardClientDetailComponent  implements OnInit {
    ********************************************************************/
   ngOnInit(): void {
     this.getClient() 
+    this.showDialog(500)
 }
 
 
@@ -200,7 +223,6 @@ clientForm: FormGroup = this.fb.group({
  *                  On submit Methode
  ********************************************************************/
   onSubmit() {
-    
     const id_compte = this.client.id_compte;
     const id:number = this.client.id;
 
@@ -215,10 +237,11 @@ clientForm: FormGroup = this.fb.group({
      this.clientService.updateClient(clientToUpdate, id)
      .subscribe(
       res=>{
-              window.location.reload();
+              this.showDialog(2000)
            }
     )
 }
+ 
 
 onDelete(){
   this.clientService.deleteClient(this.client.id).subscribe(

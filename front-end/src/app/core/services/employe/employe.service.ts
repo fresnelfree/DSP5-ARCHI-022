@@ -28,7 +28,7 @@ private  api = environment.hostLine;
 //CONSTRUCTEUR
 constructor(
   private http: HttpClient,
-  private token: TokenService,
+  private tokenService: TokenService,
 ) { }
 
 /************************************************
@@ -75,6 +75,39 @@ return (error: any): Observable<T> => {
       catchError(this.handleError(`getEmployesAll : `))
     );
   }
+
+  updateUser(user: any, id:number){
+    return this.http.put(`${this.api}/employes/${id}`, user, httpOption).pipe(
+      catchError(this.handleError(`updateUser`, user))
+    )
+  }
+
+  
+deleteUser(id:number){
+  return this.http.delete(`${this.api}/employes/${id}`, httpOption).pipe(
+    catchError(this.handleError(`deleteUser`, id))
+  )
+}
+
+  getUserById(id: number){
+    return this.http.get(`${this.api}/comptes/${id}`).pipe(
+      catchError(this.handleError(`getUserById id=${id}`))
+    );
+  }
+
+   
+  getUserByEmail(email: string){
+    return this.http.get(`${this.api}/compteWithEmail/${email}`).pipe(
+      catchError(this.handleError(`getUserByEmail email=${email}`))
+    );
+  }
+
+  getTokenEmail() {
+    const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
+    const value = ob.email;
+    return value
+  }
+
 
 
 }//Fin

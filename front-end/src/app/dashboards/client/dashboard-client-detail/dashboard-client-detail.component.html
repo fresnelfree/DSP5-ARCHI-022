@@ -93,11 +93,13 @@
         </div>
       </header>
       <!-- /#header -->
+     
 
-  
       <!-- Content -->
       <div class="content">
         <div class="animated fadeIn">
+        
+
       <app-mini-menu [title]="titleMenu"[titleList]="titleList" [linkList]="linkList" >
       </app-mini-menu>
 
@@ -132,6 +134,8 @@
       </div>
       <div class="col-lg-8">
         <div class="card mb-4 p-3 client-edit">
+
+          <!-- <button mat-raised-button (click)="showDialog()">Click</button> -->
 
           <form [formGroup]="clientForm" (ngSubmit)="onSubmit()">
             <!-- 2 column grid layout with text inputs for the first and last names -->
@@ -239,6 +243,8 @@
       </div>
     </div>
   </div>
+  <!-- <mat-spinner></mat-spinner> -->
+
 </section>
 
         </div><!--/.fadeIn-->

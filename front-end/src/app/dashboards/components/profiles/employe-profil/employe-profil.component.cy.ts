@@ -1,4 +1,4 @@
-import { DhbProfilComponent } from './dhb-profil.component'
+import { DhbProfilComponent } from './employe-profil.component'
 
 describe('DhbProfilComponent', () => {
   it('should mount', () => {

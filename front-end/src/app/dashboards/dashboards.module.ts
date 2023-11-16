@@ -17,7 +17,7 @@ import { DashboardEmployeDetailComponent } from './employe/dashboard-employe-det
 import { DhbCardStatComponent } from './components/statistics/dhb-card-stat/dhb-card-stat.component';
 import { DhbChartComponent } from './components/statistics/dhb-chart/dhb-chart.component';
 import { DhbTable1Component } from './components/tables/dhb-table1/dhb-table1.component';
-import { DhbProfilComponent } from './components/profiles/dhb-profil/dhb-profil.component';
+import { DhbProfilComponent } from './components/profiles/employe-profil/employe-profil.component';
 import { DhbCardStatJeuxComponent } from './components/statistics/dhb-card-stat-jeux/dhb-card-stat-jeux.component';
 import { DhbMenuComponent } from './shared/dhb-menu/dhb-menu.component';
 import { DhbLogoutComponent } from './shared/dhb-logout/dhb-logout.component';
@@ -32,8 +32,9 @@ import { GainComponent } from './jeux/gain/gain.component';
 import { SessionNewComponent } from './jeux/session/session-new/session-new.component';
 import { SessionEditComponent } from './jeux/session/session-edit/session-edit.component';
 import { SessionDetailComponent } from './jeux/session/session-detail/session-detail.component';
- 
- 
+import { LoadingSpinerComponent } from './components/loading-spiner/loading-spiner.component';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { DialogSpinerComponent } from './shared/dialog-spiner/dialog-spiner.component';
 @NgModule({
   declarations: [
     DashboardHomeComponent,
@@ -66,6 +67,9 @@ import { SessionDetailComponent } from './jeux/session/session-detail/session-de
     SessionNewComponent,
     SessionEditComponent,
     SessionDetailComponent,
+    LoadingSpinerComponent,
+    DialogSpinerComponent,
+    
    
   ],
   imports: [
@@ -73,6 +77,7 @@ import { SessionDetailComponent } from './jeux/session/session-detail/session-de
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MatProgressSpinnerModule
   ]
 })
 export class DashboardModule { }

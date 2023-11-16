@@ -9,6 +9,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+
 @Component({
   selector: 'app-dashboard-employe-detail',
   templateUrl: './dashboard-employe-detail.component.html',
@@ -88,7 +89,10 @@ export class DashboardEmployeDetailComponent {
   getUserByEmail():  void
     {
       this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
-        (res) => { this.user = res }
+      res => {
+        this.user = res ,
+        this.titleMenu = this.user.employe.nom
+          }
       )
     }
 
@@ -144,7 +148,7 @@ export class DashboardEmployeDetailComponent {
 
 }
 
-clientForm: FormGroup = this.fb.group({
+employeForm: FormGroup = this.fb.group({
 
   nom: new FormControl('', Validators.compose([
     Validators.required,
@@ -192,7 +196,7 @@ clientForm: FormGroup = this.fb.group({
 })
 
   // Getter pour un accès facile aux champs du formulaire (clientForm)
-  get f() { return this.clientForm.controls; }
+  get f() { return this.employeForm.controls; }
   get u() { return this.user.client}
 
   /********************************************************************
@@ -203,16 +207,11 @@ clientForm: FormGroup = this.fb.group({
 
     this.submitted = true;
       // Si on a des erreurs on stop
-      if (this.clientForm.invalid) {
+      if (this.employeForm.invalid) {
         return;
     }
     
-    // let userToUpdate =  new User(this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
-
-    // this.userService.updateUser(userToUpdate).subscribe(
-    //   res => console.log(res)
-      
-    //)
+     
 
 }
 

@@ -12,6 +12,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifyComponent } from './shared/notify/notify.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {provideClientHydration} from '@angular/platform-browser';
+
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,7 +27,7 @@ import {provideClientHydration} from '@angular/platform-browser';
     MatSlideToggleModule,
     CoresModule,
     NgChartsModule,
-    MatSnackBarModule
+    MatSnackBarModule, 
   ],
   providers: [
     TokenInterceptorProvider,
