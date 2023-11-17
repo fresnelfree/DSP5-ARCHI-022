@@ -32,8 +32,11 @@ import { GainComponent } from './jeux/gain/gain.component';
 import { SessionNewComponent } from './jeux/session/session-new/session-new.component';
 import { SessionEditComponent } from './jeux/session/session-edit/session-edit.component';
 import { SessionDetailComponent } from './jeux/session/session-detail/session-detail.component';
- 
- 
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   declarations: [
     DashboardHomeComponent,
@@ -66,13 +69,17 @@ import { SessionDetailComponent } from './jeux/session/session-detail/session-de
     SessionNewComponent,
     SessionEditComponent,
     SessionDetailComponent,
-   
+
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    MatTableModule, 
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatRadioModule
   ]
 })
 export class DashboardModule { }

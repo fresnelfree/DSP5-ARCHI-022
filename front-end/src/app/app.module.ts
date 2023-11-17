@@ -18,14 +18,15 @@ import {MatDialogModule} from '@angular/material/dialog';
     NotifyComponent,
   ],
   imports: [
-    BrowserModule,    
+    BrowserModule,
     AppRoutingModule,
     MatDialogModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
     CoresModule,
     NgChartsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+
   ],
   providers: [
     TokenInterceptorProvider,
