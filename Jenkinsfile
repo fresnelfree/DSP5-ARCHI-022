@@ -63,7 +63,7 @@ pipeline{
         dir('front-end/') {
 
           echo "************************ INSTALLING FRONT-END DEPENDENCIES ************************"
-          sh "npm install"
+          sh "npm install --force"
 
           echo "************************ BUILD OF PROJECT ************************"
           sh "npm run build"   
