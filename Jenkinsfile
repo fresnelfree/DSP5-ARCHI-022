@@ -102,7 +102,6 @@ pipeline{
       when {
           not {
               branch "DA-*"
-              branch "PR-*"
           }
       } 
       steps {
@@ -152,7 +151,6 @@ pipeline{
       when {
           not {
               branch "DA-*"
-              branch "PR-*"
           }
       } 
       steps {
