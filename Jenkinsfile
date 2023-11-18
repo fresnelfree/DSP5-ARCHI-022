@@ -63,7 +63,7 @@ pipeline{
         dir('front-end/') {
 
           echo "************************ INSTALLING FRONT-END DEPENDENCIES ************************"
-          sh "npm install"
+          sh "npm install --force"
 
           echo "************************ BUILD OF PROJECT ************************"
           sh "npm run build"   
@@ -103,6 +103,7 @@ pipeline{
       when {
           not {
               branch "DA-*"
+              branch "PR-*"
           }
       } 
       steps {
@@ -133,7 +134,7 @@ pipeline{
             }   
                 
           }
-          else {
+          else if (env.GIT_BRANCH == 'develop') {
             echo "####################################################### DEPLOY APP IN INTEGRATION (INT) #######################################################"
             dir('workflow/dev/'){
 
@@ -152,6 +153,7 @@ pipeline{
       when {
           not {
               branch "DA-*"
+              branch "PR-*"
           }
       } 
       steps {
@@ -183,7 +185,7 @@ pipeline{
 
           }
 
-          else{
+          else if (env.GIT_BRANCH == 'develop'){
 
             echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
             sh "docker push fresnelcool/server-app-int:$IMG_TAG_INT"  
