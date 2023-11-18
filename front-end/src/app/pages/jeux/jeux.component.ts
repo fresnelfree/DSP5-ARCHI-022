@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
+import { CookieService } from 'ngx-cookie-service';
 import { Gain } from 'src/app/core/models/gain/gain';
 import { Repartition } from 'src/app/core/services/repartition/repartition';
 import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
@@ -39,9 +40,10 @@ export class JeuxComponent {
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
     private formBuilder: FormBuilder,
-    private userService: UserService
+    private userService: UserService,
+    private cookieService: CookieService
   ){
-    this.user = JSON.parse(localStorage.getItem('user') || "")
+    this.user = JSON.parse(cookieService.get('user') || "")
 
     this.sessionForm = this.formBuilder.group({
       libelle: [null, Validators.required],
@@ -65,7 +67,7 @@ export class JeuxComponent {
       date_fin: ["", Validators.required,],
       nbr_ticket: ["", Validators.required],
       id_employe: [this.user.employe.id, Validators.required],
-      statut: ['Inactif', Validators.required]      
+      statut: ['Inactif', Validators.required]
     });
   }
 

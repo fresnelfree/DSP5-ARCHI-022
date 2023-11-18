@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
+import { CookieService } from 'ngx-cookie-service';
 import { Gain } from 'src/app/core/models/gain/gain';
 import { User } from 'src/app/core/models/user/user';
 import { SnackbarService } from 'src/app/core/notification/snackbar.service';
@@ -60,7 +61,7 @@ export class SessionComponent {
       {type:'required', message:'Le nom est obligqtoire.'},
     ]
   }
- 
+
   constructor(
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
@@ -70,9 +71,10 @@ export class SessionComponent {
     private authService : AuthenticationService,
     private router      : Router,
     private token       : TokenService,
-    private clientService: ClientService
+    private clientService: ClientService,
+    private cookieService: CookieService
   ){
-    this.user = JSON.parse(localStorage.getItem('user') || "")
+    this.user = JSON.parse(cookieService.get('user') || "")
 
     this.sessionForm = this.formBuilder.group({
       libelle: [null, Validators.required],
@@ -96,7 +98,7 @@ export class SessionComponent {
       date_fin: ["", Validators.required,],
       nbr_ticket: ["", Validators.required],
       id_employe: [this.user.employe.id, Validators.required],
-      statut: ['Inactif', Validators.required]      
+      statut: ['Inactif', Validators.required]
     });
   }
 
@@ -110,7 +112,7 @@ export class SessionComponent {
     })
     console.log("sessionJeus : ",this.sessionJeu)
 
-    /*  
+    /*
       ici afficher un toast pour confirmer que l'action s'est bien passé
 
     */
@@ -246,7 +248,7 @@ export class SessionComponent {
     }
   )
 }
- 
+
 
  getClients(){
   return this.clientService.getClients().subscribe(
