@@ -22,7 +22,8 @@ pipeline{
     APP_PORT = credentials('APP_PORT')
     APP_HOST = credentials('APP_HOST')
     DB_PWD = credentials('DB_PWD')
-    DB_DATABASE = credentials('DB_DATABASE')
+    // DB_DATABASE = credentials('DB_DATABASE')
+    DB_DATABASE = 'DSP5-ARCHI-DB-INT'    
     DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
     IMG_TAG_INT = '1.0.0'
     IMG_TAG_PPD = '1.0.0'
@@ -65,7 +66,7 @@ pipeline{
           sh "npm install --force"
 
           echo "************************ BUILD OF PROJECT ************************"
-          sh "npm run build"   
+          sh "npm run build:ssr"   
         }                 
       }  
 
@@ -86,7 +87,7 @@ pipeline{
 
           echo "************************ TEST OF PROJECT WITH MOCHA JS ************************"  
           sh "npm run migrate"
-          sh ""
+          sh "npm run test:dev"
         } 
 
         echo "####################################################### STAGE UNIT TEST FRONT-END #######################################################"
