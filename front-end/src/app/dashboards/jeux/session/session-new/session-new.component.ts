@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
+import { CookieService } from 'ngx-cookie-service';
 import { Gain } from 'src/app/core/models/gain/gain';
 import { User } from 'src/app/core/models/user/user';
 import { SnackbarService } from 'src/app/core/notification/snackbar.service';
@@ -21,7 +22,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
   styleUrls: ['./session-new.component.css']
 })
 export class SessionNewComponent {
-  
+
   // IB-Var
   titleMenu:string="List Sessions"
   titleList:string="Liste Session"
@@ -60,8 +61,8 @@ export class SessionNewComponent {
         {type:'required', message:'Le nom est obligqtoire.'},
       ]
     }
-  
-  
+
+
     constructor(
       private sessionJeuService: SessionService,
       private repartitionService: RepartitionService,
@@ -72,8 +73,9 @@ export class SessionNewComponent {
       private router      : Router,
       private token       : TokenService,
       private clientService: ClientService,
+      private cookieService: CookieService
     ){
-      this.user = JSON.parse(localStorage.getItem('user') || "")
+      this.user = JSON.parse(cookieService.get('user') || "")
 
       this.sessionForm = this.formBuilder.group({
         libelle: [null, Validators.required],
@@ -97,7 +99,7 @@ export class SessionNewComponent {
         date_fin: ["", Validators.required,],
         nbr_ticket: ["", Validators.required],
         id_employe: [this.user.employe.id, Validators.required],
-        statut: ['Inactif', Validators.required]      
+        statut: ['Inactif', Validators.required]
       });
     }
 
@@ -111,7 +113,7 @@ export class SessionNewComponent {
       })
       console.log("sessionJeus : ",this.sessionJeu)
 
-      /*  
+      /*
         ici afficher un toast pour confirmer que l'action s'est bien passé
 
       */
@@ -242,11 +244,11 @@ export class SessionNewComponent {
     return this.sessionJeuService.getSession().subscribe(
       res => {
         console.log(res);
-        
+
       }
     )
   }
-  
+
   // getClients(){
   //   return this.clientService.getClients().subscribe(
   //     res => {
@@ -257,9 +259,9 @@ export class SessionNewComponent {
 
 
   onGoDetail(client: User){
-    
+
     this.router.navigate(['/dashboard/client/detail/'+client.id])
-    
+
   }
 
   @HostListener('window:resize', ['$event'])

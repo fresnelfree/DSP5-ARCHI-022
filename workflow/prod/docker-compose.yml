@@ -1,6 +1,6 @@
 version: '3'
 volumes:
-  mysql_db_ppd:
+  mysql_db_prod:
 networks:
   thetiptop:
     driver: bridge
@@ -16,7 +16,7 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     restart: always
     volumes:
-      - "mysql_db_ppd:/var/lib/mysql"    
+      - "mysql_db_prod:/var/lib/mysql"    
     ports:
       - 3306:3306
     expose:
