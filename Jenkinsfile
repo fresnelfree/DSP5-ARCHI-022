@@ -1,7 +1,6 @@
 pipeline{
 //   agent { dockerfile true }
   agent any
-
   tools{
     nodejs 'node'
   }
@@ -103,7 +102,6 @@ pipeline{
       when {
           not {
               branch "DA-*"
-              branch "PR-*"
           }
       } 
       steps {
@@ -153,7 +151,6 @@ pipeline{
       when {
           not {
               branch "DA-*"
-              branch "PR-*"
           }
       } 
       steps {
@@ -161,7 +158,7 @@ pipeline{
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### BUILD & RUN IMAGE DOCKER #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
        
         echo "####################################################### CONNECTION ON DOCKER HUB #######################################################"
-        sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"    
+        // sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"    
         
         script {
           if (env.GIT_BRANCH == 'main') {
