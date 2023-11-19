@@ -158,7 +158,7 @@ pipeline{
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### BUILD & RUN IMAGE DOCKER #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
        
         echo "####################################################### CONNECTION ON DOCKER HUB #######################################################"
-        sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"    
+        // sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"    
         
         script {
           if (env.GIT_BRANCH == 'main') {
