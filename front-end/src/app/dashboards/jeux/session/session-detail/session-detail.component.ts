@@ -49,7 +49,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class SessionDetailComponent implements OnInit{
 
-  titleMenu:string="Informations du client"
+  titleMenu:string="Session"
   titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"
@@ -104,10 +104,11 @@ nbr_ticket_session: any
   subscribe(
     (res:any) => {
       console.log("sessions : ",res)
+      this.titleMenu ="" + res.libelle + " / Nbr-Ticket : " + res.nbr_ticket
       this.dataSource = res.repartitions
       this.nbr_ticket_session = res.nbr_ticket
       this.repartitions = new MatTableDataSource(res.repartitions);
-      this.repartitions.paginator = this.paginator;
+      // this.repartitions.paginator = this.paginator;
     }
   )
 
@@ -157,6 +158,7 @@ getGains(id:number):void {
     (res: any) => {
       console.log("rep", res)
       this.gainsData = res.gains
+      // this.titleMenu ="gainsData"
       console.log('this.gainsData', this.gainsData)
       this.gains = new MatTableDataSource(res.gains);
       this.gains.paginator = this.paginatorG;
