@@ -28,5 +28,5 @@ EXPOSE ${APP_PORT}
 
 # EXPOSE ${PORT}
 # CMD [ "node", "./dist/index.js" ]
-CMD [ "npm", "start" ]
+CMD [ "npm", "run","start:ssr" ]
 # CMD [ "npm", "run", "test:prod" ]

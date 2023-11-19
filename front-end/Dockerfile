@@ -17,4 +17,4 @@ COPY . .
 # ENV HOST=0.0.0.0 PORT=3000
 EXPOSE ${APP_PORT}
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run","start:ssr" ]
