@@ -94,7 +94,7 @@ services:
     #   - 8084
     environment:
       SERVEUR_HOST: mysqldb
-      APP_PORT: 8084
+      PORT: 8084
       APP_HOST: 0.0.0.0
       SERVICE_TAGS: prod
       SERVICE_NAME: client-app

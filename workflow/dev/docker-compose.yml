@@ -67,7 +67,7 @@ services:
     #   - 8090
     environment:
       SERVEUR_HOST: mysqldb
-      APP_PORT: 8090
+      PORT: 8090
       APP_HOST: 0.0.0.0
       SERVICE_TAGS: int
       SERVICE_NAME: frontapp

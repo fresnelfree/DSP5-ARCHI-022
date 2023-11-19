@@ -8,7 +8,7 @@ WORKDIR /usr/code
 # where available (npm@5+)
 
 COPY package*.json ./
-RUN npm install
+RUN npm install --force
 
 # Bundle app source code
 COPY . .
