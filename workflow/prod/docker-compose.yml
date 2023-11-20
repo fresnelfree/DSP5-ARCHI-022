@@ -107,5 +107,5 @@ services:
       - traefik.enable=true
       - traefik.http.routers.client-app.rule=Host(`thetiptop.life`)
       - traefik.http.routers.client-app.middlewares=network-internet@docker
-      - traefik.http.services.client-app.loadbalancer.server.port=8090
+      - traefik.http.services.client-app.loadbalancer.server.port=8084
 
