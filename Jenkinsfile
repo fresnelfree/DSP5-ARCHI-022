@@ -1,7 +1,6 @@
 pipeline{
 //   agent { dockerfile true }
   agent any
-
   tools{
     nodejs 'node'
   }
@@ -23,7 +22,8 @@ pipeline{
     APP_PORT = credentials('APP_PORT')
     APP_HOST = credentials('APP_HOST')
     DB_PWD = credentials('DB_PWD')
-    DB_DATABASE = credentials('DB_DATABASE')
+    // DB_DATABASE = credentials('DB_DATABASE')
+    DB_DATABASE = 'DSP5-ARCHI-DB-INT'    
     DOCKER_HUB_LOGIN = credentials('DOCKER_HUB_LOGIN')
     IMG_TAG_INT = '1.0.0'
     IMG_TAG_PPD = '1.0.0'
@@ -63,10 +63,10 @@ pipeline{
         dir('front-end/') {
 
           echo "************************ INSTALLING FRONT-END DEPENDENCIES ************************"
-          sh "npm install"
+          sh "npm install --force"
 
           echo "************************ BUILD OF PROJECT ************************"
-          sh "npm run build"   
+          sh "npm run build:ssr"   
         }                 
       }  
 
@@ -87,7 +87,7 @@ pipeline{
 
           echo "************************ TEST OF PROJECT WITH MOCHA JS ************************"  
           sh "npm run migrate"
-          sh ""
+          sh "npm run test:dev"
         } 
 
         echo "####################################################### STAGE UNIT TEST FRONT-END #######################################################"
@@ -133,7 +133,7 @@ pipeline{
             }   
                 
           }
-          else {
+          else if (env.GIT_BRANCH == 'develop') {
             echo "####################################################### DEPLOY APP IN INTEGRATION (INT) #######################################################"
             dir('workflow/dev/'){
 
@@ -159,7 +159,7 @@ pipeline{
         echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### BUILD & RUN IMAGE DOCKER #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
        
         echo "####################################################### CONNECTION ON DOCKER HUB #######################################################"
-        sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"    
+        // sh "docker login --username=$DOCKER_HUB_USR --password=$DOCKER_HUB_PWD"    
         
         script {
           if (env.GIT_BRANCH == 'main') {
@@ -183,7 +183,7 @@ pipeline{
 
           }
 
-          else{
+          else if (env.GIT_BRANCH == 'develop'){
 
             echo "************************ PUSH IMAGE BACK-END IN DOCKER HUB ************************"
             sh "docker push fresnelcool/server-app-int:$IMG_TAG_INT"  

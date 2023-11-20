@@ -11,6 +11,7 @@ import { AuthInterceptorProvider } from './core/helpers/auth/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifyComponent } from './shared/notify/notify.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {MatDialogModule} from '@angular/material/dialog';
   ],
   providers: [
     TokenInterceptorProvider,
-    AuthInterceptorProvider
+    AuthInterceptorProvider,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

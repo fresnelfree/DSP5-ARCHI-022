@@ -48,7 +48,7 @@ services:
     networks:
       # workflow_network_app:
       root_network_app:
-    labels:
+    labels: 
       - traefik.enable=true
       - traefik.http.routers.server-app-ppd.rule=Host(`thetiptop.recette.api.com`)
       - traefik.http.routers.server-app-ppd.middlewares=network-internet@docker
