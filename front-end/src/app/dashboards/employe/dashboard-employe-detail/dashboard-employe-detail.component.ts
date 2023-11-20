@@ -204,15 +204,12 @@ employeForm: FormGroup = this.fb.group({
  ********************************************************************/
 
   onSubmit() {
-
     this.submitted = true;
       // Si on a des erreurs on stop
       if (this.employeForm.invalid) {
         return;
     }
     
-     
-
 }
 
 // ngOnInit(): void {

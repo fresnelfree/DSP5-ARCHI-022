@@ -85,8 +85,7 @@ export class ConnexionComponent {
         if (this.loginForm.invalid) {
           return;
       }
-      console.log("hhe");
-      
+     
       this.authService.login(this.f).subscribe(
         (data:any) => {
           this.handleResponse(data)

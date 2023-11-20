@@ -13,10 +13,12 @@ import { DashboardEmployeNewComponent } from './employe/dashboard-employe-new/da
 import { DashboardJeuxNewComponent } from './jeux/dashboard-jeux-new/dashboard-jeux-new.component';
 import { DashboardStatisticComponent } from './dashboard-statistic/dashboard-statistic.component';
 import { SessionComponent } from './jeux/session/session-all/session.component';
-import { GainComponent } from './jeux/gain/gain.component';
+import { GainComponent } from './jeux/gain/gain-all/gain.component';
 import { SessionNewComponent } from './jeux/session/session-new/session-new.component';
 import { SessionEditComponent } from './jeux/session/session-edit/session-edit.component';
 import { SessionDetailComponent } from './jeux/session/session-detail/session-detail.component';
+import { GainDetailComponent } from './jeux/gain/gain-detail/gain-detail.component';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
@@ -28,6 +30,9 @@ const routes: Routes = [
   { path: 'home', component: DashboardHomeComponent,         
      canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
   },
+  { path: 'profil', component: ProfilComponent,         
+  canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
+},
   { path: '', component: DashboardHomeComponent,      
     canActivate: [authGuard], 
     data: {role: 'Admin'} 
@@ -93,6 +98,10 @@ const routes: Routes = [
         canActivate: [authGuard], 
         data: {role: 'Admin'} 
     },
+    { path : 'detail/:id', component: GainDetailComponent,
+       canActivate: [authGuard], 
+       data: {role: 'Admin'} 
+      },
     ]
   },
   {

@@ -28,13 +28,15 @@ import { CpCardProduit1Component } from './components/cards/cp-card-produit1/cp-
 import { CpChartBar1Component } from './components/statistics/cp-chart-bar1/cp-chart-bar1.component';
 import { MiniMenuComponent } from './shared/mini-menu/mini-menu.component';
 import { SessionComponent } from './jeux/session/session-all/session.component';
-import { GainComponent } from './jeux/gain/gain.component';
+import { GainComponent } from './jeux/gain/gain-all/gain.component';
 import { SessionNewComponent } from './jeux/session/session-new/session-new.component';
 import { SessionEditComponent } from './jeux/session/session-edit/session-edit.component';
 import { SessionDetailComponent } from './jeux/session/session-detail/session-detail.component';
 import { LoadingSpinerComponent } from './components/loading-spiner/loading-spiner.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DialogSpinerComponent } from './shared/dialog-spiner/dialog-spiner.component';
+import { GainDetailComponent } from './jeux/gain/gain-detail/gain-detail.component';
+import { ProfilComponent } from './profil/profil.component';
 @NgModule({
   declarations: [
     DashboardHomeComponent,
@@ -69,6 +71,8 @@ import { DialogSpinerComponent } from './shared/dialog-spiner/dialog-spiner.comp
     SessionDetailComponent,
     LoadingSpinerComponent,
     DialogSpinerComponent,
+    GainDetailComponent,
+    ProfilComponent,
     
    
   ],

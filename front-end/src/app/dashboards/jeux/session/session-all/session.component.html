@@ -30,44 +30,6 @@
       </div>
       <div class="top-right">
         <div class="header-menu">
-          <div class="header-left">
-            <button class="search-trigger"><i class="fa fa-search"></i></button>
-            <div class="form-inline">
-              <form class="search-form">
-                <input
-                  class="form-control mr-sm-2"
-                  type="text"
-                  placeholder="Search ..."
-                  aria-label="Search"
-                />
-                <button class="search-close" type="submit">
-                  <i class="fa fa-close"></i>
-                </button>
-              </form>
-            </div>
-
-            <div class="dropdown for-notification">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="notification"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class="fa fa-bell"></i>
-                <span class="count bg-danger">3</span>
-              </button>
-              <div class="dropdown-menu" aria-labelledby="notification">
-                <p class="red">You have 3 Notification</p>
-                <a class="dropdown-item media" href="#">
-                  <i class="fa fa-info"></i>
-                  <p>Server #2 overloaded.</p>
-                </a>
-              </div>
-            </div>
-          </div>
-
           <div class="user-area dropdown float-right">
             <a
               href="#"
@@ -103,12 +65,7 @@
     <div class="content">
       <div class="animated fadeIn">
         <!-- <app-mini-menu [title]="titleMenu" ></app-mini-menu> -->
-        <app-mini-menu [title]="titleMenu" 
-        [titleList]="titleList"
-        [linkList]="linkList"
-        [titleAdd]="titleAdd"
-        [linkAdd]="linkAdd" >
-       </app-mini-menu>
+        <app-mini-menu [title]="titleMenu" [titleList]="titleList" [linkList]="linkList" [titleAdd]="titleAdd" [linkAdd]="linkAdd" > </app-mini-menu>
 
         <div class="row">
           <div class="col-md-12">
@@ -117,10 +74,7 @@
                 <strong class="card-title">Data Table</strong>
               </div>
               <div class="card-body">
-                <div
-                  id="bootstrap-data-table_wrapper"
-                  class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"
-                >
+                <div id="bootstrap-data-table_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer" >
                   <div class="row">
                     <div class="col-sm-12 col-md-6">
                       <div class="dataTables_length" id="bootstrap-data-table_length">
@@ -152,79 +106,28 @@
                       <!-- en tete de table -->
                         <thead>
                           <tr role="row" >
-                            <th
-                              class="sorting_asc"
-                              tabindex="0"
-                              aria-controls="bootstrap-data-table"
-                              rowspan="1"
-                              colspan="1"
-                              aria-sort="ascending"
-                              aria-label="Name: activate to sort column descending"
-                              style="width: 191px"
-                               
-                            >
+                            <th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 191px" >
                               Libelle
                             </th>
-                            <th
-                              class="sorting"
-                              tabindex="0"
-                              aria-controls="bootstrap-data-table"
-                              rowspan="1"
-                              colspan="1"
-                              aria-label="Position: activate to sort column ascending"
-                              style="width: 310px"
-                            >
+                            <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 310px" >
                               Debut
                             </th>
-                            <th
-                              class="sorting"
-                              tabindex="0"
-                              aria-controls="bootstrap-data-table"
-                              rowspan="1"
-                              colspan="1"
-                              aria-label="Office: activate to sort column ascending"
-                              style="width: 144px"
-                            >
+                            <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 144px" >
                               Fin
                             </th>
-                            <th
-                              class="sorting"
-                              tabindex="0"
-                              aria-controls="bootstrap-data-table"
-                              rowspan="1"
-                              colspan="1"
-                              aria-label="Salary: activate to sort column ascending"
-                              style="width: 111px"
-                            >
+                            <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 111px" >
                               Status
                             </th>
-                            <th
-                            class="sorting"
-                            tabindex="0"
-                            aria-controls="bootstrap-data-table"
-                            rowspan="1"
-                            colspan="1"
-                            aria-label="Salary: activate to sort column ascending"
-                            style="width: 111px"
-                          >
+                            <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 111px" >
                             Nb-Ticket
                           </th>
-                          <th
-                          class="sorting"
-                          tabindex="0"
-                          aria-controls="bootstrap-data-table"
-                          rowspan="1"
-                          colspan="1"
-                          aria-label="Salary: activate to sort column ascending"
-                          style="width: 111px"
-                        >
+                          <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 111px" >
                           Action
                         </th>
                           </tr>
                         </thead>
                         <!-- cors de table -->
-                        <tbody *ngFor="let session of sessionDatas" >
-
+                        <tbody *ngFor="let session of sessionDatas">
                           <tr role="row" class="even" (click)="onGoDetail(session)">
                             <td class="sorting_1">
                               {{ session.libelle }} 
@@ -253,106 +156,36 @@
                   </div>
                   <div class="row">
                     <div class="col-sm-12 col-md-5">
-                      <div
-                        class="dataTables_info"
-                        id="bootstrap-data-table_info"
-                        role="status"
-                        aria-live="polite"
-                      >
+                      <div class="dataTables_info" id="bootstrap-data-table_info" role="status" aria-live="polite" >
                         Showing 1 to 10 of 57 entries
                       </div>
                     </div>
                     <div class="col-sm-12 col-md-7">
-                      <div
-                        class="dataTables_paginate paging_simple_numbers"
-                        id="bootstrap-data-table_paginate"
-                      >
+                      <div class="dataTables_paginate paging_simple_numbers" id="bootstrap-data-table_paginate">
                         <ul class="pagination">
-                          <li
-                            class="paginate_button page-item previous disabled"
-                            id="bootstrap-data-table_previous"
-                          >
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="0"
-                              tabindex="0"
-                              class="page-link"
-                              >Previous</a
-                            >
+                          <li class="paginate_button page-item previous disabled" id="bootstrap-data-table_previous">
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="0" tabindex="0" class="page-link" >Previous</a>
                           </li>
                           <li class="paginate_button page-item active">
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="1"
-                              tabindex="0"
-                              class="page-link"
-                              >1</a
-                            >
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="1" tabindex="0" class="page-link" >1</a>
                           </li>
                           <li class="paginate_button page-item">
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="2"
-                              tabindex="0"
-                              class="page-link"
-                              >2</a
-                            >
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="2" tabindex="0" class="page-link" >2</a>
                           </li>
                           <li class="paginate_button page-item">
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="3"
-                              tabindex="0"
-                              class="page-link"
-                              >3</a
-                            >
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="3" tabindex="0" class="page-link" >3</a>
                           </li>
                           <li class="paginate_button page-item">
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="4"
-                              tabindex="0"
-                              class="page-link"
-                              >4</a
-                            >
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="4" tabindex="0" class="page-link">4</a>
                           </li>
                           <li class="paginate_button page-item">
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="5"
-                              tabindex="0"
-                              class="page-link"
-                              >5</a
-                            >
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="5" tabindex="0" class="page-link" >5</a>
                           </li>
                           <li class="paginate_button page-item">
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="6"
-                              tabindex="0"
-                              class="page-link"
-                              >6</a
-                            >
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="6" tabindex="0" class="page-link" >6</a>
                           </li>
-                          <li
-                            class="paginate_button page-item next"
-                            id="bootstrap-data-table_next"
-                          >
-                            <a
-                              href="#"
-                              aria-controls="bootstrap-data-table"
-                              data-dt-idx="7"
-                              tabindex="0"
-                              class="page-link"
-                              >Next</a
-                            >
+                          <li class="paginate_button page-item next" id="bootstrap-data-table_next">
+                            <a href="#" aria-controls="bootstrap-data-table" data-dt-idx="7" tabindex="0" class="page-link" >Next</a>
                           </li>
                         </ul>
                       </div>

@@ -58,7 +58,11 @@ export class AuthenticationService {
     /************************************************
      *        METHODES
      ************************************************/
-    public get userValue() {
+  //   public get userValue() {
+  //     return this.userSubject.value;
+  // }
+
+    userValue() {
       return this.userSubject.value;
   }
     //Inscription
