@@ -5,3 +5,5 @@ export * from './client.repository';
 export * from './compte.repository';
 export * from './employe.repository';
 export * from './participer.repository';
+export * from './contact.repository';
+export * from './newsletter.repository';
