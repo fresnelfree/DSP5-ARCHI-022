@@ -75,7 +75,7 @@ export class EmployeController {
   async find(
     @param.filter(Employe) filter?: Filter<Employe>,
   ): Promise<Employe[]> {
-    return this.employeRepository.find({include:["sessionJeus","compte"]});
+    return this.employeRepository.find({include:["sessionJeus"]});
   }
 
   @patch('/employes')

@@ -11,7 +11,7 @@ import { AuthInterceptorProvider } from './core/helpers/auth/auth.interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NotifyComponent } from './shared/notify/notify.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {provideClientHydration} from '@angular/platform-browser';
+import { CookieService } from 'ngx-cookie-service';
 
  
 @NgModule({
@@ -20,19 +20,19 @@ import {provideClientHydration} from '@angular/platform-browser';
     NotifyComponent,
   ],
   imports: [
-    BrowserModule,    
+    BrowserModule,
     AppRoutingModule,
     MatDialogModule,
     BrowserAnimationsModule,
     MatSlideToggleModule,
     CoresModule,
     NgChartsModule,
-    MatSnackBarModule, 
+    MatSnackBarModule,
   ],
   providers: [
     TokenInterceptorProvider,
     AuthInterceptorProvider,
-    provideClientHydration()
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

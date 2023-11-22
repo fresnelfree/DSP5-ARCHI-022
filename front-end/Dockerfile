@@ -8,7 +8,7 @@ WORKDIR /usr/code
 # where available (npm@5+)
 
 COPY package*.json ./
-RUN npm install
+RUN npm install --force
 
 # Bundle app source code
 COPY . .
@@ -17,4 +17,4 @@ COPY . .
 # ENV HOST=0.0.0.0 PORT=3000
 EXPOSE ${APP_PORT}
 
-CMD [ "npm", "start" ]
+CMD [ "npm", "run","start:ssr" ]

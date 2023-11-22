@@ -11,6 +11,7 @@ import { GainService } from 'src/app/core/services/gain/gain.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { CongratulateDialogComponent } from '../congratulate-dialog/congratulate-dialog.component';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -35,9 +36,10 @@ export class ClientGainComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackbarService: SnackbarService,
     private dialog: MatDialog,
+    private cookieService: CookieService,
     private authService : AuthenticationService){
       this.message = "";
-      this.user = JSON.parse(localStorage.getItem('user') || "")
+      this.user = JSON.parse(cookieService.get('user') || "")
       this.jeuForm = this.formBuilder.group({
         numero_gain: [null, Validators.required],
       });
@@ -74,8 +76,8 @@ export class ClientGainComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       // this.animal = result;
-    });    
-  }  
+    });
+  }
 
   async play(){
     console.log("num : ",this.jeuForm.value)
@@ -88,7 +90,7 @@ export class ClientGainComponent implements OnInit {
             'ok',
             'info'
           );
-        
+
           console.log('Ce code a déjà été utilisé !');
           return;
         }

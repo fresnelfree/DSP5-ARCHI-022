@@ -27,7 +27,7 @@ export class SessionService {
     private http: HttpClient,
     private tokenService: TokenService,
   ) { }
-  
+
 
   /************************************************
   *        METHODES UTILES
@@ -35,7 +35,7 @@ export class SessionService {
   private log(log: string){
     console.info(log)
     }
-    
+
     private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {
         console.error(error);
@@ -43,7 +43,7 @@ export class SessionService {
         return of(result as T);
       };
     }
-      
+
   /************************************************
   *        METHODES
   ************************************************/
@@ -53,6 +53,16 @@ export class SessionService {
     data.date_debut = this.FormatDate(data.date_debut)
     data.date_fin = this.FormatDate(data.date_fin)
     return this.http.post(`${environment.hostLine}/session-jeus`,data,httpOption)
+  }
+
+  GetSessionByID(id:number):any {
+    // data.id_employe = 10
+    return this.http.get(`${environment.hostLine}/session-jeus/${id}`,httpOption)
+  }
+  
+  GetrepByID(id:number):any {
+    // data.id_employe = 10
+    return this.http.get(`${environment.hostLine}/session-jeus/${id}`,httpOption)
   }
 
   FormatDate(date:string): string {
@@ -83,5 +93,5 @@ export class SessionService {
       catchError(this.handleError('getClients', []))
     );
   }
-  
+
 }

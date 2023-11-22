@@ -110,7 +110,7 @@ export class SessionJeuController {
     @param.path.number('id') id: number,
     @param.filter(SessionJeu, {exclude: 'where'}) filter?: FilterExcludingWhere<SessionJeu>
   ): Promise<SessionJeu> {
-    return this.sessionJeuRepository.findById(id, filter);
+    return this.sessionJeuRepository.findById(id, {include:["repartitions","clients"]});
   }
 
   @patch('/session-jeus/{id}')

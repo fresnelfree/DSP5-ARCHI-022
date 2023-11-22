@@ -1,38 +1,44 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import jwt_decode from 'jwt-decode';
+import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
 })
 export class TokenService {
 
-      constructor(private router: Router) { }
+      constructor(
+        private router: Router,
+        private cookieService: CookieService
+      ) { }
       // handleToken(token: any){
-      //     this.setItem('token',token);     
+      //     this.setItem('token',token);
       // }
 
       setItem(nomVar: string, value:any){
-        localStorage.setItem(nomVar, value);
+        // localStorage.setItem(nomVar, value);
+        this.cookieService.set(nomVar, value)
       }
 
       removeItem(nomVar: string){
-        localStorage.removeItem(nomVar);
-      } 
-      
+        // localStorage.removeItem(nomVar);
+        this.cookieService.delete(nomVar)
+      }
+
       getItem(nomVar: string) : any{
-        return localStorage.getItem(nomVar);
-      }       
+        return this.cookieService.get(nomVar);
+      }
 
       // getToken(): string | null{
       //   return localStorage.getItem('token');
       // }
 
-      removeToken(){        
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-        localStorage.removeItem('role');
-        localStorage.removeItem('role2');
-        localStorage.removeItem('role3');
+      removeToken(){
+        this.cookieService.delete('token');
+        this.cookieService.delete('user');
+        this.cookieService.delete('role');
+        this.cookieService.delete('role2');
+        this.cookieService.delete('role3');
       }
 
       // removeTokenExpired(){
@@ -54,7 +60,7 @@ export class TokenService {
       }
 
       //le token seule en chaine de caracter
-      payloadToken(token:any){ 
+      payloadToken(token:any){
         const payload = token.split('.')[1];
         return payload;
       }
