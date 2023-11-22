@@ -135,7 +135,6 @@ form small p{
   animation: spinner .8s linear infinite;
 }
 /* Fin loading */
-
 .promot{
   z-index: 1;
   position: relative;

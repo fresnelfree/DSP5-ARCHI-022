@@ -115,7 +115,7 @@ export class RepartitionController {
     @param.path.number('id') id: number,
     @param.filter(Repartition, {exclude: 'where'}) filter?: FilterExcludingWhere<Repartition>
   ): Promise<Repartition> {
-    return this.repartitionRepository.findById(id, filter);
+    return this.repartitionRepository.findById(id, {include:["gains"]});
   }
 
   @patch('/repartitions/{id}')

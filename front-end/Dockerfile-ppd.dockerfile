@@ -14,7 +14,7 @@ WORKDIR /usr/code
 # where available (npm@5+)
 # COPY --chown=node package*.json ./
 COPY package*.json ./
-RUN npm install
+RUN npm install --force
 
 # Bundle app source code
 # COPY --chown=node . .
@@ -28,5 +28,5 @@ EXPOSE ${APP_PORT}
 
 # EXPOSE ${PORT}
 # CMD [ "node", "./dist/index.js" ]
-CMD [ "npm", "start" ]
+CMD [ "npm", "run","start:ssr" ]
 # CMD [ "npm", "run", "test:prod" ]

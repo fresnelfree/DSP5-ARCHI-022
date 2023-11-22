@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild ,AfterViewInit} from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/core/models/user/user';
@@ -7,21 +7,55 @@ import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import {MatPaginator, MatPaginatorIntl} from '@angular/material/paginator';
+import {MatTableDataSource} from '@angular/material/table';
+import { SessionService } from 'src/app/core/services/session/session.service';
+import { Repartition } from 'src/app/core/services/repartition/repartition';
+import { RepartitionService } from 'src/app/core/services/repartition/repartition.service';
+export interface PeriodicElement {
+  name: string;
+  position: number;
+  weight: number;
+  symbol: string;
+}
 
+const ELEMENT_DATA: PeriodicElement[] = [
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+  // {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  // {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  // {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  // {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  // {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
+  // {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
+  // {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
+  // {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
+  // {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
+  // {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
+  // {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
+  // {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
+  // {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
+  // {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
+  // {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
+];
 @Component({
   selector: 'app-session-detail',
   templateUrl: './session-detail.component.html',
-  styleUrls: ['./session-detail.component.css']
+  styleUrls: ['./session-detail.component.css'],
+  // providers: [{provide: MatPaginatorIntl}],
 })
 export class SessionDetailComponent implements OnInit{
-  
 
   titleMenu:string="Détail session"
+  //titleMenu:string="Session"
   titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"
   linkAdd = "/dashboard/client/new"
-  
+
  //Variable pour gestion navbar
  public open: boolean = false;
  public block: boolean = false;
@@ -31,25 +65,107 @@ export class SessionDetailComponent implements OnInit{
  public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
- private submitted;
- private role: string;
- public user: any;
+
+
+//
+displayedColumns: string[] = ['libelle', 'pourcentage', 'Nbr-Ticket', 'action'];
+dataSource: any[] = [];
+dataSourceG: any = [];
+repartitions: any = []
+gains: any = []
+gainsData: any = []
+libelle_session: any
+nbr_ticket_session: any
+
+  @ViewChild(MatPaginator)
+  paginator : any = MatPaginator;
+
+  @ViewChild(MatPaginator)
+  paginatorG : any = MatPaginator;
+  columnsToDisplay = ['numero_gain', 'etat_gain', ];
 
  constructor(
 
-   private authService : AuthenticationService,
-   private router      : Router,
-   private token       : TokenService,
-   private fb                   : FormBuilder,
-   private activatedRoute       : ActivatedRoute,
-    private userService          : UserService,
-
+  private authService : AuthenticationService,
+  private router: Router,
+  private token : TokenService,
+  private fb : FormBuilder,
+  private activatedRoute : ActivatedRoute,
+  private userService : UserService,
+  private sessionsService: SessionService,
+  private repartitionsService: RepartitionService
+  // private paginator : MatPaginator
  ){
-            this.submitted = false;
-            this.role = "Client"
+  // this.dataSource.paginator = this.paginator;
+  // this.dataSource.paginator =paginatorS
  }
 
+ ngOnInit(): void {
+  this.sessionsService.GetSessionByID(this.activatedRoute.snapshot.params['id']).
+  subscribe(
+    (res:any) => {
+      console.log("sessions : ",res)
+      this.titleMenu ="" + res.libelle + " / Nbr-Ticket : " + res.nbr_ticket
+      this.dataSource = res.repartitions
+      this.nbr_ticket_session = res.nbr_ticket
+      this.repartitions = new MatTableDataSource(res.repartitions);
+      // this.repartitions.paginator = this.paginator;
+    }
+  )
 
+  console.log('debut')
+  // console.log("this.repartitions : ",this.dataSource)
+  // this.repartitions = new MatTableDataSource(this.dataSource);
+  // this.gains = new MatTableDataSource([
+  //   {numero_gain:"4515",etat_gain:"actif"},
+  //   {numero_gain:"455",etat_gain:"actif"},
+  //   {numero_gain:"4515",etat_gain:"actif"},
+  //   {numero_gain:"4585",etat_gain:"actif"},
+  //   {numero_gain:"4515",etat_gain:"actif"},    
+  // ]);
+  this.dataSourceG = new MatTableDataSource([
+    {name: "1", username: 'Hydrogen', email: "1.0079", website: 'H'},
+    {name: "2", username: 'Hydrogen', email: "1.0079", website: 'H'},
+    {name: "3", username: 'Hydrogen', email: "1.0079", website: 'H'},
+    {name: "5", username: 'Hydrogen', email: "1.0079", website: 'H'},
+    {name: "6", username: 'Hydrogen', email: "1.0079", website: 'H'},
+    {name: "7", username: 'Hydrogen', email: "1.0079", website: 'H'},
+    {name: "8", username: 'Hydrogen', email: "1.0079", website: 'H'},
+    {name: "9", username: 'Hydrogen', email: "1.0079", website: 'H'},
+  ]);
+  // this.dataSource.paginator = this.paginator;
+}
+ ngAfterViewInit() {
+  // this.repartitions.paginator = this.paginator;
+  this.gains.paginator = this.paginatorG;
+  this.dataSourceG.paginator = this.paginatorG; 
+}
+
+getSessionsByID():any {
+  this.sessionsService.GetSessionByID(this.activatedRoute.snapshot.params['id']).
+  subscribe(
+    (res:any) => {
+      console.log("sessions : ",res.repartitions)
+      this.dataSource = res.repartitions
+
+    }
+  )
+
+}
+
+getGains(id:number):void {
+  this.repartitionsService.GetRepartionGains(id).
+  subscribe(
+    (res: any) => {
+      console.log("rep", res)
+      this.gainsData = res.gains
+      // this.titleMenu ="gainsData"
+      console.log('this.gainsData', this.gainsData)
+      this.gains = new MatTableDataSource(res.gains);
+      this.gains.paginator = this.paginatorG;
+    }
+  )
+}
 
  @HostListener('window:resize', ['$event'])
  onResize(event: Event): void {
@@ -73,129 +189,11 @@ export class SessionDetailComponent implements OnInit{
  }
 
  logout(event: MouseEvent)
-    {
-        event.preventDefault();
-        this.authService.logout()
-    }
+  {
+    event.preventDefault();
+    this.authService.logout()
+  }
 
-  /********************************************************************
-   *                  GESTION CLIENT
-   ********************************************************************/
-  ngOnInit(): void {
-}
 
- /********************************************************************
- *                  GESTION DU FORMULAIRE, REACTIVEFORM
- ********************************************************************/
- error_messages   = {
-  'nom' : [
-    {type:'required', message:'Le nom est obligqtoire.'},
-    {type:'minlength', message:'Nom trop court'},
-    {type:'maxlength', message:'Nom trop long'},
-  ],
-
-  'prenom' : [
-    {type:'required', message:'Le prenom est obligqtoire.'},
-    {type:'minlength', message:'Prenom trop court'},
-    {type:'maxlength', message:'Prenom trop long'},
-  ],
-
-  'tel' : [
-    {type:'required', message:'Le numéro de téléphone est obligqtoire.'},
-  ],
-
-  'email' : [
-     {type:'required', message:'L\'email est obligqtoire.'},
-     {type: 'pattern', message: 'Format d\'email invalid.' },
-  ],
-
-  'adresse' : [
-       {type:'required', message:'L\'adress est obligqtoire.'},
-  ],
-
-  'pwd' : [
-    // {type: 'required', message:'Le mot de passe est obligqtoire.'},
-    {type: 'minlength', message: 'Mot de passe trop court.' },
-    {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-    {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
-  ],
-
-  'confPwd' : [
-    // {type: 'required', message:'Veuillez confirmer le mot de passe.'},
-    {type: 'minlength', message: 'Mot de passe trop court.' },
-    {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-    {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
-    {type: 'passwordCompare', message: 'Mot de passe different.'}
-  ],
-}
-
-clientForm: FormGroup = this.fb.group({
-
-  nom: new FormControl('', Validators.compose([
-    Validators.required,
-    Validators.minLength(2),
-    Validators.maxLength(255),
-  ])),
-
-  prenom: new FormControl('', Validators.compose([
-    Validators.required,
-    Validators.minLength(2),
-    Validators.maxLength(255),
-  ])),
-
-  tel: new FormControl('', Validators.compose([
-    Validators.required,
-  ])),
-
-  email: new FormControl('', Validators.compose([
-    Validators.required,
-    Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-  ])),
-
-  adresse: new FormControl('', Validators.compose([
-    Validators.required,
-  ])),
-
-  pwd: new FormControl('', Validators.compose([
-    // Validators.required,
-    // Validators.minLength(4),
-    // Validators.maxLength(200),
-    // Validators.pattern(
-    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-    // ),
-  ])),
-
-  confPwd: new FormControl('', Validators.compose([
-    // Validators.required,
-    // Validators.minLength(4),
-    // Validators.maxLength(200),
-    // Validators.pattern(
-    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#\\$%\\^&\\*])(?=.{8,})/
-    // ),
-  ])),
-
-})
-
-  // Getter pour un accès facile aux champs du formulaire (clientForm)
-  get f() { return this.clientForm.controls; }
-  get u() { return this.user.client}
-
-  /********************************************************************
- *                  On submit Methode
- ********************************************************************/
-  onSubmit() {
-    this.submitted = true;
-      // Si on a des erreurs on stop
-      if (this.clientForm.invalid) {
-        return;
-    }
-    // let userToUpdate =  new User(this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
-    // this.userService.updateUser(userToUpdate).subscribe( res => console.log(res))
-
-}
-
-// ngOnInit(): void {
-//   this.authService.authStatus.subscribe(value => this.isLogged = value)
-// }
 
 }

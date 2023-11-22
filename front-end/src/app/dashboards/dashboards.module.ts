@@ -37,6 +37,11 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { DialogSpinerComponent } from './shared/dialog-spiner/dialog-spiner.component';
 import { GainDetailComponent } from './jeux/gain/gain-detail/gain-detail.component';
 import { ProfilComponent } from './profil/profil.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatTableModule} from '@angular/material/table';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatRadioModule} from '@angular/material/radio';
+
 @NgModule({
   declarations: [
     DashboardHomeComponent,
@@ -73,15 +78,17 @@ import { ProfilComponent } from './profil/profil.component';
     DialogSpinerComponent,
     GainDetailComponent,
     ProfilComponent,
-    
-   
   ],
   imports: [
     CommonModule,
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatTableModule, 
+    MatPaginatorModule,
+    MatCheckboxModule,
+    MatRadioModule
   ]
 })
 export class DashboardModule { }

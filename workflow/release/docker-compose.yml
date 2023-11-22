@@ -1,0 +1,83 @@
+version: '3'
+networks:
+  root_network_app:
+    external: true
+  # workflow_network_app:
+  #   external: true
+
+services:
+  server-app-ppd:
+    container_name: server-app-ppd
+    build:
+      context: ../../back-end/
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: fresnelcool/server-app-ppd:${IMG_TAG_PPD}
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    # ports:
+    #   - 127.0.0.1:8089:8089
+    # expose:
+    #   - 8089
+    environment:
+      APP_PORT: 8085
+      APP_HOST: 0.0.0.0    
+      DB_HOST: 109.123.254.17
+      DB_PORT: 3307
+      DB_USER: root
+      DB_PWD: Dsp-archi-15
+      DB_DATABASE: DSP5-ARCHI-DB-PPD
+      FACEBOOK_CLIENT_ID: 834324708244777
+      FACEBOOK_CLIENT_SECRET: b23338d8d100a9f261b7d3199fe7ef06
+      FACEBOOK_CALLBACK_URL: http://thetiptop.release.api.com/auth/facebook/callback
+      GOOGLE_CLIENT_ID: 574508009757-dfq7soqtakor952logu1rup06r53hsjr.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: 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
+      GOOGLE_CALLBACK_URL: http://thetiptop.release.api.com/auth/google/callback
+      URL_REDIRECT_AUTH_SOCIAL_MEDIA: http://thetiptop.release.com/social-media/
+      BASE_URL_FRONT: http://thetiptop.release.com
+      BASE_URL: http://thetiptop.release.api.com
+      BASE_URL_FOR_AXIOS: http://127.0.0.1:8085
+      DB_CONNECTION_LIMIT: 20
+      SERVICE_TAGS: pre-prod
+      SERVICE_NAME: nodeapp
+    # depends_on:
+    #   - mysqldb-ppd
+    networks:
+      # workflow_network_app:
+      root_network_app:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.server-app-release.rule=Host(`thetiptop.release.api.com`)
+      - traefik.http.routers.server-app-release.middlewares=network-internet@docker
+      - traefik.http.services.server-app-release.loadbalancer.server.port=8085
+
+
+  client-app-ppd:
+    container_name: client-app-ppd
+    build:
+      context: ../../front-end/
+      dockerfile: Dockerfile-ppd.dockerfile
+    image: fresnelcool/client-app-ppd:${IMG_TAG_PPD}
+    restart: always
+    volumes:
+      - "/home/node/app:/home/node/app"
+    # ports:
+    #   - 8085:8085
+    # expose:
+    #   - 8085
+    environment:
+      SERVEUR_HOST: mysqldb
+      PORT: 8086
+      APP_HOST: 0.0.0.0
+      SERVICE_TAGS: pre-prod
+      SERVICE_NAME: frontapp
+    depends_on:
+      - server-app-ppd       
+    networks:
+      # workflow_network_app:
+      root_network_app:
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.client-app-release.rule=Host(`thetiptop.release.com`)
+      - traefik.http.routers.client-app-release.middlewares=network-internet@docker
+      - traefik.http.services.client-app-release.loadbalancer.server.port=8086
