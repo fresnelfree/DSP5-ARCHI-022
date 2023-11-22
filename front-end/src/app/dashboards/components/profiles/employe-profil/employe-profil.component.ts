@@ -11,8 +11,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-dhb-profil',
-  templateUrl: './dhb-profil.component.html',
-  styleUrls: ['./dhb-profil.component.css']
+  templateUrl: './employe-profil.component.html',
+  styleUrls: ['./employe-profil.component.css']
 })
 export class DhbProfilComponent {
 
@@ -24,18 +24,15 @@ export class DhbProfilComponent {
  
 
   constructor(
-
     private authService : AuthenticationService,
     private router      : Router,
     private token       : TokenService,
     private fb                   : FormBuilder,
     private activatedRoute       : ActivatedRoute,
      private userService          : UserService,
- 
   ){
-             this.submitted = false;
-             this.role = "Client"
-           
+    this.submitted = false;
+    this.role = "Client"  
   }
   
  
@@ -48,9 +45,7 @@ export class DhbProfilComponent {
     this.getUserByEmail()
 }
 
-
 getUserByEmail():  void{
-
   this.userService.getUserByEmail(this.getTokenEmail()).subscribe(
     (res) => { 
           this.user = res
@@ -175,14 +170,15 @@ employeForm: FormGroup = this.fb.group({
    const role:string = this.user.employe.role;
 
     let userToUpdate = {
-      "id_compte": id_compte,
       "nom"     : this.f.nom, 
       "prenom"  : this.f.prenom, 
       "tel"     : this.f.tel, 
       "email"   : this.f.email, 
       "adresse" : this.f.adresse, 
-      "role"    : role
     }
+
+    console.log(userToUpdate);
+    
     
     this.userService.updateUser(userToUpdate,id).subscribe(
       res => {
@@ -190,7 +186,7 @@ employeForm: FormGroup = this.fb.group({
           }
     )
 
-    window.location.reload();
+    // window.location.reload();
     
 }
 

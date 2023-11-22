@@ -28,44 +28,6 @@
       </div>
       <div class="top-right">
         <div class="header-menu">
-          <div class="header-left">
-            <button class="search-trigger"><i class="fa fa-search"></i></button>
-            <div class="form-inline">
-              <form class="search-form">
-                <input
-                  class="form-control mr-sm-2"
-                  type="text"
-                  placeholder="Search ..."
-                  aria-label="Search"
-                />
-                <button class="search-close" type="submit">
-                  <i class="fa fa-close"></i>
-                </button>
-              </form>
-            </div>
-
-            <div class="dropdown for-notification">
-              <button
-                class="btn btn-secondary dropdown-toggle"
-                type="button"
-                id="notification"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class="fa fa-bell"></i>
-                <span class="count bg-danger">3</span>
-              </button>
-              <div class="dropdown-menu" aria-labelledby="notification">
-                <p class="red">You have 3 Notification</p>
-                <a class="dropdown-item media" href="#">
-                  <i class="fa fa-info"></i>
-                  <p>Server #2 overloaded.</p>
-                </a>
-              </div>
-            </div>
-          </div>
-
           <div class="user-area dropdown float-right">
             <a
               href="#"
@@ -100,9 +62,9 @@
     <!-- Content -->
     <div class="content">
       <div class="animated fadeIn">
-        <app-mini-menu [title]="titleMenu" ></app-mini-menu>
+        <app-mini-menu [title]="titleMenu"  [titleList]="titleList"  [linkList]="linkList" [titleAdd]="titleAdd" [linkAdd]="linkAdd" > </app-mini-menu>
 
-        <div class="row">
+        <div class="row table2">
           <div class="col-md-12">
             <div class="card">
               <div class="card-header">
@@ -113,43 +75,29 @@
                   id="bootstrap-data-table_wrapper"
                   class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer"
                 >
-                  <div class="row">
-                    <div class="col-sm-12 col-md-6">
-                      <div
-                        class="dataTables_length"
-                        id="bootstrap-data-table_length"
-                      >
-                        <label
-                          >Show
-                          <select
-                            name="bootstrap-data-table_length"
-                            aria-controls="bootstrap-data-table"
-                            class="form-control form-control-sm"
-                          >
-                            <option value="10">10</option>
-                            <option value="20">20</option>
-                            <option value="50">50</option>
-                            <option value="-1">All</option>
-                          </select>
-                          entries</label
-                        >
-                      </div>
-                    </div>
-                    <div class="col-sm-12 col-md-6">
-                      <div
-                        id="bootstrap-data-table_filter"
-                        class="dataTables_filter"
-                      >
-                        <label
-                          >Search:<input
-                            type="search"
-                            class="form-control form-control-sm"
-                            placeholder=""
-                            aria-controls="bootstrap-data-table"
-                        /></label>
-                      </div>
-                    </div>
+                    
+                <div class="d-flex justify-content-between pb-4 tete">
+                  <div class="show">
+                    <div class="dataTables_length" id="bootstrap-data-table_length">
+                      <label>Afficher
+                        <select name="bootstrap-data-table_length" aria-controls="bootstrap-data-table" class="form-control form-control-sm">
+                          <option value="10">10</option>
+                          <option value="20">20</option>
+                          <option value="50">50</option>
+                          <option value="-1">All</option>
+                        </select>
+                        entrer
+                      </label>
+                    </div> <!--fin Show-->
                   </div>
+                  <div class="  search">
+                    <div id="bootstrap-data-table_filter"  class="dataTables_filter">
+                      <label>Search:
+                          <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="bootstrap-data-table"/>
+                      </label>
+                    </div>
+                  </div><!--fin search-->
+                </div>
                   <div class="row">
                     <div class="col-sm-12">
                       <table

@@ -29,7 +29,8 @@ export class DashboardEmployeAllComponent {
  public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
- public employes: User[] = []
+//  public employes: User[] = []
+public employes: any;
 
  constructor(
    private authService : AuthenticationService,
@@ -49,9 +50,12 @@ export class DashboardEmployeAllComponent {
  ********************************************************************/
 
 getEmployes(){
-    return this.employeService.getEmployers("/employes").subscribe(
-
-    )
+    return this.employeService.getEmployers().subscribe(
+       res => {
+        this.employes = res
+        console.log(res);
+       }
+      )
 }
 
 

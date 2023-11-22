@@ -49,7 +49,9 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class SessionDetailComponent implements OnInit{
 
-  titleMenu:string="Session"
+
+  titleMenu:string="Détail session"
+//   titleMenu:string="Session"
   titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"

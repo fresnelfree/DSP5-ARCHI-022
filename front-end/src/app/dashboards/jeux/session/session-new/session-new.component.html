@@ -31,7 +31,7 @@
        <div class="top-right">
          <div class="header-menu">
            <div class="header-left">
-             <button class="search-trigger"><i class="fa fa-search"></i></button>
+             <!-- <button class="search-trigger"><i class="fa fa-search"></i></button>
              <div class="form-inline">
                <form class="search-form">
                  <input
@@ -65,7 +65,7 @@
                    <p>Server #2 overloaded.</p>
                  </a>
                </div>
-             </div>
+             </div> -->
            </div>
  
            <div class="user-area dropdown float-right">
@@ -110,13 +110,13 @@
          [linkAdd]="linkAdd" >
         </app-mini-menu>
  
-         <div class="row">
-           <div class="col-md-12">
+  <div class="row">
+   <div class="col-md-12">
              <!--Debut Fresnell -->
- <div class="container">
+    <div class="container session-new">
     <!-- Toast -->
     
-    <div *ngIf="warningPercent || warningIndicationPercent || selectedSession" class="alert alert-danger d-flex align-items-center" role="alert">
+     <div *ngIf="warningPercent || warningIndicationPercent || selectedSession" class="alert alert-danger d-flex align-items-center" role="alert">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
         <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
       </svg>
@@ -130,11 +130,107 @@
         Veuillez selectionner une session
       </div>
     </div>
-  
+   
+    <div class="row">
+      <div class="col-lg-8">
+          <div class="card">
+              
+              <div class="card-footer">
+                <button  class="btn btn-primary btn-sm">
+                    <i class="fa fa-dot-circle-o"></i> Total ticket : {{nbrTicket}}
+                </button>
+                <button  class="btn btn-danger btn-sm">
+                    <i class="fa fa-ban"></i> Ticket restant : {{nbrTicketRestant}}
+                </button>
+            </div>
+              <div class="card-body">
+                  <!-- Credit Card -->
+                  <div id="pay-invoice">
+                      <div class="card-body">
+                          <!-- <div class="card-title d-flex justify-content-between">
+                            <h3 class="text-center">Total ticket : 20</h3>
+                            <h3 class="text-center">Ticket restant : 20</h3>
+                          </div> 
+                          <hr> -->
+                          <form action="#" method="post" novalidate="novalidate">
+                           <div class="row mb-2">
+                            <div class="col-12 col-md-11">
+                              <select name="select" id="select" class="form-control"
+                              required (change)="onChangeSelectedSession($event)"
+                              [(ngModel)]="session"
+                              name="session"
+                              id="session"
+                              class="form-select"
+                               >
+                                  <option value="0">Choisir session</option>
+                                  <option *ngFor="let item of sessions" [value]="item.id"> {{item.libelle}}</option>
+
+                              </select>
+                          </div>
+                           <div class="col-1">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                              +
+                            </button>
+                          </div>
+                           </div>
+                              <div class="row mt-2" *ngFor="let item of repartitions; let i = index">
+                                  <div class="col-8">
+                                      <div class="form-group">
+                                          <label for="cc-exp" class="control-label mb-1">Nom du gain</label>
+                                          <input id="cc-exp" name="cc-exp" type="text" placeholder="Infusion"
+                                          class="form-control"
+                                          [id]="'libelle-' + i"
+                                          [name]="'libelle-' + i"
+                                          (input)="onChange($event)"
+                                          [(ngModel)]="item.libelle"
+                                          >
+                                          <span class="help-block" data-valmsg-for="cc-exp" data-valmsg-replace="true"></span>
+                                      </div>
+                                  </div>
+                                  <div class="col-4">
+                                      <label for="x_card_code" class="control-label mb-1">Pourcentage (%)</label>
+                                      <div class="input-group">
+                                        <input
+                                        class="form-control"
+                                        type="number"
+                                        [id]="'percent-' + i"
+                                        [name]="'percent-' + i"
+                                        (input)="calculatedPercent()"
+                                        [(ngModel)]="item.pourcentage"
+                                        placeholder="Enter a value" required>
+                                          <div class="input-group-addon">
+                                              <span (click)="removeInput(i)" class="bi bi-trash text-danger" data-html="true" data-title="Security Code" data-content="" data-trigger="hover"></span>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <button type="button" class="btn btn-primary col-12 mt-2"  [disabled]="percents===100"  (click)="addInput()"> Ajouter une repartition </button>  
+
+                              <div class="form-group d-flex mt-5 justify-content-between">
+                                  <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                    <i class="bi bi-joystick"></i>&nbsp;
+                                      <span id="payment-button-amount">Creer</span>
+                                      <span id="payment-button-sending" style="display:none;">Sending…</span>
+                                  </button>
+                                  <div class=" "> 
+                                    <button id="payment-button" type="submit" class="btn btn-lg btn-gray btn-block" (click)="clearFormSession()">
+                                      <i class="bi bi-joystick"></i>&nbsp;
+                                        <span id="payment-button-amount">Annuler</span> 
+                                    </button>
+                                  </div>
+                              </div>
+                          </form>
+                      </div>
+                  </div>
+              </div> 
+          </div> <!-- .card -->
+
+      </div><!--/.col-->
+</div>
     <!-- Modal -->
     <div class="modal text-white fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
-        <div class="modal-content bg-dark">
+        <div class="modal-content bg-light">
           <div class="row mt-3">
             <div class="col-10">
               <h1 class="modal-title fs-4 text-center" id="staticBackdropLabel">Créer une nouvelle session de jeu</h1>
@@ -144,7 +240,10 @@
             </div>
   
           </div>
+        
           <div class="modal-body">
+            
+<!--            
             <form [formGroup]="sessionForm" (ngSubmit)="onSubmitFormSession()" #form="ngForm" class="tooltip-label-right">
               <div class="row">
                 <div class="col-12 mb-2">
@@ -192,8 +291,10 @@
           </div>
         </div>
       </div>
-    </div>
-  
+    </div> -->
+
+    
+<!--   
     <form
       (ngSubmit)="onSubmitFormRepartition()"
       #form="ngForm"
@@ -204,22 +305,24 @@
             <div class="col-12">
               <div class="row">
                 <div class="col-11">
+                   -->
                   <!-- <label for="def">Session</label> -->
-                  <select required (change)="onChangeSelectedSession($event)"
+                  <!-- <select required (change)="onChangeSelectedSession($event)"
                     [(ngModel)]="session"
                     name="session"
                     id="session"
                     class="form-select">
-                    <option selected>Sélectionné une session...</option>
+                    <option selected>Sélectionné une session...</option> -->
                     <!-- <option selected value="5">session test</option> -->
-                    <option *ngFor="let item of sessions" [value]="item.id">
+                    <!-- <option *ngFor="let item of sessions" [value]="item.id">
                       {{item.libelle}}
                     </option>
                   </select>
                 </div>
-                <div class="col-1">
+                <div class="col-1"> -->
                   <!-- Button trigger modal -->
-                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+
+                  <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                     +
                   </button>
                 </div>
@@ -229,30 +332,28 @@
         </div>
         <div class="card-body">
           <div class="row">
-            <div class="col-4">
+            <div class="col-6">
+              
               <button type="button" [disabled]="percents===100"
                 class="form-control btn btn-primary mt-2"
                 (click)="addInput()">
                 Ajouter une répartition
               </button>
             </div>
-            <div class="col-4">
+            <div class="col-3">
               <div class="row">
                 <div class="col-12 text-center">
-                  <label for="def">Nombre Ticket Total</label>
+                  <label for="def">Ticket Total :  <label class="" for="def">{{nbrTicket}}</label></label>
                 </div>
                 <div class="col-12 text-center">
-                  <label class="" for="def">{{nbrTicket}}</label>
+                 
                 </div>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
               <div class="row">
                 <div class="col-12 text-center">
-                  <label for="def">Nombre Ticket Restant</label>
-                </div>
-                <div class="col-12 text-center">
-                  <label for="def">{{nbrTicketRestant}}</label>
+                  <label for="def">Ticket restant a repartir : <label for="def">{{nbrTicketRestant}}</label></label>
                 </div>
               </div>
             </div>
@@ -279,24 +380,27 @@
                 [(ngModel)]="item.pourcentage"
                 placeholder="Enter a value" required>
             </div>
-            <div class="col-2">
-              <label  for="def">Supprimer</label>
-              <button class="form-control btn btn-danger" (click)="removeInput(i)">-</button>
+            <div class="col-1 my-4">
+              <label  for="def" style="cursor: pointer; font-size: 1.70rem;">
+                <i class="bi bi-trash text-danger" (click)="removeInput(i)"></i>
+              </label> -->
+              <!-- <button class="form-control btn btn-danger" (click)="removeInput(i)">-</button> -->
+<!--            
             </div>
           </div>
-          <div class="row">
-            <div class="col-8">
-              <button type="submit" class="form-control btn btn-success">Créer le jeu</button>
+          <div class="row btn-add-annuler my-5">
+            <div class="col-2">
+              <button type="submit" class="form-control btn btn-primary">Créer le jeu</button>
             </div>
-            <div class="col-4">
-              <button class="form-control btn btn-danger">Annuler</button>
+            <div class="col-2">
+              <button class="form-control btn btn-outline-dark">Annuler</button>
             </div>
           </div>
         </div>
       </div>
-    </form>
+    </form>-->
   
-  </div>
+  </div> 
   <!--Fin Fresnell -->
            </div>
          </div><!-- Fin row -->

@@ -7,6 +7,11 @@ import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ClientService } from 'src/app/core/services/client/client.service';
+import { Client } from 'src/app/core/models/client/client';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogSpinerComponent } from '../../shared/dialog-spiner/dialog-spiner.component';
+
  
 @Component({
   selector: 'app-dashboard-client-detail',
@@ -14,12 +19,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./dashboard-client-detail.component.css']
 })
 export class DashboardClientDetailComponent  implements OnInit {
-
+ //Mini-menu
   titleMenu:string="Informations du client"
   titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"
   linkAdd = "/dashboard/client/new"
+
+  isLoading = false;
+
+  onLoading(): void {
+    this.isLoading = true;
+    setTimeout( () => this.isLoading = false, 2000 );
+  }
   
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -31,24 +43,40 @@ export class DashboardClientDetailComponent  implements OnInit {
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
  private submitted;
- private role: string;
- public user: any;
+ public user: any; 
+ public client: any;
+ public deletMessage: string = "";
+ private id: number = this.activatedRoute.snapshot.params['id'];
+
 
  constructor(
 
-   private authService : AuthenticationService,
-   private router      : Router,
-   private token       : TokenService,
-   private fb                   : FormBuilder,
-   private activatedRoute       : ActivatedRoute,
-    private userService          : UserService,
+  private authService : AuthenticationService,
+  private router      : Router,
+  private token       : TokenService,
+  private fb                   : FormBuilder,
+  private activatedRoute       : ActivatedRoute,
+  private userService          : UserService,
+  private clientService : ClientService,
+  private dialog: MatDialog,
 
  ){
             this.submitted = false;
-            this.role = "Client"
  }
 
+// DIALOG
+showDialog(time:number) {
+  const dialogRef = this.dialog.open(DialogSpinerComponent);
+  setTimeout( () => dialogRef.close(),  time);
 
+  dialogRef.afterClosed().subscribe(result => {
+    console.log('The dialog was closed');
+    // this.animal = result;
+  });
+  // this.snackbarService.showNotification('Ceci est un message de Snackbar.','ok','success');
+}
+
+// 
 
  @HostListener('window:resize', ['$event'])
  onResize(event: Event): void {
@@ -81,8 +109,19 @@ export class DashboardClientDetailComponent  implements OnInit {
    *                  GESTION CLIENT
    ********************************************************************/
   ngOnInit(): void {
+    this.getClient() 
+    this.showDialog(500)
 }
 
+
+getClient(){
+  this.clientService.getClientById(this.id).subscribe(
+    res => {
+      this.client = res
+    }
+    
+  )
+}
  /********************************************************************
  *                  GESTION DU FORMULAIRE, REACTIVEFORM
  ********************************************************************/
@@ -176,21 +215,42 @@ clientForm: FormGroup = this.fb.group({
 })
 
   // Getter pour un accès facile aux champs du formulaire (clientForm)
-  get f() { return this.clientForm.controls; }
+  // get f() { return this.clientForm.controls; }
+  get f() { return this.clientForm.value; }
   get u() { return this.user.client}
 
   /********************************************************************
  *                  On submit Methode
  ********************************************************************/
   onSubmit() {
-    this.submitted = true;
-      // Si on a des erreurs on stop
-      if (this.clientForm.invalid) {
-        return;
-    }
-    // let userToUpdate =  new User(this.u.prenom, this.u.nom, this.u.email, this.u.tel, this.u.adresse)
-    // this.userService.updateUser(userToUpdate).subscribe( res => console.log(res))
+    const id_compte = this.client.id_compte;
+    const id:number = this.client.id;
 
+    let clientToUpdate = {
+      "nom"     : this.f.nom, 
+      "prenom"  : this.f.prenom, 
+      "tel"     : this.f.tel, 
+      "email"   : this.f.email, 
+      "adresse" : this.f.adresse, 
+    }
+   
+     this.clientService.updateClient(clientToUpdate, id)
+     .subscribe(
+      res=>{
+              this.showDialog(2000)
+           }
+    )
+}
+ 
+
+onDelete(){
+  this.clientService.deleteClient(this.client.id).subscribe(
+   res => { 
+     if(res === null) {
+       this.deletMessage = "Employé supprimer avec succés"
+       this.router.navigate(['/dashboard/client/all'])
+     }  
+   })
 }
 
 // ngOnInit(): void {

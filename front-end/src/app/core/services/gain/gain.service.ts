@@ -32,8 +32,12 @@ constructor(
 /************************************************
  *        METHODES
  ************************************************/
-  getGains(id:number): any{
-    return this.http.get(`${environment.hostLine}/clients/${id}/gains`,httpOption)
+  getGainAll(): any{
+    return this.http.get(`${environment.hostLine}/gains`,httpOption)
+  } 
+  
+  getGain(id:number): any{
+    return this.http.get(`${environment.hostLine}/gains/${id}`,httpOption)
   } 
   
   updateGain(id: number ,data: Gain) : any {

@@ -62,6 +62,11 @@ export class AuthenticationService {
   //   public get userValue() {
   //     return this.userSubject.value;
   // }
+
+//     userValue() {
+//       return this.userSubject.value;
+//   }
+
     //Inscription
     register(obj: any){
         return this.http.post(this.api+"/users/register", obj, httpOption).pipe(
