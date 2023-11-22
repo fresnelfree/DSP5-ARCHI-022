@@ -14,7 +14,7 @@ import { EmployeService } from 'src/app/core/services/employe/employe.service';
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
-  styleUrl: './profil.component.css'
+  styleUrls: ['./profil.component.css']
 })
 export class ProfilComponent implements OnInit {
   

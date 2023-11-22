@@ -19,7 +19,7 @@ import { GainService } from 'src/app/core/services/gain/gain.service';
 @Component({
   selector: 'app-gain-detail',
   templateUrl: './gain-detail.component.html',
-  styleUrl: './gain-detail.component.css'
+  styleUrls: ['./gain-detail.component.css']
 })
 export class GainDetailComponent {
 //Mini-menu
