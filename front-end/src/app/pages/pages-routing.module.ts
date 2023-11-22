@@ -31,6 +31,8 @@ const routes: Routes = [
   { path: 'utilisation', component: CguComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'inscription', component: InscriptionComponent},
+  { path: 'robots.txt', redirectTo:'robots.txt', pathMatch:'full'},
+
 
   { path: 'social-media/:token', component: AuthSocialMediaComponent},  
   { path: 'connexion', 

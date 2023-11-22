@@ -7,4 +7,14 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+goToLink(){
+    window.open('/');
+}
+goToLinkM(){
+  window.open('/mentions');
+}
+goToLinkC(){
+  window.open('/utilisation');
+}
+
 }
