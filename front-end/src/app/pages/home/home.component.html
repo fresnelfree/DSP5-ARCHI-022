@@ -196,14 +196,16 @@
             </div>
                 </div> <br/> <br/>
 
-                <div class="col-lg-5 col-md-6 col-sm-6">
+                <div class="col-md-9 col-lg-7">
                   <div class="single-footer-widget">
                       <h6 class="footer_title">Newsletter</h6>	
                       <div id="mc_embed_signup">
                           <form >
                               <div class="input-group d-flex flex-row">
-                                  <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                  <button class="btn sub-btn"><span class="lnr lnr-location"> s'abonnez</span></button>		
+                                  <!-- <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email"> -->
+                                  	
+                                  <input  type="email" formControlName="email" aria-label="email" name="myAddress" required class="form-control" placeholder="Email Address">
+                                  <button class="btn sub-btn"><span class="lnr lnr-location"> s'abonnez</span></button>	
                               </div>									
                               <div class="mt-10 info"></div>
                           </form>
