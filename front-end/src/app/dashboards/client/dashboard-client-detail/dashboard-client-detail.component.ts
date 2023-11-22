@@ -118,6 +118,7 @@ getClient(){
   this.clientService.getClientById(this.id).subscribe(
     res => {
       this.client = res
+      console.log(this.client)
     }
     
   )
