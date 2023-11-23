@@ -28,7 +28,8 @@ pipeline{
     IMG_TAG_INT = '1.0.0'
     IMG_TAG_PPD = '1.0.0'
     IMG_TAG = '1.0.0'
-  
+
+    SCANNER_HOME = tool 'sonarqube';
     // DOCKER_HOST = "/var/run/docker.sock"
   }
   options {
@@ -46,10 +47,12 @@ pipeline{
       } 
       steps {
 
-        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### SonarQube Analysis #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
-        def scannerHome = tool 'sonarqube';
-        withSonarQubeEnv() {
-          sh '${scannerHome}/bin/sonar-scanner'
+        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### SonarQube Analysis #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"        
+        // withSonarQubeEnv() {
+        //   sh '${SCANNER_HOME}/bin/sonar-scanner'
+        // }
+        withSonarQubeEnv('sonarqube') {
+          sh '${SCANNER_HOME}/bin/sonar-scanner'
         }
       }
     }    
