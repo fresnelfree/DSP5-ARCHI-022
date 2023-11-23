@@ -38,6 +38,22 @@ pipeline{
 
   stages {
 
+    stage('SonarQube Analysis') {   
+      when {
+        not {
+          branch "main"
+        }
+      } 
+      steps {
+
+        echo "#####+++++++++++++++++++++++++++++++++++++++++++++++++++++++##### SonarQube Analysis #####+++++++++++++++++++++++++++++++++++++++++++++++++++++++#####"
+        def scannerHome = tool 'sonarqube';
+        withSonarQubeEnv() {
+          sh '${scannerHome}/bin/sonar-scanner'
+        }
+      }
+    }    
+
     stage('BUILD') { 
       when {
         not {
