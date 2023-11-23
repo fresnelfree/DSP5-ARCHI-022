@@ -85,7 +85,7 @@ import {MatRadioModule} from '@angular/material/radio';
     DashboardRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
     MatTableModule, 
     MatPaginatorModule,
     MatCheckboxModule,

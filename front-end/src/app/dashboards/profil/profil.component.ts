@@ -9,6 +9,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { EmployeService } from 'src/app/core/services/employe/employe.service';
+import { CookieService } from 'ngx-cookie-service';
  
 
 @Component({
@@ -57,7 +58,7 @@ constructor(
  private userService          : UserService,
  private employeService : EmployeService,
  private dialog: MatDialog,
-
+ private cookieService: CookieService
 ){
            this.submitted = false;
 }
@@ -113,8 +114,9 @@ logout(event: MouseEvent)
 
    // Gestion du user actuell
    getCurrentUser(){
-    this.currentUser = this.authService.userValue()
-    console.log(this.currentUser );
+    console.log("current: ",  JSON.parse(this.cookieService.get('user')))
+    this.currentUser = JSON.parse(this.cookieService.get('user'));
+    console.log(this.currentUser.employe );
  }
 
 /********************************************************************
@@ -230,7 +232,7 @@ employeForm: FormGroup = this.fb.group({
      "adresse" : this.f.adresse, 
      "role": this.currentUser.employe.role
    }
-  
+  console.log(currentUserToUpdate)
     this.employeService.updateUser(currentUserToUpdate, id).subscribe(
      res=>{
             //  this.showDialog(2000)
