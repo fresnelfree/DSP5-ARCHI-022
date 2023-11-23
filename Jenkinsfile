@@ -29,7 +29,7 @@ pipeline{
     IMG_TAG_PPD = '1.0.0'
     IMG_TAG = '1.0.0'
 
-    SCANNER_HOME = tool 'sonarqube';
+    SCANNER_HOME = tool 'SonarQubeScanner';
     // DOCKER_HOST = "/var/run/docker.sock"
   }
   options {
@@ -42,8 +42,11 @@ pipeline{
     stage('SonarQube Analysis') {   
       when {
         not {
-          branch "main"
-        }
+          anyOf {
+              branch 'main'
+              branch 'release'
+          }
+        }          
       } 
       steps {
 
