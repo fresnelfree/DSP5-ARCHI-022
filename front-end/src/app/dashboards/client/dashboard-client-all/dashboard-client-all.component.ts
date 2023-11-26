@@ -13,7 +13,7 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 })
 export class DashboardClientAllComponent {
   //Mini-menu
-  titleMenu:string="Informations du client"
+  titleMenu:string="Liste des clients"
   titleList:string="Liste clients"
   linkList = "/dashboard/client/all"
   titleAdd:string="Ajout client"

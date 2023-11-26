@@ -23,10 +23,12 @@ import { GainService } from 'src/app/core/services/gain/gain.service';
 })
 export class GainDetailComponent {
 //Mini-menu
-public titleMenu:string="Détail du gain"
-public titleList:string="Liste gain"
-public linkList = "/dashboard/gain/all"
-public titleAdd:string="Nom_session"
+ //Mini-menu
+ titleMenu:string="Liste des gains"
+ titleList:string="Liste gains"
+ linkList = "/dashboard/client/all"
+ titleAdd:string="Ajout gain"
+ linkAdd = "/dashboard/gain/new"
  
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -64,7 +66,6 @@ public titleAdd:string="Nom_session"
     return  this.gainService.getGain(id).subscribe(
     (res:any) => {
       this.gain = res
-      console.log(res)
     }
    )
  }
@@ -73,8 +74,6 @@ public titleAdd:string="Nom_session"
   return this.clientService.getClientById(1).subscribe(
     (res:any) => {
       this.user = res
-      console.log(this.gain);
-      console.log("Res client", res);
     }
   )
  }

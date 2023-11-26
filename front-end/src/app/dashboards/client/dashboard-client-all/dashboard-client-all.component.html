@@ -44,9 +44,7 @@
             </a>
 
             <div class="user-menu dropdown-menu">
-              <a class="nav-link" href="#"
-                ><i class="fa fa- user"></i>Mon profil</a
-              >
+              <a class="nav-link" routerLink="/dashboard/profil"><i class="fa fa- user"></i>Mon profil</a>
               <a class="nav-link" href="#" (click)="logout($event)"
                 ><i class="fa fa-power -off"></i>Deconnexion</a
               >
@@ -62,7 +60,7 @@
     <!-- Content -->
     <div class="content">
       <div class="animated fadeIn">
-        <app-mini-menu [title]="titleMenu"  [titleList]="titleList"  [linkList]="linkList" [titleAdd]="titleAdd" [linkAdd]="linkAdd" > </app-mini-menu>
+        <app-mini-menu [title]="titleMenu"> </app-mini-menu>
 
         <div class="row table2">
           <div class="col-md-12">

@@ -19,11 +19,11 @@ import { GainService } from 'src/app/core/services/gain/gain.service';
 export class GainComponent {
   
   //Mini-menu
-  titleMenu:string="Informations du client"
-  titleList:string="Liste clients"
+  titleMenu:string="Liste des gains"
+  titleList:string="Liste gains"
   linkList = "/dashboard/client/all"
-  titleAdd:string="Ajout client"
-  linkAdd = "/dashboard/client/new"
+  titleAdd:string="Ajout gain"
+  linkAdd = "/dashboard/gain/new"
 
  //Variable pour gestion navbar
  public open: boolean = false;
