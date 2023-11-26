@@ -41,7 +41,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
-
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatCardModule} from '@angular/material/card';
 
 @NgModule({
   declarations: [
@@ -89,7 +91,10 @@ import {MatRadioModule} from '@angular/material/radio';
     MatTableModule, 
     MatPaginatorModule,
     MatCheckboxModule,
-    MatRadioModule
+    MatRadioModule,
+    MatFormFieldModule,
+    MatDividerModule,
+    MatCardModule
   ]
 })
 export class DashboardModule { }

@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
@@ -9,6 +9,11 @@ import { AuthenticationService } from 'src/app/core/services/auth/authentication
 import { ClientService } from 'src/app/core/services/client/client.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { GainService } from 'src/app/core/services/gain/gain.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+import { GainDetailComponent } from '../gain-detail/gain-detail.component';
  
 
 @Component({
@@ -35,15 +40,23 @@ export class GainComponent {
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
  public clients: User[] = [];
- public gains: any;
+ public gains: any = [];
  
+ @ViewChild(MatPaginator)
+ paginator : any = MatPaginator;
+
+ @ViewChild(MatSort) 
+ sort: any = MatSort;
+
+ columnsToDisplay = ['numero_gain', 'etat_gain', 'libelle_gain', 'action' ];
 
  constructor(
    private authService   : AuthenticationService,
    private router        : Router,
    private token         : TokenService,
    private clientService : ClientService,
-   public gainService    : GainService
+   public gainService    : GainService,
+   private dialog: MatDialog,
  ){}
 
  ngOnInit(): void {
@@ -56,11 +69,48 @@ export class GainComponent {
   getGains(){
    return this.gainService.getGainAll().subscribe(
       (res:any) => {
-        this.gains = res
+        this.gains = new MatTableDataSource(res)
+        this.gains.paginator = this.paginator;
+        this.gains.sort = this.sort;
         console.log(this.gains);
         
       }
     )
+  }
+
+  reloadComponent(): void {
+    const currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = "reload";
+    this.router.navigate([currentUrl]);
+  }
+
+  showDetailDialog(data:any) {
+    const dialogRef = this.dialog.open(GainDetailComponent, {
+      data: data,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.reloadComponent()
+      // this.animal = result;
+    }); 
+  } 
+
+  applyFilter(filterValue: any) {
+    filterValue = filterValue.value.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.gains.filter = filterValue;
+  }
+
+  filter(filterValue:any): void {
+    console.log('filter : ', filterValue.value) // Datasource defaults to lowercase matches
+    this.gains.filter = filterValue.value
+  }
+
+  showDetails(elt: any):void {
+      console.log("details")
+      this.showDetailDialog(elt)
   }
 
   getClients(){

@@ -44,6 +44,10 @@ constructor(
     return this.http.put(`${environment.hostLine}/gains/${id}`,data,httpOption)
   }
 
+  getGainsClient(idClt: number): any {
+    return this.http.get(`${environment.hostLine}/clients/${idClt}/gains`,httpOption)    
+  }
+
   getGainsWithNumGain(numGain:string): any{
     return this.http.get(`${environment.hostLine}/findByNumGain/${numGain}`,httpOption)
   }   

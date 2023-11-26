@@ -207,7 +207,7 @@
                               <button type="button" class="btn btn-primary col-12 mt-2"  [disabled]="percents===100"  (click)="addInput()"> Ajouter une repartition </button>  
 
                               <div class="form-group d-flex mt-5 justify-content-between">
-                                  <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                  <button id="payment-button" (click)="onSubmitFormRepartition()" type="submit" class="btn btn-lg btn-info btn-block">
                                     <i class="bi bi-joystick"></i>&nbsp;
                                       <span id="payment-button-amount">Creer</span>
                                       <span id="payment-button-sending" style="display:none;">Sending…</span>
@@ -243,7 +243,7 @@
         
           <div class="modal-body">
             
-<!--            
+           
             <form [formGroup]="sessionForm" (ngSubmit)="onSubmitFormSession()" #form="ngForm" class="tooltip-label-right">
               <div class="row">
                 <div class="col-12 mb-2">
@@ -291,7 +291,7 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
     
 <!--   

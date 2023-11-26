@@ -1,152 +1,55 @@
-<div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
-    <!-- Left Panel -->
-    <aside
-      id="left-panel"
-      class="left-panel"
-      [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }"
-    >
-      <app-dashboard-sidebar></app-dashboard-sidebar>
-    </aside>
-    <!-- /#left-panel -->
-  
-    <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
-      <!-- Header-->
-      <header id="header" class="header">
-        <div class="top-left">
-          <div class="navbar-header">
-            <a class="navbar-brand" href="./"
-              ><img src="assets/images/logos/logo1.png" alt="Logo"
-            /></a>
-            <a class="navbar-brand hidden" href="./"
-              ><img src="assets/images/logos/logo2.png" alt="Logo"
-            /></a>
-            <a id="menuToggle" class="menutoggle"
-              ><i class="fa fa-bars" (click)="onMenu($event)"></i
-            ></a>
-          </div>
-        </div>
-        <div class="top-right">
-          <div class="header-menu">
-            <div class="header-left">
-              <!-- <button class="search-trigger"><i class="fa fa-search"></i></button>
-              <div class="form-inline">
-                <form class="search-form">
-                  <input
-                    class="form-control mr-sm-2"
-                    type="text"
-                    placeholder="Search ..."
-                    aria-label="Search"
-                  />
-                  <button class="search-close" type="submit">
-                    <i class="fa fa-close"></i>
-                  </button>
-                </form>
-              </div> -->
-  
-              <!-- <div class="dropdown for-notification">
-                <button
-                  class="btn btn-secondary dropdown-toggle"
-                  type="button"
-                  id="notification"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <i class="fa fa-bell"></i>
-                  <span class="count bg-danger">3</span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="notification">
-                  <p class="red">You have 3 Notification</p>
-                  <a class="dropdown-item media" href="#">
-                    <i class="fa fa-info"></i>
-                    <p>Server #2 overloaded.</p>
-                  </a>
-                </div>
-              </div> -->
-            </div>
-  
-            <div class="user-area dropdown float-right">
-              <a
-                href="#"
-                class="dropdown-toggle active"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <img
-                  class="user-avatar rounded-circle"
-                  src="assets/images/admin.jpg"
-                  alt="User Avatar"
-                />
-              </a>
-  
-              <div class="user-menu dropdown-menu">
-                <a class="nav-link" href="#"
-                  ><i class="fa fa- user"></i>Mon profil</a
-                >
-                <a class="nav-link" href="#" (click)="logout($event)"
-                  ><i class="fa fa-power -off"></i>Deconnexion</a
-                >
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-      <!-- /#header -->
-  
-   
-  
-      <!-- Content -->
-      <div class="content">
-        <div class="animated fadeIn">
-          <app-mini-menu [title]="titleMenu"  [titleList]="titleList"  [linkList]="linkList" [titleAdd]="titleAdd"> </app-mini-menu>
+<div class="container p-4">
+  <div class="row">
+    <div class="col-12">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-subtitle class="mt-1">Détails gain</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-card-title class="mt-3 pb-1">Infos gain</mat-card-title>
           <div class="row">
-            <div class="col-12">
-              <div class="card" >
-                <h5 class="card-header">Historique de vos gains</h5>
-                <div class="card-body ticket-card">
-                  <!-- <button (click)="showSuccess()">Afficher Snackbar</button> -->
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Gagnant</th>
-                        <th scope="col">N°-Gain</th>
-                        <th scope="col">Gain</th>
-                        <th scope="col">Statut</th>
-                        <th scope="col">Session</th>
-
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td >{{user.nom}} {{user.prenom}} </td>
-                        <!-- <td *ngIf="gain.id_client; else elseBlock">{{user.nom}} </td>
-                        <ng-template #elseBlock> <td>Aucun</td> </ng-template> -->
-                        <td>{{gain.numero_gain}}</td>
-                        <td>{{gain.libelle_gain}}</td>
-                        <td [class]="gain.etat_gain === 'Rendu' ? 'table-success' : 'table-info'">
-                          {{gain.etat_gain === 'Rendu' ? 'Gain recupéré' : 'Gain non recupéré'}}
-                        </td>
-                        <td>test</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                  <button type="button" class="btn btn-primary" >Rendre</button>
-                </div>
-              </div>
+            <div class="col-4">
+              Numéro du gain : {{data.numero_gain}}
             </div>
+            <div class="col-4">
+              Statut du gain : {{data.etat_gain}}
+            </div>
+            <div class="col-4">
+              Libelle du gain : {{data.libelle_gain}}
+            </div>        
           </div>
-        </div>
-        <!-- .animated -->
-      </div>
-      <!-- /.content -->
-      <div class="clearfix"></div>
-  
-      <!-- Footer -->
-      <app-dashboard-footer></app-dashboard-footer>
-      <!-- /.site-footer -->
+          <mat-divider class="mt-2 mb-2"></mat-divider>          
+          <mat-card-title class="mt-1 pb-1">Info client associer</mat-card-title>
+          <div class="row" *ngIf="!no_clt; else elsenoclt">
+            <div class="col-6 pb-2">
+              Nom : {{user.nom}}
+            </div>
+            <div class="col-6 pb-2">
+              Prénom : {{user.prenom}}
+            </div>
+            <div class="col-6">
+              Email : {{user.email}}
+            </div>  
+            <div class="col-6">
+              Tel : {{user.tel}}
+            </div>                   
+          </div>      
+                  
+          <ng-template #elsenoclt>
+            <p class="text-center">Ce gain n'a pas encore été utilisé sur le site du jeu concours</p>
+          </ng-template>       
+        </mat-card-content>
+      </mat-card>
+
     </div>
-    <!-- /#right-panel -->
+
   </div>
-  
+  <div class="row">
+    <div mat-dialog-actions class="col-8 mt-3">
+      <button  class="form-control btn btn-danger" [hidden]="no_btn" (click)="rendreGain()">Rendre le gain</button>
+    </div>    
+    <div mat-dialog-actions class="col-4 mt-3">
+      <button class="form-control btn btn-primary" [hidden]="no_btn" mat-button (click)="onNoClick()">Fermer</button>
+    </div>    
+  </div>
+</div>
