@@ -1,10 +1,6 @@
 <div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
   <!-- Left Panel -->
-  <aside
-    id="left-panel"
-    class="left-panel"
-    [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }"
-  >
+  <aside id="left-panel" class="left-panel" [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }" >
     <app-dashboard-sidebar></app-dashboard-sidebar>
   </aside>
   <!-- /#left-panel -->
@@ -62,27 +58,12 @@
           </div>
 
           <div class="user-area dropdown float-right">
-            <a
-              href="#"
-              class="dropdown-toggle active"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              <img
-                class="user-avatar rounded-circle"
-                src="assets/images/admin.jpg"
-                alt="User Avatar"
-              />
+            <a href="#" class="dropdown-toggle active" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+              <img class="user-avatar rounded-circle" src="assets/images/admin.jpg" alt="User Avatar"/>
             </a>
-
             <div class="user-menu dropdown-menu">
-              <a class="nav-link" href="#"
-                ><i class="fa fa- user"></i>Mon profil</a
-              >
-              <a class="nav-link" href="#" (click)="logout($event)"
-                ><i class="fa fa-power -off"></i>Deconnexion</a
-              >
+              <a class="nav-link" routerLink="/dashboard/profil"><i class="fa fa- user"></i>Mon profil</a>
+              <a class="nav-link" href="#" (click)="logout($event)"><i class="fa fa-power -off"></i>Deconnexion</a>
             </div>
           </div>
         </div>
@@ -90,8 +71,6 @@
     </header>
     <!-- /#header -->
  
- 
-
     <!-- Content -->
     <div class="content">
       <div class="animated fadeIn">
@@ -132,57 +111,19 @@
         
                     <div class="row">
                       <div class="col-sm-12">
-                        <table
-                          id="bootstrap-data-table"
-                          class="table table-striped table-bordered dataTable no-footer"
-                          role="grid"
-                          aria-describedby="bootstrap-data-table_info"
-                        >
+                        <table id="bootstrap-data-table" class="table table-striped table-bordered dataTable no-footer" role="grid" aria-describedby="bootstrap-data-table_info" >
                           <thead>
                             <tr role="row">
-                              <th
-                                class="sorting_asc"
-                                tabindex="0"
-                                aria-controls="bootstrap-data-table"
-                                rowspan="1"
-                                colspan="1"
-                                aria-sort="ascending"
-                                aria-label="Name: activate to sort column descending"
-                                style="width: 191px"
-                              >
+                              <th class="sorting_asc" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Name: activate to sort column descending" style="width: 191px" >
                                 Nom complet
                               </th>
-                              <th
-                                class="sorting"
-                                tabindex="0"
-                                aria-controls="bootstrap-data-table"
-                                rowspan="1"
-                                colspan="1"
-                                aria-label="Position: activate to sort column ascending"
-                                style="width: 310px"
-                              >
+                              <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table"  rowspan="1" colspan="1" aria-label="Position: activate to sort column ascending" style="width: 310px" >
                                 Adresse
                               </th>
-                              <th
-                                class="sorting"
-                                tabindex="0"
-                                aria-controls="bootstrap-data-table"
-                                rowspan="1"
-                                colspan="1"
-                                aria-label="Office: activate to sort column ascending"
-                                style="width: 144px"
-                              >
+                              <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Office: activate to sort column ascending" style="width: 144px" >
                                 Tel
                               </th>
-                              <th
-                                class="sorting"
-                                tabindex="0"
-                                aria-controls="bootstrap-data-table"
-                                rowspan="1"
-                                colspan="1"
-                                aria-label="Salary: activate to sort column ascending"
-                                style="width: 111px"
-                              >
+                              <th class="sorting" tabindex="0" aria-controls="bootstrap-data-table" rowspan="1" colspan="1" aria-label="Salary: activate to sort column ascending" style="width: 111px" >
                                 Email
                               </th>
                             </tr>
