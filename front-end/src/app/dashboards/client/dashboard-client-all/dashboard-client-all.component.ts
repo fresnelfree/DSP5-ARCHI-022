@@ -1,4 +1,7 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
@@ -19,6 +22,12 @@ export class DashboardClientAllComponent {
   titleAdd:string="Ajout client"
   linkAdd = "/dashboard/client/new"
 
+  @ViewChild(MatPaginator)
+  paginator : any = MatPaginator;
+ 
+  @ViewChild(MatSort) 
+  sort: any = MatSort;
+ columnsToDisplay = ['nom', 'email', 'adresse', 'tel', 'action' ];
  //Variable pour gestion navbar
  public open: boolean = false;
  public block: boolean = false;
@@ -28,7 +37,7 @@ export class DashboardClientAllComponent {
  public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
- public clients: User[] = [];
+ public clients: any ;
 
  constructor(
    private authService : AuthenticationService,
@@ -44,11 +53,20 @@ export class DashboardClientAllComponent {
     this.getClients()
  }
 
+ applyFilter(filterValue: any) {
+  filterValue = filterValue.value.trim(); // Remove whitespace
+  filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+  this.clients.filter = filterValue;
+}
 
   getClients(){
     return this.clientService.getClients().subscribe(
-      res => {
-        this.clients = res
+      (res:any) => {
+        this.clients = new MatTableDataSource(res)
+        this.clients.paginator = this.paginator;
+        this.clients.sort = this.sort;   
+        console.log("clients : ", this.clients)     
+        // this.clients = res
       }
     )
   }

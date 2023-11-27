@@ -44,6 +44,7 @@ import {MatRadioModule} from '@angular/material/radio';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import {MatCardModule} from '@angular/material/card';
     MatRadioModule,
     MatFormFieldModule,
     MatDividerModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule
   ]
 })
 export class DashboardModule { }

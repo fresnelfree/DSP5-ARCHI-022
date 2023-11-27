@@ -133,15 +133,22 @@
                           </ng-container>
 
                           <!-- Name Column -->
-                          <ng-container matColumnDef="libelle_gain">
+                          <ng-container matColumnDef="etat_gain">
                             <th mat-header-cell *matHeaderCellDef> 	Statut </th>
-                            <td mat-cell *matCellDef="let element"> {{element.libelle_gain}} </td>
+                            <td mat-cell *matCellDef="let element">
+                              <mat-chip-listbox aria-label="Dog selection">
+                                <mat-chip color="warn" [style]="element.etat_gain === 'Rendu' ? 'background-color: greenyellow;' : element.etat_gain === 'Actif' ? 'background-color: dodgerblue;' : ''">
+                                  <i [class]="element.etat_gain === 'Rendu' ? 'bi bi-check2-all' : element.etat_gain === 'Actif' ? 'bi bi-check2' : 'bi bi-slash-circle'" ></i> 
+                                  {{element.etat_gain}}
+                                </mat-chip>
+                              </mat-chip-listbox>                               
+                            </td>
                           </ng-container>                          
           
                           <!-- Name Column -->
-                          <ng-container matColumnDef="etat_gain">
-                            <th mat-header-cell *matHeaderCellDef> 	Statut </th>
-                            <td mat-cell *matCellDef="let element"> {{element.etat_gain}} </td>
+                          <ng-container matColumnDef="libelle_gain">
+                            <th mat-header-cell *matHeaderCellDef> 	Libelle </th>
+                            <td mat-cell *matCellDef="let element"> {{element.libelle_gain}} </td>
                           </ng-container>
 
                           <!-- Name Column -->
@@ -166,9 +173,8 @@
             </div>
           </div>
         </div>
-        <!-- .animated -->
       </div>
-      <!-- /.content -->
+    </div>
       <div class="clearfix"></div>
   
       <!-- Footer -->
