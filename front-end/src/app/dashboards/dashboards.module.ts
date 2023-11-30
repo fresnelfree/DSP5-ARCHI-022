@@ -41,6 +41,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import { ContactComponent } from './contact/contact.component';
+import { NewsletterComponent } from './newsletter/newsletter.component';
 
 
 @NgModule({
@@ -79,6 +81,8 @@ import {MatRadioModule} from '@angular/material/radio';
     DialogSpinerComponent,
     GainDetailComponent,
     ProfilComponent,
+    ContactComponent,
+    NewsletterComponent,
   ],
   imports: [
     CommonModule,

@@ -19,6 +19,8 @@ import { SessionEditComponent } from './jeux/session/session-edit/session-edit.c
 import { SessionDetailComponent } from './jeux/session/session-detail/session-detail.component';
 import { GainDetailComponent } from './jeux/gain/gain-detail/gain-detail.component';
 import { ProfilComponent } from './profil/profil.component';
+import { ContactComponent } from './contact/contact.component';
+import { NewsletterComponent } from './newsletter/newsletter.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
@@ -27,6 +29,8 @@ const routes: Routes = [
     canActivate: [authGuard], 
     data: {role: 'Admin'}  
   },
+  { path: 'contact', component: ContactComponent, canActivate: [authGuard], data: {role: 'Admin'}  },
+  { path: 'newsletter', component: NewsletterComponent, canActivate: [authGuard], data: {role: 'Admin'}  },
   { path: 'home', component: DashboardHomeComponent,         
      canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
   },
