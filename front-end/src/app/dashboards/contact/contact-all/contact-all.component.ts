@@ -1,26 +1,23 @@
 import { Component, HostListener } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { EmployeService } from 'src/app/core/services/employe/employe.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 
 
-
 @Component({
-  selector: 'app-newsletter',
-  templateUrl: './newsletter.component.html',
-  styleUrls: ['./newsletter.component.css']
+  selector: 'app-contact-all',
+  templateUrl: './contact-all.component.html',
+  styleUrls: ['./contact-all.component.css']
 })
-export class NewsletterComponent {
-  
-  
+export class ContactAllComponent {
 
-  titleMenu:string="News-letter"
-  titleList:string="emails"
-  linkList = "/dashboard/newsletter/all"
-  titleAdd:string="Ajout newsletter"
-  linkAdd = "/dashboard/newsletter/new"
+
+  titleMenu:string="Contact Message"
+  titleList:string="Messages"
+  linkList = "/dashboard/contact/all"
+  titleAdd:string="Ajout contact"
+  linkAdd = "/dashboard/contact/new"
 
  //Variable pour gestion navbar
  public open: boolean = false;
