@@ -19,6 +19,9 @@ import { SessionEditComponent } from './jeux/session/session-edit/session-edit.c
 import { SessionDetailComponent } from './jeux/session/session-detail/session-detail.component';
 import { GainDetailComponent } from './jeux/gain/gain-detail/gain-detail.component';
 import { ProfilComponent } from './profil/profil.component';
+import { NewsletterComponent } from './newsletter/newsletter.component';
+import { ContactAllComponent } from './contact/contact-all/contact-all.component';
+import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
 
 const routes: Routes = [
   {path:'', redirectTo:'dashboard', pathMatch:'full'},
@@ -27,6 +30,7 @@ const routes: Routes = [
     canActivate: [authGuard], 
     data: {role: 'Admin'}  
   },
+  { path: 'newsletter', component: NewsletterComponent, canActivate: [authGuard], data: {role: 'Admin'}  },
   { path: 'home', component: DashboardHomeComponent,         
      canActivate: [authGuard], data: {role: 'Admin', role2: 'Caissier'}  
   },
@@ -41,7 +45,22 @@ const routes: Routes = [
     canActivate: [authGuard], 
     data: {role: 'Admin', role2: 'Caissier'} 
   },
-
+  {
+    path: 'contact', children: [
+      { path : '', component: ContactAllComponent,
+       canActivate: [authGuard], 
+       data: {role: 'Admin'} 
+      },
+      { path : 'all', component: ContactAllComponent,
+        canActivate: [authGuard], 
+        data: {role: 'Admin'} 
+      },
+      { path : 'detail', component: ContactDetailComponent,
+        canActivate: [authGuard], 
+        data: {role: 'Admin'} 
+      }
+    ]
+  },
   {
     path: 'jeux', children: [
       { path : '', component: DashboardJeuxAllComponent,

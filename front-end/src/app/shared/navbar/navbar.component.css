@@ -1,1 +1,3 @@
-
+.form-inline a {
+    min-width: 130px;
+}

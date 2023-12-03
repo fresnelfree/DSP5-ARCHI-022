@@ -26,8 +26,6 @@ import { MentionsComponent } from './mentions/mentions.component';
 import { CguComponent } from './cgu/cgu.component';
 import { CgvComponent } from './cgv/cgv.component';
 
-
-
 @NgModule({
   declarations: [
     HomeComponent,
@@ -50,8 +48,7 @@ import { CgvComponent } from './cgv/cgv.component';
     CongratulateDialogComponent,
     MentionsComponent,
     CguComponent,
-    CgvComponent
-  
+    CgvComponent,
   ],
   imports: [
     CommonModule,

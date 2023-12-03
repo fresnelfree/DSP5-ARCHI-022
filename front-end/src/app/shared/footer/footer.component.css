@@ -2,3 +2,7 @@ ul
 {
     list-style: none;
 }
+.icons img{
+  height: 30px;
+  width: 30px;
+}

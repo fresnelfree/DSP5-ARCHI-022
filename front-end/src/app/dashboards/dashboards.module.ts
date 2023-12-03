@@ -41,6 +41,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatTableModule} from '@angular/material/table';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
+import { NewsletterComponent } from './newsletter/newsletter.component';
+import { ContactDetailComponent } from './contact/contact-detail/contact-detail.component';
+import { ContactAllComponent } from './contact/contact-all/contact-all.component';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatCardModule} from '@angular/material/card';
@@ -82,6 +85,9 @@ import {MatChipsModule} from '@angular/material/chips';
     DialogSpinerComponent,
     GainDetailComponent,
     ProfilComponent,
+    NewsletterComponent,
+    ContactDetailComponent,
+    ContactAllComponent,
   ],
   imports: [
     CommonModule,
