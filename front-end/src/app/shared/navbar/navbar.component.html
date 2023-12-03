@@ -19,6 +19,9 @@
         <li class="nav-item">
           <a class="nav-link link-dark" routerLink="/contact">Contactez-nous</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/dashboard" *ngIf="isLogged">Dashboard</a>
+        </li>
       </ul>
     </div>
     <form class="d-flex content-md-end" id="navbarsExample10">

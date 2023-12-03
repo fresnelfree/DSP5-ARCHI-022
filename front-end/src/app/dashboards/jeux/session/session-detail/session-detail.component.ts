@@ -105,8 +105,8 @@ nbr_ticket_session: any
   this.sessionsService.GetSessionByID(this.activatedRoute.snapshot.params['id']).
   subscribe(
     (res:any) => {
-      console.log("sessions : ",res)
-      this.titleMenu ="" + res.libelle + " / Nbr-Ticket : " + res.nbr_ticket
+      // this.titleMenu ="Nom-session : " + res.libelle + " / Nbr-Ticket : " + res.nbr_ticket
+      this.titleMenu ="Nom-session : " + res.libelle
       this.dataSource = res.repartitions
       this.nbr_ticket_session = res.nbr_ticket
       this.repartitions = new MatTableDataSource(res.repartitions);
