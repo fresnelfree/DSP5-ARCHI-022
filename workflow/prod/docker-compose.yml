@@ -57,13 +57,13 @@ services:
       DB_DATABASE: DSP5-ARCHI-DB
       FACEBOOK_CLIENT_ID: 834324708244777
       FACEBOOK_CLIENT_SECRET: b23338d8d100a9f261b7d3199fe7ef06
-      FACEBOOK_CALLBACK_URL: http://issabarry.fr/auth/facebook/callback
+      FACEBOOK_CALLBACK_URL: http://thetiptop.life/auth/facebook/callback
       GOOGLE_CLIENT_ID: 574508009757-dfq7soqtakor952logu1rup06r53hsjr.apps.googleusercontent.com
       GOOGLE_CLIENT_SECRET: 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
-      GOOGLE_CALLBACK_URL: http://issabarry.fr/auth/google/callback 
-      URL_REDIRECT_AUTH_SOCIAL_MEDIA: http://thetiptop.life/social-media/
-      BASE_URL_FRONT: http://thetiptop.life 
-      BASE_URL: http://issabarry.fr
+      GOOGLE_CALLBACK_URL: http://thetiptop.life/auth/google/callback 
+      URL_REDIRECT_AUTH_SOCIAL_MEDIA: http://dsp-archiwebo20-ttf-ib-mnd.site/social-media/
+      BASE_URL_FRONT: http://dsp-archiwebo20-ttf-ib-mnd.site 
+      BASE_URL: http://thetiptop.life
       BASE_URL_FOR_AXIOS: http://127.0.0.1:8083     
       DB_CONNECTION_LIMIT: 20
       SERVICE_TAGS: prod
@@ -75,7 +75,7 @@ services:
       # workflow_network_app:
     labels:
       - traefik.enable=true
-      - traefik.http.routers.server-app.rule=Host(`issabarry.fr`)
+      - traefik.http.routers.server-app.rule=Host(`thetiptop.life`)
       - traefik.http.routers.server-app.middlewares=network-internet@docker
       - traefik.http.services.server-app.loadbalancer.server.port=8083
 
@@ -105,7 +105,7 @@ services:
       # workflow_network_app:
     labels:
       - traefik.enable=true
-      - traefik.http.routers.client-app.rule=Host(`thetiptop.life`)
+      - traefik.http.routers.client-app.rule=Host(`dsp-archiwebo20-ttf-ib-mnd.site`)
       - traefik.http.routers.client-app.middlewares=network-internet@docker
       - traefik.http.services.client-app.loadbalancer.server.port=8084
 
