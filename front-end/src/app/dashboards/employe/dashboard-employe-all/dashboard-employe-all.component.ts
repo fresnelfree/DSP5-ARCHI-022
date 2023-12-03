@@ -1,4 +1,7 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { User } from 'src/app/core/models/user/user';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
@@ -19,6 +22,13 @@ export class DashboardEmployeAllComponent {
   linkList = "/dashboard/employe/all"
   titleAdd:string="Ajout employe"
   linkAdd = "/dashboard/employe/new"
+
+  @ViewChild(MatPaginator)
+  paginator : any = MatPaginator;
+ 
+  @ViewChild(MatSort) 
+  sort: any = MatSort;
+ columnsToDisplay = ['nom', 'email', 'adresse', 'tel', 'action' ];  
 
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -51,13 +61,20 @@ public employes: any;
 
 getEmployes(){
     return this.employeService.getEmployers().subscribe(
-       res => {
-        this.employes = res
-        console.log(res);
+       (res:any) => {
+        this.employes = new MatTableDataSource(res)
+        this.employes.paginator = this.paginator;
+        this.employes.sort = this.sort;   
+        console.log("employes : ", this.employes)         
        }
       )
 }
 
+applyFilter(filterValue: any) {
+  filterValue = filterValue.value.trim(); // Remove whitespace
+  filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+  this.employes.filter = filterValue;
+}
 
 /********************************************************************
  * 

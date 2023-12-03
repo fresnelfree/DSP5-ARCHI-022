@@ -52,9 +52,9 @@ export class SessionDetailComponent implements OnInit{
 
   titleMenu:string="Détail session"
 //   titleMenu:string="Session"
-  titleList:string="Liste session"
+  titleList:string="Liste sessions"
   linkList = "/dashboard/session/all"
-  titleAdd:string="Ajout session"
+  titleAdd:string="Ajout client"
   linkAdd = "/dashboard/session/new"
 
  //Variable pour gestion navbar

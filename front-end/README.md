@@ -23,7 +23,7 @@ Exemple:
 `ng g c deossier/component-name -m=nom-module`
 Exemple 1: Créer un component(page), qui sera ratacher au module page.module.ts
 `ng g c /pages/home -m=pages `
-
+ng g c /dashboards/jeux/gain/gai -m=pages 
 exemple2: créer un component dans le dossier shareds qui se ratache a app.module.ts
 `ng g c /shared/page-not-found -m=app`
 ##### Créer un service
