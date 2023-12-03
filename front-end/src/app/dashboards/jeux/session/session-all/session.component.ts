@@ -1,5 +1,8 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
@@ -23,7 +26,7 @@ import { UserService } from 'src/app/core/services/user/user.service';
 })
 export class SessionComponent {
   // IB-Var
-  titleMenu:string="List Sessions"
+  titleMenu:string="Liste des Sessions"
   titleList:string="Liste Session"
   linkList = "/dashboard/session/all"
   titleAdd:string="Ajout session"
@@ -61,7 +64,14 @@ export class SessionComponent {
       {type:'required', message:'Le nom est obligqtoire.'},
     ]
   }
-
+  @ViewChild(MatPaginator)
+  paginator : any = MatPaginator;
+ 
+  @ViewChild(MatSort) 
+  sort: any = MatSort;
+  
+  
+  columnsToDisplay = ['libelle', 'statut', 'date_debut', 'date_fin','nbr_ticket','Action' ];
   constructor(
     private sessionJeuService: SessionService,
     private repartitionService: RepartitionService,
@@ -90,7 +100,12 @@ export class SessionComponent {
       pourcentage: [null, Validators.required],
     });
   }
-
+  
+  applyFilter(filterValue: any) {
+    filterValue = filterValue.value.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.sessionDatas.filter = filterValue;
+  }
   clearFormSession(): void {
     this.sessionForm = this.formBuilder.group({
       libelle: ["", Validators.required],
@@ -230,6 +245,7 @@ export class SessionComponent {
     console.log('values :',this.percents)
   }
 
+
   /*******************************************************
    *  IB*-code
   *****************************************************/
@@ -242,8 +258,11 @@ export class SessionComponent {
 
  getSession(){
   return this.sessionJeuService.getSession().subscribe(
-    res => {
-      this.sessionDatas = res
+    (res:any) => {
+      this.sessionDatas = new MatTableDataSource(res)
+      this.sessionDatas.paginator = this.paginator;
+      this.sessionDatas.sort = this.sort;
+      // this.sessionDatas = res
       console.log(res);
     }
   )
@@ -252,7 +271,7 @@ export class SessionComponent {
 
  getClients(){
   return this.clientService.getClients().subscribe(
-    res => {
+    (res:any) => {
       this.clients = res
     }
   )
