@@ -60,20 +60,15 @@ private handleError<T>(operation = 'operation', result?: T) {
  ************************************************/
   //AddUser
   addUser(user: any){
-
     return this.http.post(this.api+"/users/register", user, httpOption).pipe(
-      
       catchError(this.handleError(`createUser`, user))
-
     )
-
  }
 
  updateUser(user: any, id:number){
   return this.http.put(`${this.api}/employes/${id}`, user, httpOption).pipe(
     catchError(this.handleError(`updateUser`, user))
   )
-
 }
 
 deleteUser(id:number){

@@ -27,8 +27,8 @@ export class AuthenticationService {
     private  api = environment.hostLine;
     private loggedIn = new BehaviorSubject<boolean>(this.isloggedIn());
     public authStatus =  this.loggedIn.asObservable();
-    // private userSubject: BehaviorSubject<User | null>;
-    // public user: Observable<User | null>;
+    private userSubject: any;
+    public user: any;
 
     //CONSTRUCTEUR
     constructor(
@@ -37,8 +37,8 @@ export class AuthenticationService {
         private tokenService: TokenService,
         private cookieService: CookieService
       ) {
-        // this.userSubject = new BehaviorSubject(JSON.parse(this.cookieService.get('user') || ""));
-        // this.user = this.userSubject.asObservable();
+        this.userSubject = this.cookieService.get('user');
+        this.user = this.userSubject;
       }
 
   /************************************************
@@ -62,6 +62,11 @@ export class AuthenticationService {
   //   public get userValue() {
   //     return this.userSubject.value;
   // }
+
+    userValue() {
+      return this.userSubject;
+  }
+
     //Inscription
     register(obj: any){
         return this.http.post(this.api+"/users/register", obj, httpOption).pipe(
