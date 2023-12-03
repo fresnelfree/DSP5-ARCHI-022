@@ -6,13 +6,16 @@ ul{
     list-style-type: none;
   }
 
-  /* .list-img {
+   .list-img {
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
   }
-
+  .banier-pub-btn :nth-child(2) {
+    background-color: white;
+  }
+  
   .list-img img{
     width: 30%;
     margin-bottom: 2%;
@@ -121,4 +124,4 @@ ul{
   }
 
   }
-   */
+   
