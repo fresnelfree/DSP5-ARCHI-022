@@ -55,11 +55,18 @@ export class SessionService {
     return this.http.post(`${environment.hostLine}/session-jeus`,data,httpOption)
   }
 
+  UpdateSession(data:Session):any {
+    // data.id_employe = 10
+    data.date_debut = this.FormatDate(data.date_debut)
+    data.date_fin = this.FormatDate(data.date_fin)
+    return this.http.patch(`${environment.hostLine}/session-jeus/${data.id}`,data,httpOption)
+  }
+
   GetSessionByID(id:number):any {
     // data.id_employe = 10
     return this.http.get(`${environment.hostLine}/session-jeus/${id}`,httpOption)
   }
-  
+
   GetrepByID(id:number):any {
     // data.id_employe = 10
     return this.http.get(`${environment.hostLine}/session-jeus/${id}`,httpOption)
