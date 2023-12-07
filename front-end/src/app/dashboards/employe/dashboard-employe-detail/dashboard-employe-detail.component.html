@@ -4,7 +4,6 @@
       <app-dashboard-sidebar></app-dashboard-sidebar>
     </aside>
     <!-- /#left-panel -->
-  
 
     <!-- Right Panel -->
     <div id="right-panel" class="right-panel">
@@ -77,11 +76,9 @@
                   alt="User Avatar"
                 />
               </a>
-  
+    
               <div class="user-menu dropdown-menu">
-                <a class="nav-link" href="#"
-                  ><i class="fa fa- user"></i>Mon profil</a
-                >
+                <a class="nav-link" routerLink="/dashboard/profil"><i class="fa fa- user"></i>Mon profil</a>
                 <a class="nav-link" href="#" 
                 (click)="logout($event)"
                   ><i class="fa fa-power -off"></i>Deconnexion</a
@@ -96,14 +93,9 @@
       <!-- Content -->
       <div class="content">
         <div class="animated fadeIn">
-          <app-mini-menu [title]="titleMenu" 
-          [titleList]="titleList"
-          [linkList]="linkList"
-          [titleAdd]="titleAdd"
-          [linkAdd]="linkAdd" >
-         </app-mini-menu>
+          <app-mini-menu [title]="titleMenu" [titleList]="titleList"[linkList]="linkList"[titleAdd]="titleAdd"[linkAdd]="linkAdd" > </app-mini-menu>
          
-            <app-dhb-profil></app-dhb-profil>
+           <app-dhb-profil></app-dhb-profil>
         </div><!--/.fadeIn-->
       </div>
       <!-- /.content -->

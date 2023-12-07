@@ -49,11 +49,13 @@ const ELEMENT_DATA: PeriodicElement[] = [
 })
 export class SessionDetailComponent implements OnInit{
 
-  titleMenu:string="Session"
-  titleList:string="Liste clients"
-  linkList = "/dashboard/client/all"
+
+  titleMenu:string="Détail session"
+//   titleMenu:string="Session"
+  titleList:string="Liste sessions"
+  linkList = "/dashboard/session/all"
   titleAdd:string="Ajout client"
-  linkAdd = "/dashboard/client/new"
+  linkAdd = "/dashboard/session/new"
 
  //Variable pour gestion navbar
  public open: boolean = false;
@@ -103,8 +105,8 @@ nbr_ticket_session: any
   this.sessionsService.GetSessionByID(this.activatedRoute.snapshot.params['id']).
   subscribe(
     (res:any) => {
-      console.log("sessions : ",res)
-      this.titleMenu ="" + res.libelle + " / Nbr-Ticket : " + res.nbr_ticket
+      // this.titleMenu ="Nom-session : " + res.libelle + " / Nbr-Ticket : " + res.nbr_ticket
+      this.titleMenu ="Nom-session : " + res.libelle
       this.dataSource = res.repartitions
       this.nbr_ticket_session = res.nbr_ticket
       this.repartitions = new MatTableDataSource(res.repartitions);

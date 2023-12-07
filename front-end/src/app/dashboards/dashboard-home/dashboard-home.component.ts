@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { ClientService } from 'src/app/core/services/client/client.service';
 import { ToggleService } from 'src/app/core/services/toggle/toggle.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 
@@ -17,8 +18,8 @@ export class DashboardHomeComponent  implements OnInit{
   public smallDevise: boolean = false;//Pour apliquer des styles aux tablettes et smartphones
   public openMenuSmall: boolean = false;//Pour ouvrir le petit menu
   public ecran: number = window.innerWidth; //Pour stocker la taille de la resolution
-  windowSize: { width: number; height: number } = { width: 0, height: 0 };;
-  //Autres var
+  public windowSize: { width: number; height: number } = { width: 0, height: 0 };;
+  public currentUser:any;
   public isLogged: boolean = false;//verification si le user est connecter
 
   constructor(
@@ -26,32 +27,27 @@ export class DashboardHomeComponent  implements OnInit{
     private authService : AuthenticationService,
     private router      : Router,
     private token       : TokenService,
-    private toggleService : ToggleService
-
+    private toggleService : ToggleService,
   ){}
 
   ngOnInit(): void {
-
      this.authService.authStatus.subscribe(value => this.isLogged = value)
-
      this.toggleService.getWindowSizeObservable().subscribe(size => {
       this.windowSize = size;
     });
-     
+    this.getCurrentUser()
   }
 
 
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.ecran = window.innerWidth;
-
     if (this.ecran < 1010) {
       this.smallDevise = !this.smallDevise;
     }
   }
 
     onMenu(e: MouseEvent) {
-
       if (this.ecran > 1010) {
         this.open = !this.open;
       } else if (this.ecran < 1010) {
@@ -62,9 +58,7 @@ export class DashboardHomeComponent  implements OnInit{
       }
       
       this.toggleService.getWindowSizeObservable().subscribe(size => {
-        this.windowSize = size;
-      
-      });
+        this.windowSize = size;});
     }
 
     logout(event: MouseEvent)
@@ -73,4 +67,10 @@ export class DashboardHomeComponent  implements OnInit{
         this.authService.logout()
     }
 
+    // Gestion du user actuell
+  getCurrentUser(){
+     this.currentUser = this.authService.userValue()
+  }
+  
+  
 }

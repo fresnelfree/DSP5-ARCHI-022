@@ -21,15 +21,10 @@ import { ClientProfilCardComponent } from '../shared/client-profil-card/client-p
 import { ClientNavComponent } from '../shared/client-nav/client-nav.component';
 import { AuthSocialMediaComponent } from './auth-social-media/auth-social-media.component';
 import { CongratulateDialogComponent } from './client/congratulate-dialog/congratulate-dialog.component';
- 
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MentionsComponent } from './mentions/mentions.component';
 import { CguComponent } from './cgu/cgu.component';
 import { CgvComponent } from './cgv/cgv.component';
-
-
- 
- 
-
 
 @NgModule({
   declarations: [
@@ -53,15 +48,14 @@ import { CgvComponent } from './cgv/cgv.component';
     CongratulateDialogComponent,
     MentionsComponent,
     CguComponent,
-    CgvComponent
-  
+    CgvComponent,
   ],
   imports: [
     CommonModule,
     PagesRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    
+    MatProgressSpinnerModule
   ]
 })
 export class PagesModule { }

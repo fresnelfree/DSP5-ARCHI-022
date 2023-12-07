@@ -112,6 +112,30 @@ img {
   max-width: 100%; 
 }
 
+form small p{
+  font-size: 0.8rem;
+}
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner:before {
+  content: '';
+  box-sizing: border-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  border-top-color: #000000;
+  animation: spinner .8s linear infinite;
+}
+/* Fin loading */
+
 .promot{
   z-index: 1;
   position: relative;
@@ -219,17 +243,66 @@ img {
 
 .edit-session{
   background-color: white;
-  padding: ;
 }
+.left-nav{
+  display: flex;
+  justify-content: space-between;
+}
+.navbar-toggler {
+  position: absolute;
+  right: 0;
+}
+.menu-btn {
+  margin-left: 0%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+   margin-left: 0;
+    padding-left: 7%;
+}
+.form-inline{
+  display: flex;
+  flex-direction: row;
+ }
+ .form-inline a{
+  width: 110px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+ }
 
 @media (min-width: 992px) {
-
+  .menu-btn{
+    width: 100%;
+    margin-left: 0;
+    padding-left: 9%;
+  }
 }
 @media (max-width: 780px) {
-  
+  .menu-btn{
+    width: 100%;
+    margin-left: 0;
+    padding-left: 9%;
+  }
 }
-@media (max-width: 560px) {
-  
+
+@media (max-width: 560px) {  
+  .menu-btn {
+    margin-left: 0;
+    width: 200px;
+    margin: 0;
+    padding-left: 14%;
+  }
+  .form-inline{
+    display: flex;
+    flex-direction: column;
+   }
+   .form-inline a{
+    width: 110px;
+    font-size: 0.80rem;
+    margin-bottom: 10px;
+   }
+   
 }
+
 
 
