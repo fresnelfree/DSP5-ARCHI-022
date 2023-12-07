@@ -11,7 +11,7 @@ import { NewsletterService } from 'src/app/core/services/newsletter/newsletter.s
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  
+
 
   constructor(
     private router : Router,
@@ -20,7 +20,7 @@ export class HomeComponent {
     private snackbarService: SnackbarService,
     private meta: Meta,
     private newsletterService: NewsletterService
-  ) { 
+  ) {
     this.titleAccueil.setTitle('Accueil');
     this.meta.addTag({name:'Premier page', content:'Home'});
     this.meta.addTag({name:'keywords', content:'Thé, thés bios, TheTipTop, Nice, Jeu Concours, thé vert, thé noir, infusions'});
@@ -32,7 +32,8 @@ export class HomeComponent {
       Validators.minLength(3),
       Validators.maxLength(100),
       Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-    ])),    
+      ])),
+    subscribe_date: new FormControl( new Date().toISOString())
   })
 
   NewsletterService():void {
