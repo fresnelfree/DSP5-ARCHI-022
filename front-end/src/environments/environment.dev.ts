@@ -6,5 +6,4 @@ export const environment = {
   // hostLocal: "http://127.0.0.1:4000",
   hostLine: "http://thetiptop.int.api.com", 
   // hostLine: "http://issabarry.fr"
-
 };
