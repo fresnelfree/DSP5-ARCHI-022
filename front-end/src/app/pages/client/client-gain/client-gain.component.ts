@@ -138,7 +138,7 @@ export class ClientGainComponent implements OnInit {
   }
 
   getGains(){
-    this.gainService.getGain(this.user.client.id).
+    this.gainService.getGainsClient(this.user.client.id).
     subscribe((res:any) => {
         this.gains = res
         console.log("gains : ",this.gains)
