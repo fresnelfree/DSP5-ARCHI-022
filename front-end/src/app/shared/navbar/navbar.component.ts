@@ -40,7 +40,8 @@ export class NavbarComponent implements OnInit{
   @HostListener('window:resize', ['$event'])
   onResize(event: Event): void {
     this.ecran = window.innerWidth;
-    console.log(window.location.reload())
+    // console.log(window.location.reload())
+    this.openMenu = false;
     if(this.ecran < 780  )
     {
       this.openMenu = true;
