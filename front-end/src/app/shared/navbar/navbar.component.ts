@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+ 
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
@@ -12,7 +13,9 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 })
 export class NavbarComponent implements OnInit{
   public isLogged: boolean = false;
-
+  public openMenu: boolean = false;
+  public ecran: number = window.innerWidth;
+ 
   constructor(
     private router       : Router,
     private roleService: RoleService,
@@ -31,6 +34,22 @@ export class NavbarComponent implements OnInit{
     {
         event.preventDefault();
         this.authService.logout()
+    }
+
+    
+  @HostListener('window:resize', ['$event'])
+  onResize(event: Event): void {
+    this.ecran = window.innerWidth;
+    console.log(window.location.reload())
+    if(this.ecran < 780  )
+    {
+      this.openMenu = true;
+    }
+  }
+
+    toogleNavbar(e: MouseEvent)
+    {
+      this.openMenu = !this.openMenu;
     }
 
 }

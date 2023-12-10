@@ -30,7 +30,7 @@
   </div>
 </nav>
   -->
-<div class="container-fluid">
+<!-- <div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar bg-white rounded">
    <div class="left-nav">
     <a class="navbar-brand" href="#"><img class="img-responsible px-5" src="assets/images/logos/logo1.png" alt="Thé-tiptop"  style=" height: 35px;"/></a>
@@ -39,8 +39,8 @@
     </button>
    </div>
 
-    <div class="menu-btn navbar-collapse collapse" id="navbarsExample09" style="">
-      <ul class="navbar-nav mr-md-auto">
+    <div class="navbar-collapse collapse d-flex justify-content-md-center" id="navbarsExample09" style="border: 1px solid red;">
+      <ul class="navbar-nav me-8">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
         </li>
@@ -50,20 +50,41 @@
         <li class="nav-item">
           <a class="nav-link link-dark" routerLink="/contact">Contactez-nous</a>
         </li>
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown09">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-          </div>
-        </li> -->
+       
       </ul>
-        <form class="form-inline my-2 my-md-2">
+        <form class="form-menu">
           <a class="btn btn-outline-primary me-2 " type="submit" routerLink="/connexion" *ngIf="!isLogged">Connexion</a>
           <a class="btn btn-primary " type="submit" routerLink="/inscription" *ngIf="!isLogged">Inscription</a>
           <a class="btn btn-outline-primary "  (click)="logout($event)" *ngIf="isLogged">Deconnexion</a>
         </form>
     </div>
   </nav>
+</div> -->
+
+<div class="t-navbar container-fluid">
+  <div class="logo">
+    <img src="assets/images/logos/logo2.png" alt="">
+    <div class="btn-toggle ">
+      <i class="bi bi-list"  (click)="toogleNavbar($event)"></i>
+    </div>
+  </div>
+  <div class="menu " [ngClass]="{ 'open-menu': openMenu }">
+      <ul class="">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/apropos">A-Propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/contact">Contactez-nous</a>
+        </li>
+    </ul>
+  </div>
+  <form class="form-menu" [ngClass]="{ 'open-menu': openMenu }">
+    <a class="btn btn-outline-primary me-2 " type="submit" routerLink="/connexion" *ngIf="!isLogged">Connexion</a>
+    <a class="btn btn-primary " type="submit" routerLink="/inscription" *ngIf="!isLogged">Inscription</a>
+    <a class="btn btn-outline-primary "  (click)="logout($event)" *ngIf="isLogged">Deconnexion</a>
+  </form>
+  
 </div>

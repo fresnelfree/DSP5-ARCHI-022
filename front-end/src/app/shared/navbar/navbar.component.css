@@ -1,3 +1,227 @@
-.form-inline a {
-    min-width: 130px;
+ 
+
+
+/* 
+.left-nav{
+    display: flex;
+    justify-content: space-between;
+  }
+  .navbar-toggler {
+    position: absolute;
+    right: 0;
+  }
+  .menu-btn {
+    margin-left: 0%;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+     margin-left: 0;
+      padding-left: 7%;
+  }
+  .form-inline{
+    display: flex;
+    flex-direction: row;
+   }
+   .form-inline a{
+    width: 110px;
+    font-size: 1rem;
+    margin-bottom: 10px;
+   }
+
+
+   
+@media (min-width: 992px) {
+    .menu-btn{
+      width: 100%;
+      margin-left: 0;
+      padding-left: 9%;
+    }
+  }
+  @media (max-width: 780px) {
+    .menu-btn{
+      width: 100%;
+      margin-left: 0;
+      padding-left: 9%;
+    }
+  }
+  
+  @media (max-width: 560px) {  
+    .menu-btn {
+      margin-left: 0;
+      width: 200px;
+      margin: 0;
+      padding-left: 14%;
+    }
+    .form-inline{
+      display: flex;
+      flex-direction: column;
+     }
+     .form-inline a{
+      width: 110px;
+      font-size: 0.80rem;
+      margin-bottom: 10px;
+     }
+     
+  } */
+/*   
+.t-navbar {
+    display: flex;
+    height: 55px;
 }
+  
+.t-navbar ul {
+    display: flex;
+    border: 1px solid red;
+    height: 100%;
+    margin: auto;
+   
+}
+
+.t-navbar ul li {
+    line-height: 50px;
+    margin-left: 15px;
+}
+
+.btn-toggle {
+    font-size: 3rem;
+    border: none;
+    background-color: none;
+    padding-top: 5px;
+    display: none;
+} */
+body {
+    overflow: hidden; /* Désactive la barre de défilement */
+}
+
+.t-navbar {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: white;
+}
+.btn-toggle{
+    display: none;
+}
+.menu {
+    padding-left: 25px;
+    width: auto;
+    display: flex;
+    justify-content: space-between;
+    line-height: 55px;
+    margin: auto;
+}
+.menu ul {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+.menu li {
+    padding-left: 15px;
+}
+.form-menu {
+    line-height: 55px;
+}
+
+.btn-toggle i {
+    color: gray;
+}
+.t-navbar .open-menu
+{
+    display: none;
+}
+
+
+/* show the collapse when navbar toggle is checked */
+#navbar-toggle-cbox:checked ~ .collapse {
+    display: block;
+}
+
+/* the checkbox used only internally; don't display it */
+#navbar-toggle-cbox {
+  display:none
+}
+
+@media (max-width: 992px) {
+   
+    
+}
+
+@media (max-width: 780px) {
+    .openMenu {
+        display: none;
+    }
+  
+    .t-navbar {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: column;
+        background-color: white;
+        border-bottom: 1px solid rgb(189, 189, 189);
+    }
+    .t-navbar .logo {
+        display: flex;
+        justify-content: space-between;
+    }
+    .logo i {
+        font-size: 3rem;
+        cursor: pointer;
+    }
+    .btn-toggle{
+        display: block;
+    }
+    .menu {
+        padding-left: 0px;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        line-height: 30px;
+        margin-left: 4%;
+    }
+    .menu ul {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+    }
+    .menu li {
+        padding-left: 0px;
+    }
+    .form-menu {
+        display: flex;
+        flex-direction: column;
+        margin-left: 4%;
+    }
+
+    .form-menu a {
+        max-width: 120px;
+        margin-bottom: 10px;
+        font-size: 0.90rem;
+    }
+     
+}
+
+@media (max-width: 560px) {
+  
+    .t-navbar .open-menu {
+        display: none;
+    }
+    .t-navbar {
+        border-bottom: 1px solid rgb(189, 189, 189);
+    }
+     .logo img {
+        height: 45px;
+     }
+     .form-menu a {
+        max-width: 120px;
+        margin-bottom: 10px;
+        font-size: 0.80rem;
+    }
+
+    .form-menu a {
+        max-width: 100px;
+        margin-bottom: 10px;
+        font-size: .80rem;
+    }
+}
+
