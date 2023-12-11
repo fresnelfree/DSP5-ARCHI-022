@@ -43,7 +43,9 @@ ul
 .pied-page .form ::placeholder {
   margin-left: 15px;
 }
-
+.pied-page .form small{
+  width: 100%;
+}
 .reseaux{
   padding-left: 5%;
 }
