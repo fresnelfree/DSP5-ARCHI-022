@@ -135,24 +135,24 @@ form small p{
   animation: spinner .8s linear infinite;
 }
 /* Fin loading */
+ 
 
 .promot{
   z-index: 1;
   position: relative;
   font-family:'Courier New', Courier, monospace
 }
-
 .promot .promot-card{
   background-color: #ffff;
   z-index: 2;
-  width: 150px;
-  height: 160px;
-  border-radius: 18%;
+  width: 140px;
+  height: 130px;
+  border-radius: 15%;
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   position: absolute;
-  top: 22%;
+  top: 12%;
   right: 10%;
 }
 .promot-header{
@@ -191,8 +191,154 @@ form small p{
   letter-spacing: 0.90px;
 }
 
+
+
+
+  @media (max-width: 992px) {
+    .promot .promot-card{
+      background-color: #ffff;
+      z-index: 2;
+      width: 150px;
+      height: 140px;
+      border-radius: 15%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      position: absolute;
+      top: 22%;
+      right: 10%;
+      /* display: none; */
+    }
+  }
+  @media (max-width: 780px) {
+    .promot{
+      z-index: 1;
+      position: relative;
+      padding: 0;
+      margin: 0;
+    }
+    .promot img {
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    .promot .promot-card{
+      background-color: #ffff;
+      z-index: 2;
+      width: 150px;
+      height: 140px;
+      border-radius: 15%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      position: absolute;
+      top: 22%;
+      right: 10%;
+    }
+  }
+  
+  @media (max-width: 560px) {  
+     
+    .list-img {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    
+      .list-img img{
+        width: 100%;
+        margin-bottom: 2%;
+      }
+
+      .promot{
+        padding: 0;
+      }
+
+      .promot .promot-card{
+        background-color: #ffff;
+        z-index: 0;
+        width: 150px;
+        height: 160px;
+        border-radius: 18%;
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        position: static;
+        margin-top: -5%;
+      }
+      
+.promot-header{
+    width: 100%;
+    justify-content: center;
+  }
+  .promot-header h2{
+    margin: auto;
+    font-size: 0.90rem;
+    font-weight: 500;
+    color: #000000;
+  }
+  
+  .promot-header p{
+    margin: auto;
+    font-size: 10px;
+    font-weight: 700;
+    color: #999999;
+    margin-top: -8%;
+  }
+  .promot-body  {
+   margin-top: -30%;
+  }
+  .promot-body h3{
+    color: #000000;
+    font-weight: 800;
+    font-size: 0.80rem;
+  }
+  .promot-body .text-color{
+    color: #FF2626;
+    letter-spacing: 0.5px;
+    margin-top: -55%;
+    margin-left: 2px;
+  }
+  
+  .promot .text h3{
+    color: #000000;
+    font-weight: 600;
+    letter-spacing: 0.70px;
+    font-size: 0.70rem;
+  }
+  
+  .promot .text {
+    margin-top: -10%;
+    width: 100%;
+  }
+
+  .banier-pub p {
+     font-size: 1.3rem;
+    font-family:Roboto, sans-serif;
+     color: 2B2B2B;
+  }
+  .banier-pub-btn {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+  }
+  .banier-pub-btn a {
+    width: 100%;
+  }
+
+  .banier-pub-btn :nth-child(2) {
+    background-color: white;
+  }
+
+}
+   
+
 .colone-1{
-   /* border: 1px solid red; */
+  
    display: grid;
    margin: 0;
    height: 350px;

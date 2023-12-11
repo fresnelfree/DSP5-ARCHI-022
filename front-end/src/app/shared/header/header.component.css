@@ -23,7 +23,7 @@ header img {
 header .title{
     z-index: 100;
     width: 70%;
-    height: 160px;
+    height: 200px;
     position: absolute;
     top: 60%;
     left: 17%;
@@ -34,6 +34,9 @@ header .title{
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
+    background-color: rgba(0, 0, 0, 0.49);
+    padding: 12px;
+     
  }
 
  header h1 {
@@ -45,14 +48,17 @@ header .title{
     margin-bottom: 5%;
  }
  header   h2 {
-    font-size: 3rem;
+    font-size: 1.5rem;
     text-align: center;
     font-weight: 500;
     margin-bottom: 5%;
+    padding: 12px;
+    opacity: 1;
  }
  header .header-btn{
     width: 100%;
     text-align: center;
+    margin-top: 12px;
  }
 
 
@@ -77,13 +83,14 @@ header .title{
         margin-bottom: 2%;
      }
      header   h2 {
-        font-size: 2rem;
-        margin-bottom: 2%;
+        margin-bottom: 3%;
      }
   }
   
   @media (max-width: 780px) {
-    
+   header h2 {
+      font-size: 1rem;
+   }
   }
 
 @media (max-width: 560px) {  
@@ -106,6 +113,7 @@ header .title{
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
+        background-color: white;
      }
      header h1, h2 {
         color: black;
@@ -115,8 +123,14 @@ header .title{
         font-size: 1.5rem;
      }
      header h2 {
-        font-size: 1.5rem;
+        font-size: 1rem;
      }
+     header .header-btn{
+      width: 100%;
+      text-align: center;
+      margin-top: 5px;
+      margin-bottom: 10px;
+   }
 }
   
   

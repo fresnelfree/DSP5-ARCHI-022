@@ -44,6 +44,30 @@ ul
   margin-left: 15px;
 }
 
+.reseaux{
+  padding-left: 5%;
+}
+.reseaux i{
+  font-size: 2rem;
+  margin-left: 5%;
+}
+.reseaux i:nth-child(1){
+  color: rgb(0, 102, 255);
+}
+.reseaux i:nth-child(2){
+  color: rgb(0, 102, 255);
+}
+.reseaux i:nth-child(3){
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+  color: rgb(180, 2, 41);
+  border-radius: 50%;
+  width: 35px;
+  height: 33px;
+}
+.reseaux i:nth-child(4){
+  color: rgb(0, 197, 122);
+}
+
 @media (max-width: 560px) {  
   
   .pied-page {
