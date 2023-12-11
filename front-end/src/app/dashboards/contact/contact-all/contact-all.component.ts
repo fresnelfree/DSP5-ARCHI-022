@@ -1,6 +1,10 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
+import { ContactService } from 'src/app/core/services/contact/contact.service';
 import { EmployeService } from 'src/app/core/services/employe/employe.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 
@@ -29,37 +33,48 @@ export class ContactAllComponent {
  //Autres var
  public isLogged: boolean = false;//verification si le user est connecter
 //  public employes: User[] = []
-public employes: any;
+public contacts: any;
+
+@ViewChild(MatPaginator)
+paginator : any = MatPaginator;
+
+@ViewChild(MatSort)
+sort: any = MatSort;
+columnsToDisplay = ['nom','phone','email','objet', 'message' ];
 
  constructor(
    private authService : AuthenticationService,
    private router      : Router,
    private token       : TokenService,
-   private employeService : EmployeService
+   private contactService : ContactService
  ){}
 
  ngOnInit(): void {
     this.authService.authStatus.subscribe(value => this.isLogged = value)
-    this.getEmployes()
+    this.getNewsletters()
  }
 
- 
-/********************************************************************
- *           USERS
- ********************************************************************/
 
-getEmployes(){
-    return this.employeService.getEmployers().subscribe(
-       res => {
-        this.employes = res
-        console.log(res);
-       }
-      )
+ applyFilter(filterValue: any) {
+  filterValue = filterValue.value.trim(); // Remove whitespace
+  filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+  this.contacts.filter = filterValue;
+}
+
+getNewsletters(){
+  return this.contactService.getContacts().subscribe(
+     (res:any) => {
+      this.contacts = new MatTableDataSource(res)
+      this.contacts.paginator = this.paginator;
+      this.contacts.sort = this.sort;
+      // console.log("contacts : ", this.contacts)
+     }
+    )
 }
 
 
 /********************************************************************
- * 
+ *
  ********************************************************************/
  @HostListener('window:resize', ['$event'])
  onResize(event: Event): void {
@@ -72,11 +87,11 @@ getEmployes(){
 
 
  onMenu(e: MouseEvent) {
-   if (this.ecran > 1010) 
+   if (this.ecran > 1010)
     {
       this.open = !this.open;
-    } 
-    else if (this.ecran < 1010) 
+    }
+    else if (this.ecran < 1010)
     {
       this.openMenu = !this.openMenu;
       if (this.ecran < 576) {

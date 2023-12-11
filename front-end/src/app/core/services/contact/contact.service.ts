@@ -32,8 +32,8 @@ constructor(
 /************************************************
  *        METHODES
  ************************************************/
-  getContacts(id:number): any{
-    return this.http.get(`${environment.hostLine}/contacts/${id}/gains`,httpOption)
+  getContacts(): any{
+    return this.http.get(`${environment.hostLine}/contacts`,httpOption)
   }
 
   addContact(data: Contact) : any {

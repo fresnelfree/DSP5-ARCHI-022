@@ -13,13 +13,13 @@
 }
 .success.mat-mdc-snack-bar-container {
   text-align: center;
-    --mdc-snackbar-container-color: #21f372;
+    --mdc-snackbar-container-color: #00c292;
     --mat-mdc-snack-bar-button-color: #fff;
     --mdc-snackbar-supporting-text-color: #fff;
 }
 .warning.mat-mdc-snack-bar-container {
   text-align: center;
-    --mdc-snackbar-container-color: #f38e21;
+    --mdc-snackbar-container-color: #f88120;
     --mat-mdc-snack-bar-button-color: #fff;
     --mdc-snackbar-supporting-text-color: #fff;
 }
@@ -32,7 +32,6 @@
 }
 .error.mat-snack-bar-container{
   background: #cc0000;
-  
   color: white;
 }
 
@@ -50,9 +49,9 @@
 }
 
 body{
-    font-family: "Open Sans", sans-serif;
-    font-size: 16px;
-    width: 100%; 
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  width: 100%;
 }
 
 p {
@@ -84,15 +83,15 @@ h3,
 h4,
 h5,
 h6 {
-  margin: 0; 
+  margin: 0;
 }
 
 h1 {
-  font-size: 2em; 
+  font-size: 2em;
 }
 
 h5 {
-  font-size: 1em; 
+  font-size: 1em;
 }
 
 ul,
@@ -109,7 +108,7 @@ button:focus {
   cursor: not-allowed; }
 
 img {
-  max-width: 100%; 
+  max-width: 100%;
 }
 
 form small p{
@@ -118,7 +117,7 @@ form small p{
 @keyframes spinner {
   to {transform: rotate(360deg);}
 }
- 
+
 .spinner:before {
   content: '';
   box-sizing: border-box;
@@ -346,7 +345,7 @@ form small p{
    grid-template-columns: repeat(3, 1fr);
    grid-template-rows: repeat(3, 1fr);
    grid-gap: 5px;
-   grid-template-areas: 
+   grid-template-areas:
     "c1 c1 c1"
     "c2 c3 c4"
     "c5 c6 c7";
@@ -390,5 +389,66 @@ form small p{
 .edit-session{
   background-color: white;
 }
+
+.left-nav{
+  display: flex;
+  justify-content: space-between;
+}
+.navbar-toggler {
+  position: absolute;
+  right: 0;
+}
+.menu-btn {
+  margin-left: 0%;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+   margin-left: 0;
+    padding-left: 7%;
+}
+.form-inline{
+  display: flex;
+  flex-direction: row;
+ }
+ .form-inline a{
+  width: 110px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+ }
+
+@media (min-width: 992px) {
+  .menu-btn{
+    width: 100%;
+    margin-left: 0;
+    padding-left: 9%;
+  }
+}
+@media (max-width: 780px) {
+  .menu-btn{
+    width: 100%;
+    margin-left: 0;
+    padding-left: 9%;
+  }
+}
+
+@media (max-width: 560px) {
+  .menu-btn {
+    margin-left: 0;
+    width: 200px;
+    margin: 0;
+    padding-left: 14%;
+  }
+  .form-inline{
+    display: flex;
+    flex-direction: column;
+   }
+   .form-inline a{
+    width: 110px;
+    font-size: 0.80rem;
+    margin-bottom: 10px;
+   }
+
+}
+
 
 
