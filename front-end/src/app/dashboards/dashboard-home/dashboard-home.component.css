@@ -1,0 +1,36 @@
+.produit-card{
+  background-color: rgb(255, 255, 255);
+  border-radius: .40rem;
+  font-family: Inter, Poppins;
+}
+
+.produit-card-header{
+ color: rgba(0, 0, 0, 0.842);
+}
+
+.produit-card .produit-content{
+ display: flex;  
+ justify-content: space-between;
+}
+
+.produit-card .list-name{
+  font-size: 20px;
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.produit-card p{
+  color:#6b6767;
+  font-size: 14px;
+}
+
+.produit-card small{
+  font-family: Inter;
+  color:#0d0a16;
+  font-size: 14px;
+  font-weight: 500;
+}
+
