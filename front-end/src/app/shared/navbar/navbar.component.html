@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg" aria-label="Twelfth navbar example">
+<!-- <nav class="navbar navbar-expand-lg" aria-label="Twelfth navbar example">
   <div class="container-fluid">
     <a class="navbar-brand" href="#"><img class="img-responsible px-5" src="assets/images/logos/logo1.png" alt="Thé-tiptop"  style=" height: 35px;"/></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample10" aria-controls="navbarsExample10" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -10,9 +10,6 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/home">Home</a>
         </li>
-        <!-- <li class="nav-item">
-          <a class="nav-link link-dark" routerLink="/jeux">Jeux</a>
-        </li> -->
         <li class="nav-item">
           <a class="nav-link link-dark" routerLink="/apropos">A-Propos</a>
         </li>
@@ -23,15 +20,78 @@
           <a class="nav-link link-dark" routerLink="/dashboard" *ngIf="isLogged">Dashboard</a>
         </li>
       </ul>
-    </div>
-    <form class="d-flex content-md-end" id="navbarsExample10">
-      <a class="btn btn-outline-primary me-2" type="submit" routerLink="/connexion" *ngIf="!isLogged">Connexion</a>
-      <a class="btn btn-primary me-5" type="submit" routerLink="/inscription" *ngIf="!isLogged">Inscription</a>
-      <a class="btn btn-outline-primary me-2"  (click)="logout($event)" *ngIf="isLogged">Deconnexion</a>
+      <form class="d-flex content-md-end" id="navbarsExample10">
+        <a class="btn btn-outline-primary me-2" type="submit" routerLink="/connexion" *ngIf="!isLogged">Connexion</a>
+        <a class="btn btn-primary me-5" type="submit" routerLink="/inscription" *ngIf="!isLogged">Inscription</a>
+        <a class="btn btn-outline-primary me-2"  (click)="logout($event)" *ngIf="isLogged">Deconnexion</a>
       </form>
+    </div>
+  
   </div>
 </nav>
+  -->
+<!-- <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar bg-white rounded">
+   <div class="left-nav">
+    <a class="navbar-brand" href="#"><img class="img-responsible px-5" src="assets/images/logos/logo1.png" alt="Thé-tiptop"  style=" height: 35px;"/></a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+   </div>
 
+    <div class="navbar-collapse collapse d-flex justify-content-md-center" id="navbarsExample09" style="border: 1px solid red;">
+      <ul class="navbar-nav me-8">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/apropos">A-Propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/contact">Contactez-nous</a>
+        </li>
+       
+      </ul>
+        <form class="form-menu">
+          <a class="btn btn-outline-primary me-2 " type="submit" routerLink="/connexion" *ngIf="!isLogged">Connexion</a>
+          <a class="btn btn-primary " type="submit" routerLink="/inscription" *ngIf="!isLogged">Inscription</a>
+          <a class="btn btn-outline-primary "  (click)="logout($event)" *ngIf="isLogged">Deconnexion</a>
+        </form>
+    </div>
+  </nav>
+</div> -->
 
-
- 
+<div class="t-navbar container-fluid">
+  <div class="logo">
+    <img src="assets/images/logos/logo2.png" alt="">
+    <div class="btn-toggle ">
+      <i class="bi bi-list"  (click)="toogleNavbar($event)"></i>
+    </div>
+  </div>
+  <div class="menu " [ngClass]="{ 'open-menu': openMenu }">
+      <ul class="">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/apropos">A-Propos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/contact">Contactez-nous</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/client" *ngIf="isLogged && isClient">Espace jeu</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link link-dark" routerLink="/dashboard" *ngIf="isLogged && isEmploye">Dashboard</a>
+        </li>
+        
+    </ul>
+  </div>
+  <form class="form-menu" [ngClass]="{ 'open-menu': openMenu }">
+    <a class="btn btn-outline-primary me-2 " type="submit" routerLink="/connexion" *ngIf="!isLogged">Connexion</a>
+    <a class="btn btn-primary " type="submit" routerLink="/inscription" *ngIf="!isLogged">Inscription</a>
+    <a class="btn btn-outline-primary "  (click)="logout($event)" *ngIf="isLogged">Deconnexion</a>
+  </form>
+  
+</div>

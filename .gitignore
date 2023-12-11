@@ -8,7 +8,8 @@ node_modules/
 .npm
 back-end/dist/
 back-end/rapport.json
-
+front-end/src/environments/environment.dev.ts
+front-end/src/environments/environment.prod.ts
 # dotenv environment variable files
 .env
 .env.development.local

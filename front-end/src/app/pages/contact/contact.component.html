@@ -3,8 +3,8 @@
 <div class="contact row align-items-center justify-content-center">
   <div class="col-md-8 col-lg-6">
       <div class="col-xl-11 p-5">
-          <div class="card">               
-              <div class="card-body p-4"> 
+          <div class="card">
+              <div class="card-body p-4">
                   <div class="text-center">
                       <a routerLink="/" class="">
                           <img src="assets/images/logos/logo2.png" style="height: 40px;" class="logoSize" alt="thetiptop">
@@ -12,45 +12,70 @@
                   </div>
                   <div class="text-center mt-2">
                       <h1 class="text-primary">Contact-nous</h1>
-                      <p class="">Complétez 
+                      <p class="">Complétez
                         ce formulaire pour recevoir des informations sur les nos produits, servives et sur notre entreprise.</p>
                   </div>
                   <div class="p-2 mt-4">
-                      <form>
+                      <form [formGroup]="contactForm" (ngSubmit)="sendMessage()">
       
                           <div class="row">
                               <div class="col-lg-6">
                                   <div class="form-floating mb-3">
-                                    <input  type="text"  name="nom" id="floatingnameInput" required class="form-control" placeholder="Nom">
+                                    <input  type="text" formControlName="nom"   id="floatingnameInput" required class="form-control" placeholder="Nom">
                                     <label for="floatingnameInput">Nom</label>
+                                    <small class="form-text text-muted" *ngFor="let error of error_messages.nom">
+                                      <p class="text-danger" *ngIf="contactForm.controls['nom'].hasError(error.type) && (contactForm.controls['nom'].dirty || contactForm.controls['nom'].touched)">
+                                          {{error.message}}
+                                      </p>
+                                  </small>
                                 </div> 
                               </div>
                               <div class="col-lg-6">
                                 <div class="form-floating mb-3">
-                                  <input  type="text"  name="phone" id="floatingnameInputp" required class="form-control" placeholder="Phone">
+                                  <input  type="text" formControlName="phone"   id="floatingnameInputp" required class="form-control" placeholder="Phone">
                                   <label for="floatingnameInputp">Tél: +33</label>
+                                  <small class="form-text text-muted" *ngFor="let error of error_messages.phone">
+                                    <p class="text-danger" *ngIf="contactForm.controls['phone'].hasError(error.type) && (contactForm.controls['phone'].dirty || contactForm.controls['phone'].touched)">
+                                        {{error.message}}
+                                    </p>
+                                </small>
                                 </div> 
                               </div>
                               <div class="col-lg-12">
                                 <div class="form-floating mb-3">
-                                  <input  type="text"  name="phone" id="floatingnameInpute" required class="form-control" placeholder="test@gmail.com">
+                                  <input  type="email"  formControlName="email" id="floatingnameInpute" required class="form-control" placeholder="test@gmail.com">
                                   <label for="floatingnameInpute">Email </label>
+                                  <small class="form-text text-muted" *ngFor="let error of error_messages.email">
+                                    <p class="text-danger" *ngIf="contactForm.controls['email'].hasError(error.type) && (contactForm.controls['email'].dirty || contactForm.controls['email'].touched)">
+                                        {{error.message}}
+                                    </p>
+                                </small>
                                 </div> 
                               </div>                              
                           </div>     
                          
                           <div class="mb-3">
                             <div class="form-floating mb-3">
-                                <input  type="text"  name="objet" id="floatingnameInputo" required class="form-control" placeholder="Objet">
+                                <input  type="text"  formControlName="objet" id="floatingnameInputo" required class="form-control" placeholder="Objet">
                                 <label for="floatingnameInputo">Objet</label>
+                                <small class="form-text text-muted" *ngFor="let error of error_messages.objet">
+                                  <p class="text-danger" *ngIf="contactForm.controls['objet'].hasError(error.type) && (contactForm.controls['objet'].dirty || contactForm.controls['objet'].touched)">
+                                      {{error.message}}
+                                  </p>
+                              </small>
                             </div> 
                         </div>
 
                         <div class="mb-3">
                           <label for="exampleFormControlTextarea1" class="form-label" aria-label="Votre message"></label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Votre message"></textarea>
+                          <textarea formControlName="message" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Votre message"></textarea>
+                          <small class="form-text text-muted" *ngFor="let error of error_messages.message">
+                            <p class="text-danger" *ngIf="contactForm.controls['message'].hasError(error.type) && (contactForm.controls['message'].dirty || contactForm.controls['message'].touched)">
+                                {{error.message}}
+                            </p>
+                        </small>
                         </div>
-      
+
                         <div class="mt-4">
                           <p class="mb-0" style="font-size: 0.90rem;">Nous traiterons vos données à caractère personnel de la manière décrite dans notre 
                             <a routerLink="/" class="fw-medium text-primary"> Politique vie privée </a> pour répondre à vos 
@@ -58,14 +83,14 @@
                       </div>
 
                           <div class="mt-3 d-grid gap-2">
-                              <button  class="btn btn-primary w-lg waves-effect waves-light" type="submit">Soumettre</button>
-                          </div>            
-      
+                              <button [disabled]="!contactForm.valid" class="btn btn-primary w-lg waves-effect waves-light" type="submit">Soumettre</button>
+                          </div>
+
                       </form>
                   </div>
-      
+
               </div>
-          </div>  
+          </div>
       </div>
-  </div>  
+  </div>
 </div>

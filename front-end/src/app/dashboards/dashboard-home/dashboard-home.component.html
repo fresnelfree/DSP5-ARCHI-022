@@ -82,16 +82,111 @@
     <div class="content">
       <!-- Animated -->
       <div class="animated fadeIn">
-         <app-dhb-card-stat></app-dhb-card-stat>
+        <div class="row">
+  
+          <div class="col-lg-4 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="stat-widget-five">
+                  <div class="stat-icon dib flat-color-2">
+                    <i class="pe-7s-cart"></i>
+                  </div>
+                  <div class="stat-content">
+                    <div class="text-left dib">
+                      <div class="stat-text">
+                        <span class="count">{{nbr_ticket_gagne}}</span>
+                      </div>
+                      <div class="stat-heading">Tickets gagné</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-lg-4 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="stat-widget-five">
+                  <div class="stat-icon dib flat-color-3">
+                    <i class="pe-7s-browser"></i>
+                  </div>
+                  <div class="stat-content">
+                    <div class="text-left dib">
+                      <div class="stat-text">
+                        <span class="count">349</span>
+                      </div>
+                      <div class="stat-heading">Employes</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <div class="col-lg-4 col-md-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="stat-widget-five">
+                  <div class="stat-icon dib flat-color-4">
+                    <i class="pe-7s-users"></i>
+                  </div>
+                  <div class="stat-content">
+                    <div class="text-left dib">
+                      <div class="stat-text">
+                        <span class="count">{{nbr_clt}}</span>
+                      </div>
+                      <div class="stat-heading">Clients</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div> 
          <!-- Fin card stats -->
 
         <div class="clearfix"></div>
         <div class="row">
-          <div class="col-lg-4 mt-4">
-               <app-cp-card-produit1></app-cp-card-produit1>
+          <div class="col-lg-8 mt-6">
+            <div class="card">
+              <div class="card-body">
+                <div class="row mt-2">
+                  <div class="col-12">
+                    <table mat-table [dataSource]="stats">
+                      <ng-container matColumnDef="produit">
+                        <th mat-header-cell *matHeaderCellDef> 	Produits en jeu </th>
+                        <td mat-cell *matCellDef="let element"> {{element.libelle}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="quantite">
+                        <th mat-header-cell *matHeaderCellDef> 	Quantité </th>
+                        <td mat-cell *matCellDef="let element"> {{element.quantite}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="active">
+                        <th mat-header-cell *matHeaderCellDef> 	Activé(s) </th>
+                        <td mat-cell *matCellDef="let element"> {{element.actif}} </td>
+                      </ng-container>
+
+                      <ng-container matColumnDef="inactive">
+                        <th mat-header-cell *matHeaderCellDef> 	Inactivé(s) </th>
+                        <td mat-cell *matCellDef="let element"> {{element.quantite-element.actif}} </td>
+                      </ng-container>
+
+                      <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                      <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+                    </table>
+                    <mat-paginator id="2" [pageSize]="5" [pageSizeOptions]="[ 5, 10, 15, 20]">
+                    </mat-paginator>
+                  </div>
+                </div>                
+              </div>
+            </div>
           </div>
           <!--fin prdouti-->
-          <div class="col-lg-8 mt-4">
+          <div class="col-lg-4 mt-4">
              <app-cp-chart-bar1></app-cp-chart-bar1>
           </div> 
           <!-- Fin chart1 -->

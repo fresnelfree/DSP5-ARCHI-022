@@ -6,6 +6,7 @@ import { ClientRepository, CompteRepository, EmployeRepository } from '../reposi
 import { BindingScope, bind, inject } from '@loopback/core';
 import {genSalt, hash} from 'bcryptjs';
 import { PassportProvider } from './passport.service';
+import { StatisticsService } from './statistics.service';
 
 @bind({scope: BindingScope.TRANSIENT})
 export class UserService {
@@ -19,6 +20,8 @@ export class UserService {
     public employeRepository: EmployeRepository,
     @inject('services.PassportProvider') 
     public passportService: PassportProvider, 
+    @inject('services.PassportProvider') 
+    public statService: StatisticsService,     
     @inject('models.Client')
     public client: Client,
     @inject('models.Employe')
