@@ -6,3 +6,101 @@ ul
   height: 30px;
   width: 30px;
 }
+
+ 
+.pied-page {
+  display: flex;
+  border: 1px solid rde;
+  width: 100%;
+  height: 60px;
+  position: relative;
+}
+
+.pied-page .form{
+  display: flex;
+  flex-wrap: wrap;
+  position: absolute;
+  right: 10px;
+  top: -5px;
+  padding-right: 5px;
+}
+
+.pied-page .form button{
+   padding: 5px;
+   background-color: black;
+   color: white;
+   border: none;
+   height: 30px;
+   width: 80px;
+   cursor: pointer;
+}
+.pied-page .form input{
+  color: rgba(0, 0, 0, 0.849);
+  height: 30px;
+  width: 160px;
+  border: 1px solid gray;
+}
+.pied-page .form ::placeholder {
+  margin-left: 15px;
+}
+
+.reseaux{
+  padding-left: 5%;
+}
+.reseaux i{
+  font-size: 2rem;
+  margin-left: 5%;
+}
+.reseaux i:nth-child(1){
+  color: rgb(0, 102, 255);
+}
+.reseaux i:nth-child(2){
+  color: rgb(0, 102, 255);
+}
+.reseaux i:nth-child(3){
+  background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%,#d6249f 60%,#285AEB 90%);
+  color: rgb(180, 2, 41);
+  border-radius: 50%;
+  width: 35px;
+  height: 33px;
+}
+.reseaux i:nth-child(4){
+  color: rgb(0, 197, 122);
+}
+
+@media (max-width: 560px) {  
+  
+  .pied-page {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid rde;
+    width: 100%;
+    height: 60px;
+    position: relative;
+  }
+
+  .socio{
+    margin-left: 20%;
+  }
+
+  .pied-page .form{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: absolute;
+    right: 10px;
+    top: -5px;
+    padding-right: 5px;
+    width: 100%;
+  }
+
+  .pied-page .form{
+    display: flex;
+    flex-wrap: wrap;
+    position: static;
+    right: 0px;
+    top: -5px;
+    padding-right: 5px;
+  }
+  
+}
