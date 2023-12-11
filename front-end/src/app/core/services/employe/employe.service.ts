@@ -28,7 +28,7 @@ private  api = environment.hostLine;
 //CONSTRUCTEUR
 constructor(
   private http: HttpClient,
-  private token: TokenService,
+  private tokenService: TokenService,
 ) { }
 
 /************************************************
@@ -43,13 +43,9 @@ console.info(log)
 private handleError<T>(operation = 'operation', result?: T) {
 
 return (error: any): Observable<T> => {
-
   console.error(error);
-
   this.log(`${operation} failed: ${error.message}`);
-
   return of(result as T);
-
 };
 
 }
@@ -57,9 +53,15 @@ return (error: any): Observable<T> => {
 /************************************************
 *        METHODES
 ************************************************/
-  getEmployers(path:string): Observable<User[]> {
-    return this.http.get<User[]>(this.api+path).pipe(
-      catchError(this.handleError('getUserAll', []))
+  // getEmployers(): Observable<User[]> {
+  //   return this.http.get<User[]>(`${this.api}/employes/`).pipe(
+  //     catchError(this.handleError('getEmployers', []))
+  //   );
+  // }
+
+  getEmployers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.api}/employes`).pipe(
+      catchError(this.handleError('getEmployers', []))
     );
   }
   
@@ -69,6 +71,39 @@ return (error: any): Observable<T> => {
       catchError(this.handleError(`getEmployesAll : `))
     );
   }
+
+  updateUser(user: any, id:number){
+    return this.http.put(`${this.api}/employes/${id}`, user, httpOption).pipe(
+      catchError(this.handleError(`updateUser`, user))
+    )
+  }
+
+  
+deleteUser(id:number){
+  return this.http.delete(`${this.api}/employes/${id}`, httpOption).pipe(
+    catchError(this.handleError(`deleteUser`, id))
+  )
+}
+
+  getUserById(id: number){
+    return this.http.get(`${this.api}/comptes/${id}`).pipe(
+      catchError(this.handleError(`getUserById id=${id}`))
+    );
+  }
+
+   
+  getUserByEmail(email: string){
+    return this.http.get(`${this.api}/compteWithEmail/${email}`).pipe(
+      catchError(this.handleError(`getUserByEmail email=${email}`))
+    );
+  }
+
+  getTokenEmail() {
+    const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
+    const value = ob.email;
+    return value
+  }
+
 
 
 }//Fin

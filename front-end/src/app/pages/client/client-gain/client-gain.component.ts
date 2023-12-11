@@ -25,6 +25,7 @@ export class ClientGainComponent implements OnInit {
   public gains: Gain[] = [];
   public gain: any= undefined;
   public message: string;
+  
   jeuForm: FormGroup;
   constructor(
     private router : Router,
@@ -137,7 +138,7 @@ export class ClientGainComponent implements OnInit {
   }
 
   getGains(){
-    this.gainService.getGains(this.user.client.id).
+    this.gainService.getGainsClient(this.user.client.id).
     subscribe((res:any) => {
         this.gains = res
         console.log("gains : ",this.gains)

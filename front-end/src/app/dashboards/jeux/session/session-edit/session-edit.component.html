@@ -9,8 +9,8 @@
     <app-dashboard-sidebar></app-dashboard-sidebar>
   </aside>
   <!-- /#left-panel -->
- 
-  
+
+
    <!-- Right Panel -->
    <div id="right-panel" class="right-panel">
      <!-- Header-->
@@ -31,7 +31,7 @@
        <div class="top-right">
          <div class="header-menu">
            <div class="header-left">
-             <button class="search-trigger"><i class="fa fa-search"></i></button>
+             <!-- <button class="search-trigger"><i class="fa fa-search"></i></button>
              <div class="form-inline">
                <form class="search-form">
                  <input
@@ -45,7 +45,7 @@
                  </button>
                </form>
              </div>
- 
+
              <div class="dropdown for-notification">
                <button
                  class="btn btn-secondary dropdown-toggle"
@@ -65,9 +65,9 @@
                    <p>Server #2 overloaded.</p>
                  </a>
                </div>
-             </div>
+             </div> -->
            </div>
- 
+
            <div class="user-area dropdown float-right">
              <a
                href="#"
@@ -82,11 +82,9 @@
                  alt="User Avatar"
                />
              </a>
- 
+
              <div class="user-menu dropdown-menu">
-               <a class="nav-link" href="#"
-                 ><i class="fa fa- user"></i>Mon profil</a
-               >
+              <a class="nav-link" routerLink="/dashboard/profil"><i class="fa fa- user"></i>Mon profil</a>
                <a class="nav-link" href="#" (click)="logout($event)"
                  ><i class="fa fa-power -off"></i>Deconnexion</a
                >
@@ -96,26 +94,26 @@
        </div>
      </header>
      <!-- /#header -->
- 
-  
- 
+
+
+
      <!-- Content -->
      <div class="content">
        <div class="animated fadeIn">
          <!-- <app-mini-menu [title]="titleMenu" ></app-mini-menu> -->
-         <app-mini-menu [title]="titleMenu" 
+         <app-mini-menu [title]="titleMenu"
          [titleList]="titleList"
          [linkList]="linkList"
          [titleAdd]="titleAdd"
          [linkAdd]="linkAdd" >
         </app-mini-menu>
- 
+
          <div class="row">
            <div class="col-md-12">
              <!--Debut Fresnell -->
  <div class="container">
     <!-- Toast -->
-    
+
     <div *ngIf="warningPercent || warningIndicationPercent || selectedSession" class="alert alert-danger d-flex align-items-center" role="alert">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
         <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
@@ -130,7 +128,7 @@
         Veuillez selectionner une session
       </div>
     </div>
-  
+
     <!-- Modal -->
     <div class="modal text-white fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
       <div class="modal-dialog">
@@ -142,7 +140,7 @@
             <div class="col-2 pt-2">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-  
+
           </div>
           <div class="modal-body">
             <form [formGroup]="sessionForm" (ngSubmit)="onSubmitFormSession()" #form="ngForm" class="tooltip-label-right">
@@ -186,14 +184,14 @@
                     </div>
                   </div>
                 </div>
-  
+
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
-    <form [formGroup]="sessionForm" (ngSubmit)="onSubmitFormSession()" #form="ngForm" class="edit-session p-5 tooltip-label-right">
+    <form [formGroup]="sessionFormEdit" (ngSubmit)="onSubmitFormSessionEdit()" #form="ngForm" class="edit-session p-5 tooltip-label-right">
       <div class="row">
         <div class="col-12 mb-2">
           <label for="def">Libellé</label>
@@ -209,6 +207,20 @@
               <label for="def">Date Fin</label>
               <input formControlName="date_fin" class="form-control" type="date" name="" id="">
             </div>
+            <div class="col-12">
+              <label for="def">Statut</label>
+              <select name="select" id="select" class="form-control"
+                required (change)="onChangeSelectedSessionEdit($event)"
+                formControlName="statut"
+                name="session"
+                id="session"
+                class="form-select"
+               >
+                <option [value]="statut">{{statut}}</option>
+                <option *ngFor="let item of statuts" [value]="item"> {{item}}</option>
+
+              </select>
+            </div>
           </div>
         </div>
         <div class="col-12">
@@ -216,10 +228,10 @@
             <div class="col-8">
               <button
                 type="submit"
-                [disabled]="sessionForm.invalid"
+                [disabled]="sessionFormEdit.invalid"
                 class="btn form-control btn-success"
                 data-bs-dismiss="modal">
-                Créer
+                Modifier
               </button>
             </div>
             <div class="col-4">
@@ -233,7 +245,7 @@
 
       </div>
     </form>
-  
+
   </div>
   <!--Fin Fresnell -->
            </div>
@@ -241,12 +253,12 @@
        </div><!-- .animated -->
      </div><!-- /.content -->
      <div class="clearfix"></div>
- 
+
      <!-- Footer -->
      <app-dashboard-footer></app-dashboard-footer>
      <!-- /.site-footer -->
    </div>
    <!-- /#right-panel -->
 
- 
+
  </div><!--Fin Daboard -->

@@ -1,0 +1,219 @@
+<div class="dashboard" [ngClass]="{ open: open, block: openMenuSmall }">
+    <!-- Left Panel -->
+    <aside id="left-panel" class="left-panel" [ngClass]="{ 'open-menu': openMenu, 'small-device': smallDevise }">
+      <app-dashboard-sidebar></app-dashboard-sidebar>
+    </aside>
+    <!-- /#left-panel -->
+  
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+      <!-- Header-->
+      <header id="header" class="header">
+        <div class="top-left">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="./"
+              ><img src="assets/images/logos/logo2.png" alt="Logo"
+            /></a>
+            <a class="navbar-brand hidden" href="./"
+              ><img src="assets/images/logos/logo2.png" alt="Logo"
+            /></a>
+            <a id="menuToggle" class="menutoggle">
+              <!-- <i class="fa fa-bars" (click)="onMenu($event)"></i> -->
+              <i class="bi bi-grid-3x3-gap-fill" (click)="onMenu($event)"></i>
+              <!-- <i class="bi bi-aspect-ratio"></i> -->
+            </a>
+          </div>
+        </div>
+        <div class="top-right">
+          <div class="header-menu">
+            <div class="user-area dropdown float-right">
+              <a
+                href="#"
+                class="dropdown-toggle active"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                <img
+                  class="user-avatar rounded-circle"
+                  src="assets/images/admin.jpg"
+                  alt="User Avatar"
+                />
+              </a>
+  
+              <div class="user-menu dropdown-menu">
+                <a class="nav-link" href="#"
+                  ><i class="fa fa- user"></i>Mon profil</a
+                >
+                <a class="nav-link" href="#" 
+                (click)="logout($event)"
+                  ><i class="fa fa-power -off"></i>Deconnexion</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- /#header -->
+     
+
+      <!-- Content -->
+      <div class="content">
+        <div class="animated fadeIn">
+        
+
+      <app-mini-menu [title]="titleMenu"[titleList]="titleList" [linkList]="linkList" >
+      </app-mini-menu>
+
+            
+<section style="background-color: #eee">
+  <div class="container py-5">
+    <div class="row">
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <div class="card-body text-center">
+            <img
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp"
+              alt="avatar"
+              class="rounded-circle img-fluid"
+              style="width: 150px"
+            />
+            <h5 class="my-3">{{currentUser.employe.prenom}}  {{currentUser.employe.nom}}</h5>
+            <p class="text-muted mb-1">{{currentUser.employe.email}}</p>
+            <p class="text-muted mb-1">{{currentUser.employe.tel}}</p>
+            <p class="text-muted mb-4">{{currentUser.employe.adresse}}</p>
+            <div class="d-flex justify-content-center mb-2 p-2" >
+            </div>
+            <span *ngIf="deletMessage" class="text-success">{{deletMessage}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-8">
+        <div class="card mb-4 p-3 client-edit">
+          <form [formGroup]="employeForm" (ngSubmit)="onSubmit()">
+            <!-- 2 column grid layout with text inputs for the first and last names -->
+            <div class="row mb-2">
+              <div class="col">
+                <div class="form-outline">
+                  <input [(ngModel)]="currentUser.employe.prenom" formControlName="prenom" type="text" id="form6Example1" class="form-control" />
+                  <label class="form-label" for="form6Example1">Prenom</label>
+                </div>
+
+                <small class="form-text text-muted" *ngFor="let error of error_messages.prenom">
+                  <p class="text-danger" *ngIf="
+                      employeForm.controls['prenom'].hasError(error.type) &&
+                      (employeForm.controls['prenom'].dirty ||
+                        employeForm.controls['prenom'].touched)
+                    "
+                  >
+                    {{ error.message }}
+                  </p>
+                </small>
+              </div>
+
+              <div class="col">
+                <div class="form-outline">
+                  <input [(ngModel)]="currentUser.employe.nom" formControlName="nom" type="text" id="form6Example2" class="form-control"/>
+                  <label class="form-label" for="form6Example2">Nom</label>
+                </div>
+                <small
+                  class="form-text text-muted"
+                  *ngFor="let error of error_messages.nom"
+                >
+                  <p class="text-danger" *ngIf="
+                      employeForm.controls['nom'].hasError(error.type) &&
+                      (employeForm.controls['nom'].dirty ||
+                      employeForm.controls['nom'].touched)"
+                  >
+                    {{ error.message }}
+                  </p>
+                </small>
+              </div>
+            </div>
+
+            <!-- Email input -->
+            <div class="form-outline mb-2">
+              <input [(ngModel)]="currentUser.employe.email" formControlName="email" type="email" id="form6Example5" class="form-control"/>
+              <label class="form-label" for="form6Example5">Email</label>
+
+              <small class="form-text text-muted" *ngFor="let error of error_messages.email">
+                <p class="text-danger" *ngIf="
+                    employeForm.controls['email'].hasError(error.type) &&
+                    (employeForm.controls['email'].dirty ||
+                    employeForm.controls['email'].touched)"
+                    >
+                    {{ error.message }}
+                </p>
+              </small>
+            </div>
+
+            <!-- Tel input -->
+            <div class="form-outline mb-2">
+              <input [(ngModel)]="currentUser.employe.tel" formControlName="tel" type="text" id="form6Example6" class="form-control"/>
+              <label class="form-label" for="form6Example6">Phone</label>
+
+              <small
+                class="form-text text-muted"
+                *ngFor="let error of error_messages.tel"
+              >
+                <p
+                  class="text-danger"
+                  *ngIf="
+                    employeForm.controls['tel'].hasError(error.type) &&
+                    (employeForm.controls['tel'].dirty ||
+                      employeForm.controls['tel'].touched)
+                  "
+                >
+                  {{ error.message }}
+                </p>
+              </small>
+            </div>
+
+            <!-- Text input -->
+            <div class="form-outline mb-2">
+              <input [(ngModel)]="currentUser.employe.adresse" formControlName="adresse" type="text" id="form6Example4" class="form-control"/>
+              <label class="form-label" for="form6Example4">Address</label>
+              <small class="form-text text-muted" *ngFor="let error of error_messages.adresse">
+                <p
+                  class="text-danger"
+                  *ngIf="
+                    employeForm.controls['adresse'].hasError(error.type) &&
+                    (employeForm.controls['adresse'].dirty ||
+                      employeForm.controls['adresse'].touched)
+                  "
+                >
+                  {{ error.message }}
+                </p>
+              </small>
+            </div>
+ 
+            <!-- Submit button -->
+            <button [disabled]="!employeForm.valid" type="submit" class="btn btn-primary btn-block mb-4">
+              Sauvegarder
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <mat-spinner></mat-spinner> -->
+ 
+</section>
+
+        </div><!--/.fadeIn-->
+      </div>
+      <!-- /.content -->
+
+
+      <div class="clearfix"></div>
+  
+      <!-- Footer -->
+       <app-dashboard-footer></app-dashboard-footer>
+      <!-- /.site-footer -->
+  
+    </div>
+    <!-- /#right-panel -->
+  </div>
+  
+  
+  

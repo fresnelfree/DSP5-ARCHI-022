@@ -108,4 +108,3 @@ services:
       - traefik.http.routers.client-app.rule=Host(`dsp-archiwebo20-ttf-ib-mnd.site`)
       - traefik.http.routers.client-app.middlewares=network-internet@docker
       - traefik.http.services.client-app.loadbalancer.server.port=8084
-

@@ -13,6 +13,7 @@ import { NotifyComponent } from './shared/notify/notify.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { CookieService } from 'ngx-cookie-service';
 
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -27,7 +28,6 @@ import { CookieService } from 'ngx-cookie-service';
     CoresModule,
     NgChartsModule,
     MatSnackBarModule,
-
   ],
   providers: [
     TokenInterceptorProvider,

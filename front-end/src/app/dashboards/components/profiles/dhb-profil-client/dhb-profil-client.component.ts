@@ -39,8 +39,7 @@ export class DhbProfilClientComponent {
  
   ){
              this.submitted = false;
-             this.role = "Client"
-           
+             this.role = "Client"      
   }
   
  
@@ -51,8 +50,7 @@ export class DhbProfilClientComponent {
   ngOnInit(): void {
     // this.getUser();
     // this.getUserByEmail()
-    this.getClient()
-    
+    this.getClient() 
 }
 
 
@@ -211,21 +209,12 @@ clientForm: FormGroup = this.fb.group({
 onDelete(){
 
    this.clientService.deleteClient(this.client.id).subscribe(
-
     res => { 
-
-      console.log(res);
-
       if(res === null) {
-
         this.deletMessage = "Employé supprimer avec succés"
-        
         this.router.navigate(['/dashboard/client/all'])
       }  
-
     })
-  
 }
-
 
 }

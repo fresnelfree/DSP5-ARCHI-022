@@ -1,0 +1,55 @@
+<div class="container p-4">
+  <div class="row">
+    <div class="col-12">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-subtitle class="mt-1">Détails gain</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-card-title class="mt-3 pb-1">Infos gain</mat-card-title>
+          <div class="row">
+            <div class="col-4">
+              Numéro du gain : {{data.numero_gain}}
+            </div>
+            <div class="col-4">
+              Statut du gain : {{data.etat_gain}}
+            </div>
+            <div class="col-4">
+              Libelle du gain : {{data.libelle_gain}}
+            </div>        
+          </div>
+          <mat-divider class="mt-2 mb-2"></mat-divider>          
+          <mat-card-title class="mt-1 pb-1">Infos client associer</mat-card-title>
+          <div class="row" *ngIf="!no_clt; else elsenoclt">
+            <div class="col-6 pb-2">
+              Nom : {{user.nom}}
+            </div>
+            <div class="col-6 pb-2">
+              Prénom : {{user.prenom}}
+            </div>
+            <div class="col-6">
+              Email : {{user.email}}
+            </div>  
+            <div class="col-6">
+              Tel : {{user.tel}}
+            </div>                   
+          </div>      
+                  
+          <ng-template #elsenoclt>
+            <p class="text-center">Ce gain n'a pas encore été utilisé sur le site du jeu concours</p>
+          </ng-template>       
+        </mat-card-content>
+      </mat-card>
+
+    </div>
+
+  </div>
+  <div class="row">
+    <div mat-dialog-actions class="col-8 mt-3">
+      <button  class="form-control btn btn-danger" [hidden]="no_btn" (click)="rendreGain()">Rendre le gain</button>
+    </div>    
+    <div mat-dialog-actions class="col-4 mt-3">
+      <button class="form-control btn btn-primary" [hidden]="no_btn" mat-button (click)="onNoClick()">Fermer</button>
+    </div>    
+  </div>
+</div>

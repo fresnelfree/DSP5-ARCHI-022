@@ -29,17 +29,17 @@
       <div class="top-right">
         <div class="header-menu">
           <div class="header-left">
-            <button class="search-trigger"><i class="fa fa-search"></i></button>
-            <div class="form-inline">
+            <!-- <button class="search-trigger"><i class="fa fa-search"></i></button> -->
+            <!-- <div class="form-inline">
               <form class="search-form">
                 <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search"/>
                 <button class="search-close" type="submit">
                   <i class="fa fa-close"></i>
                 </button>
               </form>
-            </div>
+            </div> -->
 
-            <div class="dropdown for-notification">
+            <!-- <div class="dropdown for-notification">
               <button
                 class="btn btn-secondary dropdown-toggle"
                 type="button"
@@ -58,7 +58,7 @@
                   <p>Server #2 overloaded.</p>
                 </a>
               </div>
-            </div>
+            </div> -->
           </div>
 
           <div class="user-area dropdown float-right">
@@ -89,24 +89,78 @@
       </div>
     </header>
     <!-- /#header -->
- 
- 
+
+
 
     <!-- Content -->
     <div class="content">
       <div class="animated fadeIn">
-         
-          <app-mini-menu [title]="titleMenu" 
-          [titleList]="titleList"
-          [linkList]="linkList"
-          [titleAdd]="titleAdd"
-          [linkAdd]="linkAdd" >
-         </app-mini-menu>
-          
+        <app-mini-menu [title]="titleMenu"  [titleList]="titleList"  [linkList]="linkList" [titleAdd]="titleAdd" [linkAdd]="linkAdd" > </app-mini-menu>
 
-        <app-cp-employe-table></app-cp-employe-table>
+        <div class="row table2">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-body">
+                <div id="bootstrap-data-table_wrapper"  class="dataTables_wrapper container-fluid dt-bootstrap4 no-footer">
+
+                  <div class="row">
+                    <div id="bootstrap-data-table_filter"  class="col-6">
+                      <label class="col-12 pb-1">Rechercher </label>
+                      <input type="search"
+                        class="form-control form-control-sm"
+                        placeholder=""
+                        (keyup)="applyFilter($event.target)"
+                      />
+                    </div>
+                    <div class="row mt-2">
+
+                      <div class="col-12">
+                        <table mat-table [dataSource]="employes" matSort>
+
+                          <ng-container matColumnDef="nom">
+                            <th mat-header-cell *matHeaderCellDef>Nom & Prénom </th>
+                            <td mat-cell *matCellDef="let element"> {{element.nom}} {{ element.prenom }}</td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="email">
+                            <th mat-header-cell *matHeaderCellDef> 	Email </th>
+                            <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="adresse">
+                            <th mat-header-cell *matHeaderCellDef> 	Adresse </th>
+                            <td mat-cell *matCellDef="let element"> {{element.adresse}} </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="tel">
+                            <th mat-header-cell *matHeaderCellDef> 	Tel </th>
+                            <td mat-cell *matCellDef="let element">
+                              {{element.tel}}
+                            </td>
+                          </ng-container>
+
+                          <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> 	Action </th>
+                            <td mat-cell *matCellDef="let element">
+                              <div class="col-2"> <i class="bi bi-eye" ></i> </div>
+                            </td>
+                          </ng-container>
+                          <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+                          <tr mat-row *matRowDef="let row; columns: columnsToDisplay;"></tr>
+
+                        </table>
+                        <mat-paginator id="2" [pageSize]="5" [pageSizeOptions]="[ 5, 10, 15, 20]">
+                        </mat-paginator>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
       </div>
-      <!-- .animated -->
     </div>
     <!-- /.content -->
     <div class="clearfix"></div>

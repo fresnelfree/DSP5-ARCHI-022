@@ -63,7 +63,7 @@ export class ExpressServer {
 
   async boot() {
     await this.lbApp.boot();
-    await this.lbApp.migrateSchema({ models: ['Compte', 'Employe', 'Client', 'SessionJeu', 'Repartition', 'Gains', 'Participer'] });
+    await this.lbApp.migrateSchema({ models: ['Compte', 'Employe', 'Client', 'SessionJeu', 'Repartition', 'Gains', 'Participer','Contact','Newsletter'] });
   }
 
   public async start() {
