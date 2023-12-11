@@ -16,7 +16,7 @@
                         ce formulaire pour recevoir des informations sur les nos produits, servives et sur notre entreprise.</p>
                   </div>
                   <div class="p-2 mt-4">
-                      <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                      <form [formGroup]="contactForm" (ngSubmit)="sendMessage()">
       
                           <div class="row">
                               <div class="col-lg-6">
@@ -32,10 +32,10 @@
                               </div>
                               <div class="col-lg-6">
                                 <div class="form-floating mb-3">
-                                  <input  type="text" formControlName="tel"   id="floatingnameInputp" required class="form-control" placeholder="Phone">
+                                  <input  type="text" formControlName="phone"   id="floatingnameInputp" required class="form-control" placeholder="Phone">
                                   <label for="floatingnameInputp">Tél: +33</label>
-                                  <small class="form-text text-muted" *ngFor="let error of error_messages.tel">
-                                    <p class="text-danger" *ngIf="contactForm.controls['tel'].hasError(error.type) && (contactForm.controls['tel'].dirty || contactForm.controls['tel'].touched)">
+                                  <small class="form-text text-muted" *ngFor="let error of error_messages.phone">
+                                    <p class="text-danger" *ngIf="contactForm.controls['phone'].hasError(error.type) && (contactForm.controls['phone'].dirty || contactForm.controls['phone'].touched)">
                                         {{error.message}}
                                     </p>
                                 </small>
@@ -68,9 +68,9 @@
 
                         <div class="mb-3">
                           <label for="exampleFormControlTextarea1" class="form-label" aria-label="Votre message"></label>
-                          <textarea formControlName="msg" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Votre message"></textarea>
-                          <small class="form-text text-muted" *ngFor="let error of error_messages.msg">
-                            <p class="text-danger" *ngIf="contactForm.controls['msg'].hasError(error.type) && (contactForm.controls['msg'].dirty || contactForm.controls['msg'].touched)">
+                          <textarea formControlName="message" class="form-control" id="exampleFormControlTextarea1" rows="6" placeholder="Votre message"></textarea>
+                          <small class="form-text text-muted" *ngFor="let error of error_messages.message">
+                            <p class="text-danger" *ngIf="contactForm.controls['message'].hasError(error.type) && (contactForm.controls['message'].dirty || contactForm.controls['message'].touched)">
                                 {{error.message}}
                             </p>
                         </small>

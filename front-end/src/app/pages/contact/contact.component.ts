@@ -44,7 +44,7 @@ export class ContactComponent {
       {type: 'maxlength', message: 'Nom trop trop long.' },
     ],
 
-    'tel' : [
+    'phone' : [
       {type:'required', message:'Le numéro de téléphone est obligatoire.'},
     ],
 
@@ -57,7 +57,7 @@ export class ContactComponent {
       {type:'required', message:'L\'objet est obligatoire.'},
     ],
 
-    'msg' : [
+    'message' : [
       {type:'required', message:'Le message est obligatoire.'},
     ],
 
@@ -71,7 +71,7 @@ export class ContactComponent {
       Validators.maxLength(255),
     ])),
 
-    tel: new FormControl('', Validators.compose([
+    phone: new FormControl('', Validators.compose([
       Validators.required,
     ])),
 
@@ -86,7 +86,7 @@ export class ContactComponent {
       Validators.required,
     ])),
 
-    msg: new FormControl('', Validators.compose([
+    message: new FormControl('', Validators.compose([
       Validators.required,
     ])),
 
@@ -101,26 +101,6 @@ export class ContactComponent {
     }
   }
 
-  contactForm: FormGroup = this.fb.group({
-    email: new FormControl('', Validators.compose([
-      Validators.required,
-      Validators.minLength(2),
-      Validators.maxLength(100),
-      // Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
-    ])),
-    nom: new FormControl('', Validators.compose([
-      Validators.required,
-    ])),
-    phone: new FormControl('', Validators.compose([
-      Validators.required,
-    ])),
-    objet: new FormControl('', Validators.compose([
-      Validators.required,
-    ])),
-    message: new FormControl('', Validators.compose([
-      Validators.required,
-    ])),
-  })
 
   sendMessage():void {
     // console.log("contact :",this.contactForm.value)

@@ -15,6 +15,8 @@ export class NavbarComponent implements OnInit{
   public isLogged: boolean = false;
   public openMenu: boolean = false;
   public ecran: number = window.innerWidth;
+  public isClient: boolean = false;
+  public isEmploye : boolean = false;
  
   constructor(
     private router       : Router,
@@ -25,10 +27,17 @@ export class NavbarComponent implements OnInit{
   ){}
 
   ngOnInit(): void {
-
      this.authService.authStatus.subscribe(value => this.isLogged = value)
-     
+     if (this.tokenService.getItem('role3') === "Client"){
+      this.isClient = true;
+      }
+      if (this.tokenService.getItem('role') === "Admin" || this.tokenService.getItem('role') ==="Caissier"){
+        this.isEmploye = true;
+     }
+
   }
+
+  
 
   logout(event: MouseEvent)
     {
