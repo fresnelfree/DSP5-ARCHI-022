@@ -55,6 +55,10 @@ export class ClientService {
         catchError(this.handleError('getClients', []))
       );
     }
+
+    getClientCount(): any {
+      return this.http.get(`${environment.hostLine}/clients/count`)
+    }
     
     getClientById(id: number){
       return this.http.get(`${this.api}/clients/${id}`).pipe(

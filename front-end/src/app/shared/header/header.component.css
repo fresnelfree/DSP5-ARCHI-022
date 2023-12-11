@@ -100,23 +100,23 @@ header .title{
      }
      header .title{
         z-index: 0;
-        width: 70%;
+        width: 100%;
         height: 160px;
         position:static;
         top: 50%;
         right: 30%;
         margin: auto;
-        margin-bottom: 5%;
+        margin-bottom: 8%;
         color: white;
-        /* border: 1px solid yellow; */
         display: flex;
         flex-wrap: wrap;
         flex-direction: row;
         justify-content: center;
-        background-color: white;
+        /* background-color: white; */
+        background-color: rgba(0, 0, 0, 0.49);
      }
      header h1, h2 {
-        color: black;
+        color: rgb(255, 255, 255);
         font-weight: 300;
      }
      header h1{
@@ -128,7 +128,7 @@ header .title{
      header .header-btn{
       width: 100%;
       text-align: center;
-      margin-top: 5px;
+      margin-top: 20px;
       margin-bottom: 10px;
    }
 }

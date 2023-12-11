@@ -5,7 +5,8 @@ import { TokenService } from '../token/token.service';
 import { environment } from 'src/environments/environment.dev';
 import { tap } from 'cypress/types/lodash';
 import { Gain } from '../../models/gain/gain';
-import { Contact } from './newsletter';
+import { Newsletter } from './newsletter';
+import { SharedFun } from '../shared/sharedFun';
 
 //Hedaer Option
 const httpOption = {
@@ -27,12 +28,19 @@ export class NewsletterService {
 //CONSTRUCTEUR
 constructor(
     private http: HttpClient,
+    private sharedFun: SharedFun
   ) { }
 
 /************************************************
  *        METHODES
  ************************************************/
-  subscribeNewsletter(email:string): any{
+
+  subscribeNewsletter(data:Newsletter): any{
+    data.subscribe_date = this.sharedFun.FormatDate(data.subscribe_date)
+    return this.http.post(`${environment.hostLine}/newsletters`,data,httpOption)
+  }
+
+  getNewsletters(): any{
     return this.http.get(`${environment.hostLine}/newsletters`,httpOption)
   }
 

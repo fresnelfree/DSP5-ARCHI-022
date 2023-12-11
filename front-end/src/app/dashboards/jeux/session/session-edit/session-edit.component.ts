@@ -1,6 +1,6 @@
 import { Component, HostListener } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { event } from 'cypress/types/jquery';
 import { forEach, toInteger } from 'cypress/types/lodash';
 import { CookieService } from 'ngx-cookie-service';
@@ -45,6 +45,7 @@ export class SessionEditComponent {
     //Fresnel-var
     sessionJeu?: Session;
     sessionForm: FormGroup;
+    sessionFormEdit: FormGroup;
     repartitionForm: FormGroup;
     selectedSession = false
     warningPercent = false
@@ -56,6 +57,8 @@ export class SessionEditComponent {
     repartitions: Repartition[] = [{ libelle: '',pourcentage: 0,id_session:0}];
     session = 'Sélectionné une session...';
     sessions: Session[] = []
+    statuts: any[] = ["En cours","Terminer"]
+    statut: string = ''
     user: any;
     error_messages   = {
       'session' : [
@@ -71,9 +74,11 @@ export class SessionEditComponent {
       private snackbarService: SnackbarService,
       private userService: UserService,
       private authService : AuthenticationService,
-      private router      : Router,
-      private token       : TokenService,
+      private router : Router,
+      private token : TokenService,
       private clientService: ClientService,
+      private activatedRoute : ActivatedRoute,
+      private sessionsService: SessionService,
       private cookieService: CookieService
     ){
       this.user = JSON.parse(cookieService.get('user') || "")
@@ -86,11 +91,39 @@ export class SessionEditComponent {
         id_employe: [this.user.employe.id, Validators.required],
         statut: ['Inactif', Validators.required]
       });
+      this.sessionFormEdit = this.formBuilder.group({
+        libelle: [null, Validators.required],
+        date_debut: [null, Validators.required],
+        date_fin: [null, Validators.required,],
+        id: [null,],
+        // id_employe: [this.user.employe.id, Validators.required],
+        statut: ['Inactif', Validators.required]
+      });
       this.repartitionForm = this.formBuilder.group({
         session: [null, Validators.required],
         libelle: [null, Validators.required],
         pourcentage: [null, Validators.required],
       });
+    }
+
+    ngOnInit(): void {
+
+      this.authService.authStatus.subscribe(value => this.isLogged = value)
+      this.sessionsService.GetSessionByID(this.activatedRoute.snapshot.params['id']).
+      subscribe(
+        (res:any) => {
+          this.sessionFormEdit = this.formBuilder.group({
+            libelle: [res.libelle, Validators.required],
+            date_debut: [res.date_debut.substring(0, 10), Validators.required],
+            date_fin: [res.date_fin.substring(0, 10), Validators.required,],
+            id: [res.id],
+            // id_employe: [this.user.employe.id, Validators.required],
+            statut: [res.statut, Validators.required]
+          });
+          this.statut = res.statut
+          console.log(res)
+        }
+      )
     }
 
     clearFormSession(): void {
@@ -103,6 +136,48 @@ export class SessionEditComponent {
         statut: ['Inactif', Validators.required]
       });
     }
+
+    onChangeSelectedSessionEdit(event:Event) {
+      const inputValue = (event.target as HTMLInputElement).value;
+      this.snackbarService.showNotification(
+        'Vous allez modifier le statut de la session à '+ inputValue +' !',
+        'ok',
+        'info'
+      );
+      // console.log("event : ",this.sessionFormEdit.value)
+    }
+
+    onSubmitFormSessionEdit(): void {
+      console.log("sessionform : ",this.sessionFormEdit.value)
+      this.sessionJeuService.UpdateSession(this.sessionFormEdit.value)
+      .subscribe(
+        (response:any) =>{
+          // console.log("response : ",response)
+          this.sessions.push(response)
+          this.snackbarService.showNotification(
+            'La session a été modifié avec succès!',
+            'ok',
+            'success'
+          );
+        },
+        (error:any) => {
+          console.log("error : ",error)
+          this.snackbarService.showNotification(
+            "Une erreur est survenue, veuillez reéssayer s'il vous plaît!",
+            'ok',
+            'success'
+          );
+        })
+      // console.log("sessionJeus : ",this.sessionJeu)
+
+      /*
+        ici afficher un toast pour confirmer que l'action s'est bien passé
+
+      */
+
+    }
+
+
 
     onSubmitFormSession(): void {
       this.sessionJeu = this.sessionForm.value
@@ -182,7 +257,7 @@ export class SessionEditComponent {
       else {
         this.selectedSession = true
       }
-      console.log("event : ",inputValue)
+      console.log("event : ",this.sessionFormEdit.value)
     }
 
     addInput() {
@@ -235,12 +310,6 @@ export class SessionEditComponent {
     /*******************************************************
      *  IB*-code
     *****************************************************/
-    ngOnInit(): void {
-
-      this.authService.authStatus.subscribe(value => this.isLogged = value)
-      this.getClients()
-  }
-
 
   getClients(){
     return this.clientService.getClients().subscribe(

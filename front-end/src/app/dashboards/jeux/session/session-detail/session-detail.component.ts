@@ -54,7 +54,7 @@ export class SessionDetailComponent implements OnInit{
 //   titleMenu:string="Session"
   titleList:string="Liste sessions"
   linkList = "/dashboard/session/all"
-  titleAdd:string="Ajout client"
+  titleAdd:string="Ajout session"
   linkAdd = "/dashboard/session/new"
 
  //Variable pour gestion navbar
@@ -122,7 +122,7 @@ nbr_ticket_session: any
   //   {numero_gain:"455",etat_gain:"actif"},
   //   {numero_gain:"4515",etat_gain:"actif"},
   //   {numero_gain:"4585",etat_gain:"actif"},
-  //   {numero_gain:"4515",etat_gain:"actif"},    
+  //   {numero_gain:"4515",etat_gain:"actif"},
   // ]);
   this.dataSourceG = new MatTableDataSource([
     {name: "1", username: 'Hydrogen', email: "1.0079", website: 'H'},
@@ -139,7 +139,7 @@ nbr_ticket_session: any
  ngAfterViewInit() {
   // this.repartitions.paginator = this.paginator;
   this.gains.paginator = this.paginatorG;
-  this.dataSourceG.paginator = this.paginatorG; 
+  this.dataSourceG.paginator = this.paginatorG;
 }
 
 getSessionsByID():any {
