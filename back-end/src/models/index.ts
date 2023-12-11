@@ -7,3 +7,5 @@ export * from './repartition.model';
 export * from './session-jeu.model';
 export * from './user.model';
 export * from './compte.model';
+export * from './contact.model';
+export * from './newsletter.model';
