@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
@@ -31,14 +32,20 @@ export class InscriptionComponent {
     private fb          : FormBuilder ,
     private route       : ActivatedRoute,
     private authService : AuthenticationService,
+    private titleInscription: Title,
+    private meta: Meta,
     private token       : TokenService){
+
+      this.titleInscription.setTitle("Inscription");
+      this.meta.addTag({name:"Page d’inscription", content:"Inscription"});
+      this.meta.addTag({name:'keywords', content:"créer un compte, nous rejoindre"});
     this.submitted = false;
     this.role = "Admin"
     // this.role = "Client"
 
   }
 
-  
+
 
 
    /********************************************************************
@@ -107,7 +114,7 @@ export class InscriptionComponent {
 
   togglePasswordVisibility(passwordInput: HTMLInputElement) {
     const passwordFieldType = passwordInput.type;
-  
+
     if (passwordFieldType === 'password') {
       passwordInput.type = 'text';
     } else {
@@ -117,7 +124,7 @@ export class InscriptionComponent {
 
   ttogglePasswordVisibility(ConpasswordInput: HTMLInputElement) {
     const passwordFieldType = ConpasswordInput.type;
-  
+
     if (passwordFieldType === 'password') {
       ConpasswordInput.type = 'text';
     } else {
@@ -189,7 +196,7 @@ export class InscriptionComponent {
    *                  GESTION LOGIN
    *
    ********************************************************************/
- 
+
 
   onSubmit() {
 
@@ -198,25 +205,25 @@ export class InscriptionComponent {
         if (this.registerForm.invalid) {
           return;
       }
-      
 
-      
+
+
         this.user = {
-          "nom"     : this.registerForm.value.nom, 
-          "prenom"  : this.registerForm.value.prenom, 
-          "tel"     : this.registerForm.value.tel, 
-          "email"   : this.registerForm.value.email, 
-          "adresse" : this.registerForm.value.adresse, 
+          "nom"     : this.registerForm.value.nom,
+          "prenom"  : this.registerForm.value.prenom,
+          "tel"     : this.registerForm.value.tel,
+          "email"   : this.registerForm.value.email,
+          "adresse" : this.registerForm.value.adresse,
           "pwd"     : this.registerForm.value.pwd,
           "role"    : 'Client'
         }
 
-    
+
       this.authService.register(this.user).subscribe(
         (data:any) => {
           this.handleResponse(data)
         },
-      ) 
+      )
   }
 
   handleResponse(data:any){
@@ -230,5 +237,5 @@ export class InscriptionComponent {
     this.submitted = false;
     this.registerForm.reset();
   }
-  
+
 }
