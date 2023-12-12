@@ -43,7 +43,6 @@ export class FooterComponent {
     this.newsletterService.subscribeNewsletter(this.newslettersForm.value)
     .subscribe(
       (res:any) => {
-        console.log("res :",res)
         this.snackbarService.showNotification(
           'Vous recevrez dans les prochains jour nos offres et promotions sur nos produits !',
           'ok',
