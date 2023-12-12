@@ -99,20 +99,17 @@
         <i class="bi bi-instagram"></i>
         <i class="bi bi-whatsapp"></i>
       </ul>
-        <div class="form">
-          <input type="text"  name="" id="" placeholder="Newletter">
-          <button type="button">M'inscrire</button>
-          <!-- <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <span class="input-group-text" id="basic-addon2">@example.com</span>
-            </div>
-          </div> -->
-      </div>
+        <form class="form" [formGroup]="newslettersForm" (ngSubmit)="NewsletterService()">
+          <input type="text"  formControlName="email" placeholder=" Newletter ">
+          <button type="submit">M'inscrire</button>
+          <!-- <small class="form-text text-muted" *ngFor="let error of error_messages.email">
+            <p class="text-danger" *ngIf="newslettersForm.controls['email'].hasError(error.type) && (newslettersForm.controls['email'].dirty || newslettersForm.controls['email'].touched)">
+                {{error.message}}
+            </p>
+        </small> -->
+      </form>
      </div>
       <p class="text-center text-muted">&copy; 2023, TheTipTop</p>
-
     </div>
- 
-     <!-- Fin de Footer -->
+<!-- Fin de Footer -->
  
