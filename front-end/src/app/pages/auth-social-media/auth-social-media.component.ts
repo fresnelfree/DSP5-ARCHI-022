@@ -20,12 +20,12 @@ export class AuthSocialMediaComponent {
     private userService : UserService,
     private activatedRoute : ActivatedRoute,
   ){
-    console.log('token : ', this.activatedRoute.snapshot.params['token'])    
+    // console.log('token : ', this.activatedRoute.snapshot.params['token'])
     this.tokenService.setItem('token',this.activatedRoute.snapshot.params['token']);
     this.userService.getUserByEmail(this.userService.getTokenEmail()).subscribe(
       res => {
-        // this.user = res    
-        console.log('user : ',res)    
+        // this.user = res
+        // console.log('user : ',res)
         this.tokenService.setItem('user',JSON.stringify(res))
         this.tokenService.setItem('role3',"Client");
         this.router.navigate(['/client']).then(() => {
