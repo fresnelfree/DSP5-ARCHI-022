@@ -40,7 +40,7 @@ export class FooterComponent {
     }
     // console.log(this.newslettersForm.value);
     
-    this.newsletterService.subscribeNewsletter(this.newslettersForm.value.email)
+    this.newsletterService.subscribeNewsletter(this.newslettersForm.value)
     .subscribe(
       (res:any) => {
         console.log("res :",res)
