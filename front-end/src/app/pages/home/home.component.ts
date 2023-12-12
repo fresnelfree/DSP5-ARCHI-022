@@ -4,6 +4,7 @@ import { Title, Meta } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/core/notification/snackbar.service';
 import { NewsletterService } from 'src/app/core/services/newsletter/newsletter.service';
+import { TokenService } from 'src/app/core/services/token/token.service';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +12,8 @@ import { NewsletterService } from 'src/app/core/services/newsletter/newsletter.s
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
+  public isLogged: boolean = false;
+  public isClient: boolean = false;
 
   constructor(
     private router : Router,
@@ -19,11 +21,25 @@ export class HomeComponent {
     private titleAccueil: Title,
     private snackbarService: SnackbarService,
     private meta: Meta,
-    private newsletterService: NewsletterService
+    private newsletterService: NewsletterService,
+    private tokenService : TokenService,
   ) {
     this.titleAccueil.setTitle('Accueil');
     this.meta.addTag({name:'Premier page', content:'Home'});
     this.meta.addTag({name:'keywords', content:'Thé, thés bios, TheTipTop, Nice, Jeu Concours, thé vert, thé noir, infusions'});
+  }
+
+  
+  onRedirect(event: MouseEvent){
+    event.preventDefault();
+    if ( this.isLogged = true && this.tokenService.getItem('role3') === "Client"){
+          this.isClient = true;
+          this.router.navigate(['/client'])
+      }
+      else {
+        this.router.navigate(['/connexion'])
+      }
+
   }
 
   newslettersForm: FormGroup = this.fb.group({
