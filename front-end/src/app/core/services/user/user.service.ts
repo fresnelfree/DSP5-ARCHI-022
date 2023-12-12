@@ -83,7 +83,7 @@ deleteUser(id:number){
     );
   }
 
-   
+
   getUserByEmail(email: string){
     return this.http.get(`${this.api}/compteWithEmail/${email}`).pipe(
       catchError(this.handleError(`getUserByEmail email=${email}`))
@@ -92,9 +92,11 @@ deleteUser(id:number){
 
   getTokenEmail() {
     const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
+    console.log('obj: ', ob)
     const value = ob.email;
+    console.log('value: ', value)
     return value
   }
 
- 
+
 }
