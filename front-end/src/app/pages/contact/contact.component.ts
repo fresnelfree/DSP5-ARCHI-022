@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/core/services/auth/authentication
 import { Router } from '@angular/router';
 import { SnackbarService } from 'src/app/core/notification/snackbar.service';
 import { ContactService } from 'src/app/core/services/contact/contact.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-contact',
@@ -14,19 +15,24 @@ export class ContactComponent {
   private submitted;
   private erreurs:any;
   public message_err_http:string = ""
- 
+
 
   constructor(
     private authService : AuthenticationService,
     private fb : FormBuilder,
     private router: Router,
     private snackbarService: SnackbarService,
-    private contactService: ContactService
+    private contactService: ContactService,
+    private titleContact: Title,
+    private meta: Meta
     ){
-    this.submitted = false; 
+    this.submitted = false;
+    this.titleContact.setTitle("Contact");
+    this.meta.addTag({name:"Troisième page", content:"Contact"});
+    this.meta.addTag({name:'keywords', content:"Contactez-nous, TheTipTop, produits, clients"});
   }
 
-  
+
   /********************************************************************
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
    ********************************************************************/
@@ -62,7 +68,7 @@ export class ContactComponent {
     ],
 
   }
-  
+
  contactForm: FormGroup = this.fb.group({
 
     nom: new FormControl('', Validators.compose([

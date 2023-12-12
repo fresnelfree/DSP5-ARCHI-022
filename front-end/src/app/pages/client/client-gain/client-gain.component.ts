@@ -12,6 +12,7 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 import {MatDialog, MatDialogModule} from '@angular/material/dialog';
 import { CongratulateDialogComponent } from '../congratulate-dialog/congratulate-dialog.component';
 import { CookieService } from 'ngx-cookie-service';
+import { UserService } from 'src/app/core/services/user/user.service';
 
 
 @Component({
@@ -25,7 +26,7 @@ export class ClientGainComponent implements OnInit {
   public gains: Gain[] = [];
   public gain: any= undefined;
   public message: string;
-  
+
   jeuForm: FormGroup;
   constructor(
     private router : Router,
@@ -36,6 +37,7 @@ export class ClientGainComponent implements OnInit {
     private formBuilder: FormBuilder,
     private snackbarService: SnackbarService,
     private dialog: MatDialog,
+    private userService : UserService,
     private cookieService: CookieService,
     private authService : AuthenticationService){
       this.message = "";
@@ -47,6 +49,7 @@ export class ClientGainComponent implements OnInit {
 
     ngOnInit(): void {
       this.getGains()
+      this.userService.getTokenEmail()
       // this.handleGain()
   }
 
