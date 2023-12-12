@@ -77,14 +77,30 @@ export class InscriptionComponent {
       {type:'required', message:'Le mot de passe est obligatoire.'},
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      {type: 'pattern',   message: `Le mot de passe doit contenir (
+        - \n Au minimum 8 caractères
+        - \n au moin 1 Majuscule
+        - \n au moin 1 Minuscule
+        - \n au moin 1 cataére speciale 
+        - \n au moin 1 Chifre
+                 ).` 
+      },
     ],
 
     'confPwd' : [
       {type:'required', message:'Veuillez confirmer le mot de passe.'},
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      // {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
+      {type: 'pattern',   message: `Le mot de passe doit contenir (
+                                    - \n Au minimum 8 caractères
+                                    - \n au moin 1 Majuscule
+                                    - \n au moin 1 Minuscule
+                                    - \n au moin 1 cataére speciale 
+                                    - \n au moin 1 Chifre
+                                             ).` 
+      },
     ],
 
   }
