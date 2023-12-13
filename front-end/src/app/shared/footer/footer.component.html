@@ -94,14 +94,14 @@
       </ul> -->
 
       <ul class="reseaux d-flex justify-content-center">
-        <i class="bi bi-facebook"></i>
-        <i class="bi bi-linkedin"></i>
-        <i class="bi bi-instagram"></i>
-        <i class="bi bi-whatsapp"></i>
+        <i routerLink="facebook.com" class="bi bi-facebook"></i>
+        <i routerLink="linkedin.com" class="bi bi-linkedin"></i>
+        <i routerLink="instagram.com" class="bi bi-instagram"></i>
+        <i routerLink="whatsapp.com" class="bi bi-whatsapp"></i>
       </ul>
         <form class="form" [formGroup]="newslettersForm" (ngSubmit)="NewsletterService()">
           <input aria-label="newsletter" type="text"  formControlName="email" placeholder=" Newsletter ">
-          <button type="submit">M'inscrire</button>
+          <button type="submit">Abonnez vous</button>
           <!-- <small class="form-text text-muted" *ngFor="let error of error_messages.email">
             <p class="text-danger" *ngIf="newslettersForm.controls['email'].hasError(error.type) && (newslettersForm.controls['email'].dirty || newslettersForm.controls['email'].touched)">
                 {{error.message}}
