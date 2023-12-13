@@ -53,13 +53,13 @@ export class ConnexionComponent {
       {type:'required',   message:'Le mot de passe est obligatoire.'},
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
-      {type: 'pattern',   message: `Le mot de passe doit contenir(<br/>
-                                    - \n Au minimum 8 caractères <br/>
-                                    - \n au moin 1 Majuscule<br/>
-                                    - \n au moin 1 Minuscule
-                                    - \n au moin 1 cataére speciale 
-                                    - \n au moin 1 Chifre
-                                             ).` 
+      {type: 'pattern',   message: `Le mot de passe doit contenir (
+        - \n Au minimum 8 caractères
+        - \n au moin 1 Majuscule
+        - \n au moin 1 Minuscule
+        - \n au moin 1 cataére speciale 
+        - \n au moin 1 Chifre
+                 ).` 
       },
     ],
   }
