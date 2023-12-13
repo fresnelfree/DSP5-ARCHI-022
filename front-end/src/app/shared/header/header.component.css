@@ -22,10 +22,10 @@ header img {
 }
 header .title{
     z-index: 100;
-    width: 70%;
+    width: 60%;
     height: 200px;
     position: absolute;
-    top: 60%;
+    top: 20%;
     left: 17%;
     margin: auto;
     color: white;
@@ -68,7 +68,7 @@ header .title{
         width: 70%;
         height: 160px;
         position: absolute;
-        top: 50%;
+        top: 40%;
         left: 17%;
         margin: auto;
         color: white;
