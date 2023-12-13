@@ -91,10 +91,10 @@ deleteUser(id:number){
   }
 
   getTokenEmail() {
-    const ob: any = JSON.stringify(this.tokenService.decodeToken(this.tokenService.getItem('token')))
-    console.log('obj: ', ob)
+    const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
+    // console.log('obj: ', JSON.stringify(ob))
     const value = ob.email;
-    console.log('value: ', value)
+    // console.log('value: ', value)
     return value
   }
 
