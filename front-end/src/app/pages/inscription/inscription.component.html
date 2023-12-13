@@ -13,6 +13,7 @@
                   <div class="text-center mt-2">
                       <h1 class="text-primary">Prêt à nous réjoindre ?</h1>
                       <p class="text-muted">Créer un compte</p>
+                      <small *ngIf="message_compte" class="text-danger" style="font-size: 1rem;">{{message_compte}}</small>
                   </div>
                   <div class="p-2 mt-4">
                       <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
@@ -139,6 +140,7 @@
                                   {{error.message}}
                               </p>
                           </small>
+                          <small *ngIf="message_pwd" class="text-danger">{{message_pwd}}</small>
 
                     </div>
 

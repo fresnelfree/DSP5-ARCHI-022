@@ -95,7 +95,7 @@ deleteUser(id:number){
     const val = JSON.stringify(ob)
     console.log('obj: ', val)
     const value = ob.email;
-    console.log('value: ', value)
+    // console.log('value: ', value)
     return value
   }
 

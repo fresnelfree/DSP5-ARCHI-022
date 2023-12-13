@@ -8,6 +8,7 @@ import { TokenService } from 'src/app/core/services/token/token.service';
 import { environment } from 'src/environments/environment.dev';
 import { UserService } from 'src/app/core/services/user/user.service';
 import { Title, Meta } from '@angular/platform-browser';
+import { SnackbarService } from 'src/app/core/notification/snackbar.service';
 
 @Component({
   selector: 'app-connexion',
@@ -20,6 +21,7 @@ export class ConnexionComponent {
   private role:string = "";
   private erreurs:any;
   public message_err_http:string = ""
+  public message_email_verifier:string = ""
   public auth_facebook_link: string = `${environment.hostLine}/auth/facebook`
   public auth_google_link: string = `${environment.hostLine}/auth/google`
 
@@ -31,12 +33,16 @@ export class ConnexionComponent {
     private roleSErvice : RoleService,
     private userService : UserService,
     private titleConnexion: Title,
+    private snackbarService: SnackbarService,
     private meta: Meta
     ){
     this.submitted = false; 
     this.titleConnexion.setTitle('Connexion');
-    this.meta.addTag({name:'Page connexion', content:'Login'});
-    this.meta.addTag({name:'keywords', content:'Connexion sécurisée'});
+    this.meta.updateTag({name:'Page connexion', content:'Login'});
+    this.meta.updateTag({name:'keywords', content:'Connexion sécurisée'});
+    this.meta.updateTag ({name:'robots', content:'index, follow'});
+    this.meta.updateTag({name:'description', content:'Veuillez vous connecter en tout sécurité'})
+
   }
   
 
@@ -54,11 +60,11 @@ export class ConnexionComponent {
       {type: 'minlength', message: 'Mot de passe trop court.' },
       {type: 'maxlength', message: 'Mot de passe trop trop long.' },
       {type: 'pattern',   message: `Le mot de passe doit contenir (
-        - \n Au minimum 8 caractères
-        - \n au moin 1 Majuscule
-        - \n au moin 1 Minuscule
-        - \n au moin 1 cataére speciale 
-        - \n au moin 1 Chifre
+        -\n Au minimum 8 caractères
+        - \n au moins 1 majuscule
+        - \n au moins 1 minuscule
+        - \n Au moins 1 caractère spécial 
+        - \n au moins 1 chiffre
                  ).` 
       },
     ],
@@ -81,10 +87,8 @@ export class ConnexionComponent {
       ),
     ])),
   })
-
     // Getter pour un accès facile aux champs du formulaire (loginForm)
     get f() { return this.loginForm.value; }
-
 
     onSubmit() {
       this.submitted = true;
@@ -92,23 +96,48 @@ export class ConnexionComponent {
         if (this.loginForm.invalid) {
           return;
       }
+
+      this.authService.getUserByEmail(this.loginForm.value.email).subscribe(
+        (res:any) => {
      
-      this.authService.login(this.f).subscribe(
-        (data:any) => {
-          this.handleResponse(data)
-        },
-        (err:any) => {
-          this.erreurs = err
-          if(this.erreurs.status === 500)
-          {
-            this.message_err_http = "Un incident s'est produit lors de la connexion."
-          }
-          else if (this.erreurs.status === 401)
-          {
-            this.message_err_http = "Identifiant ou mot de passe incorrecte."
+          if(res.email_verify){
+              this.authService.login(this.f).subscribe(
+              (data:any) => {
+                this.handleResponse(data)
+              },
+              (err:any) => {
+                this.erreurs = err
+                if(this.erreurs.status === 500)
+                {
+                  this.message_err_http = "Un incident s'est produit lors de la connexion."
+                        // console.log("res :", res)
+                  this.snackbarService.showNotification(
+                    "Un incident s'est produit lors de la connexion",
+                    'ok',
+                    'error'
+                  );
+                }
+                else if (this.erreurs.status === 401)
+                {
+                  this.message_err_http = "Identifiant ou mot de passe incorrecte."
+                  this.snackbarService.showNotification(
+                    "Identifiant ou mot de passe incorrecte.",
+                    'ok',
+                    'error'
+                  );
+                }
+              }
+            )//fin subscribe
+          }else{
+            this.message_email_verifier = "Veuillez valider votre email."
+            this.snackbarService.showNotification(
+              "Veuillez valider votre email.",
+              'ok',
+              'error'
+            );
           }
         }
-      )//fin subscribe
+      ) 
   }
 
   handleResponse(data:any){
@@ -116,7 +145,6 @@ export class ConnexionComponent {
     this.authService.changeAuthStatus(true);
     this.redirection()
   }
-
 
   redirection( ){
          if(this.authService.isloggedIn())

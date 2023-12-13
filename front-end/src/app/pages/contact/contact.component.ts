@@ -27,9 +27,11 @@ export class ContactComponent {
     private meta: Meta
     ){
     this.submitted = false;
-    this.titleContact.setTitle("Contact");
-    this.meta.addTag({name:"Troisième page", content:"Contact"});
-    this.meta.addTag({name:'keywords', content:"Contactez-nous, TheTipTop, produits, clients"});
+    this.titleContact.setTitle('Contact');
+    this.meta.updateTag({name:"Troisième page", content:'Contact'});
+    this.meta.updateTag({name:'keywords', content:"Contactez-nous, TheTipTop, produits, clients"});
+    this.meta.updateTag ({name:'robots', content:'index, follow'});
+    this.meta.updateTag({name:'description', content:'Nous sommes à votre service 24h/24h, contactez-nous'})
   }
 
 
