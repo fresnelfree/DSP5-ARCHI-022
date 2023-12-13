@@ -30,18 +30,15 @@ export class ClientHomeComponent implements OnInit {
         this.submitted = false;
         this.role = "Client"
       }
-
     getUser() { return this.user}
     
   /********************************************************************
    *                  GESTION CLIENT
-   *
    ********************************************************************/
   ngOnInit(): void {
       // this.getUser();
       this.getUserByEmail()
   }
-
 
   getUserByEmail():  void{
     this.clientService.getUserByEmail(this.getTokenEmail()).subscribe(
@@ -102,9 +99,7 @@ export class ClientHomeComponent implements OnInit {
       {type: 'pattern', message: 'Fortmat mot de passe non valide.' },
       {type: 'passwordCompare', message: 'Mot de passe different.'}
     ],
-
   }
-
 
   clientForm: FormGroup = this.fb.group({
 
@@ -160,7 +155,6 @@ export class ClientHomeComponent implements OnInit {
     /********************************************************************
    *                  On submit Methode
    ********************************************************************/
-
     onSubmit() {
       this.submitted = true;
         // Si on a des erreurs on stop
@@ -175,6 +169,5 @@ export class ClientHomeComponent implements OnInit {
          }
         )//finsubscribe
   }
-
 
 }

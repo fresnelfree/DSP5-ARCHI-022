@@ -20,7 +20,12 @@ import { CguComponent } from './cgu/cgu.component';
 
 const routes: Routes = [
   // { path: '', component: HomeComponent },
-  {path:'', redirectTo:'home', pathMatch:'full'},
+  {path:'', redirectTo:'home', pathMatch:'full',  
+      data: {
+        // ogTitle: 'Description of First Component for social media',
+        canonical:'/first'
+      }
+  },
   { path: 'home', component: HomeComponent },
   { path: 'jeux', component: JeuxComponent},
   { path: 'forgot', component: ForgotPasswordComponent},
