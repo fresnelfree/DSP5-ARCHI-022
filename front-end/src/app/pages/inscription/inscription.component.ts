@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Meta, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { timeout } from 'rxjs';
+import { SnackbarService } from 'src/app/core/notification/snackbar.service';
 import { AuthenticationService } from 'src/app/core/services/auth/authentication.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 
@@ -26,6 +28,8 @@ export class InscriptionComponent {
   private submitted;
   private role: string;
   private user: any;
+  public message_compte: string = "";
+  public message_pwd: string = "";
 
   constructor(
     private router      : Router,
@@ -33,6 +37,7 @@ export class InscriptionComponent {
     private route       : ActivatedRoute,
     private authService : AuthenticationService,
     private titleInscription: Title,
+    private snackbarService: SnackbarService,
     private meta: Meta,
     private token       : TokenService){
 
@@ -44,31 +49,27 @@ export class InscriptionComponent {
     // this.role = "Client"
 
   }
-
-
-
-
    /********************************************************************
-   *
    *                  GESTION DU FORMULAIRE, REACTIVEFORM
-   *
    ********************************************************************/
    error_messages   = {
     'nom' : [
-      {type:'required', message:'Le nom est obligatoire.'},
-
+      {type: 'required', message:'Le nom est obligatoire.'},
       {type: 'minlength', message: 'Nom trop court.' },
       {type: 'maxlength', message: 'Nom trop trop long.' },
     ],
 
     'prenom' : [
-      {type:'required', message:'Le prenom est obligatoire.'},
+      {type: 'required', message:'Le prenom est obligatoire.'},
       {type: 'minlength', message: 'Preom trop court.' },
-      {type: 'maxlength', message: 'Preom trop trop long.' },
+      {type: 'maxlength', message: 'Preom trop long.' },
     ],
 
     'tel' : [
-      {type:'required', message:'Le numéro de téléphone est obligatoire.'},
+      {type: 'required', message:'Le numéro de téléphone est obligatoire.'},
+      {type: 'pattern', message: 'Le numéro doit commencer par 0 et au minimum 10 chiffres, sans caractères spéciaux.' },
+      // {type: 'minlength', message: 'Numéro trop court.' },
+      {type: 'maxlength', message: 'Numéro trop long.' },
     ],
 
     'email' : [
@@ -78,6 +79,7 @@ export class InscriptionComponent {
 
     'adresse' : [
       {type:'required', message:'L\'adress est obligatoire.'},
+      // {type: 'pattern', message: 'L\'adress doit commencer par un numéro.' },
     ],
 
     'pwd' : [
@@ -109,29 +111,7 @@ export class InscriptionComponent {
                                              ).` 
       },
     ],
-
   }
-
-  togglePasswordVisibility(passwordInput: HTMLInputElement) {
-    const passwordFieldType = passwordInput.type;
-
-    if (passwordFieldType === 'password') {
-      passwordInput.type = 'text';
-    } else {
-      passwordInput.type = 'password';
-    }
-  }
-
-  ttogglePasswordVisibility(ConpasswordInput: HTMLInputElement) {
-    const passwordFieldType = ConpasswordInput.type;
-
-    if (passwordFieldType === 'password') {
-      ConpasswordInput.type = 'text';
-    } else {
-      ConpasswordInput.type = 'password';
-    }
-  }
-
 
   registerForm: FormGroup = this.fb.group({
 
@@ -149,6 +129,9 @@ export class InscriptionComponent {
 
     tel: new FormControl('', Validators.compose([
       Validators.required,
+      // Validators.minLength(10),
+      Validators.maxLength(100),
+      Validators.pattern("^0[1-9]([0-9]{8})$")
     ])),
 
     email: new FormControl('', Validators.compose([
@@ -160,6 +143,7 @@ export class InscriptionComponent {
 
     adresse: new FormControl('', Validators.compose([
       Validators.required,
+      // Validators.pattern("^[0-9]{1,5}(?:[ ,.-][a-zA-ZàâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ0-9]+)+\s*$")
     ])),
 
     pwd: new FormControl('', Validators.compose([
@@ -191,7 +175,6 @@ export class InscriptionComponent {
       return pwd === confPwd ? null : { passwordNotMatch: true}
     }
 
-
   /********************************************************************
    *                  GESTION LOGIN
    *
@@ -199,15 +182,11 @@ export class InscriptionComponent {
 
 
   onSubmit() {
-
       this.submitted = true;
 
         if (this.registerForm.invalid) {
           return;
       }
-
-
-
         this.user = {
           "nom"     : this.registerForm.value.nom,
           "prenom"  : this.registerForm.value.prenom,
@@ -218,17 +197,53 @@ export class InscriptionComponent {
           "role"    : 'Client'
         }
 
+        this.authService.getUserByEmail(this.registerForm.value.email).subscribe(
+          (res) => { 
+            if (res){
+              this.message_compte = "Ce compte existe déjà"
+              this.snackbarService.showNotification(
+                "Ce compte existe déjà !",
+                'ok',
+                'warning'
+              );
+              return;
+            }
+            else {
+              if (this.registerForm.value.pwd === this.registerForm.value.confPwd){
+                      this.authService.register(this.user).subscribe(async (value:any) => {
+                        let redirect = 0
+                        setTimeout(() => {
+                          this.snackbarService.showNotification(
+                            "Votre compte a été crée avec succès, un mail de vérification vous a été envoyé !",
+                            'ok',
+                            'success'
+                          );
+                            redirect = 9000
+                        }, 1000);
 
-      this.authService.register(this.user).subscribe(
-        (data:any) => {
-          this.handleResponse(data)
-        },
-      )
+                        setTimeout(() => {
+                          if (redirect === 9000) {
+                            this.handleResponse(value);
+                           }
+                        }, 5000);
+                      });
+              }
+              else {
+                this.message_pwd = "Les mots de passe sont différents."
+                this.snackbarService.showNotification(
+                  "Les mots de passe sont différents !",
+                  'ok',
+                  'error'
+                );
+              }
+            };
+           }
+        )
   }
 
   handleResponse(data:any){
     this.router.navigate(['/connexion']).then(() => {
-      window.location.reload();
+      // window.location.reload();
     });
   //   // this.onReset()
   }
@@ -236,6 +251,26 @@ export class InscriptionComponent {
   onReset() {
     this.submitted = false;
     this.registerForm.reset();
+  }
+
+  togglePasswordVisibility(passwordInput: HTMLInputElement) {
+    const passwordFieldType = passwordInput.type;
+
+    if (passwordFieldType === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+  }
+
+  ttogglePasswordVisibility(ConpasswordInput: HTMLInputElement) {
+    const passwordFieldType = ConpasswordInput.type;
+
+    if (passwordFieldType === 'password') {
+      ConpasswordInput.type = 'text';
+    } else {
+      ConpasswordInput.type = 'password';
+    }
   }
 
 }
