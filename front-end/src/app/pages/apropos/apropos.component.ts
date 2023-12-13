@@ -13,7 +13,9 @@ export class AproposComponent {
     private meta: Meta
   ) {
     this.titleApropos.setTitle("A-Propos");
-    this.meta.addTag({name:'Deuxième page', content:'A-propos'});
-    this.meta.addTag({name:'keywords', content:'Thé, thés bios, TheTipTop, produits, clients'})
+    this.meta.updateTag({name:'Deuxième page', content:'A-propos'});
+    this.meta.updateTag({name:'keywords', content:'Thé, thés bios, TheTipTop, produits, clients'});
+    this.meta.updateTag ({name:'robots', content:'index, follow'});
+    this.meta.updateTag({name:'description', content:'Apprenez un peu plus de THETIPTOP'})
   }
 }

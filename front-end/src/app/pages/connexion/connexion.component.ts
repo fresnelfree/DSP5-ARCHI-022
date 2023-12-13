@@ -38,8 +38,11 @@ export class ConnexionComponent {
     ){
     this.submitted = false; 
     this.titleConnexion.setTitle('Connexion');
-    this.meta.addTag({name:'Page connexion', content:'Login'});
-    this.meta.addTag({name:'keywords', content:'Connexion sécurisée'});
+    this.meta.updateTag({name:'Page connexion', content:'Login'});
+    this.meta.updateTag({name:'keywords', content:'Connexion sécurisée'});
+    this.meta.updateTag ({name:'robots', content:'index, follow'});
+    this.meta.updateTag({name:'description', content:'Veuillez vous connecter en tout sécurité'})
+
   }
   
 

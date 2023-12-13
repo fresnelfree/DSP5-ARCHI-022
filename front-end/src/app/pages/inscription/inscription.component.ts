@@ -41,9 +41,12 @@ export class InscriptionComponent {
     private meta: Meta,
     private token       : TokenService){
 
-      this.titleInscription.setTitle("Inscription");
-      this.meta.addTag({name:"Page d’inscription", content:"Inscription"});
-      this.meta.addTag({name:'keywords', content:"créer un compte, nous rejoindre"});
+      this.titleInscription.setTitle('Inscription');
+      this.meta.updateTag({name:'Page d’inscription', content:'Inscription'});
+      this.meta.updateTag({name:'keywords', content:'créer un compte, nous rejoindre'});
+      this.meta.updateTag ({name:'robots', content:'index, follow'});
+      this.meta.updateTag ({name:'description', content: 'Venez créer un compte et participer au jeu concours'});
+
     this.submitted = false;
     this.role = "Admin"
     // this.role = "Client"
