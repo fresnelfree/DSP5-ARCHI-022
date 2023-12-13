@@ -25,9 +25,14 @@ export class HomeComponent {
     private tokenService : TokenService,
   ) {
     this.titleAccueil.setTitle('Accueil');
-    this.meta.addTag({name:'Premier page', content:'Home'});
-    this.meta.addTag({name:'keywords', content:'Thé, thés bios, TheTipTop, Nice, Jeu Concours, thé vert, thé noir, infusions'});
-  }
+    // this.meta.addTag({name:'Premier page', content:'Home'});
+    // this.meta.addTag({name:'keywords', content:'Thé, thés bios, TheTipTop, Nice, Jeu Concours, thé vert, thé noir, infusions'});
+
+    this.meta.updateTag({name:'Premier page', content:'Home'});
+    this.meta.updateTag({name:'keywords', content:'Thé, thés bios, TheTipTop, Nice, Jeu Concours, thé vert, thé noir, infusions'});
+    this.meta.updateTag ({name:'robots', content:'index, follow'});
+    this.meta.updateTag({name:'description', content:'Bienvenu sur le site THETIPTOP, le site web qui vous donne une chance de gagner des lots de thés BIO'})
+   }
 
   
   onRedirect(event: MouseEvent){

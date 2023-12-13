@@ -6,7 +6,6 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class TokenService {
-
       constructor(
         private router: Router,
         private cookieService: CookieService
