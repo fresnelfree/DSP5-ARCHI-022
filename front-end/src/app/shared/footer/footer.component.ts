@@ -64,16 +64,22 @@ export class FooterComponent {
  
   loadAxeptioScript(){
     // Définir les paramètres Axeptio
-    (window as any).axeptioSettings = {
-      clientId: "6579bff3fec39ba21f33cafa",
-      cookiesVersion: "thétiptop-fr-2",
-    };
+    if (typeof window !== 'undefined') {
+      (window as any).axeptioSettings = {
+        clientId: "6579bff3fec39ba21f33cafa",
+        cookiesVersion: "thétiptop-fr-2",
+      };
+    }
+
  
     // Chargement du script Axeptio seulement si on est côté client
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = "//static.axept.io/sdk.js";
-    document.body.appendChild(script);
+    if (typeof document !== 'undefined') {
+      const script = document.createElement('script');
+      script.async = true;
+      script.src = "//static.axept.io/sdk.js";
+      document.body.appendChild(script);
+    }
+
   }
 
 }
