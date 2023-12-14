@@ -42,10 +42,15 @@ export class AuthSocialMediaComponent {
   }
 
   getTokenEmail():any{
-    const token = this.tokenService.getItem('token')
-    const obj:any = jwt_decode<JwtPayload>(token)
-    console.log('val obj : ',obj)
-    return obj.email
+    try {
+      const token = this.tokenService.getItem('token')
+      const obj:any = jwt_decode<JwtPayload>(token)
+      console.log('val obj : ',obj)
+      return obj.email
+    }catch(Error) {
+       console.log('error : ',Error)
+    }
+
   }
 
 }
