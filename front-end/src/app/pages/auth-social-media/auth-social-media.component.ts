@@ -21,6 +21,10 @@ export class AuthSocialMediaComponent {
     private activatedRoute : ActivatedRoute,
   ){
     // console.log('token : ', this.activatedRoute.snapshot.params['token'])
+
+  }
+
+  ngOnInit(): void {
     this.tokenService.setItem('token',this.activatedRoute.snapshot.params['token']);
     this.userService.getUserByEmail(this.userService.getTokenEmail()).subscribe(
       res => {
