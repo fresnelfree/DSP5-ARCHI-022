@@ -29,16 +29,16 @@ export class AuthSocialMediaComponent {
     this.tokenService.setItem('token',this.activatedRoute.snapshot.params['token']);
     const email = this.getTokenEmail()
       console.log('email : ',email)
-    // this.userService.getUserByEmail(this.userService.getTokenEmail()).subscribe(
-    //   res => {
-    //     // this.user = res
-    //     // console.log('user : ',res)
-    //     this.tokenService.setItem('user',JSON.stringify(res))
-    //     this.tokenService.setItem('role3',"Client");
-    //     this.router.navigate(['/client']).then(() => {
-    //     });
-    //   }
-    // )//Fin subscribe
+    this.userService.getUserByEmail(email).subscribe(
+      res => {
+        // this.user = res
+        // console.log('user : ',res)
+        this.tokenService.setItem('user',JSON.stringify(res))
+        this.tokenService.setItem('role3',"Client");
+        this.router.navigate(['/client']).then(() => {
+        });
+      }
+    )//Fin subscribe
   }
 
   getTokenEmail():any{
