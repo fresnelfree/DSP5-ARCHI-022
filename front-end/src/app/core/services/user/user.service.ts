@@ -101,7 +101,7 @@ deleteUser(id:number){
       console.log('Error parsing : ', value)
       email = value
     }
-   console.log('value : ', value)
+   // console.log('value : ', value)
     return email
   }
 
