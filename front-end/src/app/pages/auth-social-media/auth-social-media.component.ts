@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/core/services/auth/authentication
 import { RoleService } from 'src/app/core/services/role/role.service';
 import { TokenService } from 'src/app/core/services/token/token.service';
 import { UserService } from 'src/app/core/services/user/user.service';
+import jwt_decode from 'jwt-decode';
 
 @Component({
   selector: 'app-auth-social-media',
@@ -26,16 +27,25 @@ export class AuthSocialMediaComponent {
 
   ngOnInit(): void {
     this.tokenService.setItem('token',this.activatedRoute.snapshot.params['token']);
-    this.userService.getUserByEmail(this.userService.getTokenEmail()).subscribe(
-      res => {
-        // this.user = res
-        // console.log('user : ',res)
-        this.tokenService.setItem('user',JSON.stringify(res))
-        this.tokenService.setItem('role3',"Client");
-        this.router.navigate(['/client']).then(() => {
-        });
-      }
-    )//Fin subscribe
+    const email = this.getTokenEmail()
+      console.log('email : ',email)
+    // this.userService.getUserByEmail(this.userService.getTokenEmail()).subscribe(
+    //   res => {
+    //     // this.user = res
+    //     // console.log('user : ',res)
+    //     this.tokenService.setItem('user',JSON.stringify(res))
+    //     this.tokenService.setItem('role3',"Client");
+    //     this.router.navigate(['/client']).then(() => {
+    //     });
+    //   }
+    // )//Fin subscribe
+  }
+
+  getTokenEmail():any{
+    const token = this.tokenService.getItem('token')
+    const obj:any = jwt_decode(token)
+    console.log('val obj : ',obj)
+    return obj.email
   }
 
 }
