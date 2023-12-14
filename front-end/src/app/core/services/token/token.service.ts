@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import {JwtPayload } from 'jwt-decode';
-import jwtDecode from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import { CookieService } from 'ngx-cookie-service';
 @Injectable({
   providedIn: 'root'
@@ -68,7 +67,7 @@ export class TokenService {
       decodeToken(token:any)
       {
         try {
-          return jwtDecode<JwtPayload>(token)
+          return jwt_decode(token)
         } catch(Error) {
           return null;
         }
