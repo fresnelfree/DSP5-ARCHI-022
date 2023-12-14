@@ -67,7 +67,7 @@ export class TokenService {
       decodeToken(token:any)
       {
         try {
-          return jwt_decode(token)
+          return JSON.parse(jwt_decode(token))
         } catch(Error) {
           return null;
         }
