@@ -18,17 +18,23 @@
                     </div> <br/>
                     <div class="mt-4 text-center">
                       <div class="mt-3 d-grid gap-2">
-                          <a class="btn btn-outline-primary w-lg waves-effect waves-light"
+<!--                           <a class="btn btn-outline-primary w-lg waves-effect waves-light"
                              [href]="auth_facebook_link">
                              Facebook
-                          </a>
+                          </a> -->
+                          <button [disabled]="true" class="btn btn-outline-primary w-lg waves-effect waves-light">
+                             Facebook
+                          </button>
                       </div>
 
                       <div class="mt-3 d-grid gap-2">
-                        <a class="btn btn-outline-danger w-lg waves-effect waves-light"
+                        <button [disabled]="true" class="btn btn-outline-danger w-lg waves-effect waves-light">
+                          Google
+                       </button>                        
+<!--                         <a class="btn btn-outline-danger w-lg waves-effect waves-light"
                           [href]="auth_google_link">
                            Google
-                        </a>
+                        </a> -->
                       </div>
                     </div>
 
