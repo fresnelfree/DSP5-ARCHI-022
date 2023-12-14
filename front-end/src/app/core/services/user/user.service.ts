@@ -97,7 +97,7 @@ deleteUser(id:number){
     try {
       const value = ob.email;
       email = ob.email;
-      console.log('value: ', JSON.parse(ob));
+      // console.log('value: ', JSON.parse(ob));
     } catch (error) {
       console.log('Error parsing : ', email);
       // email = value
