@@ -94,7 +94,12 @@ deleteUser(id:number){
     const ob: any = this.tokenService.decodeToken(this.tokenService.getItem('token'))
     // console.log('obj: ', val)
     const value = ob.email;
-    console.log('value: ', JSON.parse(ob).email)    
+    try {
+      console.log('value: ', JSON.parse(ob)) 
+    } catch (error) {
+      console.log('Error parsing : ', value)
+    }
+   console.log('value : ', value)
     return value
   }
 
